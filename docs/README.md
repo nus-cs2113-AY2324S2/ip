@@ -11,6 +11,10 @@ Cody is a CLI (Command Line Interface) chatbot application that helps you manage
 
 ## Features
 
+### Help
+- Command: `help`
+- Description: Lists all commands.
+
 ### Adding a Task
 - Commands:
     - `todo DESCRIPTION` - Adds a todo task.
@@ -21,9 +25,9 @@ Cody is a CLI (Command Line Interface) chatbot application that helps you manage
 - Command: `list`
 - Description: Lists all tasks.
 
-### Locating a Task by Name/Description
+### Find a Task by Description
 - Command: `find KEYWORD`
-- Description: Locates tasks whose descriptions contain the given keyword.
+- Description: Finds tasks whose descriptions contain the given keyword.
 
 ### Deleting a Task
 - Command: `delete INDEX`
@@ -43,6 +47,7 @@ Cody is a CLI (Command Line Interface) chatbot application that helps you manage
 
 ### Saving the Data
 - Cody automatically saves your task data to `tasks.txt` in the `data` folder after the program exits. There is no need to save manually.
+- The `data` folder will be created in the home folder for Cody if it does not exist.
 
 ## FAQ
 
