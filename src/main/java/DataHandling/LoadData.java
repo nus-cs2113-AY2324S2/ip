@@ -2,12 +2,10 @@ package DataHandling;
 
 import Exceptions.FileReadException;
 import Exceptions.LoadFileException;
+import GermaBot.UI;
 import Tasks.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -60,22 +58,19 @@ public class LoadData {
                 try {
                     loadToDo(description);
                 } catch (LoadFileException e) {
-                    System.out.println("Oh no, There was an error loading your save file! Please check" +
-                            " to make sure it follows the format...");
+                    UI.printLoadFileException();
                 }
             } else if (type == 'D') {
                 try {
                     loadDeadline(description);
                 } catch (LoadFileException e) {
-                    System.out.println("Oh no, There was an error loading your save file! Please check" +
-                            " to make sure it follows the format...");
+                    UI.printLoadFileException();
                 }
             } else if (type == 'E') {
                 try {
                     loadEvent(description);
                 } catch (LoadFileException e) {
-                    System.out.println("Oh no, There was an error loading your save file! Please check" +
-                            " to make sure it follows the format...");
+                    UI.printLoadFileException();
                 }
             } else {
                 break;
@@ -85,5 +80,8 @@ public class LoadData {
         } while (fileInput.hasNext());
         fileInput.close();
         return toDoList;
+    }
+    public static int getCounter() {
+        return counter;
     }
 }

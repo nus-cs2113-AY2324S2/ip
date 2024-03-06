@@ -13,10 +13,6 @@ import java.io.File;
 
 public class GermaBot {
     static int counter = 0;
-    static final String LINE= "____________________________________________";
-    static final String WELCOME_MESSAGE = "Hello! GermaBot here! \n"
-            + "Let me load your saved To Do List first...";
-    static final String GOODBYE_MESSAGE = "Thanks for using me! Hope to see you again soon~!";
     static ArrayList<Task> toDoList = new ArrayList<>();
 
     public static void loadToDo(String description) throws LoadFileException {
@@ -63,22 +59,19 @@ public class GermaBot {
                 try {
                     loadToDo(description);
                 } catch (LoadFileException e) {
-                    System.out.println("Oh no, There was an error loading your save file! Please check" +
-                            " to make sure it follows the format...");
+                    UI.printLoadFileException();
                 }
             } else if (type == 'D') {
                 try {
                     loadDeadline(description);
                 } catch (LoadFileException e) {
-                    System.out.println("Oh no, There was an error loading your save file! Please check" +
-                            " to make sure it follows the format...");
+                    UI.printLoadFileException();
                 }
             } else if (type == 'E') {
                 try {
                     loadEvent(description);
                 } catch (LoadFileException e) {
-                    System.out.println("Oh no, There was an error loading your save file! Please check" +
-                            " to make sure it follows the format...");
+                    UI.printLoadFileException();
                 }
             } else {
                 break;
@@ -121,8 +114,7 @@ public class GermaBot {
         toDoList.add(new Deadline(description.substring(0, idxOfEndDate - 1), date));
         counter++;
         SaveData.addDeadlineToFile(new Deadline(description.substring(0, idxOfEndDate - 1), date), 'D');
-        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
-                " You have to finish this by "  + date + ", so be reminded!");
+        UI.printCreateDeadlineMessage(toDoTask, date);
     }
 
     public static void createEvent(String input) throws EmptyTaskException, MissingDeadlineException,
@@ -153,9 +145,7 @@ public class GermaBot {
         toDoList.add(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate));
         counter++;
         SaveData.addEventToFile(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate), 'E');
-        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
-                " This will happen from " + startDate + " to " + endDate + ", so please remember to mark it" +
-                " on your calender! (Or ask me!)");
+        UI.printCreateEventMessage(toDoTask, startDate, endDate);
     }
 
     public static void deleteTask(String input) throws TaskNotFoundException {
@@ -163,11 +153,7 @@ public class GermaBot {
         if (idxToDelete >= counter) {
             throw new TaskNotFoundException();
         } else {
-            System.out.println("Okay! I've removed this task from your To Do List:");
-            System.out.println(toDoList.get(idxToDelete));
-            toDoList.remove(idxToDelete);
-            System.out.println("Now you have, let me count... " + toDoList.size() + " items left in your " +
-                    "To Do List!");
+            UI.deleteTask(toDoList, idxToDelete);
             counter--;
         }
     }
@@ -177,77 +163,64 @@ public class GermaBot {
             try {
                 deleteTask(input);
             } catch (TaskNotFoundException e) {
-                System.out.println("Sorry but... There is no task number " + (getIdx(input) + 1) + "... " +
-                        "Let's try again!");
+                int idx = getIdx(input);
+                UI.printTaskNotFoundException(idx);
             }
         }
         else if (input.startsWith("todo")) {
             try {
                 createTodo(input);
             } catch (EmptyTaskException e) {
-                System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
+                UI.printEmptyTaskException();
             } catch (IOException e) {
-                System.out.println("Uh oh, I could not save that to the file...");
+                UI.printIOException();
             }
         }
         else if (input.startsWith("deadline")) {
             try {
                 createDeadline(input);
             } catch (EmptyTaskException e) {
-                System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
+                UI.printEmptyTaskException();
             } catch (MissingDeadlineException e) {
-                System.out.println("Uh oh, you did not specify the deadline! Let's try again!");
+                UI.printMissingDeadlineException();
             } catch (IOException e) {
-                System.out.println("Uh oh, I could not save that to the file...");
+                UI.printIOException();
             }
         }
         else if (input.startsWith("event")) {
             try {
                 createEvent(input);
             } catch (EmptyTaskException e) {
-                System.out.println("Uh oh, you did not specify a task to add! Let's try again!");
+                UI.printEmptyTaskException();
             } catch (MissingStartDateException e) {
-                System.out.println("Uh oh, you did not specify a start time! Let's try again!");
+                UI.printMissingStartDateException();
             } catch (MissingDeadlineException e) {
-                System.out.println("Uh oh, you did not specify the deadline! Let's try again!");
+                UI.printMissingDeadlineException();
             } catch (IOException e) {
-                System.out.println("Uh oh, I could not save that to the file...");
+                UI.printIOException();
             }
         } else {
             throw new UnknownInputException();
         }
     }
 
-    public static void printList() {
-        System.out.println("Gotcha! Here are your tasks:");
-        for (int i = 0; i < counter; i++) {
-            if (toDoList.get(i) == null) {
-                break;
-            }
-            System.out.println(i + 1 + ". " + toDoList.get(i));
-        }
-    }
 
     public void run() {
-        UiOutputs.printWelcomeMessage();
+        UI.printWelcomeMessage();
     }
 
     public static void main(String[] args) {
-        System.out.println(LINE);
-        System.out.println(WELCOME_MESSAGE);
+        UI.printWelcomeMessage();
         try {
-            ArrayList<Task> toDoList = LoadData.loadFile();
-            System.out.println("Loading complete!");
+            toDoList = LoadData.loadFile();
+            counter = LoadData.getCounter();
+            UI.printLoadComplete();
         } catch (FileNotFoundException e) {
-            System.out.println("Uh oh, there is no saved file yet! Please create a GermaBotsData.txt " +
-                    "file under './src/data/GermaBotData'!!\n"
-            + "Because there is no saved file found, I will start with an empty list!");
+            UI.printFileNotFoundException();
         } catch (FileReadException e) {
-            System.out.println("Uh oh, there seems to be an issue with the save file...\n" +
-                    "Because there is an error with the save file, I will start with an empty list!");
+            UI.printFileReadException();
         }
-        System.out.println("What may I do for you this fine day?");
-        System.out.println(LINE);
+        UI.printPostLoadingMessage();
         while (true) {
             String input;
             Scanner in = new Scanner(System.in);
@@ -257,32 +230,26 @@ public class GermaBot {
             }
             if (input.equals("list")) {
                 if (toDoList.isEmpty()) {
-                    System.out.println("Umm... You haven't added any Tasks yet... Let's try adding " +
-                            "some now!");
+                    UI.printListEmptyMessage();
                 } else {
-                    printList();
+                    UI.printTaskList(toDoList);
                     }
             } else if (input.contains("unmark")) {
                 int idx = getIdx(input);
                 toDoList.get(idx).setDone(false);
-                System.out.println("Aww, not done? Okay, I'll mark this task as undone: "
-                        + "[" + toDoList.get(idx).getStatusIcon() + "] " + toDoList.get(idx).getDescription());
+                UI.printMarkUndone(idx, toDoList);
             } else if (input.contains("mark")) {
                 int idx = getIdx(input);
                 toDoList.get(idx).setDone(true);
-                System.out.println("Good job! I'll mark this task as done: "
-                        + "[" + toDoList.get(idx).getStatusIcon() + "] " + toDoList.get(idx).getDescription());
+                UI.printMarkDone(idx, toDoList);
             } else {
                 try {
                     createTask(input);
                 } catch (UnknownInputException e){
-                    System.out.println("Uhh.. I'm sorry but I'm not quite sure what in the world '" + input + "' means..." +
-                            " Remember to include the Task Type in front of the input!!");
+                    UI.printUnknownInputException(input);
                 }
             }
         }
-        System.out.println(LINE);
-        System.out.println(GOODBYE_MESSAGE);
-        System.out.println(LINE);
+        UI.printByeMessage();
     }
 }

@@ -12,4 +12,8 @@ import java.io.File;
 
 public class Logic {
 
+    public static int getIdx(String input) {
+        return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
+    }
+
 }
