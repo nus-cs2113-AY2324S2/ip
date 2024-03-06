@@ -44,6 +44,10 @@ public class Task {
         }
     }
 
+    public Type getTaskType() {
+        return taskType;
+    }
+
     @Override
     public String toString() {
         return this.getIndex()+ ". ["+ this.getCheckMark()+"] " +this.getDescription();
