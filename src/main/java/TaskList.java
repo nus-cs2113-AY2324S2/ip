@@ -8,12 +8,20 @@ public class TaskList {
     private static ArrayList<Task> tasks;
 
     public TaskList() {
-
     }
 
+    /**
+     * Initializes or re-initializes the task list. This method can be used to reset the task list.
+     */
     public void load() {
         TaskList.tasks = new ArrayList<>();
     }
+
+    /**
+     * Adds a new Todo task based on user input.
+     *
+     * @param userCommand The command input by the user, expected to contain a description of the task following the command keyword.
+     */
 
     static void addTodoTask(String userCommand) {
 
@@ -35,6 +43,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new Deadline task based on user input.
+     *
+     * @param userCommand The command input by the user, expected to contain a description of the task and a deadline, separated by '/by'.
+     */
     static void addDeadline(String userCommand) {
         String[] descParts = userCommand.split("deadline");
         String[] deadlineParts = descParts[1].split("/by", 2);
@@ -68,7 +81,11 @@ public class TaskList {
         System.out.println("____________________________________________________________");
     }
 
-
+    /**
+     * Adds a new Event task based on user input.
+     *
+     * @param userCommand The command input by the user, expected to contain a description of the task and a deadline, separated by '/from'.
+     */
     static void addEvent(String userCommand) {
 
         String[] descParts = userCommand.split("event");
