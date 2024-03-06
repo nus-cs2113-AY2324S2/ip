@@ -1,65 +1,26 @@
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Zap {
     private static List<Task> tasks;
     private final Ui ui;
+    private final Storage storage;
+    private final Parser parser;
 
-    public Zap() {
-        tasks = new ArrayList<>();
+    public Zap(String filePath) {
         this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        tasks = storage.load(); // Load tasks from storage
+        this.parser = new Parser(this); // Assuming Parser constructor takes a Zap instance
     }
 
     public void run() {
         ui.printInstructions();
-        processCommands();
+        parser.parseCommands(); // Delegate command parsing to Parser
+        storage.save(tasks); // Save tasks to storage after processing commands
         ui.printFarewell();
     }
 
-    /**
-     * main interaction loop of ZAP
-     * continuously prompts the user to enter commands and responds accordingly.
-     * The loop breaks when the user enters "thank you and bye."
-     * handles various commands like listing tasks,
-     * marking tasks as done, un-marking and adding new tasks
-     */
-    private static void processCommands() {
-        Scanner scanner = new Scanner(System.in);
-        String userCommand;
-
-        do {
-            System.out.print("Enter a command: ");
-            userCommand = scanner.nextLine();
-
-            if (userCommand.equalsIgnoreCase("thank you and bye")) {
-                break;
-            } else if (userCommand.equalsIgnoreCase("hi")) {
-                System.out.println("Hello! I am ZAP and I am at your service!");
-            } else if (userCommand.equalsIgnoreCase("bye")) {
-                System.out.println("You should say thank you, then say bye.");
-            } else if (userCommand.equalsIgnoreCase("list")) {
-                displayTasks();
-            } else if (userCommand.startsWith("mark")) {
-                markTask(userCommand);
-            } else if (userCommand.startsWith("unmark")) {
-                unmarkTask(userCommand);
-            } else if (userCommand.startsWith("todo")) {
-                addTodoTask(userCommand);
-            } else if (userCommand.startsWith("deadline")) {
-                addDeadline(userCommand);
-            } else if (userCommand.startsWith("event")) {
-                addEvent(userCommand);
-            } else if (userCommand.startsWith("delete")) {
-                deleteTask(userCommand);
-            } else {
-                System.out.println("proper english pls. don't waste time already >:(");
-            }
-        } while (true);
-        scanner.close();
-    }
-
-    private static void addTodoTask(String userCommand) {
+    static void addTodoTask(String userCommand) {
 
         String taskDescription = userCommand.substring(4).trim();
         if (taskDescription.isEmpty()) {
@@ -79,7 +40,7 @@ public class Zap {
         }
     }
 
-    private static void addDeadline(String userCommand) {
+    static void addDeadline(String userCommand) {
         String[] descParts = userCommand.split("deadline");
         String[] deadlineParts = descParts[1].split("/by", 2);
 
@@ -103,7 +64,7 @@ public class Zap {
         System.out.println("____________________________________________________________");
     }
 
-    private static void addEvent(String userCommand) {
+    static void addEvent(String userCommand) {
 
         String[] descParts = userCommand.split("event");
         String[] eventParts = descParts[1].split("/from", 2);
@@ -140,7 +101,7 @@ public class Zap {
      * 'displayTasks' method displays all the lists -- marked and unmarked
      * when the command 'list' is inputted by the user
      */
-    private static void displayTasks() {
+    static void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println("____________________________________________________________");
             System.out.println(" Tasks list is empty.");
@@ -159,7 +120,7 @@ public class Zap {
      * `markTask` method marks a task as done.
      * it extracts the task index, and updates the task's status
      */
-    private static void markTask(String userCommand) {
+    static void markTask(String userCommand) {
         String[] characters = userCommand.split("\\s+");
 
         if (characters.length != 2 || !characters[1].matches("\\d+")) {
@@ -184,7 +145,7 @@ public class Zap {
      * `unmarkTask` method un-marks a task that was originally marked as done.
      * it extracts the task index, and updates the task's status, then prints a confirmation message.
      */
-    private static void unmarkTask(String userCommand) {
+    static void unmarkTask(String userCommand) {
         String[] characters = userCommand.split("\\s+");
 
         if (characters.length == 2 && characters[1].matches("\\d+")) {
@@ -204,7 +165,7 @@ public class Zap {
         }
     }
 
-    private static void deleteTask(String userCommand) {
+    static void deleteTask(String userCommand) {
         String[] characters = userCommand.split("\\s+");
 
         if (characters.length != 2 || !characters[1].matches("\\d+")) {
@@ -234,6 +195,6 @@ public class Zap {
     }
 
     public static void main(String[] args) {
-        new Zap().run();
+        new Zap("tasks.txt").run();
     }
 }

@@ -68,18 +68,12 @@ public class Storage {
             FileWriter writer = new FileWriter(filePath, false);
 
             for (Task task : tasks) {
-                writer.write(taskToFileFormat(task) + System.lineSeparator());
+                writer.write(task.toString() + System.lineSeparator());
             }
-
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to file.");
         }
     }
 
-    private String taskToFileFormat(Task task) {
-
-
-        return "";
-    }
 }
