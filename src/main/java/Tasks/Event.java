@@ -3,6 +3,7 @@ package Tasks;
 import Tasks.Task;
 
 public class Event extends Task {
+    /** BADGE is the symbol representing each type of subtask */
     private final static char BADGE = 'E';
 
     @Override
