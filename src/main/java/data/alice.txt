@@ -1,5 +1,7 @@
+T | 0 | sleep
 T | 1 | eat
 T | 0 | sleep
-T | 0 | eat
-T | 0 | sleep
-E | 1 | sleep | 4pm | 6pm
+E | 0 | sleep | 4pm | 6pm
+T | 0 | go school
+D | 0 | cs2113 assignment | 8/3
+E | 0 | partyyyy | 10:00pm | 1:00am
