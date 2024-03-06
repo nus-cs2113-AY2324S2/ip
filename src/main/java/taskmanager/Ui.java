@@ -218,9 +218,11 @@ public class Ui {
         System.out.println(FIVE_WHITE_SPACES + "2) Deadline: 'deadline (Task) /by (due date)'");
         System.out.println(FIVE_WHITE_SPACES + "3) Event: 'event (Task) /from (start date) /to (end date)'");
         System.out.println(FIVE_WHITE_SPACES + "4) List: 'list'");
-        System.out.println(FIVE_WHITE_SPACES + "5) Delete: 'delete (task)'");
-        System.out.println(FIVE_WHITE_SPACES + "6) Find: 'find (task)'");
-        System.out.println(FIVE_WHITE_SPACES + "7) Bye: 'bye'");
+        System.out.println(FIVE_WHITE_SPACES + "5) Delete: 'delete (task position in task list)'");
+        System.out.println(FIVE_WHITE_SPACES + "6) Mark: 'mark (task position in task list)'");
+        System.out.println(FIVE_WHITE_SPACES + "7) Unmark: 'unmark (task position in task list)'");
+        System.out.println(FIVE_WHITE_SPACES + "8) Find: 'find (keyword)'");
+        System.out.println(FIVE_WHITE_SPACES + "9) Bye: 'bye'");
         System.out.println(VERTICAL_LINES + "\n");
     }
 
