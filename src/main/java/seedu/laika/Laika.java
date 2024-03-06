@@ -8,8 +8,6 @@ import java.io.IOException;
 
 public class Laika {
 
-
-
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
@@ -35,7 +33,7 @@ public class Laika {
         TextUi.endMessage();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Laika("laika.txt").run();
     }
 }

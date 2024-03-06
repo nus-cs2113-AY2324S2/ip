@@ -51,6 +51,9 @@ public class Parser {
             case "list":
                 taskList.displayTasks();
                 return true;
+            case "find":
+                taskList.findTasks(words[1]);
+                return true;
             case "bye":
                 return false;
             case "delete":
