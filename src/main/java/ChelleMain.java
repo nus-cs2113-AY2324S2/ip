@@ -7,6 +7,11 @@ import UI.ChelleUI;
 
 public class ChelleMain {
 
+    /**
+     * Takes in user inputs and processes them accordingly
+     *
+     * @param args the user's input
+     */
     public static void main(String[] args) {
 
         ChelleUI ui = new ChelleUI();

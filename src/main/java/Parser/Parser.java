@@ -16,6 +16,14 @@ public class Parser {
     public Parser(){
     }
 
+    /**
+     * identifies command word from user input and calls handleCommand function accordingly
+     *
+     * @param tasks task list
+     * @param userInput users input
+     * @param storage stores task list when 'bye' command is given
+     * @param ui runs the scanner for user inputs
+     */
     public void parseInput(ArrayList<Task> tasks, String userInput, ChelleStorage storage, ChelleUI ui){
         CommandType userCommand = null;
         try {

@@ -16,6 +16,11 @@ public class FileEncoder {
         FILE_PATH = path;
     }
 
+    /**
+     * Encodes the existing task list and saves it into the save file
+     *
+     * @param tasks task list
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(this.FILE_PATH))) {
             for (Task task : tasks) {
@@ -46,6 +51,13 @@ public class FileEncoder {
         }
     }
 
+    /**
+     * formats tasks from the task list into a readable form for the program
+     *
+     * @param type The type of task
+     * @param description An array containing all the segments that make up the task description
+     * @return formatted string
+     */
     private static String formatTaskDetails(String type, String[] description) {
         switch (type) {
         case "T":
@@ -61,7 +73,14 @@ public class FileEncoder {
         }
     }
 
-
+    /**
+     * Breaks the task description into parts
+     * For deadline, it is split into description and 'by' part
+     * For event, it is split into description, 'from' part and 'to' part
+     *
+     * @param task task list
+     * @return An array containing all the segments that make up the task description
+     */
     private static String[] extractTaskInformation(Task task) {
         if (task instanceof ToDo) {
             return new String[]{task.getTaskName()};

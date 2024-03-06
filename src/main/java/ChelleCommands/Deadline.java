@@ -44,6 +44,13 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
 
+    /**
+     * format dateTime to the form (12 Apr 2024 16:00hrs)
+     * if time is not indicated it will take the form (12 Apr 2024)
+     *
+     * @param dateTime parsed time and date
+     * @return string with formatted date and/or time
+     */
     private String formatDateTime(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy[ HH:mm'hrs']");
         return dateTime.getHour() == 0 && dateTime.getMinute() == 0
@@ -51,6 +58,12 @@ public class Deadline extends Task {
                 : dateTime.format(formatter);
     }
 
+    /**
+     * processes input to identify the day, month, year and time
+     *
+     * @param originalInput the user's input
+     * @return formatted date and time
+     */
     private LocalDateTime parseDateTime(String originalInput) {
         try {
             DateTimeFormatter formatter = new DateTimeFormatterBuilder()

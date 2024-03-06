@@ -23,4 +23,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_INDEX = "Chelle: Invalid task index.";
     public static final String MESSAGE_NO_MATCHING_TASKS = "Chelle: Sorry, no tasks match your search.";
     public static final String MESSAGE_MATCHING_TASKS = "Chelle: Here are the matching tasks in your list:";
+    public static final String MESSAGE_SAVE_FILE_NOT_FOUND = "Save file not found.";
+
 }

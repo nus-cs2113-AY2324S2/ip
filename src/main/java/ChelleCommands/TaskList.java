@@ -16,6 +16,14 @@ public class TaskList {
     public static void TaskList(){
     }
 
+    /**
+     * identifies the command and calls the corresponding executing functions as required
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @param command the type of command used in userInput
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     public static void handleCommand(String userInput, ArrayList<Task> tasks, CommandType command) throws InvalidCommandFormatException {
         switch (command) {
         case LIST:
@@ -48,6 +56,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * prints out all tasks in the task list
+     *
+     * @param tasks task list
+     */
     private static void displayTasks(ArrayList<Task> tasks) {
         System.out.println(Messages.MESSAGE_SYSTEM_PREFIX);
         if (tasks.isEmpty()) {
@@ -59,6 +72,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * marks the indicated task as done
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleMarkCommand (String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= MARK_COMMAND_LENGTH) {
             throw new InvalidCommandFormatException(CommandType.MARK);
@@ -79,6 +99,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * marks the indicated task as not done
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleUnmarkCommand (String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= UNMARK_COMMAND_LENGTH) {
             throw new InvalidCommandFormatException(CommandType.UNMARK);
@@ -99,6 +126,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * creates a 'to do' task
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleToDoCommand (String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= TODO_COMMAND_LENGTH) {
             throw new InvalidCommandFormatException(CommandType.TODO);
@@ -108,6 +142,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * creates a 'deadline' task
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleDeadlineCommand (String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= DEADLINE_COMMAND_LENGTH || !userInput.contains("/by")) {
             throw new InvalidCommandFormatException(CommandType.DEADLINE);
@@ -117,6 +158,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * creates an 'event' task
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleEventCommand (String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= EVENT_COMMAND_LENGTH || !(userInput.indexOf("/from") < userInput.indexOf("/to")) || !(userInput.contains("/from"))){
             throw new InvalidCommandFormatException(CommandType.EVENT);
@@ -126,6 +174,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * deletes the indicated task
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleDeleteCommand (String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= DELETE_COMMAND_LENGTH) {
             throw new InvalidCommandFormatException(CommandType.DELETE);
@@ -150,6 +205,13 @@ public class TaskList {
         return index >= 0 && index < tasks.size();
     }
 
+    /**
+     * searches for all tasks containing the searched term and their corresponding index
+     *
+     * @param userInput the user's input
+     * @param tasks task list
+     * @throws InvalidCommandFormatException if userInput does not follow the correct command format
+     */
     private static void handleFindCommand(String userInput, ArrayList<Task> tasks) throws InvalidCommandFormatException {
         if (userInput.length() <= FIND_COMMAND_LENGTH) {
             throw new InvalidCommandFormatException(CommandType.FIND);
@@ -160,7 +222,12 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Prints out tasks that match the search
+     *
+     * @param tasks task list
+     * @param matchingIndices list of indices of matching entries
+     */
     private static void displayMatchingTasks(ArrayList<Task> tasks, ArrayList<Integer> matchingIndices) {
         if (matchingIndices.isEmpty()) {
             System.out.println(Messages.MESSAGE_NO_MATCHING_TASKS);
@@ -173,7 +240,13 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * searches for keyword within the task list and returns the task indices that match the keyword
+     *
+     * @param tasks task list
+     * @param keyword word to be searched for
+     * @return matchingIndices list of indices of matching entries
+     */
     private static ArrayList<Integer> findTasksByKeyword(ArrayList<Task> tasks, String keyword) {
         ArrayList<Integer> matchingIndices = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
