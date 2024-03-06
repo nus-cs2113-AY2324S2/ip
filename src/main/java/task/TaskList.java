@@ -19,7 +19,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method adds a task to the task list
+     * Adds a task to the task list
      * @param task the task to be added
      */
     public void add(Task task) {
@@ -27,7 +27,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method deletes a task from the task list
+     * Deletes a task from the task list
      * @param index the index of the task to be deleted
      * @throws InputException if the index is out of range
      */
@@ -38,16 +38,12 @@ public class TaskList implements Serializable {
         tasks.remove(index - 1);
     }
 
-    /**
-     * This method returns the number of tasks in the task list
-     * @return the number of tasks in the task list
-     */
     public int getSize() {
         return tasks.size();
     }
 
     /**
-     * This method returns the task at the specified index in the task list
+     * Outputs the task at the specified index in the task list
      * @param index the index of the task to be returned
      * @return the task at the specified index
      */
@@ -56,7 +52,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method marks a task as done
+     * Marks a task as done
      * @param taskNum the index of the task to be marked
      * @throws InputException if the index is out of range
      */
@@ -71,7 +67,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method unmarks a task as not done
+     * Unmarks a task as not done
      * @param taskNum the index of the task to be unmarked
      * @throws InputException if the index is out of range
      */
@@ -86,13 +82,21 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * This method lists all the tasks in the task list
+     * Lists all the tasks in the task list
      * @return a string containing all the tasks in the task list
      */
     public String listTasks() {
         String tasksToBeListed = "";
         for (int i = 1; i <= tasks.size(); i++) {
             tasksToBeListed += String.format("%d.%s\n", i, this.getPosAt(i).toString());
+        }
+        return tasksToBeListed;
+    }
+
+    public String listTasksForSave() {
+        String tasksToBeListed = "";
+        for (int i = 1; i <= tasks.size(); i++) {
+            tasksToBeListed += String.format("%s\n", this.getPosAt(i).toSave());
         }
         return tasksToBeListed;
     }

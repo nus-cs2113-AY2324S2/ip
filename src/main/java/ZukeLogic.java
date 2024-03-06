@@ -22,7 +22,7 @@ public class ZukeLogic {
     public void chattingStart() {
         Scanner userInput = new Scanner(System.in);
         DataManager.createFolder();
-        DataManager.createTextFile();
+        DataManager.createFile();
         loadData();
         boolean exitFlag = false;
 

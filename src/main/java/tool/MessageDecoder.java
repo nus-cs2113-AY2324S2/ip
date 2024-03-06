@@ -51,7 +51,7 @@ public class MessageDecoder {
      * @param type type of command received
      * @param message user input information about the command
      * @return String[] containing the decoded message
-     * @throws InputException 
+     * @throws InputException exception thrown when the user input does not match the format
      */
     public static String[] decodeInput(CommandType type, String message) throws InputException {
         switch (type) {
@@ -243,5 +243,14 @@ public class MessageDecoder {
             throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
         }
         return dateTime.format(OUTPUT_TIME_FORMATTER);
+    }
+
+    /**
+     * Decodes the saved data from the file
+     * @param data saved data from the file
+     * @return String[] containing the decoded saved data
+     */
+    public static String[] decodeSavedData(String data) {
+        return data.split(" / ");
     }
 }

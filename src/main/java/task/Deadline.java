@@ -11,7 +11,13 @@ public class Deadline extends Task {
                 deadlineInfo[DUE_DATE_INDEX]);
     }
 
-    Deadline(String description, String dueTime) {
+    public Deadline(boolean isDone, String[] deadlineInfo) {
+        this(deadlineInfo[TASK_NAME_INDEX],
+                deadlineInfo[DUE_DATE_INDEX]);
+        this.isDone = isDone;
+    }
+
+    private Deadline(String description, String dueTime) {
         super(description);
         this.dueTime = dueTime;
     }
@@ -19,6 +25,11 @@ public class Deadline extends Task {
     @Override
     public boolean containsTime(String keyword) {
         return dueTime.contains(keyword);
+    }
+
+    @Override
+    public String toSave() {
+        return "D / " + (isDone ? "1" : "0") + " / " + description + " / " + dueTime;
     }
 
     @Override

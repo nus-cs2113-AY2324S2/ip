@@ -14,7 +14,14 @@ public class Event extends Task {
                 eventInfo[START_DATE_INDEX]);
     }
 
-    Event(String description, String dueTime, String startTime) {
+    public Event(boolean isDone, String[] eventInfo) {
+        this(eventInfo[TASK_NAME_INDEX],
+                eventInfo[END_DATE_INDEX],
+                eventInfo[START_DATE_INDEX]);
+        this.isDone = isDone;
+    }
+
+    private Event(String description, String dueTime, String startTime) {
         super(description);
         this.startTime = startTime;
         this.dueTime = dueTime;
@@ -23,6 +30,11 @@ public class Event extends Task {
     @Override
     public boolean containsTime(String keyword) {
         return startTime.contains(keyword) || dueTime.contains(keyword);
+    }
+
+    @Override
+    public String toSave() {
+        return "E / " + (isDone ? "1" : "0") + " / " + description + " / " + startTime + " / " + dueTime;
     }
 
     @Override
