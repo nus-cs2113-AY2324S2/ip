@@ -14,7 +14,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the file used to store tasks.
+ */
 public class Storage {
+
     private static final String DATA_FOLDER = "./data/";
     private static final String DATA_FILE = "tasks.txt";
     private static final String PARAM_SEPARATOR = " , ";
@@ -33,6 +37,10 @@ public class Storage {
 
     private final File file;
 
+    /**
+     * Constructs a Storage object.
+     * Initializes the file and its containing folder if they don't exist.
+     */
     public Storage(){
         File folder = new File(DATA_FOLDER);
         file = new File(folder, DATA_FILE);
@@ -52,6 +60,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes tasks to the file.
+     *
+     * @param taskList the list of tasks to be written to the file
+     * @throws IOException if an I/O error occurs
+     */
     public void writeToFile(TaskList taskList) throws IOException {
         clearFileContent();
         FileWriter fileWriter = new FileWriter(file, true);
@@ -89,12 +103,23 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Clears the content of the file.
+     *
+     * @throws IOException if an I/O error occurs
+     */
     private void clearFileContent() throws IOException {
         FileWriter fileClearer = new FileWriter(file);
         fileClearer.write(EMPTY_STRING);
         fileClearer.close();
     }
 
+    /**
+     * Loads tasks from the file.
+     *
+     * @return the list of tasks loaded from the file
+     * @throws FileNotFoundException if the file is not found
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         Scanner s = new Scanner(file);
         TaskList taskList = new TaskList();
@@ -104,6 +129,12 @@ public class Storage {
         return taskList.tasks;
     }
 
+    /**
+     * Reads a task from a text line and adds it to the task list.
+     *
+     * @param taskList  the task list to which the task will be added
+     * @param textLine  the text line representing the task
+     */
     private void readTask(TaskList taskList, String textLine) {
         String[] parsedInput = textLine.trim().split(PARAM_SEPARATOR);
         switch (parsedInput[TASK_TYPE_INDEX]){
@@ -124,6 +155,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the task list to the file.
+     *
+     * @param taskList the task list containing tasks to be saved
+     * @throws RuntimeException if an IOException occurs while writing to the file
+     */
     public void saveTask(TaskList taskList) {
         try {
             writeToFile(taskList);
