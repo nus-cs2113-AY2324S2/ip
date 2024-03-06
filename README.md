@@ -16,58 +16,128 @@ Input: `todo buy eggs for birthday cake`
 
 Output:
 ```
-
+Hai ~ your task have been added successfully
+    [T][ ] buy eggs for birthday cake 
+You have 1 tasks remaining
+--------------------------------
+How can I assist you today?
 ```
 
 ### Adding an event task: `event`
-{{ Desc }}
+Adding an event task to your list
 
-Format:
+Format: `event TASK /from START_TIME /to END_TIME`
 
-Examples:
+**Examples:**
+
+Input: `event do CS2113 tP /from 1 January 2024 /to 5 May 2024`
+
+Output:
+```
+Hai ~ your task have been added successfully
+    [E][ ] do CS2113 tP (from: 1 January 2024 to: 5 May 2024)
+You have 2 tasks remaining
+--------------------------------
+How can I assist you today?
+```
 
 ### Adding a deadline task: `deadline`
-{{ Desc }}
+Adding a deadline task to your list
 
-Format:
+Format: `deadline TASK /by END_TIME`
 
-Examples:
+**Examples:**
+
+Input: 
+- `deadline submit critical reflection /by this weekend`
+- `deadline submit critical reflection /by 2024-05-22`
+
+> [!TIP]
+> END_TIME input in LocalDate format of yyyy-MM-dd is supported
+
+
+Output:
+```
+Hai ~ your task have been added successfully
+    [D][ ] submit critical reflection (by: 22/05/2024)
+You have 3 tasks remaining
+--------------------------------
+How can I assist you today?
+```
 
 ### Listing down all task: `list`
-{{ Desc }}
+list down all the tasks in your list
 
-Format:
+Format: `list`
 
-Examples:
+Output:
+```
+Osu! Your tasks are as follows:
+  1.[T][ ] buy eggs for birthday cake 
+  2.[E][ ] do CS2113 tP (from: 1 January 2024 to: 5 May 2024)
+  3.[D][ ] submit critical reflection (by: 22/05/2024)
+--------------------------------
+How can I assist you today?
+```
 
 ### Marking a task as done: `mark`
-{{ Desc }}
+Mark a task as done
 
-Format:
+Format: `mark TASK_INDEX`
 
-Examples:
+**Examples:**
+
+Input: `mark 1`
+
+Output: 
+```
+Nice! I've marked this task as done:
+    [T][X] buy eggs for birthday cake 
+--------------------------------
+How can I assist you today?
+```
 
 ### Marking a task as not done: `unmark`
-{{ Desc }}
+Mark a task as not done
 
-Format:
+Format: `unmark TASK_INDEX`
 
-Examples:
+**Examples:**
+
+Input: `unmark 1`
+
+Output:
+```
+As you wished, your task is now undone:
+    [T][ ] buy eggs for birthday cake 
+--------------------------------
+How can I assist you today?
+```
 
 ### Deleting a task: `delete`
-{{ Desc }}
+Delete a task from your list 
 
-Format:
+Format: `delete TASK_INDEX`
 
-Examples:
+**Examples:**
+
+Input: `delete 3`
+
+Output:
+```
+Deleted! The following task has been removed!
+    [D][ ] submit critical reflection (by: 2024-05-22)
+You have 2 tasks remaining
+--------------------------------
+How can I assist you today?
+```
 
 ### Quitting the program: `bye`
-{{ Desc }}
+Quit the program
 
-Format:
+Format: `bye`
 
-Examples:
-
-## FAQ
-
-## Known Issues
+Output:
+```
+Sankyuuu! BYE (^ _^ )
+```

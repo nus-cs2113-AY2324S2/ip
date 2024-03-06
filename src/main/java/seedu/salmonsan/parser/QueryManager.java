@@ -65,7 +65,6 @@ public class QueryManager {
                     list.addTask(task);
                     return -1;
                 case "deadline":
-                    System.out.println(argument);
                     DeadlineTask deadline = new DeadlineTask(false, argument);
                     // add deadline to list of task (substitutability)
                     list.addTask(deadline);
@@ -84,7 +83,7 @@ public class QueryManager {
                     return -1;
             }
         } catch (SalmonNotInListException e) {
-            System.out.println("Gomen! seedu.salmonsan.data.task.Task is not in your list");
+            System.out.println("Gomen! Task is not in your list");
             return -1;
         } catch (NumberFormatException e) {
             System.out.println("Please input a valid number to mark/unmark list!");
