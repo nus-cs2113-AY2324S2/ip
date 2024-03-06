@@ -13,7 +13,7 @@ import java.io.File;
  * Serf is a task keeper. He keep tracks of the tasks you have to do and start and end time of each task (If applicable)
  *
  * @author ChinYanXu
- * @version 0.1
+ * @version 0.2
  * @since 2024-03-06
  */
 
