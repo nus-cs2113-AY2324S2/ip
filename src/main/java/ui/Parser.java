@@ -17,7 +17,8 @@ public enum Parser {
     TODO("todo\\s*(.+)"),
     DEADLINE("deadline\\s*(.+)/by\\s*(.+)"),
     EVENT("event\\s*(.+)/from\\s*(.+)/to\\s*(.+)"),
-    DELETE("delete\\s*(\\d+)\\s*");
+    DELETE("delete\\s*(\\d+)\\s*"),
+    FIND("find\\s*(.+)");
 
     private final String commandRegex;
 

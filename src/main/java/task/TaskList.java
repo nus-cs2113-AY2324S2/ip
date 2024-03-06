@@ -45,11 +45,13 @@ public class TaskList implements Serializable {
         }
     }
 
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
+        StringBuilder tasksFound = new StringBuilder();
         for (int index = 1; index <= this.size(); index++) {
             if (getTask(index).toString().contains(keyword)) {
-                System.out.println(index + "." + getTask(index));
+                tasksFound.append(index).append(".").append(getTask(index)).append("\n");
             }
         }
+        return tasksFound.toString();
     }
 }
