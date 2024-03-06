@@ -6,7 +6,7 @@ If you can type fast, Adam can get your tasks managed faster than traditional GU
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `adam.jar` from [here](
+2. Download the latest `adam.jar` from [here](https://github.com/adamzzq/ip/releases/download/A-UserGuide/adam.jar)
 3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
 4. Start a terminal and navigate to the folder where `adam.jar` is located.
 5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
