@@ -8,22 +8,27 @@ public class Task {
     }
 
     public String getStatusIcon() {
+
         return (isDone ? "X" : " "); //mark done task with X
     }
 
     public void setIsDone() {
+
         this.isDone = true;
     }
 
     public void setIsNotDone() {
+
         this.isDone = false;
     }
 
     public String toFileString() {
+
         return null;
     }
 
     public String toString() {
+
         return "[" + getStatusIcon() + "]" + description;
     }
 

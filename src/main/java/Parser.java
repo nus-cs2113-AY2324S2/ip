@@ -1,17 +1,32 @@
 public class Parser {
+
     public static String getCommand(String line) { //get the command at the start of input
         return line.split(" ")[0];
+    }
+
+    public static boolean stringIsEmpty(String line) {
+        return line.trim().isEmpty();
     }
 
     public static boolean isInvalidCommand(String description) { //check for invalid commands to throw exception in main
         return !description.contains("list") && !description.contains("event") && !description.contains("deadline")
                 && !description.contains("todo") && !description.contains("mark")
-                && !description.contains("delete");
+                && !description.contains("delete") && !description.contains("find");
     }
 
-    public static int getTaskIndex(String description) {
+    public static int getTaskIndex(String description) throws DukeException {
         String indexToMark = description.substring(description.lastIndexOf(" ") + 1);
-        return Integer.parseInt(indexToMark) - 1;
+        try {
+            Integer.parseInt(indexToMark);
+        }
+        catch (NumberFormatException n) {
+            throw new DukeException("Hey, the description is empty!");
+        }
+        int taskIndex = Integer.parseInt(indexToMark) - 1;
+        if(taskIndex < 0) {
+            throw new DukeException("Hey, the index is out of bounds!");
+        }
+        return taskIndex;
     }
 
     public static boolean isTask(String description) {
@@ -61,5 +76,9 @@ public class Parser {
             throw new MissingParameterException("deadline");
         }
         return new Deadline(deadlineName, by);
+    }
+
+    public static String getStringToFind(String line) {
+        return line.split(" ")[1];
     }
 }
