@@ -11,6 +11,9 @@ public class Duke {
     static boolean ifNewWrite = false;
     private static UI ui;
 
+    /**
+     * Prints out latest task that has been added to list
+     */
     public static void echoTask() {
         System.out.println("--------------------------------------");
         System.out.println("Got it! I've added this task:");
@@ -18,6 +21,11 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
+    /**
+     * Prints out entire list of tasks that has been added when "list" is entered into CLI
+     *
+     * @throws IllegalShapeException if tasks is empty
+     */
     public static void printList() throws IllegalShapeException {
         {
             if (tasks.isEmpty()) {
@@ -33,6 +41,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints list of tasks that have descriptions containing the searched keyword
+     *
+     * @param line string to find tasks that contains this string
+     * @throws IllegalShapeException when task list is empty
+     */
     public static void printFindList(String line) throws IllegalShapeException {
         {
             int counter = 1;
@@ -52,6 +66,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Sets status of the task to true. Prints dialogue of task being marked. Shows that task is completed yet
+     *
+     * @param line string that the user has inputted
+     * @throws IllegalShapeException when user tries to mark a task index that does not exist or is out of bounds.
+     */
     public static void markTask(String line) throws IllegalShapeException {
         if (Integer.parseInt(line.substring(5)) >= tasks.size() ) {
             throw new IllegalShapeException(); //Throws exception for marking out of bounds
@@ -65,6 +85,12 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
+    /**
+     * Set status of the task to false. Prints dialogue of task being unmarked. Shows that task is not completed yet.
+     *
+     * @param line string that the user has inputted
+     * @throws IllegalShapeException when user tries to unmark a task index that does not exist or is out of bounds
+     */
     public static void unmarkTask(String line) throws IllegalShapeException {
         if (Integer.parseInt(line.substring(7)) > tasks.size()) {
             throw new IllegalShapeException(); //Throws exception for unmarking out of bounds
@@ -78,6 +104,11 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
+    /**
+     * Deletes the task with the index of int i from tasks list.
+     *
+     * @param i the task index of the task to be deleted
+     */
     public static void deleteTask(int i) {
         System.out.println("--------------------------------------");
         System.out.println("Noted, I have removed this task:");
@@ -87,6 +118,13 @@ public class Duke {
         System.out.println("--------------------------------------");
     }
 
+    /**
+     * Writes the command user has given to the CLI into a txt file
+     * Does not include commands such as "bye", "list" and "find"
+     *
+     * @param textToAdd string that user has inputted
+     * @throws IOException when error occurred during writing
+     */
     private static void writeToFile(String textToAdd) throws IOException {
         if (ifNewWrite) {
             FileWriter fw = new FileWriter("dukeLog.txt", true);
@@ -95,6 +133,13 @@ public class Duke {
         }
     }
 
+    /**
+     * Performs an action based on what the String line inputted by the user is.
+     * Will add task, delete task, print list, find tasks, mark tasks, unmark tasks, end the program or input invalid command
+     *
+     * @param line String line that the user has inputted
+     * @throws IllegalShapeException when line is empty and no action can be taken
+     */
     public static void performAction(String line) throws IllegalShapeException{
         int eventDividerPositionTo = line.indexOf("/to");
         int eventDividerPositionFrom = line.indexOf("/from");
@@ -196,6 +241,11 @@ public class Duke {
 
     }
 
+    /**
+     * Inputs the commands saved in the txt file so to resume from previous tasks list
+     *
+     * @throws FileNotFoundException when there is no file found
+     */
     public static void inputFileContents() throws FileNotFoundException {
         File f = new File("dukeLog.txt");
         Scanner s = new Scanner(f);
