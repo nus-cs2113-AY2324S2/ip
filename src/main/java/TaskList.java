@@ -4,14 +4,6 @@ public class TaskList {
     public static ArrayList<Task> storedList;
     public static int numberOfListItems;
 
-    /*
-        public TaskList() {
-            storedList = new ArrayList<>();
-            numberOfListItems = 0;
-        }
-
-
-     */
     public static void setTaskList(ArrayList<Task> loadList) {
         storedList = loadList;
         numberOfListItems = loadList.size();

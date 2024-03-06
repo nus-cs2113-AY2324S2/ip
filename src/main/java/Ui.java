@@ -1,7 +1,6 @@
 public class Ui {
     static final String LINE_BREAK = "______________________";
 
-
     public Ui() {
         greetings();
     }
@@ -13,7 +12,6 @@ public class Ui {
     public static void lineBreak() {
         System.out.println(LINE_BREAK);
     }
-
 
     /**
      * Prints out the greetings for when the user boots up the chatbot.
@@ -225,7 +223,7 @@ public class Ui {
 
 
     /**
-     * Prints an general error message
+     * Prints a general error message
      */
     public static void generalError(){
         System.out.println("There's an error somewhere D:");
