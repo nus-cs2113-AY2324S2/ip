@@ -33,7 +33,7 @@ To start the chatbot, go to the src folder containing the JAR file. Then, on a t
 ```
 -$ java -jar ip.jar
 ```
-*This program is best executed with the Java-8 Runtime Environment*
+*This program is best executed with the Java-11 Runtime Environment*
 
 ## Features
 *Davvy* comes jam-packed with features that allow you to use CLI to manage your upcoming tasks 
