@@ -12,7 +12,7 @@ public class Duke {
     private static UI ui;
 
     /**
-     * Prints out latest task that has been added to list
+     * Prints out latest task that has been added to list as an echo
      */
     public static void echoTask() {
         System.out.println("--------------------------------------");
@@ -22,7 +22,7 @@ public class Duke {
     }
 
     /**
-     * Prints out entire list of tasks that has been added when "list" is entered into CLI
+     * Prints out entire list of tasks that has been added when "list" command is entered into CLI
      *
      * @throws IllegalShapeException if tasks is empty
      */
@@ -67,7 +67,7 @@ public class Duke {
     }
 
     /**
-     * Sets status of the task to true. Prints dialogue of task being marked. Shows that task is completed yet
+     * Sets status of the task to true. Prints dialogue of task being marked. Shows that task is completed.
      *
      * @param line string that the user has inputted
      * @throws IllegalShapeException when user tries to mark a task index that does not exist or is out of bounds.
@@ -106,6 +106,7 @@ public class Duke {
 
     /**
      * Deletes the task with the index of int i from tasks list.
+     * Prints out the number of tasks remaining
      *
      * @param i the task index of the task to be deleted
      */
