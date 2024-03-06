@@ -16,4 +16,5 @@ mark 0
 mark 5
 delete 4
 find book
+help
 bye

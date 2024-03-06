@@ -1,7 +1,19 @@
 You have no tasks saved
 ______________________________________________________________
- Hey there! I'm Cody, your personal task manager
- Tell me your tasks and I will create a task list for you
+Hey there! I'm Cody, your personal task manager
+Tell me your tasks and I will create a task list for you
+______________________________________________________________
+Here are the commands you can use:
+ 1. todo <description>: Adds a todo task to the list
+ 2. deadline <description> /by <date>: Adds a deadline task to the list
+ 3. event <description> /at <date>: Adds an event task to the list
+ 4. list: Displays the list of tasks
+ 5. mark <index>: Marks the task at the specified index as done
+ 6. unmark <index>: Unmarks the task at the specified index
+ 7. delete <index>: Deletes the task at the specified index
+ 8. find <keyword>: Finds tasks containing the specified keyword
+ 9. help: Displays the list of commands
+ 10. bye: Exits the application
 ______________________________________________________________
 ______________________________________________________________
 Got it. I've added this task:
@@ -26,7 +38,7 @@ Here are the tasks in your list:
 
 ______________________________________________________________
 ______________________________________________________________
-Good job! I've marked this task as done:
+Noted. I've marked this task as done:
 [X] return book (by: Sunday)
 ______________________________________________________________
 ______________________________________________________________
@@ -37,7 +49,7 @@ Here are the tasks in your list:
 
 ______________________________________________________________
 ______________________________________________________________
-Good job! I've marked this task as not done:
+Noted. I've marked this task as not done:
 [ ] return book (by: Sunday)
 ______________________________________________________________
 ______________________________________________________________
@@ -51,11 +63,11 @@ I'm not sure what you mean. Please use 'todo', 'deadline', or 'event' to add tas
 The description of a todo cannot be empty. Please use 'todo <description>'
 The description of an event cannot be empty. Please use 'event <description> /from <start time> /to <end time>'
 The description of a deadline cannot be empty. Please use 'deadline <description> /by <deadline>'
-Invalid task number. Please use a number
-Task number out of bounds. Please choose a number within the list
-Task number out of bounds. Please choose a number within the list
-Task number out of bounds. Please choose a number within the list
-Task number out of bounds. Please choose a number within the list
+Invalid task number. Please use a number.
+Task number out of bounds. Please choose a number within the list.
+Task number out of bounds. Please choose a number within the list.
+Task number out of bounds. Please choose a number within the list.
+Task number out of bounds. Please choose a number within the list.
 ______________________________________________________________
 Here are the matching tasks in your list:
  1. [T] [ ] borrow book
@@ -63,5 +75,18 @@ Here are the matching tasks in your list:
 
 ______________________________________________________________
 ______________________________________________________________
- Bye. Hope to see you again soon!
+Here are the commands you can use:
+ 1. todo <description>: Adds a todo task to the list
+ 2. deadline <description> /by <date>: Adds a deadline task to the list
+ 3. event <description> /at <date>: Adds an event task to the list
+ 4. list: Displays the list of tasks
+ 5. mark <index>: Marks the task at the specified index as done
+ 6. unmark <index>: Unmarks the task at the specified index
+ 7. delete <index>: Deletes the task at the specified index
+ 8. find <keyword>: Finds tasks containing the specified keyword
+ 9. help: Displays the list of commands
+ 10. bye: Exits the application
+______________________________________________________________
+______________________________________________________________
+Bye. Hope to see you again soon!
 ______________________________________________________________
