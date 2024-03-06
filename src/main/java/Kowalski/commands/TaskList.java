@@ -32,6 +32,7 @@ public class TaskList {
 
     /**
      * Used in the "find" command to print all the matching Tasks in the proper format
+     * @param matchList ArrayList containing the matching tasks
      */
     public static void printMatchingTasks(List<Task> matchList){
         for (int i = 1; i <= matchList.size(); i++){
@@ -39,14 +40,26 @@ public class TaskList {
         }
     }
 
+    /**
+     * Method to add tasks in the ArrayList currentTask
+     * @param task an instance of the task which needs to be added
+     */
     public static void addTask(Task task) {
         currentTask.add(task);;
     }
 
+    /**
+     * Method to remove tasks in the ArrayList currentTask
+     * @param index index of the task to be removed from currentTask
+     */
     public static void removeTask(int index){
         currentTask.remove(index);
     }
 
+    /**
+     * Method to return the task with descriptions matching the user's input word
+     * @param input user's input word
+     */
     public static void findMatch(String input){
         List<Task>matchList = currentTask.stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(input))
