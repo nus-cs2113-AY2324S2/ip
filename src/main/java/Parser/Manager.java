@@ -57,7 +57,7 @@ public class Manager {
                 break;
             case "find":
                 String toFind = text.replace("find ", "");
-                SearchTasks.printMatchedTasks(toFind, tasks);
+                PrintTask.printMatchedTasks(toFind, tasks);
                 break;
             default:
                 Task task = new Task(text);

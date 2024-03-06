@@ -1,5 +1,8 @@
 package Ui;
 
+/**
+ * A class that deals with interactions with the user.
+ */
 public class Ui {
     public void greet(String botName) {
         PrintText.printWithLinebreak("Hello! I'm " + botName + "\n" +

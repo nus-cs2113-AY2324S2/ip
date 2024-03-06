@@ -2,8 +2,9 @@ package Parser;
 
 import TaskList.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * A class that deals with making sense of the user command.
+ */
 public class Parser {
     public void taskManager() {
         Manager.taskListManager(TaskList.tasks);

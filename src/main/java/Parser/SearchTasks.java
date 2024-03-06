@@ -3,10 +3,17 @@ package Parser;
 import TaskList.Task;
 import Ui.PrintText;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SearchTasks {
+    /**
+     * Returns a list of tasks that have description matched with the input line of string.
+     *
+     * @param toFind The input string to compare with.
+     * @param allTasks All tasks stored in the list.
+     */
     public static ArrayList<Task> matchedTasks(String toFind, ArrayList<Task> allTasks) {
         ArrayList<Task> outputList = new ArrayList<>();
         ArrayList<String> toFindWords = new ArrayList<>(Arrays.asList(toFind.split(" ")));
@@ -24,32 +31,5 @@ public class SearchTasks {
             }
         }
         return outputList;
-    }
-
-    public static void printMatchedTasks(String toFind, ArrayList<Task> allTasks) {
-        if (toFind.isEmpty()) {
-            PrintText.printWithLinebreak("Please enter a valid item to search.");
-            return;
-        }
-        ArrayList<Task> tasksFound = matchedTasks(toFind, allTasks);
-        try {
-            Task test = tasksFound.get(0);
-        } catch (IndexOutOfBoundsException e) {
-            PrintText.printWithLinebreak("There are no matching tasks in your list.");
-            return;
-        }
-
-        PrintText.print(PrintText.LINEBREAK);
-        PrintText.print("Here are the matching tasks in your list: ");
-        int index = 1;
-        for (Task task : tasksFound) {
-            String indexPrinted = index + ".";
-            char type = task.getTypeIcon();
-            String typeMark = "[" + type + "]";
-            String statusMark = "[" + task.getStatusIcon() + "] ";
-            PrintText.print(indexPrinted + typeMark + statusMark + task.getDescription());
-            index++;
-        }
-        PrintText.print(PrintText.LINEBREAK + "\n");
     }
 }
