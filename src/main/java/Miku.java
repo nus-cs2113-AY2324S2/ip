@@ -2,7 +2,11 @@ import java.io.FileNotFoundException;
 
 public class Miku {
 
-    public static void main(String[] args) {
+
+    /**
+     * Runs the chatbot
+     */
+    public static void run() {
         try {
             TaskList.setTaskList(Storage.loadData());
         } catch (FileNotFoundException e) {
@@ -12,5 +16,9 @@ public class Miku {
         Ui.greetings();
         Parser.decideAction();
         Ui.goodbye();
+    }
+
+    public static void main(String[] args) {
+       run();
     }
 }
