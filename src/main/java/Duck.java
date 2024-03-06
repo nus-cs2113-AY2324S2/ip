@@ -3,6 +3,9 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/** Start of main class of CLI application
+ * It shows a welcome message, creates and updates data file duck.txt, and takes in user input to execute tasks
+ */
 public class Duck {
 
     public static void main(String[] args) throws IOException {

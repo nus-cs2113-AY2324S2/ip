@@ -14,6 +14,9 @@ import static tasks.Deadline.appendDeadlineDuckDataFile;
 import static tasks.Event.appendEventDuckDataFile;
 import static tasks.ToDo.appendToDoDuckDataFile;
 
+/**
+ * Contains methods that deals with storage of tasks which is stored in duck.txt
+ */
 public class Storage {
 
     protected static final Path FILE_PATH = Path.of("./data/duck.txt");
@@ -21,7 +24,7 @@ public class Storage {
     /**
      * Checks if directory and file exists, creates new one if does not exist
      *
-     * @throws IOException
+     * @throws IOException If an I/O exception occurs during file handling.
      */
     public static void createNewFile() throws IOException {
 
@@ -34,6 +37,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads data duck.txt file and fills the arraylist with the tasked found
+     *
+     * @param tasks arraylist of tasks
+     * @param index number of tasks in arraylist
+     * @return index updated number of tasks
+     * @throws IOException If an I/O exception occurs during file handling.
+     */
     public static int readFile(ArrayList<Task> tasks, int index) throws IOException {
         List<String> fileContent = Files.readAllLines(FILE_PATH);
         for (String line: fileContent) {
@@ -57,6 +68,12 @@ public class Storage {
         return index;
     }
 
+    /**
+     * Updates the data storage file duck.txt with the provided list of tasks.
+     *
+     * @param tasks The ArrayList containing the tasks to be written to the file.
+     * @throws IOException If an I/O exception occurs during file handling.
+     */
     public static void updateFile (ArrayList<Task> tasks) throws IOException {
         Files.newBufferedWriter(FILE_PATH, StandardOpenOption.TRUNCATE_EXISTING);
         String lineToAdd = "";
