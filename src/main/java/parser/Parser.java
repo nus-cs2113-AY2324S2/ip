@@ -45,7 +45,14 @@ public class Parser {
                 deleteCommand(parts, tasks, ui);
                 break;
             case "list":
+                if (parts.length > 1) {
+                    ui.invalidCommand();
+                    return;
+                }
                 listCommand(tasks);
+                break;
+            case "find":
+                findCommand(parts, tasks, ui);
                 break;
             // Duke.java will handle the "bye" command
             default:
@@ -87,10 +94,19 @@ public class Parser {
             ui.invalidIndex();
             return;
         }
-
+        // if the index is not a number, it will throw an exception
+        if (!parts[1].matches("\\d+")) {
+            ui.invalidIndex();
+            return;
+        }
         int taskNumber = Integer.parseInt(parts[1]);
-        deleteTask(taskNumber, tasks);
+        tasks.deleteTask(taskNumber);
     }
+
+    // private static void deleteCommand(int taskNumber, TaskList tasks) {
+        // Perform the logic for deleting a task
+    //     tasks.deleteTask(taskNumber);
+    // }
 
     private static void listCommand(TaskList tasks) {
         tasks.listTasks();
@@ -150,8 +166,12 @@ public class Parser {
         tasks.markTaskAsDone(taskNumber, markDone);
     }
 
-    private static void deleteTask(int taskNumber, TaskList tasks) {
-        // Perform the logic for deleting a task
-        tasks.deleteTask(taskNumber);
+    private static void findCommand(String[] parts, TaskList tasks, Ui ui) {
+        if (parts.length < 2) {
+            ui.invalidIndex();
+            return;
+        }
+        String keyword = parts[1];
+        tasks.findTasks(keyword);
     }
 }
