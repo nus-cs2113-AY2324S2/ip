@@ -1,4 +1,4 @@
-package commands;
+package tasks;
 
 public class Event extends Task {
     protected String start;

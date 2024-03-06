@@ -1,13 +1,15 @@
+package Backend;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import commands.Task;
-import commands.Deadline;
-import commands.Event;
-import commands.Todo;
+import tasks.Task;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Todo;
 
 public class DataManager {
 
@@ -21,7 +23,7 @@ public class DataManager {
         for (Task t : list) {
             stringBuilder.append(t.toString()).append("\n");
         }
-        writeToFile("src/main/java/data.txt", stringBuilder.toString());
+        writeToFile("data.txt", stringBuilder.toString());
     }
 
     public static List<Task> readData(String filePath) throws IOException{

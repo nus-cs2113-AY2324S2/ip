@@ -1,4 +1,4 @@
-package commands;
+package tasks;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ public class Task {
     protected String name;
 
     public Task() {
-        this.name = "Empty commands.Task";
+        this.name = "Empty Backend.commands.Task";
         this.isDone = false;
     }
 

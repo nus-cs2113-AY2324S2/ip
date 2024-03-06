@@ -1,3 +1,5 @@
+package Backend;
+
 public class StringValidator {
     public static void validateDeadlineFormat(String input) throws InvalidFormatException {
         // Regular expression to match "deadline <description> /by <time>" format
@@ -5,9 +7,7 @@ public class StringValidator {
 
         // Check if the input matches the expected format
         if (!input.matches(regex)) {
-            throw new InvalidFormatException("------------------------------------------------------------------------\n" +
-                    "Invalid deadline format. Expected format: deadline <description> /by <time>.\n" +
-                    "------------------------------------------------------------------------");
+            throw new InvalidFormatException("[ERROR] Invalid deadline format. Expected format: deadline <description> /by <time>.");
         }
     }
     public static void validateTodoFormat(String input) throws InvalidFormatException {
@@ -16,9 +16,7 @@ public class StringValidator {
 
         // Check if the input matches the expected format
         if (!input.matches(regex)) {
-            throw new InvalidFormatException("---------------------------------------------------------\n" +
-                    "Invalid todo format. Expected format: todo <description>\n" +
-                    "---------------------------------------------------------");
+            throw new InvalidFormatException("[ERROR] Invalid todo format. Expected format: todo <description>");
         }
     }
     public static void validateEventFormat(String input) throws InvalidFormatException {
@@ -27,9 +25,7 @@ public class StringValidator {
 
         // Check if the input matches the expected format
         if (!input.matches(regex)) {
-            throw new InvalidFormatException("----------------------------------------------------------------------------------\n" +
-                    "Invalid event format. Expected format: event <description> /from <time> /to <time>\n" +
-                    "----------------------------------------------------------------------------------");
+            throw new InvalidFormatException("[ERROR] Invalid event format. Expected format: event <description> /from <time> /to <time>");
         }
     }
 
@@ -39,9 +35,7 @@ public class StringValidator {
 
         // Check if the input matches the expected format
         if (!input.matches(regex)) {
-            throw new InvalidFormatException("---------------------------------------------------------\n" +
-                    "Invalid mark command. Expected format: mark <task number>\n" +
-                    "---------------------------------------------------------");
+            throw new InvalidFormatException("[ERROR] Invalid mark command. Expected format: mark <task number>");
         }
     }
 
@@ -51,9 +45,7 @@ public class StringValidator {
 
         // Check if the input matches the expected format
         if (!input.matches(regex)) {
-            throw new InvalidFormatException("-----------------------------------------------------------\n" +
-                    "Invalid unmark command. Expected format: unmark <task number>\n" +
-                    "-----------------------------------------------------------");
+            throw new InvalidFormatException("[ERROR] Invalid unmark command. Expected format: unmark <task number>");
         }
     }
 
@@ -63,9 +55,7 @@ public class StringValidator {
 
         // Check if the input matches the expected format
         if (!input.matches(regex)) {
-            throw new InvalidFormatException("-----------------------------------------------------------\n" +
-                    "Invalid delete command. Expected format: delete <task number>\n" +
-                    "-----------------------------------------------------------");
+            throw new InvalidFormatException("[ERROR] Invalid delete command. Expected format: delete <task number>");
         }
     }
 }
