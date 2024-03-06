@@ -51,7 +51,7 @@ public class Storage {
 
     /**
      * Parses a single line from the task file into a Task object.
-     * The line format is expected to be specific for each type of task (Todo, Deadline, Event).
+     * The line format is expected to be specific for each type of task
      *
      * @param line A string representing a line from the task file.
      * @return A Task object represented by the line, or null if the line format is invalid.
