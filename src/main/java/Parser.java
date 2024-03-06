@@ -21,6 +21,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(parts[1]));
         case "bye":
             return new ExitCommand();
+        case "find":
+            return new FindCommand(fullCommand.substring(4).trim());
         default:
             throw new DukeException("Unknown command.");
         }
