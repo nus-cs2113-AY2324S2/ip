@@ -52,12 +52,19 @@ public class UserUi {
         System.out.print(INDENT);
     }
 
-    //TODO: javadoc
+    /**
+     * Display the count of the task list in the terminal for the user.
+     */
     public static void showTaskListCount() {
         int taskCount = TaskList.getSize();
         System.out.println("you currently have " + taskCount + " tasks on your list :)");
     }
 
+    /**
+     * Prints the list of tasks that contains the keyword specified by the user.
+     *
+     * @param foundKeywordList ArrayList of tasks that contain the keyword.
+     */
     public static void printKeywordList(ArrayList<Task> foundKeywordList) {
         if (foundKeywordList.isEmpty()) {
             System.out.println("i couldn't find any tasks with this word.");
@@ -65,7 +72,8 @@ public class UserUi {
             System.out.println("i found your word in these tasks:");
             for (int i = 0; i < foundKeywordList.size(); i++) {
                 UserUi.displayIndent();
-                foundKeywordList.get(i).printTaskInListFormat(i + 1);
+                Task currentTask = foundKeywordList.get(i);
+                currentTask.printTaskInListFormat(i + 1);
             }
         }
         UserUi.displayDividerLine();
