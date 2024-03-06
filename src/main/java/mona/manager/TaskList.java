@@ -80,7 +80,7 @@ public class TaskList {
         case("find"):
             String keyword = commandTypeAndParams[Constants.INDEX_DESCRIPTION];
             ArrayList<Task> filteredTasks = (ArrayList<Task>)tasks.stream()
-                    .filter(t -> t.getDescription().contains(keyword))
+                    .filter(t -> t.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                     .collect(Collectors.toList());
             ConsolePrint.printFilteredList(filteredTasks, tasks, keyword);
         default:
