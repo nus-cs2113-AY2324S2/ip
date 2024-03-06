@@ -28,11 +28,6 @@ public class Ui {
         setLineBreak();
     }
 
-    public void listTasks(ArrayList<Task> tasks) {
-        for (Task task : tasks) {
-            System.out.println((tasks.indexOf(task) + 1) + "." + task);
-        }
-    }
 
     public void printTask(Task task) {
         System.out.println(task);
@@ -48,20 +43,16 @@ public class Ui {
         printTask(task);
     }
 
+    public void printIndexMissingError() {
+        System.out.println("Error! No index detected for this operation. Try again!");
+    }
+
     public void printTodoMissingError() {
         System.out.println("Error! No event detected for todo. Try again!");
     }
 
-    public void printDeadlineMissingError() {
-        System.out.println("Error! No event detected for deadline. Try again!");
-    }
-
     public void printDeadlineInputError() {
         System.out.println("Error! Deadline entry is not following format. Try again!");
-    }
-
-    public void printEventMissingError() {
-        System.out.println("Error! No event detected for event. Try again!");
     }
 
     public void printEventInputError() {
