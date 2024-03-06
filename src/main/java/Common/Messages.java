@@ -13,7 +13,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_MARK_FORMAT = "Chelle: Invalid format. Use 'mark ___'.";
     public static final String MESSAGE_INVALID_UNMARK_FORMAT = "Chelle: Invalid format. Use 'unmark ___'.";
     public static final String MESSAGE_INVALID_TODO_FORMAT = "Chelle: Invalid format. Use 'todo ___'.";
-    public static final String MESSAGE_INVALID_DEADLINE_FORMAT = "Chelle: Invalid format. Use 'deadline ___ /by ___'.";
+    public static final String MESSAGE_INVALID_DEADLINE_FORMAT = "Chelle: Invalid format. Use 'deadline ___ /by ___' or" +
+            " 'deadline ___ /by DD/MM/YYYY hhmm'.";
     public static final String MESSAGE_INVALID_EVENT_FORMAT = "Chelle: Invalid format. Use 'event ___ /from ___ /to ___'.";
     public static final String MESSAGE_INVALID_DELETE_FORMAT = "Chelle: Invalid format. Use 'delete ___'.";
     public static final String MESSAGE_MARKED = "Chelle: Nice! I've marked this task as done:\n        ";
