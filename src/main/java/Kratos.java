@@ -22,10 +22,8 @@ public class Kratos {
                 case "list":
                     ui.displayTasks(ui.LIST,tasksList);
                     break;
-                case "find":
-                    String[] inputParts = userInput.split(" ", 2); // Split input at the first space
-                    String argument = inputParts.length > 1 ? inputParts[1] : "";
-                    TaskList.findTasks(argument, tasksList);
+                case "help":
+                    ui.displayCommands();
                     break;
                 default:
                     handleCommand(userInput);
@@ -41,8 +39,8 @@ public class Kratos {
     private static void handleCommand(String userInput) {
         try {
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]); //Extract task number
-                listOfTasks.identifyAndMarkTasks(taskNumber - 1, userInput.split(" ")[0],tasksList);
+                int taskNumber = Integer.parseInt(Parser.splitTaskNumber(userInput)[1]); //Extract task number
+                listOfTasks.identifyAndMarkTasks(taskNumber - 1, Parser.splitTaskNumber(userInput)[0],tasksList);
             } else if (userInput.startsWith("deadline")) {
                 listOfTasks.addDeadline(userInput,tasksList);
             } else if (userInput.startsWith("todo")) {
