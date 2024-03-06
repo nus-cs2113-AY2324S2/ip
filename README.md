@@ -1,24 +1,73 @@
-# Duke project template
+# SalmonSan! Task Management CLI App
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+*An individual project done under NUS course CS2113: Software Engineering and Object-Oriented Programming*
 
-## Setting up in Intellij
+> SalmonSan is a simple command line based interface task management app that allows user to set todos, events, and deadline
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Features
+### Adding a todo task: `todo`
+Adding a todo task to your list
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Format: `todo TASK`
+
+**Examples:**
+
+Input: `todo buy eggs for birthday cake`
+
+Output:
+```
+
+```
+
+### Adding an event task: `event`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+### Adding a deadline task: `deadline`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+### Listing down all task: `list`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+### Marking a task as done: `mark`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+### Marking a task as not done: `unmark`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+### Deleting a task: `delete`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+### Quitting the program: `bye`
+{{ Desc }}
+
+Format:
+
+Examples:
+
+## FAQ
+
+## Known Issues
