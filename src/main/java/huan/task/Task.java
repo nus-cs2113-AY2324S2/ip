@@ -51,7 +51,7 @@ public class Task {
 
     /**
      * Get method for taskType
-     * @return the type the type of task, 1 for TodoTask, 2 for EventTask, 3 for Deadline Task.
+     * @return the type of task, 1 for TodoTask, 2 for EventTask, 3 for Deadline Task.
      */
     public int getTaskType() {
         return taskType;

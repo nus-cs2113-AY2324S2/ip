@@ -5,7 +5,7 @@ package huan.task;
  */
 public class TodoTask extends Task{
     /**
-     * Contructor method for TodoTask
+     * Constructor method for TodoTask
      * @param name name of task
      * @param isDone whether the task is marked as finished
      */

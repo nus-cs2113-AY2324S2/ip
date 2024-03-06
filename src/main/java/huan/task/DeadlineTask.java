@@ -13,7 +13,7 @@ public class DeadlineTask extends Task{
     private LocalDateTime dateTime;
 
     /**
-     * Contructor method for DeadlineTask
+     * Constructor method for DeadlineTask
      * @param name task name
      * @param ddlTime the time of the deadline
      * @param isDone whether the task is marked as finished
@@ -41,6 +41,9 @@ public class DeadlineTask extends Task{
      * @return whether the deadline is before a specific time
      */
     public Boolean isBefore(LocalDateTime dateTime) {
+        if (this.dateTime == null) {
+            return false;
+        }
         return this.dateTime.isBefore(dateTime);
     }
 

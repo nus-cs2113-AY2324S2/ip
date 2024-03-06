@@ -24,7 +24,7 @@ public class UI {
 
     /**
      * Display a message to inform format error, and show the correct format
-     * @param correctFormat the correct format, as well as any neccessary information
+     * @param correctFormat the correct format, as well as any necessary information
      */
     public static void displayFormatError(String correctFormat) {
         System.out.println("Invalid format! Should be " + correctFormat);

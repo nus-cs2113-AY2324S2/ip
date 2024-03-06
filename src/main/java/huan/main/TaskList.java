@@ -13,7 +13,7 @@ public class TaskList {
 
     /**
      * Method for checking whether the given index is valid
-     * @param index the given index, can used for either marking, unmarking, and deleting the indexed tasks
+     * @param index the given index, can be used for either marking, unmarking, and deleting the indexed tasks
      * @return whether the index in within range of the list
      */
     public static Boolean isIndexValid(int index) {
