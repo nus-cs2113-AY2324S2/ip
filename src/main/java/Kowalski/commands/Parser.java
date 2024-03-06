@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Parser {
     private static final String BYE = "bye";
     private static final String LIST = "list";
+    private static final String FIND = "find";
     private static final String DELETE = "delete";
     private static final String UNMARK = "unmark";
     private static final String MARK = "mark";
@@ -95,6 +96,16 @@ public class Parser {
 
         case LIST:
             TaskList.printCurrentTaskItems();
+            Ui.printDivider();
+            break;
+
+        case FIND:
+            String wordToMatch = in.nextLine();
+            if (!wordToMatch.isEmpty()) {
+                TaskList.findMatch(wordToMatch.trim().toLowerCase());
+            } else {
+                System.out.println(KOWALSKI_EXCEPTION_MESSAGE);
+            }
             Ui.printDivider();
             break;
 
