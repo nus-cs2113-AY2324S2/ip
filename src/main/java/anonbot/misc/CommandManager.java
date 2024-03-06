@@ -2,6 +2,7 @@ package anonbot.misc;
 
 import anonbot.Ui;
 import anonbot.data.AnonBotFileWriter;
+import anonbot.exception.EmptyArgumentException;
 import anonbot.exception.IncompleteCommandException;
 import anonbot.exception.InvalidTaskException;
 import anonbot.task.Task.TaskType;
@@ -63,12 +64,17 @@ public class CommandManager {
             case "delete":
                 processDeleteCommand(rawArgument);
                 break;
+            case "find":
+                Finder.findTaskUsingKeyphrase(command, rawArgument);
+                break;
             default: // Invalid Command
                 throw new InvalidCommandException(command);
             }
         } catch (IncompleteCommandException e) {
             e.printErrorMessage();
         } catch (InvalidTaskException e) {
+            e.printErrorMessage();
+        } catch (EmptyArgumentException e) {
             e.printErrorMessage();
         }
         return executionStatus;
