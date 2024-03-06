@@ -1,29 +1,29 @@
 package duke;
 
-import java.util.ArrayList;
-
 public class Command {
+    private static TaskList taskList = new TaskList();
+    private static UnparsedTaskList inputList = new UnparsedTaskList();
 
-    public static void list(ArrayList<Task> list) {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i+1)+"."+list.get(i));
+    public static void list() {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i+1)+"."+taskList.get(i));
         }
     }
 
-    public static void tryAddTask(String input, ArrayList<Task> list, ArrayList<String> stringList) {
+    public static void tryAddTask(String input) {
         try {
-            list.add(addTask(input));
-            stringList.add(input);
-            System.out.println("added: " + list.get(list.size() - 1));
+            taskList.add(addTask(input));
+            inputList.add(input);
+            System.out.println("added: " + taskList.get(taskList.size() - 1));
         } catch (PythiaException pe) {
             System.out.println("Please provide a proper input");
         }
     }
 
-    public static void directAddTask(String input, ArrayList<Task> list, ArrayList<String> stringList) {
+    public static void directAddTask(String input) {
         try {
-            list.add(addTask(input));
-            stringList.add(input);
+            taskList.add(addTask(input));
+            inputList.add(input);
         } catch (PythiaException pe) {
             System.out.println("Please provide a proper input");
         }
@@ -55,33 +55,33 @@ public class Command {
         }
     }
 
-    public static void unmark(String input, ArrayList<Task> list) {
+    public static void unmark(String input) {
         String[] splitInput = input.split(" ");
-        list.get(Integer.parseInt(splitInput[1])-1).doneIsFalse();
+        taskList.get(Integer.parseInt(splitInput[1])-1).doneIsFalse();
         System.out.println("Unmarked "+ Integer.parseInt(splitInput[1]));
     }
 
-    public static void mark(String input, ArrayList<Task> list) {
+    public static void mark(String input) {
         String[] splitInput = input.split(" ");
-        list.get(Integer.parseInt(splitInput[1])-1).doneIsTrue();
+        taskList.get(Integer.parseInt(splitInput[1])-1).doneIsTrue();
         System.out.println("Marked "+ Integer.parseInt(splitInput[1]));
     }
 
-    public static void delete(String input, ArrayList<Task> list, ArrayList<String> stringList) {
+    public static void delete(String input) {
         String[] splitInput = input.split(" ");
         int indexToRemove = Integer.parseInt(splitInput[1])-1;
-        System.out.println("Deleted " + list.get(Integer.parseInt(splitInput[1])-1));
-        list.remove(list.get(indexToRemove));
-        stringList.remove(stringList.get(indexToRemove));
+        System.out.println("Deleted " + taskList.get(Integer.parseInt(splitInput[1])-1));
+        taskList.remove(taskList.get(indexToRemove));
+        inputList.remove(inputList.get(indexToRemove));
     }
 
-    public static void find(String input, ArrayList<Task> list) {
+    public static void find(String input) {
         boolean isFound = false;
         String[] splitInput = input.split(" ");
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDescription().contains(splitInput[1])) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(splitInput[1])) {
                 isFound = true;
-                System.out.println(list.get(i));
+                System.out.println(taskList.get(i));
             }
         }
         if (!isFound) {
