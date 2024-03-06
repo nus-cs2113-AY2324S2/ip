@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import exception.EkudException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 
 public class Duke {
 
@@ -63,7 +67,7 @@ public class Duke {
         String userInput;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
-        // Task[] tasks = new Task[100];
+        // task.Task[] tasks = new task.Task[100];
         // int taskCount = 0;
 
         try {
