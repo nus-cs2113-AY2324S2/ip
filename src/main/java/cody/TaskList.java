@@ -77,7 +77,7 @@ public class TaskList {
         tasks.add(task);
         return "Got it. I've added this task:\n"
                 + "[" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+                + "Now you have " + tasks.size() + " tasks in the list";
     }
 
     /**
@@ -95,7 +95,7 @@ public class TaskList {
         } else if (input.startsWith("event")) {
             return createEventTask(input);
         } else {
-            throw new CodyException("Unknown command: " + input + ". Type 'help' to see the list of commands.");
+            throw new CodyException("Unknown command: " + input + ". Type 'help' to see the list of commands");
         }
     }
 
@@ -153,7 +153,7 @@ public class TaskList {
         Task task = tasks.remove(index - 1);
         return "Noted. I've removed this task:\n"
                 + "[" + task.getTaskType() + "] [" + task.getStatusIcon() + "] " + task.getDescription() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.";
+                + "Now you have " + tasks.size() + " tasks in the list";
     }
 
     /**
@@ -176,7 +176,7 @@ public class TaskList {
             }
         }
         if (count == 0) {
-            listString = "There are no matching tasks in your list.";
+            listString = "There are no matching tasks in your list";
         }
         return listString;
     }

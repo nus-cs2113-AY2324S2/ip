@@ -18,17 +18,17 @@ ______________________________________________________________
 ______________________________________________________________
 Got it. I've added this task:
 [T] [ ] borrow book
-Now you have 1 tasks in the list.
+Now you have 1 tasks in the list
 ______________________________________________________________
 ______________________________________________________________
 Got it. I've added this task:
 [D] [ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Now you have 2 tasks in the list
 ______________________________________________________________
 ______________________________________________________________
 Got it. I've added this task:
 [E] [ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Now you have 3 tasks in the list
 ______________________________________________________________
 ______________________________________________________________
 Here are the tasks in your list:
@@ -59,7 +59,7 @@ Here are the tasks in your list:
  3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 
 ______________________________________________________________
-Unknown command: blah. Type 'help' to see the list of commands.
+Unknown command: blah. Type 'help' to see the list of commands
 The description of a todo cannot be empty. Please use 'todo <description>'
 The description of an event cannot be empty. Please use 'event <description> /from <start time> /to <end time>'
 The description of a deadline cannot be empty. Please use 'deadline <description> /by <deadline>'
@@ -71,7 +71,7 @@ Task number out of bounds. Please choose a number within the list
 ______________________________________________________________
 Noted. I've removed this task:
 [E] [ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 2 tasks in the list.
+Now you have 2 tasks in the list
 ______________________________________________________________
 ______________________________________________________________
 Here are the matching tasks in your list:
@@ -80,7 +80,7 @@ Here are the matching tasks in your list:
 
 ______________________________________________________________
 ______________________________________________________________
-There are no matching tasks in your list.
+There are no matching tasks in your list
 ______________________________________________________________
 The 'find' command requires a keyword to search for
 The 'list' command does not take any arguments
@@ -97,6 +97,7 @@ Here are the commands you can use:
  9. help: Displays the list of commands
  10. bye: Exits the application
 ______________________________________________________________
+Unknown command: bye 123. Type 'help' to see the list of commands
 ______________________________________________________________
 Bye. Hope to see you again soon!
 ______________________________________________________________

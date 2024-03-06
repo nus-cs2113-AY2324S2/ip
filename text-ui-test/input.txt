@@ -21,4 +21,5 @@ find meeting
 find
 list all
 help
+bye 123
 bye
