@@ -43,6 +43,9 @@ public class Parser {
             TaskList.addEvent(userCommand);
         } else if (userCommand.startsWith("delete")) {
             TaskList.deleteTask(userCommand);
+        } else if (userCommand.startsWith("find ")) {
+            String keyword = userCommand.substring(5);
+            TaskList.findTask(keyword);
         } else {
             System.out.println("read instructions. type properly.");
         }

@@ -208,6 +208,26 @@ public class TaskList {
             System.out.println("Invalid task index. Please enter a valid number.");
         }
     }
+
+    public static void findTask(String keyword) {
+        StringBuilder results = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        boolean found = false;
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) { // Case-insensitive search
+                results.append(String.format("%d. %s%n", (i + 1), task.toString()));
+                found = true;
+            }
+        }
+
+        if (!found) {
+            results.append("No matching tasks found.\n");
+        }
+
+        System.out.println(results);
+    }
+
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }
