@@ -1,5 +1,5 @@
 # Chat Bot Adam - User Guide
-This is a user guide for Chat Bot Adam, a desktop app for managing tasks, optimized for usage on a Command Line Interface (CLI).<br>
+This is a user manual for Chat Bot Adam, a task-management desktop application designed to be used with a Command Line Interface (CLI).<br>
 If you can type fast, Adam can get your tasks managed faster than some GUI apps.<br>
 
 ## Table of Contents
@@ -29,13 +29,13 @@ This user guide provides a comprehensive overview of Adam's features and command
 > 5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
 
 ```
-   Hello from
-                 _
-        /\      | |
-       /  \   __| | __ _ _ __ ___
-      / /\ \ / _` |/ _` | '_ ` _ \
-     / ____ \ (_| | (_| | | | | | |
-    /_/    \_\__,_|\__,_|_| |_| |_|
+ Hello from
+               _
+      /\      | |
+     /  \   __| | __ _ _ __ ___
+    / /\ \ / _` |/ _` | '_ ` _ \
+   / ____ \ (_| | (_| | | | | | |
+  /_/    \_\__,_|\__,_|_| |_| |_|
    
 ```
 
@@ -121,7 +121,7 @@ Here are the tasks in your list:
 Marks a task as done in the list of tasks.
 
 #### Usage
-> `mark <index>` - Marks the task at the given index as done.
+> `mark <index>` - Marks the task at the given index as done.<br>
 > `unmark <index>` - Marks the task at the given index as not done.
 
 #### Example of usage
