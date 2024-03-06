@@ -5,6 +5,12 @@
 > SalmonSan is a simple command line based interface task management app that allows user to set todos, events, and deadline
 
 ## Features
+
+### Show list of commands: `help`
+Show all available commands and format
+
+Format `help`
+
 ### Adding a todo task: `todo`
 Adding a todo task to your list
 
