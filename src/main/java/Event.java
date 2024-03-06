@@ -5,6 +5,7 @@
 public class Event extends Task {
     /** The start time of the event. */
     protected String start;
+
     /** The end time of the event. */
     protected String end;
 

@@ -6,8 +6,10 @@ import java.util.Scanner;
 public class Ui {
     /** User input string. */
     public String input;
+
     /** Scanner object for reading user input. */
     public Scanner in;
+
     /** Expected length of user input. One keyword and subsequent description. */
     public final int EXPECTED_LENGTH = 2;
 

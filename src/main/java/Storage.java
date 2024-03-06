@@ -30,11 +30,9 @@ public class Storage {
      */
     public void saveTasksToFile(TaskList tasks) throws IOException {
         Path filePath = Paths.get(this.filePath);
-
         if (!Files.exists(filePath.getParent())) {
             Files.createDirectories(filePath.getParent());
         }
-
         List<String> encodedTasks = encodeTasks(tasks.getTasks());
         Files.write(filePath, encodedTasks);
     }
@@ -49,7 +47,6 @@ public class Storage {
     public TaskList loadTasksToFile() throws IOException, JaneDataCorruptedException {
         Path filePath = Paths.get(this.filePath);
         TaskList tasks;
-
         if (Files.exists(filePath)) {
             try {
                 List<String> lines = Files.readAllLines(filePath);
@@ -64,7 +61,6 @@ public class Storage {
         } else {
             tasks = new TaskList();
         }
-
         return tasks;
     }
 
@@ -118,7 +114,6 @@ public class Storage {
         } catch (IllegalArgumentException e) {
             throw new JaneDataCorruptedException("Data file is corrupted: " + e.getMessage());
         }
-
         return decodedTasks;
     }
 
@@ -153,7 +148,6 @@ public class Storage {
             String[] dateTimeParts = descriptionStartEndString[1].split("-");
             String start = dateTimeParts[0];
             String end = dateTimeParts[1];
-
             Event newEvent = new Event(description, start, end);
             newEvent.setDone(isDone);
             return newEvent;

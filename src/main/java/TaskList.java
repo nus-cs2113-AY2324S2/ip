@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TaskList {
     /** The list containing tasks. */
     protected ArrayList<Task> list;
-    
+
     /**
      * Constructs an empty TaskList.
      */

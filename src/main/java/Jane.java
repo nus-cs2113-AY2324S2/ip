@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Jane {
     /** File path that stores the task data. */
     public static final String FILE_PATH = "./data/jane.txt";
+
     /** Storage system that handles file operations. */
     public static Storage storage;
 
