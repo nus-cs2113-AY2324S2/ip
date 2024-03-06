@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String MESSAGE_ADD = "Are you sure you'll ever get to it? Fine, I've added this task:";
+    private static final String MESSAGE_DATE_FORMAT = "I don't understand the date, please input it as yyyy-MM-dd.";
     private static final String MESSAGE_DELETE = "Finally lifting my load? I've removed this task:";
     private static final String MESSAGE_EMPTY_LIST = "Go and touch some grass... your list is empty.";
     private static final String MESSAGE_EMPTY_DESCRIPTION = "I can't do that if you don't give me the description...";
@@ -81,5 +82,9 @@ public class Ui {
     public static void showMarkMessage(ArrayList<Task> allTasks, int index) {
         System.out.println(MESSAGE_MARK);
         System.out.println(allTasks.get(index).toString());
+    }
+
+    public static void showWrongDateFormat() {
+        System.out.println(MESSAGE_DATE_FORMAT);
     }
 }

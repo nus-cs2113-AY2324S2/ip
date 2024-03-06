@@ -6,6 +6,7 @@ import fredbot.task.Event;
 import fredbot.task.Task;
 import fredbot.task.Todo;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -54,7 +55,7 @@ public class TaskList {
         allTasks.add(new Todo(input));
     }
 
-    public static void addDeadline(String[] split) throws EmptyDescriptionException {
+    public static void addDeadline(String[] split) throws EmptyDescriptionException, DateTimeParseException {
         allTasks.add(new Deadline(split[0], split[1]));
     }
 
