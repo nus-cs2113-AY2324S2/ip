@@ -28,10 +28,8 @@ public class Parser {
             case "mark":
                 return new markCommand(description);
             case "find":
-                System.out.println("LOL");
                 return new findCommand(description);
             default:
-                System.out.println("LOL2");
                 return new Command(description);
         }
     }
