@@ -16,8 +16,8 @@ import java.util.Scanner;
 
 public class FredBot {
     private static ArrayList<Task> allTasks;
-    private static final int TASK_CAPACITY = 100;
     private static int count;
+    private static final int EMPTY_LIST_COUNT = 0;
 
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_DELETE = "delete";
@@ -45,8 +45,32 @@ public class FredBot {
     private static final String PREFIX_TO = "/to";
 
     private static final String FILE_PATH = "data/fredbot.txt";
+    private static final String FOLDER_NAME = "data";
+
+    private static final int INDEX_COMMAND_WORD = 0;
+    private static final int INDEX_COMMAND_ARGS = 1;
+    private static final int INDEX_SECOND = 1;
+    private static final int INDEX_FIRST = 0;
+    private static final int INDEX_DESCRIPTION = 2;
+    private static final int INDEX_STATUS = 1;
+    private static final int INDEX_BY = 3;
+    private static final int INDEX_FROM = 3;
+    private static final int INDEX_TO = 4;
+
+    private static final String TASK_TODO = "T";
+    private static final String TASK_DEADLINE = "D";
+    private static final String TASK_EVENT = "E";
+    private static final String STATUS_DONE = "1";
+
+    private static final String ARG_SEPARATOR = "\\|";
+    private static final int MAX_ARG = 5;
+    private static final String INPUT_ARG_SEPARATOR = " ";
+    private static final int MAX_INPUT_ARG = 2;
+    private static final String EMPTY_STRING = "";
 
     private static final Scanner SCANNER = new Scanner(System.in);
+
+    private static final int NORMAL_TERMINATION = 0;
 
     public static void main(String[] args) {
         loadFredBot();
@@ -81,40 +105,52 @@ public class FredBot {
     }
 
     private static void processLine(String task) throws EmptyDescriptionException {
-        String taskType = task.substring(0, 1);
+        String taskType = task.substring(INDEX_FIRST, INDEX_SECOND);
         String[] taskArgs = splitArgs(task);
         switch (taskType) {
-        case "T":
-            allTasks.add(new Todo(taskArgs[2].trim()));
-            markDone(allTasks.get(count), taskArgs[1]);
-            count++;
+        case TASK_TODO:
+            readTodo(taskArgs);
             break;
-        case "D":
-            allTasks.add(new Deadline(taskArgs[2].trim(), taskArgs[3].trim()));
-            markDone(allTasks.get(count), taskArgs[1]);
-            count++;
+        case TASK_DEADLINE:
+            readDeadline(taskArgs);
             break;
-        case "E":
-            allTasks.add(new Event(taskArgs[2].trim(), taskArgs[3].trim(), taskArgs[4].trim()));
-            markDone(allTasks.get(count), taskArgs[1]);
-            count++;
+        case TASK_EVENT:
+            readEvent(taskArgs);
             break;
         }
     }
 
+    private static void readEvent(String[] taskArgs) throws EmptyDescriptionException {
+        allTasks.add(new Event(taskArgs[INDEX_DESCRIPTION].trim(), taskArgs[INDEX_FROM].trim(), taskArgs[INDEX_TO].trim()));
+        markDone(allTasks.get(count), taskArgs[INDEX_STATUS]);
+        count++;
+    }
+
+    private static void readDeadline(String[] taskArgs) throws EmptyDescriptionException {
+        allTasks.add(new Deadline(taskArgs[INDEX_DESCRIPTION].trim(), taskArgs[INDEX_BY].trim()));
+        markDone(allTasks.get(count), taskArgs[INDEX_STATUS]);
+        count++;
+    }
+
+    private static void readTodo(String[] taskArgs) throws EmptyDescriptionException {
+        allTasks.add(new Todo(taskArgs[INDEX_DESCRIPTION].trim()));
+        markDone(allTasks.get(count), taskArgs[INDEX_STATUS]);
+        count++;
+    }
+
     private static void markDone(Task t, String status) {
-        if (status.trim().equals("1")) {
+        if (status.trim().equals(STATUS_DONE)) {
             t.markAsDone();
         }
     }
 
     private static String[] splitArgs(String task) {
-        return task.split("\\|", 5);
+        return task.split(ARG_SEPARATOR, MAX_ARG);
     }
 
     private static void initSaveFile(File f) {
         try {
-            new File("data").mkdir();
+            new File(FOLDER_NAME).mkdir();
             f.createNewFile();
         } catch (IOException e) {
             System.out.println(MESSAGE_ERROR);
@@ -123,7 +159,7 @@ public class FredBot {
 
     private static void initTaskList() {
         allTasks = new ArrayList<>();
-        count = 0;
+        count = EMPTY_LIST_COUNT;
     }
 
     private static void showWelcomeMessage() {
@@ -160,8 +196,8 @@ public class FredBot {
 
     private static void extractCommand(String input) throws UnknownCommandException {
         final String[] commandWordAndArgs = splitCommandWordAndArgs(input);
-        final String commandWord = commandWordAndArgs[0];
-        final String commandArgs = commandWordAndArgs[1];
+        final String commandWord = commandWordAndArgs[INDEX_COMMAND_WORD];
+        final String commandArgs = commandWordAndArgs[INDEX_COMMAND_ARGS];
 
         switch (commandWord) {
         case COMMAND_TODO:
@@ -194,8 +230,8 @@ public class FredBot {
     }
 
     private static String[] splitCommandWordAndArgs(String input) {
-        final String[] split = input.split(" ", 2);
-        return split.length == 2 ? split : new String[]{split[0], ""};
+        final String[] split = input.split(INPUT_ARG_SEPARATOR, MAX_INPUT_ARG);
+        return split.length == MAX_INPUT_ARG ? split : new String[]{split[INDEX_FIRST], EMPTY_STRING};
     }
 
     private static void executeAddTodo(String input) {
@@ -296,6 +332,6 @@ public class FredBot {
 
     private static void executeExit() {
         System.out.println(MESSAGE_GOODBYE);
-        System.exit(0);
+        System.exit(NORMAL_TERMINATION);
     }
 }
