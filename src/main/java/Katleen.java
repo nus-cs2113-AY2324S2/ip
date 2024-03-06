@@ -28,8 +28,6 @@ public class Katleen {
         boolean done = false;
         do {
             userInput = ui.getUserInput();
-            if (!userInput.equals("bye")) { //Does not say "added" if closing app
-            }
             done = Parser.parseCommand(userInput, false);
 
         } while (!done);

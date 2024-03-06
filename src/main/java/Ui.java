@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -40,6 +41,15 @@ public class Ui {
     public String getUserInput() {
         out.println("Enter command: ");
         return in.nextLine();
+    }
+
+    public static void printTasks(ArrayList<Task> tasks) {
+        int taskNo = OFFSET;
+        for (Task t : tasks) {
+            System.out.print(taskNo + ". ");
+            t.printTask();
+            taskNo++;
+        }
     }
 
 }

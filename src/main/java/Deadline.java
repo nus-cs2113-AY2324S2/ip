@@ -16,7 +16,7 @@ public class Deadline extends Task{
 
     public static Deadline addDeadline(String task) {
         String[] taskSplit = task.split("/by");
-        taskSplit[1] = taskSplit[1].replace("/by", "").trim();
+        taskSplit[1] = taskSplit[1].replaceFirst("/by", "").trim();
         return new Deadline(taskSplit[0].trim(), taskSplit[1]);
     }
 
