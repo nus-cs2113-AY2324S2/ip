@@ -1,4 +1,4 @@
-package Yoj.command;
+package Yoj.tasks;
 public class Event extends Task {
     protected String start;
     protected String end;
