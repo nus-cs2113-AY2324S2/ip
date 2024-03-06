@@ -17,72 +17,16 @@ public class Bobby {
         return input.substring(5);
     }
 
-    public static void writeToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
-        for (Task task : tasks) {
-            fw.write(taskToFileFormat(task));
-        }
-        fw.close();
-    }
-
-    public static String taskToFileFormat(Task task) {
-        if (task instanceof Todo) {
-            return "T | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + "\n";
-        } else if (task instanceof Deadline) {
-            return "D | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " + task.getBy() + "\n";
-        } else if (task instanceof Event) {
-            return "E | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + " | " + task.getFrom() + " | "
-                    + task.getBy() + "\n";
-        }
-        return "";
-    }
-
-    public static void parseTask(String line, ArrayList<Task> tasks) {
-        String[] parts = line.split("\\|");
-        String label = parts[0].trim();
-        boolean isDone = parts[1].trim().equals("1");
-        String description = parts[2].trim();
-        switch (label) {
-        case "T":
-            tasks.add(new Todo(description,isDone));
-            break;
-        case "D":
-            String by = parts[3].trim();
-            tasks.add(new Deadline(description, isDone, by));
-            break;
-        case "E":
-            String from = parts[3].trim();
-            String to = parts[4].trim();
-            tasks.add(new Event(description, isDone, from, to));
-            break;
-        default:
-        }
-    }
-
-
-    public static void loadFile(ArrayList<Task> tasks) throws FileNotFoundException {
-        File f = new File(FILE_PATH);
-        Scanner scanner = new Scanner(f);
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            parseTask(line, tasks);
-        }
-    }
-
     public static void main(String[] args) {
         Ui ui = new Ui();
+        Storage storage = new Storage(FILE_PATH);
         boolean isExit = false;
         ArrayList<Task> tasks = new ArrayList<>(); // Using ArrayList instead of array
         Scanner in = new Scanner(System.in);
         ui.showWelcomeMessage();
-        File f = new File(FILE_PATH);
+        storage.createFile();
         try {
-            f.createNewFile();
-        } catch (IOException e) {
-            ui.showTextFileError();
-        }
-        try {
-           loadFile(tasks);
+           storage.loadFile(tasks);
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
         }
@@ -111,7 +55,7 @@ public class Bobby {
                     ui.showMarkMessage();
                     System.out.println(entry + "." + tasks.get(entry - 1));
                     try {
-                        writeToFile(tasks);
+                        storage.writeToFile(tasks);
                     } catch (IOException e) {
                         ui.showSavingError();
                     }
@@ -124,7 +68,7 @@ public class Bobby {
                     ui.showUnmarkMessage();
                     System.out.println(entry + "." + tasks.get(entry - 1));
                     try {
-                        writeToFile(tasks);
+                        storage.writeToFile(tasks);
                     } catch (IOException e) {
                         ui.showSavingError();
                     }
@@ -143,7 +87,7 @@ public class Bobby {
                 tasks.add(new Todo(description, false));
                 ui.showValidTodoMessage(tasks);
                 try {
-                    writeToFile(tasks);
+                    storage.writeToFile(tasks);
                 } catch (IOException e) {
                     ui.showSavingError();
                 }
@@ -159,7 +103,7 @@ public class Bobby {
                 tasks.add(new Deadline(description, false, by));
                 ui.showValidDeadlineMessage(tasks);
                 try {
-                    writeToFile(tasks);
+                    storage.writeToFile(tasks);
                 } catch (IOException e) {
                     ui.showSavingError();
                 }
@@ -176,7 +120,7 @@ public class Bobby {
                 tasks.add(new Event(description, false, by, from));
                 ui.showValidEventMessage(tasks);
                 try {
-                    writeToFile(tasks);
+                    storage.writeToFile(tasks);
                 } catch (IOException e) {
                    ui.showSavingError();
                 }
@@ -186,7 +130,7 @@ public class Bobby {
                 if (entry > 0 && entry <= tasks.size()) {
                     ui.showDeleteMessage(tasks, entry);
                     try {
-                        writeToFile(tasks);
+                        storage.writeToFile(tasks);
                     } catch (IOException e) {
                         ui.showSavingError();
                     }
