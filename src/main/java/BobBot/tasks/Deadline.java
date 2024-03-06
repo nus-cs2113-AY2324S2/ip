@@ -26,7 +26,8 @@ public class Deadline extends Task {
 
         if (DateParser.containsValidDateString(this.by)) {
             String dateString = DateParser.detectDateFromByString(this.by);
-            this.parsedDateString = DateParser.parseDateFromDateString(dateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            this.parsedDateString = DateParser.parseDateFromDateString(dateString)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             this.by = this.by.replace(dateString, this.parsedDateString);
         }
 
