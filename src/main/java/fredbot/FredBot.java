@@ -47,6 +47,11 @@ public class FredBot {
         }
     }
 
+    /**
+     * Initialises FredBot.
+     * If there is an existing task list, it is loaded.
+     * Else, a new task list is created.
+     */
     private static void loadFredBot() {
         initTaskList();
         File f = new File(FILE_PATH);
@@ -57,10 +62,19 @@ public class FredBot {
         }
     }
 
+    /**
+     * Creates a new TaskList class.
+     */
     private static void initTaskList() {
         tasks = new TaskList();
     }
 
+    /**
+     * Reads the command input.
+     * If the command word is not recognised, an error message is shown.
+     *
+     * @param input User input.
+     */
     private static void executeCommand(String input) {
         try {
             extractCommand(input);
@@ -69,6 +83,12 @@ public class FredBot {
         }
     }
 
+    /**
+     * Splits the command word and arguments, then executes based on the command word.
+     *
+     * @param input User input.
+     * @throws UnknownCommandException If the command word is not recognised.
+     */
     private static void extractCommand(String input) throws UnknownCommandException {
         final String[] commandWordAndArgs = parser.splitCommandWordAndArgs(input);
         final String commandWord = commandWordAndArgs[INDEX_COMMAND_WORD];
@@ -104,6 +124,12 @@ public class FredBot {
         }
     }
 
+    /**
+     * Creates a Todo task and adds it to the TaskList.
+     * If the description is empty, an error message is shown.
+     *
+     * @param input Todo details.
+     */
     private static void executeAddTodo(String input) {
         try {
             tasks.addTodo(input);
@@ -113,6 +139,12 @@ public class FredBot {
         }
     }
 
+    /**
+     * Creates a Deadline task and adds it to the TaskList.
+     * If the description is empty, an error message is shown.
+     *
+     * @param input Deadline details.
+     */
     private static void executeAddDeadline(String input) {
         String[] split = parser.splitDeadlineAndDate(input);
         try {
@@ -123,6 +155,12 @@ public class FredBot {
         }
     }
 
+    /**
+     * Creates an Event task and adds it to the TaskList.
+     * If the description is empty, an error message is shown.
+     *
+     * @param input Event details.
+     */
     private static void executeAddEvent(String input) {
         String[] split = parser.splitEventAndDates(input);
         try {
@@ -133,6 +171,9 @@ public class FredBot {
         }
     }
 
+    /**
+     * Echoes the task that has just been added back to the user.
+     */
     private static void echoTask() {
         ui.showMessageAdd(tasks);
         tasks.increaseCount();
@@ -141,6 +182,9 @@ public class FredBot {
         ui.showNumberOfTasks(count, task);
     }
 
+    /**
+     * Prints the TaskList to the user.
+     */
     private static void executeList() {
         int count = tasks.getCount();
         if (count == EMPTY_COUNT) {
@@ -150,18 +194,33 @@ public class FredBot {
         ui.showList(tasks.getTaskList(), count);
     }
 
+    /**
+     * Marks the specified task as done.
+     *
+     * @param taskNumber Index of the task.
+     */
     private static void executeMark(String taskNumber) {
         int index = parser.getIndex(taskNumber);
         tasks.getTask(index).markAsDone();
         ui.showMarkMessage(tasks.getTaskList(), index);
     }
 
+    /**
+     * Marks the specified task as undone.
+     *
+     * @param taskNumber Index of the task.
+     */
     private static void executeUnmark(String taskNumber) {
         int index = parser.getIndex(taskNumber);
         tasks.getTask(index).unmarkAsDone();
         ui.showUnmarkMessage(tasks.getTaskList(), index);
     }
 
+    /**
+     * Deletes the specified task off the TaskList.
+     *
+     * @param taskNumber Index of the task.
+     */
     private static void executeDelete(String taskNumber) {
         int index = parser.getIndex(taskNumber);
         ui.showDeleteMessage(tasks.getTaskList(), index);
@@ -171,6 +230,9 @@ public class FredBot {
         ui.showNumberOfTasks(count, task);
     }
 
+    /**
+     * Closes FredBot.
+     */
     private static void executeExit() {
         ui.showGoodbyeMessage();
         System.exit(NORMAL_TERMINATION);
