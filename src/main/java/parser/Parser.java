@@ -104,9 +104,7 @@ public class Parser {
     }
 
     private static void listCommand(TaskList tasks, Ui ui) {
-        for (int i = 0; i < tasks.getTasks().size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.getTasks().get(i));
-        }
+        tasks.listTasks();
     }
 
     private static void addTodoTask(String taskDescription, TaskList tasks, Ui ui) {
