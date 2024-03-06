@@ -8,6 +8,12 @@ import Kowalski.commands.TaskList;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Kowalski is a bot for users to keep track of your everyday tasks.
+ * It is able to store and retrieve tasks which you need to do, tasks with deadlines and events important to users.
+ * It allows you to easily add, remove tasks, or even mark and unmark tasks.
+ * It also allows users to find previous tasks based on their inputs.
+ */
 public class Kowalski {
     public static Scanner in = new Scanner (System.in);
 

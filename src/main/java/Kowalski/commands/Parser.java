@@ -85,6 +85,13 @@ public class Parser {
         return new Event(eventInformation, eventFrom, eventTo);
     }
 
+    /**
+     * Parses user command and initiates actions according to the first word input by the user.
+     * Able to initiate actions for commands - bye, list, find, delete, unmark, mark, todo, deadline, event
+     * @param UserCommand first word input by the user
+     * @param currentTask is an ArrayList storing the current tasks
+     * @param in is of scanner class to enable usage of the scanning library's functions
+     */
     public static void parseUserCommand(String UserCommand, List<Task> currentTask, Scanner in) {
 
         int taskNumber;

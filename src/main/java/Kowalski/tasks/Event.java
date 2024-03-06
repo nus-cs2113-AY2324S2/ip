@@ -10,10 +10,18 @@ public class Event extends Task {
         this.endDayAndTime = endDayAndTime;
     }
 
+    /**
+     * Method obtains the start date and time of the event
+     * @return String of the start date and time
+     */
     public String getStartDayAndTime() {
         return startDayAndTime;
     }
 
+    /**
+     * Method obtains the end date and time of the event
+     * @return String of the end date and time
+     */
     public String getEndDayAndTime() {
         return endDayAndTime;
     }
