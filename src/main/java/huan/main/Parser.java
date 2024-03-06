@@ -7,7 +7,14 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Class for parsing all user commands
+ */
 public class Parser {
+    /**
+     * Method for parsing command inputs
+     */
     public static void parseCommands() {
 
         Scanner scanner = new Scanner(System.in);
@@ -154,10 +161,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Method for parsing a TodoTask from the command
+     * @param suffixWord the command-string to be parsed
+     * @param isDone whether the task is marked as finished
+     * @return a parsed TodoTask type object
+     */
     public static TodoTask parseTodoTask(String suffixWord, Boolean isDone) {
         return new TodoTask(suffixWord, isDone);
     }
 
+    /**
+     * Method for parsing a DeadlineTask from the command
+     * @param suffixWord the command-string to be parsed
+     * @param isDone whether the task is marked as finished
+     * @return a parsed DeadlineTask type object
+     * @throws Exception detect whether the command format is incorrect
+     */
     public static DeadlineTask parseDeadlineTask(String suffixWord, Boolean isDone) throws Exception{
         StringBuilder ddlTime = new StringBuilder();
         StringBuilder name = new StringBuilder();
@@ -190,6 +210,13 @@ public class Parser {
         return new DeadlineTask(name.toString(), ddlTime.toString(), isDone);
     }
 
+    /**
+     * Method for parsing a EventTask from the command
+     * @param suffixWord the command-string to be parsed
+     * @param isDone whether the task is marked as finished
+     * @return a parsed EventTask type object
+     * @throws Exception detect whether the command format is incorrect
+     */
     public static EventTask parseEventTask(String suffixWord, Boolean isDone) throws Exception{
         StringBuilder startTime = new StringBuilder();
         StringBuilder endTime = new StringBuilder();

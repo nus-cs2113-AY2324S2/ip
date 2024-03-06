@@ -1,18 +1,24 @@
 package huan.main;
 
-import huan.task.DeadlineTask;
-import huan.task.EventTask;
 import huan.task.Task;
-import huan.task.TodoTask;
 
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+
+/**
+ * Class for reading & writing input/output to file
+ */
 public class Storage {
     private static String taskFile = "tasklist.txt";
 
+    /**
+     * Method for processing a line of input
+     * @param line the line to be processed
+     * @throws Exception exception is thrown whenever the input format is corrupt.
+     */
     public static void processLine(String line) throws Exception{
         String[] words = line.split(" ");
         String suffixWord = line.substring(words[0].length() + 1);
@@ -36,6 +42,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Method for reading the input file
+     */
     public static void readFile() {
         try (BufferedReader reader= new BufferedReader(new FileReader(taskFile))){
             String line;
@@ -51,6 +60,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Method for writing the current task list to the file
+     */
     public static void writeFile() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(taskFile));
