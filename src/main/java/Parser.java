@@ -1,10 +1,30 @@
+/**
+ * Handles parsing of user commands and conversion of stored data back into task objects.
+ * This class is responsible for interpreting user input and executing corresponding actions
+ * in the TaskList.
+ */
 public class Parser {
+
+    /**
+     * Parses and executes a command input by the user.
+     * It interprets various commands such as adding, deleting, marking, unmarking tasks, listing tasks,
+     * finding tasks by keyword, and exiting the application.
+     *
+     * @param input The user input string to be parsed.
+     * @param tasks The TaskList to operate on.
+     * @param ui The Ui instance for user interaction.
+     * @return true if the application should continue running, false if it should terminate.
+     */
 
     public static boolean parseCommand(String input, TaskList tasks, Ui ui) {
         try {
             if (input.equalsIgnoreCase("bye")) {
                 Ui.printExit();
-                return false; // Indicate to stop the program
+                return false;
+            } else if (input.toLowerCase().startsWith("find ")) {
+                String keyword = input.substring(5);
+                TaskList.findTask(keyword);
+                return true;
             } else if (input.toLowerCase().startsWith("delete ")) {
                 TaskList.deleteTask(input);
             } else if (input.equalsIgnoreCase("list")) {
@@ -16,11 +36,21 @@ public class Parser {
             } else {
                 TaskList.addTask(input);
             }
-        } catch (Exception e) { // Replace with a more specific exception if needed
-            Ui.printCorrupted();
+
+        } catch (Exception e) {
+            Ui.printParseError();
         }
-        return true; // Continue running the program
+        return true;
     }
+
+    /**
+     * Parses a task from its string representation stored in a file back into a Task object.
+     * This method is designed to support different types of tasks (ToDo, Deadline, Event)
+     * based on their data representation.
+     *
+     * @param data The string representation of the task from the storage file.
+     * @return The Task object parsed from the string, or null if the string format is incorrect.
+     */
     public static Task parseTaskFromString(String data) {
         String[] parts = data.split("\\|");
 
@@ -42,9 +72,9 @@ public class Parser {
                 break;
             case "E":
                 if (parts.length < 5) return null;
-                String times = parts[3].trim(); // Assuming "from to to" format
+                String times = parts[3].trim();
                 String[] timeParts = times.split(" to ", 2);
-                if (timeParts.length < 2) return null; // Proper validation
+                if (timeParts.length < 2) return null;
                 task = new Event(description, timeParts[0], timeParts[1]);
                 break;
         }
@@ -54,6 +84,4 @@ public class Parser {
         }
         return task;
     }
-
-
 }
