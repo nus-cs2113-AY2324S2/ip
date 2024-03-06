@@ -1,6 +1,8 @@
 package com.arriky.app;
 
 import com.arriky.task.TaskList;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UI {
@@ -60,11 +62,29 @@ public class UI {
         System.out.println("Saved entries imported!");
     }
 
-    public static void listAllTasks(TaskList taskList) {
-        int size = taskList.getTaskCount();
-        for (int i=0; i<size; i++) {
-            int displayID = i + 1;
-            System.out.println(" " + displayID + ". " + taskList.getSummaryByIndex(i));
+    public static void listAllTasks(ArrayList<String> results) {
+        if (results.isEmpty()) {
+            System.out.println("Your task list is empty. Please add one first");
+        } else {
+            System.out.println(" Here are all the entries in your task list:");
+            int displayId = 1;
+            for (String entry : results) {
+                System.out.println(" " + displayId + ". " + entry);
+                displayId++;
+            }
+        }
+    }
+
+    public static void displayFindResults(ArrayList<String> results) {
+        if (results.isEmpty()) {
+            System.out.println("No matching entry found in your task list.");
+        } else {
+            System.out.println(" Here are the matching tasks in your list:");
+            int displayId = 1;
+            for (String entry : results) {
+                System.out.println(" " + displayId + ". " + entry);
+                displayId++;
+            }
         }
     }
 
