@@ -1,12 +1,19 @@
 import java.util.ArrayList;
 
+/**
+ * The main class responsible for running the Kratos task management application.
+ */
 public class Kratos {
     private static Ui ui = new Ui();
     private static Storage storage = new Storage();
     private static TaskList listOfTasks = new TaskList();
     static ArrayList<Task> tasksList = new ArrayList<>();
 
-    // Main method
+    /**
+     * The main method of the Kratos application.
+     *
+     * @param args The command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
         ui.greet();
@@ -20,7 +27,7 @@ public class Kratos {
                     ui.end();
                     return;
                 case "list":
-                    ui.displayTasks(tasksList.size(), tasksList);
+                    ui.displayTasks(tasksList);
                     break;
                 default:
                     handleCommand(userInput);
@@ -33,6 +40,11 @@ public class Kratos {
         }
     }
 
+    /**
+     * Handles the user command input.
+     *
+     * @param userInput The user input command.
+     */
     private static void handleCommand(String userInput) {
         try {
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
