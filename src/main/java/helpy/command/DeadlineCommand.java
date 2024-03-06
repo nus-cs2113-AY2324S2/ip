@@ -6,6 +6,7 @@ import helpy.task.Deadline;
 import helpy.task.TaskList;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command{
     public DeadlineCommand(String body) {
@@ -19,7 +20,7 @@ public class DeadlineCommand extends Command{
             taskList.addTask(newDeadline);
             ui.showAddMessage(newDeadline, taskList.getListLength());
             storage.update(taskList);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             ui.showDeadlineDescErr();
         } catch (IOException e) {
             ui.showIOExceptionErr();
