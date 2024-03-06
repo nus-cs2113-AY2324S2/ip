@@ -1,6 +1,6 @@
-import exceptions.InvalidDeadlineSyntaxException;
-
-import java.util.ArrayList;
+/**
+ * Parses user inputs to obtain meaningful data for other functions
+ */
 
 public class Parser {
     private static final int TODO_START_INDEX = 5;

@@ -4,6 +4,11 @@ import exceptions.InvalidTodoSyntaxException;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with printing out the replies to user
+ */
+
+
 public class Printer {
 
     private static final String BOT_NAME = "Baymax";

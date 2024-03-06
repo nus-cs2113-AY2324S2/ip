@@ -5,6 +5,10 @@ import exceptions.InvalidTodoSyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Ui/User Interface deals with interactions with the user
+ */
+
 public class Ui {
 
     public static void handleUserInput(ArrayList<Task> taskArrayList) {
