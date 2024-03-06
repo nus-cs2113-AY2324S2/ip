@@ -23,7 +23,6 @@ public class TaskList {
         Ui.printTaskList();
         Ui.drawLine(true);
     }
-    
 
     public static void addTask(String line, boolean isLoad) {
 
