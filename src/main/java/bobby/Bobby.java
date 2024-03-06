@@ -3,23 +3,15 @@ package bobby;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Bobby {
     public static final String FILE_PATH = "data/tasks.txt";
 
-    public static String obtainTodoDescription(String input) throws BobbyException {
-        if (input.length() < 5 || input.substring(5).trim().isEmpty()) {
-            throw new BobbyException();
-        }
-        return input.substring(5);
-    }
-
     public static void main(String[] args) {
         Ui ui = new Ui();
         Storage storage = new Storage(FILE_PATH);
+        Parser parser = new Parser();
         boolean isExit = false;
         ArrayList<Task> tasks = new ArrayList<>(); // Using ArrayList instead of array
         Scanner in = new Scanner(System.in);
@@ -37,12 +29,8 @@ public class Bobby {
             String description;
             String by;
             String from;
-            if (input.indexOf(' ') > 0) {
-                command = input.substring(0, input.indexOf(' '));
-            } else {
-                command = input;
-            }
             int entry;
+            command = parser.parseCommand(input);
             switch (command) {
             case "bye":
                 ui.showByeMessage();
@@ -79,7 +67,7 @@ public class Bobby {
                 break;
             case "todo":
                 try {
-                    description = obtainTodoDescription(input);
+                    description = parser.parseTodoDescription(input);
                 } catch (BobbyException e) {
                     ui.showInvalidTodoMessage();
                     break;
@@ -94,8 +82,8 @@ public class Bobby {
                 break;
             case "deadline":
                 try {
-                    description = input.substring(9, input.indexOf("/by") - 1);
-                    by = input.substring(input.indexOf("/by") + 4);
+                    description = parser.parseDeadlineDescription(input);
+                    by = parser.parseDeadlineBy(input);
                 } catch (StringIndexOutOfBoundsException e) {
                     ui.showInvalidDeadlineMessage();
                     break;
@@ -110,9 +98,9 @@ public class Bobby {
                 break;
             case "event":
                 try {
-                    description = input.substring(6, input.indexOf("/from") - 1);
-                    by = input.substring(input.indexOf("/to") + 4);
-                    from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+                    description = parser.parseEventDescription(input);
+                    by = parser.parseEventBy(input);
+                    from = parser.parseEventFrom(input);
                 } catch (StringIndexOutOfBoundsException e) {
                     ui.showInvalidEventMessage();
                     break;
