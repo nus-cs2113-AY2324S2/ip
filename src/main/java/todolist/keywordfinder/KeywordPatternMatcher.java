@@ -25,7 +25,7 @@ public class KeywordPatternMatcher {
     private static final String DEADLINESTASK_FEATURE_PATTERN = "^deadline .*"; //todoItem
     private static final String EVENTSTASK_PATTERN = "^event .*"; //todoItem
     //INCORRECT PATTERN
-    private static final String TODOTASK_FEATURE_PATTERN_INCORRECT = "^todo .*";
+    private static final String TODOTASK_FEATURE_PATTERN_INCORRECT = "^todo\\s+$";
 
     private static final String DATE_TIME_PATTERN = "uuuu-MM-dd HH:mm:ss"; //date time pattern
 
@@ -69,14 +69,14 @@ public class KeywordPatternMatcher {
             return Keyword.mark;
         } else if (matchesPattern(this.inputText, UNMARK_FEATURE_PATTERN)) {
             return Keyword.unmark;
-        } else if (matchesPattern(this.inputText, TODOTASK_FEATURE_PATTERN)) {
-            return Keyword.todo;
         } else if (matchesPattern(this.inputText, DEADLINESTASK_FEATURE_PATTERN)) {
             return Keyword.deadline;
         } else if (matchesPattern(this.inputText, EVENTSTASK_PATTERN)) {
             return Keyword.event;
         } else if (matchesPattern(this.inputText, TODOTASK_FEATURE_PATTERN_INCORRECT)) {
             return Keyword.todoError;
+        } else if (matchesPattern(this.inputText, TODOTASK_FEATURE_PATTERN)) {
+            return Keyword.todo;
         } else if (matchesPattern(this.inputText, DELETE_TASK_FEATURE_PATTERN)) {
             return Keyword.delete;
         } else if (matchesPattern(this.inputText,FIND_TASK_FEATURE_PATTERN)) {
