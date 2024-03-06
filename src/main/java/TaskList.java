@@ -5,6 +5,10 @@ public class TaskList {
     private static ArrayList<Task> tasks;
 
     public TaskList() {
+
+    }
+
+    public void load() {
         TaskList.tasks = new ArrayList<>();
     }
 

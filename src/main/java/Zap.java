@@ -10,7 +10,8 @@ public class Zap {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         tasks = storage.load();
-        new TaskList();
+        TaskList taskList = new TaskList();
+        taskList.load();
         this.parser = new Parser();
     }
 
