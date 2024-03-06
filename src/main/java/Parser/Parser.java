@@ -1,3 +1,5 @@
+package Parser;
+
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.TaskNotFoundException;
 import Tasks.Task;
@@ -5,7 +7,7 @@ import Tasks.Task;
 import java.util.ArrayList;
 
 /**
- * The Parser class provides methods for parsing user input related to task commands.
+ * The Parser.Parser class provides methods for parsing user input related to task commands.
  */
 public class Parser {
     public static final int MARK_TASK_INDEX = 5;
@@ -29,7 +31,7 @@ public class Parser {
      * @return a formatted string representation of the parsed event task
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      */
-    protected String parseEvent(String input) throws ArgumentNotFoundException {
+    public String parseEvent(String input) throws ArgumentNotFoundException {
         if (EVENT_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -46,7 +48,7 @@ public class Parser {
      * @return a formatted string representation of the parsed deadline task
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      */
-    protected String parseDeadline(String input) throws ArgumentNotFoundException {
+    public String parseDeadline(String input) throws ArgumentNotFoundException {
         if (DEADLINE_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -62,14 +64,14 @@ public class Parser {
      * @return a formatted string representation of the parsed todo task
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      */
-    protected String parseTodo(String input) throws ArgumentNotFoundException {
+    public String parseTodo(String input) throws ArgumentNotFoundException {
         if (TODO_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
         return input.substring(TODO_TASK_INDEX);
     }
 
-    protected String parseFind(String input) throws ArgumentNotFoundException {
+    public String parseFind(String input) throws ArgumentNotFoundException {
         return input.substring(FIND_TASK_INDEX);
     }
 
@@ -82,7 +84,7 @@ public class Parser {
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      * @throws TaskNotFoundException if the specified task index is out of bounds
      */
-    protected int getIndexMark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
+    public int getIndexMark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (MARK_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -102,7 +104,7 @@ public class Parser {
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      * @throws TaskNotFoundException if the specified task index is out of bounds
      */
-    protected int getIndexUnmark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
+    public int getIndexUnmark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (UNMARK_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
@@ -119,7 +121,7 @@ public class Parser {
      * @param input the input string containing the index of the task to delete
      * @return the index of the task to delete
      */
-    protected int getIndexDelete(String input) {
+    public int getIndexDelete(String input) {
         return Integer.parseInt(input.substring(DELETE_TASK_INDEX)) - 1;
     }
 }

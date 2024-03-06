@@ -1,3 +1,5 @@
+package Storage;
+
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The DataHandler class provides methods for reading and writing task data to a file.
+ * The Storage.DataHandler class provides methods for reading and writing task data to a file.
  */
 public class DataHandler {
     public static final String FILE_PATH = "src/main/java/data/data.txt";
