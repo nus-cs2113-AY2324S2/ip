@@ -1,12 +1,23 @@
 package task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    private String deadline;
+    private final String deadline;
 
     public Deadline(String description, String by) {
         super(description);
-        this.deadline = by;
+//        System.out.println("description: " + description);
+//        System.out.println("by: " + by);
+        // if by is not in format YYYY-MM-DD, do not parse
+        if (!by.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            this.deadline = by;
+            return;
+        }
+        LocalDate byDate = LocalDate.parse(by.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.deadline = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public String getDeadline() {
@@ -25,6 +36,6 @@ public class Deadline extends Task {
 
     @Override
     public String saveString() {
-        return getType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + getDeadline();
+        return getType() + " | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + deadline;
     }
 }

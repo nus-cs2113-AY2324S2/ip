@@ -16,8 +16,8 @@ import java.io.FileNotFoundException;
 
 public class Storage {
 
-    private String filePath =  "./data/duke.txt";
-    private Ui ui;
+    private final String filePath;
+    private final Ui ui;
 
     public Storage(String filePath) {
         this.filePath = filePath;
