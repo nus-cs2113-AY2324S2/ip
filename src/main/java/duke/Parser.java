@@ -30,9 +30,8 @@ public class Parser {
     public void tryRetrieveList() {
         try {
             retrieveList();
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("File does not exist");
+        } catch (FileNotFoundException e) {
+            System.out.println("Saved list not found, creating now");
         }
     }
 
@@ -47,20 +46,17 @@ public class Parser {
     public void parseInput(String input) throws PythiaException {
         if (input.equalsIgnoreCase("list")) {
             Command.list(parsedTaskList);
-        }
-        else if (isTaskCommand(input)) {
+        } else if (isTaskCommand(input)) {
             Command.tryAddTask(input, parsedTaskList, unparsedTaskList);
-        }
-        else if (input.contains("unmark ")) {
+        } else if (input.contains("unmark ")) {
             Command.unmark(input, parsedTaskList);
-        }
-        else if (input.contains("mark ")) {
+        } else if (input.contains("mark ")) {
             Command.mark(input, parsedTaskList);
-        }
-        else if (input.contains("delete ")) {
+        } else if (input.contains("delete ")) {
             Command.delete(input, parsedTaskList, unparsedTaskList);
-        }
-        else {
+        } else if (input.contains("find ")) {
+            Command.find(input, parsedTaskList);
+        } else {
             throw new PythiaException();
         }
         trySaveList();
