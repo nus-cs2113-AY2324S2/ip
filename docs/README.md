@@ -105,6 +105,7 @@ Saves current task list and exits program. <br>
 
 
 ## Command Summary
+
 | **Command** | **Format, Examples**                               |
 |-------------|----------------------------------------------------|
 | list        | `list`                                             |
