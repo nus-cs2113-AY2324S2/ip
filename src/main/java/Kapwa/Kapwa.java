@@ -18,6 +18,9 @@ public class Kapwa{
                     break;
                 } else if ("list".equals(inputLine)) {
                     taskManager.displayTaskList();
+                } else if (inputLine.startsWith("find ")) {
+                    String keyword = inputLine.substring(5);
+                    taskManager.find(keyword);
                 } else if (inputLine.startsWith("mark ")) {
                     int taskNumber = Integer.parseInt(inputLine.replaceAll("\\D+", ""));
                     taskManager.markTask(taskNumber, true);

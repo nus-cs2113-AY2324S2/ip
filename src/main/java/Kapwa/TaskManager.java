@@ -101,4 +101,21 @@ public class TaskManager {
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    public void find(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        if (foundTasks.isEmpty()) {
+            System.out.println("There are no matching tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + foundTasks.get(i));
+            }
+        }
+    }
 }
