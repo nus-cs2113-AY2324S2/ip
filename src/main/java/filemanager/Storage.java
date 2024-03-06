@@ -8,10 +8,24 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
+/**
+ * Load and save your task list from and to the save file AKA storage
+ */
 public class Storage {
-    public static int loadTasksFromFile(File saveFile, int taskCounter, ArrayList<Task> taskList) {
-        //load data from save file to taskList
-        //File saveFile = new File("./Serf.txt");
+
+    /**
+     * Retrieve tasks from save file and store them in the task list
+     * returns taskCounter which keeps track of the number of task in the task list
+     *
+     * @param saveFile The file in which the tasks are saved
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @param taskList List to store tasks for the program to use
+     * @return Updated counter which keep track of the number of task in the task list
+     */
+
+
+    public static ArrayList<Task> loadTasksFromFile(File saveFile, int taskCounter, ArrayList<Task> taskList) {
         try {
             if (!saveFile.isFile()) {
                 saveFile.createNewFile();
@@ -26,22 +40,10 @@ public class Storage {
                 String store = loadMessage.nextLine();
                 if (store.contains("todo")) {
                     taskCounter = Parser.addTodoTaskToList(store, taskList, taskCounter);
-//                    if (store.contains("mark")) {
-//                        taskList.get(taskCounter - 1).markAsDone();
-//                    }
-                    //System.out.println(loadMessage.nextLine());
                 } else if (store.contains("deadline")) {
                     taskCounter = Parser.addDeadlineTaskToList(store, taskList, taskCounter);
-//                    if (store.contains("mark")) {
-//                        taskList.get(taskCounter - 1).markAsDone();
-//                    }
-                    //System.out.println(loadMessage.nextLine());
                 } else if (store.contains("event")) {
                     taskCounter = Parser.addEventTaskToList(store, taskList, taskCounter);
-//                    if (store.contains("mark")) {
-//                        taskList.get(taskCounter - 1).markAsDone();
-//                    }
-                    //System.out.println(loadMessage.nextLine());
                 } else {
                     break;
                 }
@@ -52,8 +54,15 @@ public class Storage {
         } catch (java.util.NoSuchElementException e) {
             System.out.println("Sire, there is nothing else in the save file to load");
         }
-        return taskCounter;
+        return taskList;
     }
+
+    /**
+     * Load tasks from task list into the save file
+     *
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @param taskList List to store tasks for the program to use
+     */
 
     public static void saveTaskListToFile(int taskCounter, ArrayList<Task> taskList) {
         FileWriter loadFile = null;

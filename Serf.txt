@@ -1,4 +1,5 @@
 event ChinYanXu attend CS2113 lecture Friday 23 Feb 2024 /from 4 /to 6pm
+<<<<<<< HEAD
 mark todo ee2026 assignment
 mark event dinner /from 6pm /to 7pm
 mark todo sleep
@@ -16,3 +17,16 @@ todo jump
 todo help out
 deadline hehe /by haha
 event 2030 /from 22 /to 33
+=======
+todo ee2026 assignment
+event cny gathering /from 11am /to 6pm
+event study /from 10pm /to 12am
+event go run /from 3pm /to 4pm
+deadline cs2113 /by 3345
+todo homework
+event dinner /from 6pm /to 7pm
+todo sleep
+todo asdadasd
+event safsadw /from asswsas /to ggeas
+deadline fwwsas /by 6
+>>>>>>> branch-A-JavaDoc

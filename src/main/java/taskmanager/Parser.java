@@ -2,82 +2,119 @@ package taskmanager;
 
 import newexceptions.InvalidDeleteIndexException;
 import newexceptions.InvalidInputException;
-import taskmanager.Task;
-import taskmanager.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Collection of methods converts user commands into tasks
+ */
+
 public class Parser {
+
+    /**
+     * List out tasks in the task list when the task list is not empty
+     *
+     * @param taskList List to store tasks for the program to use
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     */
+
     public static void listIsNotEmpty(ArrayList<Task> taskList, int taskCounter) {
-        Ui.startOfListMessage();
+        Ui.printStartOfListMessage();
         for (int i = 0; i < taskCounter; i += 1) {
             switch (taskList.get(i).getTaskType()) {
                 case "T":
-                    Ui.todoListMessage(i, taskList.get(i).getTaskType(),
+                    Ui.printTodoListMessage(i, taskList.get(i).getTaskType(),
                             taskList.get(i).getStatusIcon(), taskList.get(i).getDescription());
                     break;
                 case "D":
-                    Ui.deadlineListMessage(i, taskList.get(i).getTaskType(),
+                    Ui.printDeadlineListMessage(i, taskList.get(i).getTaskType(),
                             taskList.get(i).getStatusIcon(), taskList.get(i).getDescription(),
                             taskList.get(i).getEndDate());
                     break;
                 case "E":
-                    Ui.eventListMessage(i, taskList.get(i).getTaskType(),
+                    Ui.printEventListMessage(i, taskList.get(i).getTaskType(),
                             taskList.get(i).getStatusIcon(), taskList.get(i).getDescription(),
                             taskList.get(i).getStartDate(), taskList.get(i).getEndDate());
                     break;
                 default:
-                    Ui.invalidTaskTypeMessage();
+                    Ui.printInvalidTaskTypeMessage();
             }
         }
         Ui.printVerticalLines();
     }
+
+    /**
+     * Mark task status with a "X" to indicate it is complete
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     */
+
     public static void markTask(String receivedMessage, ArrayList<Task> taskList) {
-        String number = "";
-        for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
-            if (Character.isDigit(receivedMessage.charAt(j))) {
-                number += receivedMessage.charAt(j);
+        try {
+            String number = "";
+            for (int j = 0; j < receivedMessage.length(); j += 1) {
+                // reads number from input and store it in String number
+                if (Character.isDigit(receivedMessage.charAt(j))) {
+                    number += receivedMessage.charAt(j);
+                }
             }
+            if (Integer.parseInt(number) >= taskList.size() || number.isEmpty()) {
+                throw new InvalidInputException();
+            }
+            else {
+                taskList.get(Integer.parseInt(number) - 1).markAsDone();
+            }
+            Ui.printMarkOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
+                    taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
+                    taskList.get(Integer.parseInt(number) - 1).getDescription(), "complete");
+        } catch (InvalidInputException e) {
+            Ui.printMarkOrUnmarkTaskErrorMessage();
         }
-        if (number.isEmpty()) {
-//            Ui.printVerticalLines();
-//            Ui.errorMessage();
-//            System.out.println("     Sire you need to input a digit after mark");
-//            Ui.printVerticalLines();
-            Ui.printMarkTaskErrorMessage();
-            return;
-        } else {
-            taskList.get(Integer.parseInt(number) - 1).markAsDone();
-        }
-        Ui.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
-                taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
-                taskList.get(Integer.parseInt(number) - 1).getDescription(), "complete");
     }
+
+    /**
+     * Remove "X" from task status to indicate it is incomplete
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     */
+
     public static void unmarkTask(String receivedMessage, ArrayList<Task> taskList){
-        String number = "";
-        for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
-            if (Character.isDigit(receivedMessage.charAt(j))) {
-                number += receivedMessage.charAt(j);
+        try {
+            String number = "";
+            for (int j = 0; j < receivedMessage.length(); j += 1) { // reads number from input and store it in String number
+                if (Character.isDigit(receivedMessage.charAt(j))) {
+                    number += receivedMessage.charAt(j);
+                }
             }
+            if (Integer.parseInt(number) >= taskList.size() || number.isEmpty()) {
+                throw new InvalidInputException();
+            }
+            else {
+                taskList.get(Integer.parseInt(number) - 1).markAsUndone();
+            }
+            Ui.printMarkOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
+                    taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
+                    taskList.get(Integer.parseInt(number) - 1).getDescription(), "incomplete");
+        } catch (InvalidInputException e) {
+            Ui.printMarkOrUnmarkTaskErrorMessage();
         }
-        if (number.isEmpty()) {
-//            Ui.errorMessage();
-//            System.out.println("     Sire you need to input a digit after unmark");
-            Ui.printUnmarkTaskErrorMessage();
-            return;
-        } else {
-            taskList.get(Integer.parseInt(number) - 1).markAsUndone();
-        }
-        Ui.markOrUnmarkTaskMessage(taskList.get(Integer.parseInt(number) - 1).getTaskType(),
-                taskList.get(Integer.parseInt(number) - 1).getStatusIcon(),
-                taskList.get(Integer.parseInt(number) - 1).getDescription(), "incomplete");
     }
+
+    /**
+     * Process an user command into a todo task and store the todo task in the task list
+     * Returns the updated taskCounter
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @return Updated counter which keep track of the number of task in the task list
+     */
+
     public static int addTodoTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
             receivedMessage = receivedMessage.trim();
-            //if (!receivedMessage.startsWith("todo")) { // input does not start with todo
-              //  throw new InvalidInputException();
-            //}
             String[] splittedMessage = receivedMessage.split("todo ");
             for (int i = 0; i < splittedMessage.length; i += 1) {
                 splittedMessage[i] = splittedMessage[i].trim();
@@ -92,20 +129,29 @@ public class Parser {
                 taskList.get(taskCounter).markAsDone();
             }
             taskCounter += 1;
-            Ui.addTodoMessage(taskList.get(taskCounter - 1).getTaskType(),
+            Ui.printAddTodoMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
-            Ui.typoErrorMessage();
+            Ui.printTypoErrorMessage();
             return taskCounter;
         }
     }
+
+    /**
+     * Process an user command into a deadline task and store the deadline task in the task list
+     * Returns the updated taskCounter
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @return Updated counter which keep track of the number of task in the task list
+     */
+
     public static int addDeadlineTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
             receivedMessage = receivedMessage.trim();
-            // input does not start with deadline or contain /by
-            //!receivedMessage.startsWith("deadline") ||
             if (!receivedMessage.contains("/by")) {
                 throw new InvalidInputException();
             }
@@ -132,19 +178,29 @@ public class Parser {
                 taskList.get(taskCounter).markAsDone();
             }
             taskCounter += 1;
-            Ui.addDeadlineMessage(taskList.get(taskCounter - 1).getTaskType(),
+            Ui.printAddDeadlineMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskList.get(taskCounter - 1).getEndDate(), taskCounter);
             return taskCounter;
         } catch (InvalidInputException e) {
-            Ui.typoErrorMessage();
+            Ui.printTypoErrorMessage();
             return taskCounter;
         }
     }
+
+    /**
+     * Process an user command into an event task and store the event task in the task list
+     * Returns the updated taskCounter
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @return Updated counter which keep track of the number of task in the task list
+     */
+
     public static int addEventTaskToList(String receivedMessage, ArrayList<Task> taskList, int taskCounter){
         try {
             receivedMessage = receivedMessage.trim();
-            //!receivedMessage.startsWith("event") ||
             if (!receivedMessage.contains("/from")
                     || !receivedMessage.contains("/to")) { // input does not start with event
                 throw new InvalidInputException();
@@ -180,16 +236,26 @@ public class Parser {
                 taskList.get(taskCounter).markAsDone();
             }
             taskCounter += 1;
-            Ui.addEventMessage(taskList.get(taskCounter - 1).getTaskType(),
+            Ui.printAddEventMessage(taskList.get(taskCounter - 1).getTaskType(),
                     taskList.get(taskCounter - 1).getStatusIcon(), taskList.get(taskCounter - 1).getDescription(),
                     taskList.get(taskCounter - 1).getStartDate(), taskList.get(taskCounter - 1).getEndDate(),
                     taskCounter);
             return taskCounter;
         } catch (InvalidInputException e){
-            Ui.typoErrorMessage();
+            Ui.printTypoErrorMessage();
             return taskCounter;
         }
     }
+
+    /**
+     * Remove task located at index specified by the user in the user commands from the task list
+     * Returns the updated taskCounter
+     *
+     * @param receivedMessage User command
+     * @param taskList List to store tasks for the program to use
+     * @param taskCounter Counter to keep track of the number of task in the task list
+     * @return Updated counter which keep track of the number of task in the task list
+     */
 
     public static int deleteTask(String receivedMessage, ArrayList<Task> taskList, int taskCounter) {
         try {
@@ -200,8 +266,6 @@ public class Parser {
                 }
             }
             if (number.isEmpty()) {
-//                Ui.errorMessage();
-//                System.out.println("     Sire you need to input a digit after delete");
                 Ui.printDeleteTaskErrorMessage();
                 return taskCounter;
             }
@@ -211,17 +275,17 @@ public class Parser {
             }
             switch(taskList.get(taskNumber - 1).getTaskType()) {
                 case "T":
-                    Ui.deleteTodoMessage(taskList.get(taskNumber - 1).getTaskType(),
+                    Ui.printDeleteTodoMessage(taskList.get(taskNumber - 1).getTaskType(),
                             taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskCounter - 1);
                     break;
                 case "D":
-                    Ui.deleteDeadlineMessage(taskList.get(taskNumber - 1).getTaskType(),
+                    Ui.printDeleteDeadlineMessage(taskList.get(taskNumber - 1).getTaskType(),
                             taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskList.get(taskNumber - 1).getEndDate(),taskCounter - 1);
                     break;
                 case "E":
-                    Ui.deleteEventMessage(taskList.get(taskNumber - 1).getTaskType(),
+                    Ui.printDeleteEventMessage(taskList.get(taskNumber - 1).getTaskType(),
                             taskList.get(taskNumber - 1).getStatusIcon(), taskList.get(taskNumber - 1).getDescription(),
                             taskList.get(taskNumber - 1).getStartDate(), taskList.get(taskNumber - 1).getEndDate(),
                             taskCounter - 1);
@@ -239,8 +303,8 @@ public class Parser {
             return taskCounter;
         }
         catch (InvalidDeleteIndexException e) {
-            Ui.typoErrorMessage();
-            Ui.invalidDeleteIndexMessage();
+            Ui.printTypoErrorMessage();
+            Ui.printInvalidDeleteIndexMessage();
             return taskCounter;
         }
     }
