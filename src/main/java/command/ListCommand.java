@@ -4,7 +4,18 @@ import exception.AdamException;
 import task.TaskList;
 import ui.Message;
 
+/**
+ * The ListCommand class represents a command to list all the tasks in the task list.
+ */
 public class ListCommand implements Command {
+    
+    /**
+     * Lists all the tasks in the task list.
+     *
+     * @param tasks The list of tasks.
+     * @return False because the program should continue running.
+     * @throws AdamException If the task list is empty.
+     */
     @Override
     public boolean execute(TaskList tasks) throws AdamException {
         if (tasks.isEmpty()) {

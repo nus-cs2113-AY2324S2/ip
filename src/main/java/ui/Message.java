@@ -2,6 +2,9 @@ package ui;
 
 import java.util.Random;
 
+/**
+ * The Message class is responsible for storing and displaying messages for normal and error cases.
+ */
 public class Message {
     public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====> >====> >====>\n";
 
