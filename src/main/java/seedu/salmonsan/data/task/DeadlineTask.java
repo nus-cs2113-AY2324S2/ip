@@ -93,7 +93,7 @@ public class DeadlineTask extends Task {
     }
 
     @Override
-    public void parse(String s) throws SalmonMissingArgument {
+    public void parse(String s) throws SalmonMissingArgument, StringIndexOutOfBoundsException {
         // format T | true | description
         int firstSlash = s.indexOf('|');
         int secondSlash = s.indexOf('|', firstSlash + 1);
@@ -103,6 +103,8 @@ public class DeadlineTask extends Task {
         String isDoneStatus = s.substring(firstSlash + 2, spaceAfterIsDone);
         String description = s.substring(secondSlash + 2, thirdSlash - 1);
         String deadline = s.substring(thirdSlash + 2);
+
+        description.replaceAll("\\s+","");
 
         this.setBoolean(Boolean.parseBoolean(isDoneStatus));
         this.description = description;

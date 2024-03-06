@@ -5,6 +5,12 @@
 > SalmonSan is a simple command line based interface task management app that allows user to set todos, events, and deadline
 
 ## Features
+
+### Show list of commands: `help`
+Show all available commands and format
+
+Format `help`
+
 ### Adding a todo task: `todo`
 Adding a todo task to your list
 
@@ -128,6 +134,25 @@ Output:
 Deleted! The following task has been removed!
     [D][ ] submit critical reflection (by: 2024-05-22)
 You have 2 tasks remaining
+--------------------------------
+How can I assist you today?
+```
+
+### Finding keywords in task: `find`
+Find tasks which contain specified keyword
+
+Format: `find KEYWORD`
+
+**Example:**
+
+Input: `find book`
+
+Output:
+```
+Osu! Your tasks are as follows:
+  1. (index: 1) |  [T][ ] buy the book `Rain from Heaven, River of Hell`
+  2. (index: 2) |  [E][ ] book club (from: Monday 6PM to: 7.30PM)
+  3. (index: 4) |  [D][ ] return John's book (by: Sunday)
 --------------------------------
 How can I assist you today?
 ```

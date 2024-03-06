@@ -6,6 +6,7 @@ import seedu.salmonsan.data.TasksList;
 import seedu.salmonsan.data.exception.SalmonMissingArgument;
 import seedu.salmonsan.data.exception.SalmonNotInListException;
 import seedu.salmonsan.data.task.Task;
+import seedu.salmonsan.ui.UI;
 
 import java.util.ArrayList;
 
@@ -78,6 +79,10 @@ public class QueryManager {
                     tasksWithWords = list.findWordInDesc(argument);
                     list.show(tasksWithWords);
                     return -1;
+                case "help":
+                    UI temp = new UI();
+                    temp.printHelp();
+                    return -1;
                 case "delete":
                     list.deleteTask(argument);
                     return -1;
@@ -90,6 +95,9 @@ public class QueryManager {
             return -1;
         } catch (SalmonMissingArgument e) {
             System.out.println("Please input an argument for your command!");
+            return -1;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Seems like your format is not accepted, please type `help` for help");
             return -1;
         }
     }

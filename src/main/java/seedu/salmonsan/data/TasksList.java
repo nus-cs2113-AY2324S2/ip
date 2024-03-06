@@ -71,7 +71,8 @@ public class TasksList {
         System.out.println("Osu! Your tasks are as follows:");
         for(int i = 0; i < tasksIndex.size(); i++) {
             System.out.print("  ");
-            System.out.print((i + 1) + ".");
+            System.out.print((i + 1) + ". ");
+            System.out.print("(index: " + (tasksIndex.get(i) + 1) + ") |  ");
             this.list.get(tasksIndex.get(i)).printTask();
         }
     }
