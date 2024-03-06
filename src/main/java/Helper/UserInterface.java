@@ -17,9 +17,6 @@ public class UserInterface {
     public static final int START_INDEX = 0;
     private static final String CHATBOT_NAME = "ZORO";
 
-    /**
-     * Displays a greeting message to the user.
-     */
 
     public static void greetUser() {
         System.out.println(LINE);
@@ -85,11 +82,6 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    /**
-     * Prints a message indicating that a task has been marked as done.
-     *
-     * @param task The task that has been marked.
-     */
 
     public static void printTaskMarked(Task task) {
         System.out.println(LINE);
@@ -97,12 +89,6 @@ public class UserInterface {
         System.out.println(TAB_SPACE + "  " + task);
         System.out.println(LINE);
     }
-
-    /**
-     * Prints a message indicating that a task has been marked as not done.
-     *
-     * @param task The task that has been unmarked.
-     */
 
     public static void printTaskUnmarked(Task task) {
         System.out.println(LINE);
@@ -122,10 +108,6 @@ public class UserInterface {
         System.out.println(TAB_SPACE + e.getMessage() + ".\n" + TAB_SPACE + "Please check your input.");
         System.out.println(LINE);
     }
-
-    /**
-     * Prints a farewell message.
-     */
 
     public static void sayGoodbye() {
         System.out.println(LINE);
@@ -184,11 +166,6 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    /**
-     * Prints a message indicating that a task is already marked as done.
-     *
-     * @param message The message indicating the task is already marked.
-     */
 
     public static void printTaskAlreadyMarked(String message) {
         System.out.println(LINE);
@@ -196,11 +173,6 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
-    /**
-     * Prints a message indicating that a task is already unmarked.
-     *
-     * @param message The message indicating the task is already unmarked.
-     */
 
     public static void printTaskAlreadyUnmarked(String message) {
         System.out.println(LINE);
@@ -249,6 +221,15 @@ public class UserInterface {
         System.out.println(LINE);
     }
 
+    /**
+     * This prints the tasks that has been filtered using the given keyword
+     * It also gives the Original Index of the task to
+     * facilitate the user for other actions
+     *
+     * @param foundTasks Tasks that has filtered out
+     * @param taskList The list of all tasks.
+     */
+
     public static void printFoundTasks(ArrayList<Task> foundTasks, ArrayList<Task> taskList) {
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Here are the matching tasks in your list:");
@@ -259,12 +240,19 @@ public class UserInterface {
         }
         System.out.println(LINE);
     }
+
     public static void printInvalidDateTimeFormat(InvalidDateTimeFormatException e){
         System.out.println(LINE);
         System.out.println(TAB_SPACE + "Invalid format: " + e.getMessage());
         System.out.println(TAB_SPACE + "Please use valid date and time format DD/MM/YYY HH:MM ");
         System.out.println(LINE);
     }
+
+    /**
+     * Prints a message indicating an error with the find keyword given by the user.
+     *
+     * @param e The exception containing the error message.
+     */
 
     public static void printInvalidKeywordFormat(StringIndexOutOfBoundsException e){
         System.out.println(LINE);

@@ -169,6 +169,13 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Finds a task from the lists of task based on the keyword
+     * Calls appropriate function to alert the user if the
+     * keyword is missing
+     *
+     * @param input The user input for keyword that needs to be searched for.
+     */
     private void findTasks(String input) {
         try {
             String keyword = input.substring(KEYWORD_BEGIN_INDEX).trim();
