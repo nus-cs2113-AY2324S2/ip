@@ -15,8 +15,9 @@
 ## Usage
 1. In order for the program to work, you need to have Java 11 installed on your computer.
 2. Download the latest release of MimiChat from https://github.com/JustinSoh/ip/releases
-3. Run the program using the command `java -jar MimiChat.jar` in the terminal.
-4. Make sure that there is a /data folder in the root of the program directory. This is where the data will be stored.
+3. Make sure that you have the folder `/data/` and file `/data/mimi.logs` created in the root directory. 
+This is where the data will be stored.
+4. Run the program using the command `java -jar MimiChat.jar` in the terminal.
 5. You can now start using the program.
 
 
@@ -26,13 +27,12 @@
 
 Adds a new ToDo task into the Task List.
 
-Parameters:
+Parameters:``taskName (String)``
 
-``taskName (String)``
+Format of usage: `todo <taskName>`
 
-Example of usage: 
-
-`todo <taskName>`
+Example input
+`todo read book`
 
 Expected outcome:
 ```
@@ -47,14 +47,13 @@ You now have 1 tasks in the list.
 
 Adds a new Deadline task into the Task List.
 
-Parameters:
-
-``taskName (String)``
+Parameters:``taskName (String)``
 ``deadline (String)``
 
-Example of usage:
+Format of usage:
+`deadline <deadline> /by <deadline>`
 
-`deadline <taskName> /by <deadline>`
+Example input: `deadline return book /by 2nd of December 2020`
 
 Expected outcome:
 ```
@@ -71,14 +70,13 @@ You now have 2 tasks in the list.
 Adds a new Event task into the Task List.
 
 Parameters:
-
 ``taskName (String)``
 ``startTime (String)``
 ``endTime (String)``
 
-Example of usage:
+Format of usage: ```event <taskName> /from <startTime> /to <endTime>```
 
-```event <taskName> /from <startTime> /to <endTime>```
+Example Input: `event project meeting /from Mon 3pm /to Mon 5pm`
 
 Expected outcome:
 ```
@@ -94,9 +92,9 @@ You now have 3 tasks in the list.
 
 List all tasks in the Task List and whether they are marked. 
 
-Example of usage:
+Format of usage: `list`
 
-`list`
+Expected Input: `list`
 
 Expected outcome:
 ```
@@ -111,13 +109,15 @@ Here are the tasks in your list:
 ### `mark` - Marks a task as done
 
 Marks a task as done in the Task List. 
+Item number needs to be > 0 and <= number of tasks in the list.
 
 Parameters:
+``itemNumber (int)``
 
-``Mark <itemNumber>``
+Format of usage:
+`mark <itemNumber>`
 
-Example of usage:
-`mark 2`
+Example input: `mark 2`
 
 Expected outcome:
 ``` 
@@ -127,16 +127,18 @@ OK, I've marked this task as done:
 
 ## Unmark
 
-
 ### `unmark` - Unmarks a task as done
 
 Unmarks a task as done in the Task List.
+Item number needs to be > 0 and <= number of tasks in the list.
 
-Parameters: 
+Parameters:
+``itemNumber (int)``
 
-``Unmark <itemNumber>``
+Format of usage:
+``unmark <itemNumber>``
 
-Example of usage:
+Example input:
 `unmark 2`
 
 Expected outcome:
@@ -152,10 +154,12 @@ OK, I've marked this task as not done yet
 Deletes a task from the Task List.
 
 Parameters:
+``itemNumber (int)``
 
-``Delete <itemNumber>``
+Format of usage:
+`delete <itemNumber>`
 
-Example of usage:
+Example Input:
 `delete 2`
 
 Expected outcome:
@@ -172,10 +176,12 @@ Now  you have 2 tasks in the list.
 Finds tasks in the Task List which contains the keyword.
 
 Parameters:
+``keyword (String)``
 
-``Find <keyword>``
+Format of usage:
+``find <keyword>``
 
-Example of usage:
+Example Input:
 `find book`
 
 Expected outcome:
@@ -196,7 +202,7 @@ You have no matching tasks in your list.
 
 Exits the program.
 
-Example of usage:
+Example Input:
 
 `bye`
 
@@ -208,15 +214,15 @@ Bye. Hope to see you again soon!
 
 ## Troubleshoot
 ### 1. I keep receiving the `Error: Unable to load file`
-- Please ensure /data folder exists in the root directory
+- Please ensure `/data` folder and `/data/mimi.logs` file exists in the root directory
   ```
   directory
   |--- mimichat.jar
   |--- /data 
+       |--- mimi.logs
   ```
 ### 2. I have already created the `/data` folder, why do I still see the error?
 - Please ensure that the `/data` folder is in the same directory as the `mimichat.jar` file.
-- If so, then you can ignore the error as the system will automatically create the mimi.logs file once you enter a new task.
 
 
 

@@ -46,6 +46,7 @@ public class Storage {
             return fileScanner;
         } catch (IOException e) {
             throw new MimiException.LoadError(MimiException.LOAD_ERROR_MSG);
+
         }
     }
 
@@ -117,8 +118,11 @@ public class Storage {
             }
             this.saveFile(TaskList.getTaskList(), filePath);
 
-        } catch (MimiException.LoadError | MimiException.IncorrectFormat | MimiException.InsufficientParameters | ArrayIndexOutOfBoundsException e) {
+        } catch (MimiException.IncorrectFormat | MimiException.InsufficientParameters | ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
+        } catch (MimiException.LoadError e){
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
 

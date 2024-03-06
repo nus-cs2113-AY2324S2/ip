@@ -40,7 +40,7 @@ public class MimiException {
 
     public final static String FILE_CORRUPTED_MSG = "file is corrupted. " + "Please check the file again.";
 
-    public final static String LOAD_ERROR_MSG = "Unable to load file. Please ensure /data/mimi.logs exists.";
+    public final static String LOAD_ERROR_MSG = "Unable to load file. Please ensure /data/mimi.logs exists in the base directory";
 
 
     public static class InsufficientParameters extends Exception {
