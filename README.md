@@ -132,6 +132,20 @@ You have 2 tasks remaining
 How can I assist you today?
 ```
 
+### Finding keywords in task: `find`
+Find tasks which contain specified keyword
+
+Format: `find KEYWORD`
+
+**Example:**
+
+Input: `find book`
+
+Output:
+```
+
+```
+
 ### Quitting the program: `bye`
 Quit the program
 

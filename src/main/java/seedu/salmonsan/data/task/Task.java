@@ -66,13 +66,17 @@ public class Task {
         return answer;
     }
 
-    public void parse(String s) throws SalmonMissingArgument {
+    public void parse(String s) throws SalmonMissingArgument, StringIndexOutOfBoundsException {
         // format T | true | description
         int firstSlash = s.indexOf('|');
         int secondSlash = s.indexOf('|', firstSlash + 1);
         int spaceAfterIsDone = s.indexOf(' ', firstSlash + 2);
+
         String isDoneStatus = s.substring(firstSlash + 2, spaceAfterIsDone);
         String description = s.substring(secondSlash + 2);
+
+        description.replaceAll("\\s+","");
+
         this.setBoolean(Boolean.parseBoolean(isDoneStatus));
         this.setDescription(description);
     }

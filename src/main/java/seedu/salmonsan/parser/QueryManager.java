@@ -91,6 +91,9 @@ public class QueryManager {
         } catch (SalmonMissingArgument e) {
             System.out.println("Please input an argument for your command!");
             return -1;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Seems like your format is not accepted, please type `help` for help");
+            return -1;
         }
     }
 }

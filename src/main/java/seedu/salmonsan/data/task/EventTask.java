@@ -67,7 +67,7 @@ public class EventTask extends Task {
     }
 
     @Override
-    public void parse(String s) throws SalmonMissingArgument {
+    public void parse(String s) throws SalmonMissingArgument, StringIndexOutOfBoundsException {
         // format T | true | description
         int firstSlash = s.indexOf('|');
         int secondSlash = s.indexOf('|', firstSlash + 1);
@@ -79,6 +79,10 @@ public class EventTask extends Task {
         String description = s.substring(secondSlash + 2, thirdSlash - 1);
         String eventStart = s.substring(thirdSlash + 2, fourthSlash - 1);
         String eventEnd = s.substring(fourthSlash + 2);
+
+        description.replaceAll("\\s+","");
+        eventStart.replaceAll("\\s+","");
+        eventEnd.replaceAll("\\s+","");
 
         this.setBoolean(Boolean.parseBoolean(isDoneStatus));
         this.setDescription(description);

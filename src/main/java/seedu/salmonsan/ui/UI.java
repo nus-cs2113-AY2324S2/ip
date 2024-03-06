@@ -17,4 +17,6 @@ public class UI {
     public void printDivider() {
         System.out.println(DIVIDER);
     }
+
+    public void printHelp()
 }
