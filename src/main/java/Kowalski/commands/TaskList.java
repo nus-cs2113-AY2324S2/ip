@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 public class TaskList {
     public static List<Task> currentTask = new ArrayList<>();
     public static final String DOT = ".";
+    public static final String NO_MATCHES_MESSAGE = "My analysis shows no matches Skipper!";
+    public static final String MATCHES_FOUND_MESSAGE = "Skipper here are the matching tasks:";
 
     /**
      * Used to process the different variations of the users inputs
@@ -51,9 +53,9 @@ public class TaskList {
                 .collect(Collectors.toList());
 
         if (matchList.isEmpty()){
-            System.out.println("My analysis shows no matches Skipper!");
+            System.out.println(NO_MATCHES_MESSAGE);
         } else {
-            System.out.println("Skipper here are the matching tasks:");
+            System.out.println(MATCHES_FOUND_MESSAGE);
             printMatchingTasks(matchList);
         }
     }
