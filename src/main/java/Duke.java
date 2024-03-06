@@ -1,10 +1,59 @@
+import customexceptions.IncompletePromptException;
+import customexceptions.UnknownPromptException;
+import interactions.Storage;
+import interactions.Ui;
+import interactions.TaskList;
+import interactions.Parser;
+
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " _____ ______   ________  ________      ___    ___\n" +
+        "|\\   _ \\  _   \\|\\   __  \\|\\   __  \\    |\\  \\  /  /|\n" +
+        "\\ \\  \\\\\\__\\ \\  \\ \\  \\ \\  \\ \\  \\_\\ /_   \\ \\  \\/  / /\n" + 
+        " \\ \\  \\\\|__| \\  \\ \\  \\ \\  \\ \\   __  \\   \\ \\    / /\n" + 
+        "  \\ \\  \\    \\ \\  \\ \\  \\_\\  \\ \\  \\_\\  \\   \\/   / /\n" + 
+        "   \\ \\__\\    \\ \\__\\ \\_______\\ \\_______\\__/   / /\n" + 
+        "    \\|__|     \\|__|\\|_______|\\|_______|\\____/ /\n" +
+        "                                      \\|____|/\n";
+        System.out.print("Hello from\n" + logo);
+        Ui ui = new Ui();
+        TaskList list = new TaskList();
+        Storage storageHandler = new Storage();
+        ui.greet();
+        String line;
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            System.out.print("YOU: ");
+            line = in.nextLine();
+            System.out.print(ui.getName() + ": ");
+            if (line.equals("bye")) {
+                break;
+            }
+            if (line.equals("list")) {
+                list.printList();
+            }
+            try {
+                Parser parser = new Parser(ui, list);
+                parser.handleCommand(line);
+            } catch (IncompletePromptException e) {
+                if (!line.equals("list")) {
+                    System.out.println("Sorry, your sentence appears to be incomplete. Could you complete your sentence?");
+                }
+            } catch (UnknownPromptException e) {
+                System.out.println("Sorry, I do not understand what you're saying.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Sorry, the number you inputted exceeded the file size.");
+            }
+
+            try {
+                storageHandler.saveToFile("./data/list.txt", list);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+        ui.exit();
     }
 }

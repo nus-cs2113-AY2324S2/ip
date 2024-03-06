@@ -3,6 +3,24 @@ import interactions.Task;
 
 public class ToDo extends Task {
     private boolean haveToDo, haveDeadline, isEvent;
+    private String deadline, eventFrom, eventTo;
+    private String taskType = "U";
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public boolean haveToDo() {
+        return haveToDo;
+    }
+
+    public boolean haveDeadline() {
+        return haveDeadline;
+    }
+
+    public boolean isEvent() {
+        return isEvent;
+    }
 
     public String getDeadline() {
         return deadline;
@@ -11,7 +29,6 @@ public class ToDo extends Task {
         this.deadline = deadline;
         this.haveDeadline = true;
     }
-    private String deadline;
 
     public String getEventFrom() {
         return eventFrom;
@@ -21,8 +38,6 @@ public class ToDo extends Task {
         this.eventFrom = eventFrom;
     }
 
-    private String eventFrom = "";
-
     public String getEventTo() {
         return eventTo;
     }
@@ -31,7 +46,6 @@ public class ToDo extends Task {
         this.eventTo = eventTo;
     }
 
-    private String eventTo;
     public void setEvent(boolean event) {
         isEvent = event;
     }
@@ -40,41 +54,29 @@ public class ToDo extends Task {
         this.haveToDo = haveToDo;
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
     public ToDo(String task) {
         super(task);
         this.haveToDo = false;
         this.haveDeadline = false;
         this.isEvent = false;
     }
-    protected String lineToWrite() {
-        String taskType = haveToDo ? "T" : haveDeadline ? "D" : isEvent ? "E" : "U";
-        String checkbox = isMarked() ? "[/]" : "[ ]";
-        String additionalInfo = "";
-        if (haveDeadline) {
-            additionalInfo = deadline;
-        }
-        else if (isEvent) {
-            additionalInfo = eventFrom + " -> " + eventTo;
-        }
-        return taskType + " | " + checkbox + " | " + super.task +
-                (taskType.equals("T") ? "" : " | " + additionalInfo);
-    }
     @Override
     public void print() {
-        String taskType = "[ ]";
-        String additionalInfo = "";
-        if (haveToDo) {
-            taskType = "[T]";
-        }
-        else if (haveDeadline) {
-            taskType = "[D]";
+        String additionalInfo;
+
+        if (haveDeadline) {
             additionalInfo = " (by: " + deadline + ")";
         }
         else if (isEvent) {
-            taskType = "[E]";
             additionalInfo = " (from: " + eventFrom + " to: " + eventTo + ")";
+        } else {
+            additionalInfo = "";
         }
-        System.out.print(taskType);
+        System.out.print('[' + taskType + ']');
         System.out.print(isMarked() ? "[X] " : "[ ] ");
         System.out.println(getTask() + additionalInfo);
     }

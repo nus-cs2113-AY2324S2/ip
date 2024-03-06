@@ -1,7 +1,7 @@
 package interactions;
 import customexceptions.*;
 
-public class Chatbot {
+public class Ui {
     // Sorted instructions
     public static final String[] INSTRUCTIONS = {"bye", "deadline", "delete", "event", "list",
             "mark", "rename", "todo"};
@@ -9,7 +9,7 @@ public class Chatbot {
         return name;
     }
     private String name;
-    public Chatbot() {
+    public Ui() {
         name = "MOBY";
     }
     public void rename(String line) {
@@ -31,7 +31,7 @@ public class Chatbot {
 //        }
     }
     public void echo(String line) {
-        System.out.println(line);
+        System.out.println(line.substring(5));
     }
     public boolean isTypo(String line) { // identifies and deals with typo
         String[] words = line.split(" ");

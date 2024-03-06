@@ -1,13 +1,7 @@
 package interactions;
 import customexceptions.UnknownPromptException;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import customexceptions.IncompletePromptException;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class TaskList {
     protected ArrayList<ToDo> list;
@@ -115,6 +109,7 @@ public class TaskList {
         markedTask.setMarked(isMark);
         markedTask.print();
     }
+
     public void deleteTask(int index) {
         //int index = Integer.parseInt((line.substring(6)));
         System.out.println("Noted. I've removed this task:");
@@ -124,6 +119,7 @@ public class TaskList {
         list.remove(index - 1);
         countTasks();
     }
+
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         if (!list.isEmpty()) {
