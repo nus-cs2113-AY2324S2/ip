@@ -5,6 +5,7 @@ import fredbot.exception.UnknownCommandException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 
 public class FredBot {
     private static Storage storage;
@@ -120,6 +121,8 @@ public class FredBot {
             echoTask();
         } catch (EmptyDescriptionException e) {
             ui.showEmptyDescription();
+        } catch (DateTimeParseException e) {
+            ui.showWrongDateFormat();
         }
     }
 
