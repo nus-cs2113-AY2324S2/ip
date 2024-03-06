@@ -7,6 +7,7 @@ import winter.task.Deadline;
 import winter.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 public class DeadlineCommand extends Command {
@@ -14,9 +15,9 @@ public class DeadlineCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Great! New Deadline added: ";
 
     private String deadlineName;
-    private  String deadlineTime;
+    private LocalDateTime deadlineTime;
 
-    public DeadlineCommand(String deadlineName, String deadlineTime) {
+    public DeadlineCommand(String deadlineName, LocalDateTime deadlineTime) {
         this.deadlineName = deadlineName;
         this.deadlineTime = deadlineTime;
     }
@@ -34,10 +35,10 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    private String formatDeadlineForStorage(Task newEvent) {
+    private String formatDeadlineForStorage(Task newDeadline) {
 
-        return "D" + " | " + newEvent.getIsMarked() + " | " +
-                newEvent.getTaskName() + " | " + newEvent.getEndTime() + System.lineSeparator();
+        return "D" + " | " + newDeadline.getIsMarked() + " | " +
+                    newDeadline.getTaskName() + " | " + newDeadline.getDeadline() + System.lineSeparator();
     }
 
 }

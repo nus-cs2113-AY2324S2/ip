@@ -1,7 +1,10 @@
 package winter.task;
+
+import java.time.LocalDateTime;
+
 public class Task {
-    boolean isMarked;
-    int order;
+    private boolean isMarked;
+    private int order;
     private String taskName;
 
     private String doneCheckbox ="[ ]";
@@ -78,5 +81,9 @@ public class Task {
     public String toString() {
         //To be implemented by child classes
         return "";
+    }
+    public LocalDateTime getDeadline() {
+        //To be implemented by Deadline subclass
+        return null;
     }
 }
