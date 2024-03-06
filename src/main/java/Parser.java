@@ -20,6 +20,8 @@ public class Parser {
 
     public static final int DELETE_TASK_INDEX = 7;
 
+    public static final int FIND_TASK_INDEX = 5;
+
     /**
      * Parses an Event from the given input string.
      *
@@ -65,6 +67,10 @@ public class Parser {
             throw new ArgumentNotFoundException();
         }
         return input.substring(TODO_TASK_INDEX);
+    }
+
+    protected String parseFind(String input) throws ArgumentNotFoundException {
+        return input.substring(FIND_TASK_INDEX);
     }
 
     /**

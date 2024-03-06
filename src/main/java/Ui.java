@@ -12,13 +12,19 @@ public class Ui {
     private static final String CHATBOT = "Spike";
     public static final String DIVIDER = "_________________________________________________";
 
+
     /**
      *  Prints the task list in the order with the Badge, Status
      *  and the Description for each task.
      */
-    protected void displayList(ArrayList<Task> inputList) {
+    protected void displayList(ArrayList<Task> inputList, boolean matching) {
+
         System.out.println(DIVIDER);
-        System.out.println("Here are the tasks in your list:");
+        if (matching) {
+            System.out.println("Here are the matching tasks in your list:");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+        }
         for (int i = 0; i < inputList.size(); i++) {
             Task value = inputList.get(i);
             if (value == null) {
@@ -42,6 +48,7 @@ public class Ui {
         }
         return Badge;
     }
+
 
     /**
      *  Prints a message stating that the intended task has been unmarked.
@@ -81,6 +88,7 @@ public class Ui {
         System.out.println("What can I do for you?\n");
         System.out.println(DIVIDER);
     }
+
 
     /**
      *  Prints a message stating that the intended task has been deleted.
