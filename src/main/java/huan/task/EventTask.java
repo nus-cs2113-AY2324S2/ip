@@ -10,6 +10,7 @@ public class EventTask extends Task{
         this.startTime = startTime;
         this.endTime = endTime;
         setIsDone(isDone);
+        setTaskType(2);
     }
 
     public void printTask() {

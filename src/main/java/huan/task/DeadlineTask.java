@@ -1,14 +1,31 @@
 package huan.task;
 
-import java.util.Objects;
-
+import huan.main.UI;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 public class DeadlineTask extends Task{
     private String ddlTime;
-
+    private LocalDateTime dateTime;
     public DeadlineTask(String name, String ddlTime, Boolean isDone) {
         setName(name);
         this.ddlTime = ddlTime;
         setIsDone(isDone);
+        setTaskType(3);
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            dateTime = LocalDateTime.parse(ddlTime, formatter);
+            UI.displayDateTimeParseSuccess();
+
+        } catch(DateTimeParseException e) {
+            dateTime = null;
+            UI.displayDateTimeParseError();
+        }
+    }
+
+    public Boolean isBefore(LocalDateTime dateTime) {
+        return this.dateTime.isBefore(dateTime);
     }
 
     @Override
