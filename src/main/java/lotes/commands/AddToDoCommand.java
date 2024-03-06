@@ -8,8 +8,12 @@ import lotes.ui.UserInterface;
 public class AddToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
 
+    /**
+     * Adds a new To Do task to the task list,
+     * tasks without any date/time attached to it.
+     * @param description
+     */
     public void run(String description) {
-
         String toDoDescription = description.substring(5);
 
         Task newTask = new ToDo(toDoDescription);

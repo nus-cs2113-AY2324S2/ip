@@ -6,7 +6,10 @@ import lotes.ui.UserInterface;
 public class UnMarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 
-    //  Unmark the task number in the task list.
+    /**
+     * Unmark the task number in the task list.
+     * @param userInput
+     */
     public void run(String userInput) {
         String inputString = userInput.substring(7);
         int taskListIndex = (Integer.parseInt(inputString) - 1);
