@@ -1,5 +1,6 @@
 import exceptions.InvalidDeadlineSyntaxException;
 import exceptions.InvalidEventSyntaxException;
+import exceptions.InvalidFindTaskException;
 import exceptions.InvalidTodoSyntaxException;
 
 import java.util.ArrayList;
@@ -78,6 +79,14 @@ public class Printer {
 
     }
 
+    public static void printFindList(ArrayList<Task> findArrayList) {
+        System.out.println(LINE);
+        System.out.println(INDENT + "Here are the tasks that contains your keyword:");
+        for (int i = 0; i < findArrayList.size(); i++) {
+            System.out.println(INDENT + (i + 1) + ". " + findArrayList.get(i));
+        }
+    }
+
     public static void printUnknownInput() {
         System.out.println(ERROR_TAGLINE + "I don't know what that means.");
     }
@@ -97,5 +106,9 @@ public class Printer {
         System.out.println(ERROR_MSG + e.getMessage());
     }
 
+    public static void handleInvalidFindTaskException (InvalidFindTaskException e) {
+        System.out.println(LINE);
+        System.out.println(ERROR_MSG + e.getMessage());
+    }
 
 }

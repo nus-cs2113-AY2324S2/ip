@@ -1,7 +1,9 @@
 import exceptions.InvalidDeadlineSyntaxException;
 import exceptions.InvalidEventSyntaxException;
+import exceptions.InvalidFindTaskException;
 import exceptions.InvalidTodoSyntaxException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -63,8 +65,7 @@ public class TaskList {
             throw new InvalidEventSyntaxException(NO_DESC);
         } else if (!(userInput.contains("/from ") && userInput.contains("/to "))) {
             throw new InvalidEventSyntaxException("Invalid Event syntax provided.");
-        }
-        else {
+        } else {
             String eventDescription = Parser.obtainEventDescription(userInput);
             taskArrayList.add(new Event(eventDescription));
         }
@@ -80,4 +81,24 @@ public class TaskList {
         taskArrayList.remove(index);
     }
 
+    public static ArrayList<Task> findTask(ArrayList<Task> taskArrayList, String keyword) throws InvalidFindTaskException {
+        if (keyword == null) {
+            throw new InvalidFindTaskException("No keyword provided. Please enter a keyword.");
+        } else if (taskArrayList.isEmpty()) {
+            throw new InvalidFindTaskException("Your tasks list is empty. Try adding some first!");
+        } else {
+            ArrayList<Task> findTaskList = new ArrayList<>();
+            for (Task task : taskArrayList) {
+                if (task.description.contains(keyword)) {
+                    findTaskList.add(task);
+                }
+            }
+            if (findTaskList.isEmpty()) {
+                throw new InvalidFindTaskException("There are no tasks containing the keyword.");
+            } else {
+                return findTaskList;
+            }
+        }
+
+    }
 }
