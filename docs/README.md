@@ -36,12 +36,14 @@ If you can type fast, Adam can get your tasks managed faster than traditional GU
    
    ```
 6. Type the command in the command box and press Enter to execute it.
-   - Words in `<angle brackets>` are parameters that need to be supplied by the user.
    - Refer to the [Features](#features) section for the list of commands available.
 7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
 8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
 9. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.
 If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
+
+-Notes:
+    - All the spaces in the commands are for clarity and are optional to include in the actual command.
 
 ## Features
 ### Adding a task

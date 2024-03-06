@@ -13,15 +13,15 @@ import exception.AdamException;
 public enum Parser {
     // token list
     // accept any number of space using \s*
-    EXIT("bye|ex|q"),
-    LIST("list|ls"),
-    HELP("help|h"),
-    TOGGLE("(mark|unmark)\\s*(\\d+)\\s*"),
-    TODO("todo\\s*(.+)"),
-    DEADLINE("deadline\\s*(.+)/by\\s*(.+)"),
-    EVENT("event\\s*(.+)/from\\s*(.+)/to\\s*(.+)"),
-    DELETE("delete\\s*(\\d+)\\s*"),
-    FIND("find\\s*(.+)");
+    EXIT("(?i)bye|ex|q"),
+    LIST("(?i)list|ls"),
+    HELP("(?i)help|h"),
+    TOGGLE("(?i)(mark|unmark)\\s*(\\d+)\\s*"),
+    TODO("(?i)todo\\s*(.+)"),
+    DEADLINE("(?i)deadline\\s*(.+)/by\\s*(.+)"),
+    EVENT("(?i)event\\s*(.+)/from\\s*(.+)/to\\s*(.+)"),
+    DELETE("(?i)delete\\s*(\\d+)\\s*"),
+    FIND("(?i)find\\s*(.+)");
 
     private final String commandRegex;
 
@@ -61,6 +61,7 @@ public enum Parser {
 
         return IntStream.rangeClosed(1, matcher.groupCount())
                 .mapToObj(i -> matcher.group(i).trim())
+                .filter(s -> !s.isEmpty())
                 .toArray(String[]::new);
     }
 }

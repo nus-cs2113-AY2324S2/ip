@@ -15,7 +15,11 @@ public class FindCommand implements Command {
      * @param keywords The keywords to search for. Index 0 is the keyword.
      */
     public FindCommand(String[] keywords) {
-        this.keyword = keywords[0];
+        try {
+            this.keyword = keywords[0];
+        } catch (IndexOutOfBoundsException e) {
+            this.keyword = "";
+        }
     }
 
     /**
@@ -26,6 +30,10 @@ public class FindCommand implements Command {
      */
     @Override
     public boolean execute(TaskList tasks) {
+        if (keyword.isEmpty()) {
+            System.out.println(Message.INVALID_INPUT_MESSAGE);
+            return false;
+        }
         String tasksFound = tasks.findTasks(keyword);
         if (tasksFound.isEmpty()) {
             System.out.println(Message.FIND_FAIL_MESSAGE);

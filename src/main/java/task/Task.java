@@ -36,4 +36,8 @@ public abstract class Task implements Serializable {
     public boolean isDone() {
         return this.isDone;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

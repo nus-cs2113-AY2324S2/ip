@@ -1,5 +1,6 @@
 package command;
 
+import exception.AdamException;
 import task.TaskList;
 import ui.Message;
 import ui.Parser;
@@ -29,8 +30,12 @@ public class AddTaskCommand implements Command {
      * @return False because the program should continue running.
      */
     @Override
-    public boolean execute(TaskList tasks) {
-        tasks.addTask(token, taskDescriptions);
+    public boolean execute(TaskList tasks) throws AdamException {
+        try {
+            tasks.addTask(token, taskDescriptions);
+        } catch (IndexOutOfBoundsException e) {
+            throw new AdamException(Message.INVALID_INPUT_MESSAGE);
+        }
         System.out.println(Message.ADD_TASK_MESSAGE_FRONT
                 + tasks.getTask(tasks.size())
                 + Message.ADD_TASK_MESSAGE_MIDDLE
