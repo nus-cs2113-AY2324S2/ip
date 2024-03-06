@@ -29,6 +29,7 @@ public class Events extends Task {
      */
     @Override
     public String getStatusIcon() {
+
         return "[E]" + super.getStatusIcon();
     }
 
@@ -39,6 +40,7 @@ public class Events extends Task {
      */
     @Override
     public String getDescription() {
+
         return super.getDescription() + " (from: " + fromDate + " to: " + toDate + ")";
     }
 
@@ -48,6 +50,7 @@ public class Events extends Task {
      * @return The start date of the event.
      */
     public String getFromDate() {
+
         return fromDate;
     }
 
@@ -57,6 +60,7 @@ public class Events extends Task {
      * @return The end date of the event.
      */
     public String getToDate() {
+
         return toDate;
     }
 
@@ -67,6 +71,6 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + getDescription() + " (from: " + getFromDate() + " to: " + getToDate() + ")";
+        return getStatusIcon() + " " + getDescription();
     }
 }

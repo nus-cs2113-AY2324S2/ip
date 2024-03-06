@@ -16,7 +16,6 @@ public class Ui {
      */
     public void printTaskList(List<Task> list) {
         int listSize = list.size();
-
         if (listSize == 0) {
             printFormattedMessage("No tasks added. Add now!");
         } else {

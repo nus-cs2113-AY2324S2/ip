@@ -28,56 +28,13 @@ public class Storage {
      */
     public List<Task> loadTasksFromFile() {
         List<Task> tasks = new ArrayList<>();
-
-        String currentDirectory = System.getProperty("user.dir");
-        String relativeFilePath = Paths.get(currentDirectory, DIRECTORY, FILENAME).toString();
-        Path filePath = Paths.get(relativeFilePath);
+        Path filePath = getFilePath();
 
         try {
             if (Files.exists(filePath)) {
                 List<String> lines = Files.readAllLines(filePath);
                 for (String line : lines) {
-
-                    String[] parts = line.split(" \\| ");
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-                    String additionalInfo = "";
-
-                    if (parts.length > 3) {
-                        additionalInfo = parts[3];
-                    }
-
-                    Task task;
-                    switch (type) {
-                    case "T":
-                        task = new ToDos(description, isDone);
-                        break;
-                    case "D":
-                        task = new Deadlines(description, additionalInfo, isDone);
-                        break;
-                    case "E":
-                        String fromDate = "";
-                        String toDate = "";
-                        if (!additionalInfo.isEmpty()) {
-                            String[] eventInfo = additionalInfo.split(" to ");
-                            if (eventInfo.length == 2) {
-                                fromDate = eventInfo[0].replace("from ", "").trim();
-                                toDate = eventInfo[1].trim();
-                            } else if (eventInfo.length == 1) {
-                                String[] fromDateParts = eventInfo[0].split("from ");
-                                if (fromDateParts.length == 2) {
-                                    fromDate = fromDateParts[1].trim();
-                                }
-                                toDate = "No specific end time";
-                            }
-                        }
-                        task = new Events(description, fromDate, toDate, isDone);
-                        break;
-
-                    default:
-                        throw new IllegalArgumentException("Invalid task type: " + type);
-                    }
+                    Task task = parseTaskFromLine(line);
                     tasks.add(task);
                 }
                 System.out.println("Tasks have been loaded from " + filePath);
@@ -88,8 +45,52 @@ public class Storage {
             System.out.println("An error occurred while loading tasks from " + filePath);
             e.printStackTrace();
         }
-
         return tasks;
+    }
+
+    private Path getFilePath() {
+        String currentDirectory = System.getProperty("user.dir");
+        String relativeFilePath = Paths.get(currentDirectory, DIRECTORY, FILENAME).toString();
+        return Paths.get(relativeFilePath);
+    }
+
+    private Task parseTaskFromLine(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+        String additionalInfo = (parts.length > 3) ? parts[3] : "";
+
+        switch (type) {
+        case "T":
+            return new ToDos(description, isDone);
+        case "D":
+            return new Deadlines(description, additionalInfo, isDone);
+        case "E":
+            return parseEvent(description, additionalInfo, isDone);
+        default:
+            throw new IllegalArgumentException("Invalid task type: " + type);
+        }
+    }
+
+    private Task parseEvent(String description, String additionalInfo, boolean isDone) {
+        String fromDate = "";
+        String toDate = "";
+
+        if (!additionalInfo.isEmpty()) {
+            String[] eventInfo = additionalInfo.split(" to ");
+            if (eventInfo.length == 2) {
+                fromDate = eventInfo[0].replace("from ", "").trim();
+                toDate = eventInfo[1].trim();
+            } else if (eventInfo.length == 1) {
+                String[] fromDateParts = eventInfo[0].split("from ");
+                if (fromDateParts.length == 2) {
+                    fromDate = fromDateParts[1].trim();
+                }
+                toDate = "No specific end time";
+            }
+        }
+        return new Events(description, fromDate, toDate, isDone);
     }
 
     /**

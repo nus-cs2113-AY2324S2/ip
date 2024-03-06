@@ -77,7 +77,8 @@ public class Task {
             if (description.contains(" (from: ")) {
                 description = description.substring(0, description.indexOf(" (from: "));
             }
-            return "E | " + (isDone ? "1" : "0") + " | " + description + (fromDate.isEmpty() ? "" : " " +
+            return "E | " + (isDone ? "1" : "0") + " | "
+                    + description + (fromDate.isEmpty() ? "" : " " +
                     "| from " + fromDate + (toDate.isEmpty() ? "" : " to " + toDate));
         } else {
             return "Unknown task";

@@ -21,9 +21,9 @@ public class Parser {
     public void processCommand(String command, TaskList tasks, Storage storage, Ui ui) {
         try {
             command = command.trim();
-
             String[] parts = command.split(" ", 2);
             String mainCommand = parts[0].toLowerCase();
+
             switch (mainCommand) {
             case "list":
                 ui.printTaskList(tasks.getList());
@@ -42,19 +42,19 @@ public class Parser {
                 break;
             case "todo":
                 if (parts.length > 1) {
-                    tasks.addTask(parts[1], "todo");
+                    tasks.addTodo(parts[1]);
                     storage.saveTasksToFile(tasks);
                 }
                 break;
             case "event":
                 if (parts.length > 1) {
-                    tasks.addTask(parts[1], "event");
+                    tasks.addEvent(parts[1]);
                     storage.saveTasksToFile(tasks);
                 }
                 break;
             case "deadline":
                 if (parts.length > 1) {
-                    tasks.addTask(parts[1], "deadline");
+                    tasks.addDeadline(parts[1]);
                     storage.saveTasksToFile(tasks);
                 }
                 break;

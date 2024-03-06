@@ -49,7 +49,6 @@ public class TaskList {
         if (tasks.isEmpty()) {
             throw new ChatBotExceptions("No tasks to delete. Task list is empty.");
         }
-
         try {
             int index = Integer.parseInt(taskNumber) - 1;
             if (index >= 0 && index < tasks.size()) {
@@ -67,60 +66,56 @@ public class TaskList {
     }
 
     /**
-     * Adds a new task based on the task description and type.
+     * Adds an event task to the task list.
      *
-     * @param taskDescription The description of the task.
-     * @param taskType        The type of the task (todo, deadline, event).
-     * @throws ChatBotExceptions If the task description or type is invalid.
+     * @param taskDescription The description of the event task.
+     * @throws ChatBotExceptions If the task description is in an invalid format.
      */
-    public void addTask(String taskDescription, String taskType) throws ChatBotExceptions {
-        Task newTask;
+    public void addEvent(String taskDescription) throws ChatBotExceptions {
+        String[] parts = taskDescription.split(" from | to ");
+        if (parts.length < 3) {
+            throw new ChatBotExceptions("Invalid event format. " +
+                    "Please use 'event <description> from <start> to <end>'.");
+        }
+        String description = parts[0];
+        String fromDate = parts[1];
+        String toDate = parts[2];
+        Events newEvent = new Events(description, fromDate, toDate, false);
+        addTaskToList(newEvent);
+    }
 
-        switch (taskType) {
-        case "todo":
-            newTask = new ToDos(taskDescription, false);
-            break;
-        case "deadline": {
-            String[] parts = taskDescription.split(" by ");
-            if (parts.length < 2) {
-                throw new ChatBotExceptions("Invalid deadline format. " +
-                        "Please use 'deadline <description> by <date>'.");
-            }
-            String description = parts[0];
-            String byDate = parts[1];
-            newTask = new Deadlines(description, byDate, false);
-            break;
+    /**
+     * Adds a deadline task to the task list.
+     *
+     * @param taskDescription The description of the deadline task.
+     * @throws ChatBotExceptions If the task description is in an invalid format.
+     */
+    public void addDeadline(String taskDescription) throws ChatBotExceptions {
+        String[] parts = taskDescription.split(" by ");
+        if (parts.length < 2) {
+            throw new ChatBotExceptions("Invalid deadline format. " +
+                    "Please use 'deadline <description> by <date>'.");
         }
-        case "event": {
-            String[] parts = taskDescription.split(" from | to ");
-            if (parts.length < 3) {
-                throw new ChatBotExceptions("Invalid event format. " +
-                        "Please use 'event <description> from <start> to <end>'.");
-            }
-            String description = parts[0];
-            String fromDate = parts[1];
-            String toDate = parts[2];
-            newTask = new Events(description, fromDate, toDate, false);
-            break;
-        }
-        default:
-            throw new ChatBotExceptions("Invalid command.");
-        }
+        String description = parts[0];
+        String byDate = parts[1];
+        Deadlines newDeadline = new Deadlines(description, byDate, false);
+        addTaskToList(newDeadline);
+    }
 
+    /**
+     * Adds a to-do task to the task list.
+     *
+     * @param taskDescription The description of the to-do task.
+     */
+    public void addTodo(String taskDescription) {
+        ToDos newTodo = new ToDos(taskDescription, false);
+        addTaskToList(newTodo);
+    }
+
+    private void addTaskToList(Task newTask) {
         tasks.add(newTask);
         System.out.println("Got it. I've added this task:");
-        if (newTask instanceof Deadlines) {
-            Deadlines deadline = (Deadlines) newTask;
-            System.out.println("   " + newTask.getStatusIcon()
-                    + " " + deadline.getDescription());
-        } else if (newTask instanceof Events) {
-            Events event = (Events) newTask;
-            System.out.println("   " + newTask.getStatusIcon()
-                    + " " + event.getDescription());
-        } else {
-            System.out.println("   " + newTask.getStatusIcon()
-                    + " " + newTask.getDescription());
-        }
+        System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
         ui.printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -179,21 +174,17 @@ public class TaskList {
      */
     public void findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
-
         int numberOfMatchingTasks = matchingTasks.size();
-
         if (numberOfMatchingTasks == 0) {
             ui.printFormattedMessage("No matching tasks found.");
         } else {
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                Task task = matchingTasks.get(i);
+            for (Task task : matchingTasks) {
                 int originalIndex = tasks.indexOf(task) + 1;
                 System.out.println(originalIndex + ". " + task.toString());
             }

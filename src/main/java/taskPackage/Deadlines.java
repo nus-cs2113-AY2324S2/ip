@@ -25,6 +25,7 @@ public class Deadlines extends Task {
      * @return The deadline of the task.
      */
     public String getByDate() {
+
         return by;
     }
 
@@ -35,6 +36,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String getStatusIcon() {
+
         return "[D]" + super.getStatusIcon();
     }
 
@@ -45,6 +47,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String getDescription() {
+
         return super.getDescription() + " (by: " + by + ")";
     }
 
@@ -55,6 +58,6 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "] " + getDescription() + " (by: " + getByDate() + ")";
+        return "[" + getStatusIcon() + "] " + getDescription();
     }
 }
