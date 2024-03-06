@@ -186,6 +186,7 @@ public class TaskList {
             }
             writer.close();
         } catch (IOException e) {
+            //throw new HikoExceptions("An error occurred while trying to save tasks to file, Hiko is working on it now!", e);
             System.out.println("An error occurred while trying to save tasks to file.");
             e.printStackTrace();
         }

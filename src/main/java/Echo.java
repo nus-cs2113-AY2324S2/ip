@@ -152,11 +152,12 @@ public class Echo {
                 break;
 
             default:
+
                 System.out.println(break_line);
-                System.out.println("Sorry, Hiko doesn't understand that command.");
+                System.out.println("Sorry, Hiko don't understand that command.");
                 System.out.println("Type 'help' for a list of valid commands.");
                 System.out.println(break_line);
-                break;
+
             }
         }
     }
