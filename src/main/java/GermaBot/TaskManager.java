@@ -11,10 +11,10 @@ import Exceptions.*;
 import Tasks.*;
 
 public class TaskManager {
-    private String filePath;
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
-    public TaskManager(String filePath) {
-        this.filePath = filePath;
+    public TaskManager() {
+
     }
 
 }

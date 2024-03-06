@@ -12,33 +12,32 @@ public class UI {
     static final String GOODBYE_MESSAGE = "Thanks for using me! Hope to see you again soon~!";
     static final String LOAD_COMPLETE = "Loading complete!";
 
-    private static Scanner scanner;
+    private static final Scanner scanner = new Scanner(System.in);;
 
     public UI() {
-        scanner = new Scanner(System.in);
     }
 
-    public static String getInput() {
+    public String getInput() {
         return scanner.nextLine();
     }
 
-    public static void printWelcomeMessage() {
+    public void printWelcomeMessage() {
         System.out.println(LINE);
         System.out.println(WELCOME_MESSAGE);
     }
 
-    public static void printLoadComplete() {
+    public void printLoadComplete() {
 
         System.out.println(LOAD_COMPLETE);
     }
 
-    public static void printFileNotFoundException() {
+    public void printFileNotFoundException() {
         System.out.println("Uh oh, there is no saved file yet! Please create a GermaBotsData.txt " +
                 "file under './src/data/GermaBotData'!!\n"
                 + "Because there is no saved file found, I will start with an empty list!");
     }
 
-    public static void printFileReadException() {
+    public void printFileReadException() {
         System.out.println("Uh oh, there seems to be an issue with the save file...\n" +
                 "Because there is an error with the save file, I will start with an empty list!");
     }
@@ -53,7 +52,7 @@ public class UI {
         System.out.println(LINE);
     }
 
-    public static void printByeMessage() {
+    public void printByeMessage() {
         System.out.println(LINE);
         System.out.println(GOODBYE_MESSAGE);
         System.out.println(LINE);
@@ -74,7 +73,7 @@ public class UI {
                 + "[" + toDoList.get(idx).getStatusIcon() + "] " + toDoList.get(idx).getDescription());
     }
 
-    public static void printUnknownInputException(String input) {
+    public void printUnknownInputException(String input) {
         System.out.println("Uhh.. I'm sorry but I'm not quite sure what in the world '" + input + "' means..." +
                 " Remember to include the Task' Type in front of the input!!");
     }

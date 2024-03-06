@@ -3,6 +3,7 @@ package Tasks;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected static int counter = 0;
 
     public Task(String description) {
         this.description = description;
@@ -27,6 +28,14 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public static int getNoOfTask() {
+        return counter;
+    }
+
+    public static void setNoOfTask(int numberOfTasks) {
+        counter = numberOfTasks;
     }
 
     @Override
