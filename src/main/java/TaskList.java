@@ -18,7 +18,6 @@ public class TaskList {
     }
 
     /**
-     * Adds a new Todo task based on user input.
      *
      * @param userCommand The command input by the user, expected to contain a description of the task following the command keyword.
      */
