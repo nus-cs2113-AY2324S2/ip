@@ -20,7 +20,6 @@ public class Deadline extends Task{
         return split[1].substring(0, endIndex );
     }
     @Override
-
     public String getDescription() {
         return super.getDescription() + "(by:" + by + ")";
     }

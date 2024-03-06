@@ -7,19 +7,14 @@ public class RoleyPoley {
     protected static ArrayList<Task> taskList = new ArrayList<>();
     private static String myPath = "./src/main/java/RoleyPoleyData.txt";
 
-    public static void main(String[] args) throws IOException, RoleyPoleyException {
+    public static void main(String[] args) throws RoleyPoleyParseException, RoleyPoleyFileException {
         ReadFile.readFileToArrayList();
         boolean isExit = false;
         greet();
-        while(!isExit) {
-            try {
-                isExit = echo();
-            } catch (RoleyPoleyException error) {
-                createLine();
-            }
+        while (!isExit) {
+            isExit = echo();
         }
     }
-
 
 
     private static void printAddReply(ArrayList<Task> taskList) {
@@ -61,7 +56,7 @@ public class RoleyPoley {
         createLine();
     }
 
-    public static boolean echo() throws RoleyPoleyException {
+    public static boolean echo() throws RoleyPoleyParseException {
         String line;
         String[] words;
         while (true) {
@@ -88,7 +83,7 @@ public class RoleyPoley {
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList.size() < taskNum) {
-                        throw new RoleyPoleyException("markError");
+                        throw new RoleyPoleyParseException("markError");
                     }
                     taskList.get(taskNum - 1).markAsDone();
                     createLine();
@@ -99,7 +94,7 @@ public class RoleyPoley {
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList.size() < taskNum) {
-                        throw new RoleyPoleyException("unmarkError");
+                        throw new RoleyPoleyParseException("unmarkError");
                     }
                     taskList.get(taskNum - 1).markAsUndone();
                     createLine();
@@ -107,28 +102,25 @@ public class RoleyPoley {
                 break;
             case "todo":
                 if (line.length() < 5) {
-                    throw new RoleyPoleyException("toDoError");
+                    throw new RoleyPoleyParseException("toDoError");
                 } else {
                     taskList.add(new Todo(line.substring("todo".length()), false));
                     printAddReply(taskList);
                     createLine();
-                    //counter++;
                 }
                 break;
             case "deadline":
                 if (!line.contains("/by")) {
-                    throw new RoleyPoleyException("deadlineError");
+                    throw new RoleyPoleyParseException("deadlineError");
                 } else {
                     taskList.add(new Deadline(line.substring("deadline".length()), false));
                     printAddReply(taskList);
                     createLine();
-                    //counter++;
                 }
                 break;
             case "event":
-                //words = line.split("/from");
                 if (!line.contains("/from") || !line.contains("/to")) {
-                    throw new RoleyPoleyException("eventError");
+                    throw new RoleyPoleyParseException("eventError");
                 } else {
                     taskList.add(new Event(line.substring("event".length()), false));
                     printAddReply(taskList);
@@ -140,7 +132,7 @@ public class RoleyPoley {
                 if (words.length == 2) {
                     int taskNum = Integer.parseInt(words[1]);
                     if (taskList.size() < taskNum) {
-                        throw new RoleyPoleyException("deleteError");
+                        throw new RoleyPoleyParseException("deleteError");
                     }
                     printDelReply(taskList, taskNum - 1);
                     taskList.remove(taskNum - 1);
@@ -148,7 +140,7 @@ public class RoleyPoley {
                 }
                 break;
             default:
-                throw new RoleyPoleyException("defaultError");
+                throw new RoleyPoleyParseException("defaultError");
             }
         }
     }

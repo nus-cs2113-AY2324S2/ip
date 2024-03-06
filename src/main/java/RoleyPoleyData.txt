@@ -1,1 +1,3 @@
-T | 0 |  eat lunch
+T | 0 |  go eat
+D | 0 |  do IP (by: friday)
+E | 0 |  buffet (from: 5pm to: 7pm)

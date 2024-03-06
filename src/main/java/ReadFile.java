@@ -7,20 +7,14 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class ReadFile {
-    public static void readFileToArrayList() throws IOException, RoleyPoleyException {
+    public static void readFileToArrayList() throws RoleyPoleyFileException {
         try {
             Path myPath = Paths.get("./src/main/java/RoleyPoleyData.txt");
             List<String> taskList = Files.readAllLines(myPath, StandardCharsets.UTF_8);
-            for(String line : taskList) {
-                if (line.trim().isEmpty()) {
-                    continue;
-                } else {
-                    try {
-                        convertTask(line);
-                    } catch (RoleyPoleyException e) {
-
-                    }
-                };
+            for (String line : taskList) {
+                if (!line.trim().isEmpty()) {
+                    convertTask(line);
+                }
             }
         } catch (IOException e) {
             File textFile = new File("RoleyPoleyData.txt");
@@ -28,13 +22,13 @@ public class ReadFile {
     }
 
 
-    public static void convertTask(String line) throws RoleyPoleyException {
+    public static void convertTask(String line) throws RoleyPoleyFileException {
         String[] identifyTaskType = line.split(" ");
         String description = line.substring("X | Y | ".length());
         boolean isDone = switch (identifyTaskType[2]) {
             case "1" -> true;
             case "0" -> false;
-            default -> throw new RoleyPoleyException("FileContentError");
+            default -> throw new RoleyPoleyFileException("FileContentError");
         };
 
         switch (identifyTaskType[0]) {
@@ -43,20 +37,20 @@ public class ReadFile {
             break;
         case "D":
             if (!description.contains("(by:")) {
-                throw new RoleyPoleyException("FileContentError");
+                throw new RoleyPoleyFileException("DeadLineFormatError");
             } else {
                 RoleyPoley.taskList.add(new Deadline(description, isDone));
             }
             break;
         case "E":
             if (!description.contains("(from:") || !description.contains("to:")) {
-                throw new RoleyPoleyException("FileContentError");
+                throw new RoleyPoleyFileException("EventFormatError");
             } else {
                 RoleyPoley.taskList.add(new Event(description, isDone));
             }
             break;
         default:
-            throw new RoleyPoleyException("FileContentError");
+            throw new RoleyPoleyFileException("FileContentError");
         }
     }
 }
