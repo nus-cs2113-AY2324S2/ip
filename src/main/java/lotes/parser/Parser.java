@@ -77,7 +77,8 @@ public class Parser {
             break;
 
         case FindCommand.COMMAND_WORD:
-            taskList.findTask(userInput);
+            FindCommand findCommand = new FindCommand();
+            findCommand.run(userInput);
             break;
 
         default:

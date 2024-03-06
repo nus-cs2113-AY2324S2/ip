@@ -7,5 +7,7 @@ public abstract class Command {
     protected TaskList taskList;
     protected String description;
 
-    public abstract void execute();
+    public void execute() {
+        throw new UnsupportedOperationException("This method is to be implemented by child classes");
+    }
 }
