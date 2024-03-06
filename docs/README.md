@@ -55,13 +55,13 @@ The task descriptions are **case-sensitive** and are displayed as entered.
 
 #### Usage
 `todo <description>`<br>
-Adds a todo task with the given description.
+-Adds a todo task with the given description.
 
 `deadline <description> /by <date>`<br>
-Adds a deadline task with the given description and date.
+-Adds a deadline task with the given description and date.
 
 `event <description> /from <start date> /to <end date>`<br>
-Adds an event task with the given description and start and end dates.
+-Adds an event task with the given description and start and end dates.
 
 * The date and time format is specified in the [Appendix](#Date-and-Time-Format).
 
@@ -98,9 +98,7 @@ You now have a whopping 3 tasks in the list. Keep 'em coming!
 Lists all the tasks in the list of tasks.
 
 #### Usage
-`list` - Lists all the tasks in the list of tasks.
-
-`ls` - Lists all the tasks in the list of tasks.
+`list` or `ls` - Lists all the tasks in the list of tasks.
 
 #### Example of usage
 `list` - Display all the tasks in the list of tasks.
@@ -176,11 +174,7 @@ Behold! Your tasks surface:
 Exits the program.
 
 #### Usage
-`bye` - Exits the program.
-
-`ex` - Exits the program.
-
-`q` - Exits the program.
+`bye` or `ex` or `q` - Exits the program.
 
 #### Example of usage
 `bye` - Exits the program.
@@ -195,9 +189,7 @@ Farewell, adventurer! Until our paths cross again!
 Displays the help message.
 
 #### Usage
-`help` - Displays the help message.
-
-`h` - Displays the help message.
+`help` or `h` - Displays the help message.
 
 #### Example of usage
 `help` - Displays the help message.
@@ -225,14 +217,14 @@ Enjoy chatting with Adam!
 
 ## Appendix
 ### Date and Time Format
-* The date and time format is case-insensitive.
+* The date and time format is **case-insensitive**.
 * `deadline` and `event` commands accept dates and times in the following format:
 - Date:
-- `YYYYMMDD` (4-digit year, 2-digit month, 2-digit day,<br>seperated by any symbols of: `-` `/` `.` or a whitespace)
-- `DDMMYYYY` (2-digit day, 2-digit month, 4-digit year,<br>seperated by any symbols of: `-` `/` `.` or a whitespace)
-- `ddMMMyyyy` (2-digit day, 3-letter month, 4-digit year,<br>seperated by any symbols of:  `-` `/` or a whitespace)
-- `MMMddyyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace)
-- `MMM dd, yyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a whitespace with a comma `,` after the day)
+- `YYYYMMDD` (4-digit year, 2-digit month, 2-digit day,<br>seperated by any symbols of: `-` `/` `.` or a space character)
+- `DDMMYYYY` (2-digit day, 2-digit month, 4-digit year,<br>seperated by any symbols of: `-` `/` `.` or a space character)
+- `ddMMMyyyy` (2-digit day, 3-letter month, 4-digit year,<br>seperated by any symbols of:  `-` `/` or a space character)
+- `MMMddyyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a space character)
+- `MMM dd, yyyy` (3-letter month, 2-digit day, 4-digit year,<br>seperated by a space character with a comma `,` after the day)
 - Time:
 - 24-hour or 12-hour format with an optional leading zero,<br>and optional colon `:` as the separator between hours and minutes.
 - For 12-hour format, the time should be followed by `am` or `pm`.

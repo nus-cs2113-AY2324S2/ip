@@ -29,15 +29,15 @@ A complete user guide can be found [here](https://adamzzq.github.io/ip/).
 
 ## Command Summary
 
-Action | Format, Examples
---------|------------------
-Add Todo | `todo <description>` e.g., `todo read book`
-Add Deadline | `deadline <description> /by <date>` <br> e.g., `deadline return book /by 2021-09-30`
-Add Event | `event <description> /from <start date> /to <end date>` <br> e.g., `event project meeting /from 2021-10-01 /to 2021-10-02`
-List | `list` or `ls`
-Mark a task as done or unmark | `mark <index>` e.g., `mark 1`, `unmark 2`
-Delete | `delete <index>` e.g., `delete 3`
-Find | `find <keyword>` e.g., `find book`
-Exit | `bye` or `ex` or `q`
-Help | `help` or `h`
+| Action                     | Format                                                  | Examples                                                  |
+|----------------------------|---------------------------------------------------------|-----------------------------------------------------------|
+| Add Todo                   | `todo <description>`                                    | `todo read book`                                          |
+| Add Deadline               | `deadline <description> /by <date>`                     | `deadline return book /by 2024-04-30`                     |
+| Add Event                  | `event <description> /from <start date> /to <end date>` | `event prepare for exams /from 2024-03-01 /to 2024-03-02` |
+| List                       | `list` or `ls`                                          | `ls`                                                      |
+| Mark/Unmark a task as done | `mark <index>`                                          | `mark 1`, `unmark 2`                                      |
+| Delete                     | `delete <index>`                                        | `delete 3`                                                |
+| Find                       | `find <keyword>`                                        | `find book`                                               |
+| Exit                       | `bye` or `ex` or `q`                                    | `q`                                                       |
+| Help                       | `help` or `h`                                           | `h`                                                       |
 
