@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class Ui {
     public String input;
     public Scanner in;
+    public final int EXPECTED_LENGTH = 2;
 
     public Ui() {
         this.in = new Scanner(System.in);
@@ -15,7 +16,7 @@ public class Ui {
     public void processInput(String input, TaskList taskList) throws JaneException {
         try {
             String[] inputPart = input.split(" ", 2);
-            if (inputPart.length < 2 || inputPart[1] == null) {
+            if (inputPart.length < EXPECTED_LENGTH || inputPart[1] == null) {
                 switch (inputPart[0]) {
                 case "todo" :
                 case "deadline" :
@@ -23,6 +24,7 @@ public class Ui {
                     throw new JaneException("Description for a " + inputPart[0] + " cannot be empty");
                 }
             }
+
             Parser parser = new Parser(taskList);
             switch (inputPart[0]) {
             case "todo":
