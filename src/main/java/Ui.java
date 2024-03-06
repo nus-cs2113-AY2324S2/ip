@@ -1,7 +1,3 @@
-import sam.task.Task;
-
-import java.util.ArrayList;
-
 // Handles user interface interactions
 class Ui {
 	// Prints the greeting message
@@ -34,7 +30,12 @@ class Ui {
 	// Prints the farewell message
 	public void printFarewell() {
 		// Printing farewell message
-		System.out.println("Bye. Hope to see you again soon!");
+		System.out.println("Hope to see you again soon!");
+		System.out.println("  _____             ____            __\n" +
+				" / ___/__  ___  ___/ / /  __ _____ / /\n" +
+				"/ (_ / _ \\/ _ \\/ _  / _ \\/ // / -_)_/ \n" +
+				"\\___/\\___/\\___/\\_,_/_.__/\\_, /\\__(_)  \n" +
+				"                        /___/         ");
 		printLine();
 	}
 
