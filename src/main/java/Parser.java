@@ -137,7 +137,6 @@ public class Parser {
      * @return The string to find.
      */
     public static String getStringToFind(String line) {
-
         return line.split(" ")[1];
     }
 }
