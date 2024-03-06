@@ -13,7 +13,7 @@ public class Adam {
         boolean exitFlag = false;
 
         try {
-            tasks = FileManager.loadTasks();
+            tasks = Storage.loadTasks();
         } catch (AdamException e) {
             System.out.println(e.getMessage());
         }
@@ -27,7 +27,7 @@ public class Adam {
             try {
                 exitFlag = CommandGenerator.generate(input).execute(tasks);
                 // return true if it's exitCommand; false otherwise
-                FileManager.saveTasks(tasks);
+                Storage.saveTasks(tasks);
             } catch (AdamException error) {
                 System.out.println(error.getMessage());
             }

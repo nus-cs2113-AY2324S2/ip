@@ -2,6 +2,9 @@ package task;
 
 import java.io.Serializable;
 
+/*
+ * Abstract class for tasks.
+ */
 public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;
@@ -16,6 +19,11 @@ public abstract class Task implements Serializable {
         return (this.isDone ? "[X] " : "[ ] ") + this.description;
     }
 
+    /**
+     * Sets the status of the task.
+     *
+     * @param newStatus New status of the task.
+     */
     public void setIsDone(boolean newStatus) {
         this.isDone = newStatus;
     }

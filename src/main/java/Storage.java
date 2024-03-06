@@ -8,7 +8,7 @@ import exception.AdamException;
 import task.TaskList;
 import ui.Message;
 
-public class FileManager {
+public class Storage {
     private static final String TASKS_FILE_PATH = "tasks.dat";
 
     public static void saveTasks(TaskList tasks) throws AdamException {
