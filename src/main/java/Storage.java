@@ -36,6 +36,11 @@ public class Storage {
 
     private Task parseLineToTask(String line) {
         String[] parts = line.split("\\|", -1);
+        if (parts.length < 3) {
+            System.out.println("Invalid task format: " + line);
+            return null;
+        }
+
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();

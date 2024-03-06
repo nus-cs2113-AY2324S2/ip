@@ -29,7 +29,7 @@ public class Zap {
             tasks.add(new TodoTask(taskDescription));
 
             System.out.println("____________________________________________________________");
-            System.out.println(" Got it. Zappy boy added this task:");
+            System.out.println(" Got it. Avril added this task:");
             System.out.println("   [T][ ]  " + taskDescription);
             if (tasks.size() == 1) {
                 System.out.println(" Now you have 1 task in the list.");
@@ -54,7 +54,7 @@ public class Zap {
 
         tasks.add(new DeadlineTask(description, deadline));
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Zappy boy added this task:");
+        System.out.println(" Got it. Avril added this task:");
         System.out.println("   [D][ ] " + description + " (By: " + deadline + ")");
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
@@ -87,7 +87,7 @@ public class Zap {
         tasks.add(new EventTask(description, startTime, endTime));
 
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Zappy boy added this task:");
+        System.out.println(" Got it. Avril added this task:");
         System.out.println("   [E][ ] " + description + " (From: " + startTime + " To: " + endTime + ")");
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
