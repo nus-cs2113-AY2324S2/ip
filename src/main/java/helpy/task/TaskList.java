@@ -19,6 +19,15 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    public void printTasks() {
+        int label = 1;
+        for (Task task : taskList) {
+            System.out.print(label + ".");
+            System.out.println(task);
+            label++;
+        }
+    }
+
     public ArrayList<Task> getTasks() {
         return taskList;
     }
