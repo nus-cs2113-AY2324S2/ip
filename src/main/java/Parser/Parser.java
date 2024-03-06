@@ -1,6 +1,7 @@
 package Parser;
 
 import Exceptions.ArgumentNotFoundException;
+import Exceptions.IncorrectFormatException;
 import Exceptions.TaskNotFoundException;
 import Tasks.Task;
 
@@ -31,13 +32,19 @@ public class Parser {
      * @return a formatted string representation of the parsed event task
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      */
-    public String parseEvent(String input) throws ArgumentNotFoundException {
+    public String parseEvent(String input) throws ArgumentNotFoundException, IncorrectFormatException {
         if (EVENT_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
         String event = input.substring(EVENT_TASK_INDEX);
         String[] parts = event.split(" /from ");
+        if (parts.length == 1){
+            throw new IncorrectFormatException();
+        }
         String[] time = parts[1].split(" /to ");
+        if (time.length == 1){
+            throw new IncorrectFormatException();
+        }
         return parts[0] + " (from: " + time[0] + " to: " + time[1] + ")";
     }
 
@@ -48,12 +55,15 @@ public class Parser {
      * @return a formatted string representation of the parsed deadline task
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
      */
-    public String parseDeadline(String input) throws ArgumentNotFoundException {
+    public String parseDeadline(String input) throws ArgumentNotFoundException, IncorrectFormatException {
         if (DEADLINE_TASK_INDEX > input.length()) {
             throw new ArgumentNotFoundException();
         }
         String deadline = input.substring(DEADLINE_TASK_INDEX);
         String[] parts = deadline.split(" /by ");
+        if (parts.length == 1){
+            throw new IncorrectFormatException();
+        }
         return parts[0] + " (by: " + parts[1] + ")";
     }
 
@@ -71,7 +81,7 @@ public class Parser {
         return input.substring(TODO_TASK_INDEX);
     }
 
-    public String parseFind(String input) throws ArgumentNotFoundException {
+    public String parseFind(String input)  {
         return input.substring(FIND_TASK_INDEX);
     }
 

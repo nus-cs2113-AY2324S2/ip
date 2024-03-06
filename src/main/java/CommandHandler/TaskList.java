@@ -1,6 +1,7 @@
 package CommandHandler;
 
 import Exceptions.ArgumentNotFoundException;
+import Exceptions.IncorrectFormatException;
 import Exceptions.TaskNotFoundException;
 import Parser.Parser;
 import Storage.DataHandler;
@@ -37,7 +38,7 @@ public class TaskList{
     /**
      *  Processes and initiate the command to add an Event to the list.
      */
-    public void processEvent(String input) throws ArgumentNotFoundException {
+    public void processEvent(String input) throws ArgumentNotFoundException, IncorrectFormatException {
         Task newEvent = new Todo(parser.parseEvent(input));
         taskArray.add(newEvent);
         ui.displayAcknowledgement(newEvent, taskArray.size());
@@ -46,7 +47,7 @@ public class TaskList{
     /**
      *  Processes and initiate the command to add a Deadline to the list.
      */
-    public void processDeadline(String input) throws ArgumentNotFoundException {
+    public void processDeadline(String input) throws ArgumentNotFoundException, IncorrectFormatException {
         Task newDeadline = new Todo(parser.parseDeadline(input));
         taskArray.add(newDeadline);
         ui.displayAcknowledgement(newDeadline, taskArray.size());

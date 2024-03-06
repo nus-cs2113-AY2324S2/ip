@@ -1,4 +1,5 @@
 import CommandHandler.TaskList;
+import Exceptions.IncorrectFormatException;
 import Exceptions.TaskNotFoundException;
 import Exceptions.ArgumentNotFoundException;
 import Exceptions.CommandNotFoundException;
@@ -29,6 +30,8 @@ public class Spike {
                 System.out.println("Argument Not Found! Please Try Again");
             } catch (TaskNotFoundException e) {
                 System.out.println("Task Not Found! Please Try Again");
+            } catch (IncorrectFormatException e) {
+                System.out.println("Incorrect Format! Please Try Again");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -37,7 +40,7 @@ public class Spike {
 
 
     private static void startChatbot(Scanner in)
-            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException, IOException {
+            throws CommandNotFoundException, ArgumentNotFoundException, TaskNotFoundException, IOException, IncorrectFormatException {
         Tasks = new TaskList();
 
         outerLoop:
