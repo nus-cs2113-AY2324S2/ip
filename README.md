@@ -2,6 +2,7 @@
 
 Adam the Chat Bot is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
 If you can type fast, Adam can get your tasks managed faster than traditional GUI apps.
+A complete user guide can be found [here](https://adamzzq.github.io/ip/).
 
 ## Quick Start
 
