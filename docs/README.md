@@ -100,7 +100,7 @@ Saves current task list and exits program. <br>
 - Format: ```bye```
 <br>
 
-> [!WARNING]
+> [!IMPORTANT]
 > Tasks are not saved automatically and will not be saved unless this command is run.
 
 
