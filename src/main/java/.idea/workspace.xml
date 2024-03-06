@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1247f2cb-c5a4-42d6-8a2f-7c9048e178c5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/Deadline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DukeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/DukeException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event.java" afterDir="false" />
-    </list>
+    <list default="true" id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +26,6 @@
     "Application.Duke.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "A-JavaDoc",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/untitled/src"
   }
