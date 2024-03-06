@@ -237,4 +237,8 @@ public class TaskList {
         }
         return formattedLine;
     }
+
+    public static void clearTaskList() {
+        taskList.clear();
+    }
 }

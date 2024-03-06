@@ -1,8 +1,5 @@
 package soot.ui;
 
-import soot.parser.Parser;
-import soot.task.TaskList;
-
 /**
  * Class UserUi handles interactions with the user.
  * This includes display of user interfaces, such as displaying the divider line.
@@ -51,5 +48,11 @@ public class UserUi {
      */
     public static void displayIndent() {
         System.out.print(INDENT);
+    }
+
+    //TODO: javadoc
+    public static void printMessageForUser(String messageToPrint) {
+        System.out.println(messageToPrint);
+        UserUi.displayDividerLine();
     }
 }

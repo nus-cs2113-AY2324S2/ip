@@ -1,8 +1,8 @@
 package soot.exceptions;
 
 /**
- * Exception class that is inherited from Exception,
- * thrown when the saved file has an unknown task type.
+ * Exception class thrown when saved file has an unknown task type.
+ * Class is inherited from Exception.
  */
 public class SavedFileErrorTypeException extends Exception {
 
