@@ -230,12 +230,12 @@ Some users might face issues when starting Mona. Here's how to troubleshoot comm
 
 1. **File is Corrupted Error**
    If you encounter an error that says the file is corrupted, you should first take a look at your `data.txt` file. It's possible that the content of the file has become invalid. Here's what you can do:
-  - **Delete and Recreate**: If you're unsure about the formatting, simply delete the `data.txt` file. Mona will create a new one when you restart the application.
-  - **Rectify the Content**: If you have important data you can't lose, open the `data.txt` file and fix any formatting issues. Make sure each task follows the correct structure Mona expects.
+   - **Delete and Recreate**: If you're unsure about the formatting, simply delete the `data.txt` file. Mona will create a new one when you restart the application.
+   - **Rectify the Content**: If you have important data you can't lose, open the `data.txt` file and fix any formatting issues. Make sure each task follows the correct structure Mona expects.
 
 2. **Issues with Data Directory or File**
    If you encounter an error about not being able to create or read/write from the data directory or file, this usually means there's a permissions issue on your system. Here's how to handle it:
-  - **Check Permissions**: Ensure that Mona has the right permissions to access the folders it needs. Right-click on the directory and check its properties to make sure reading and writing are allowed.
+    - **Check Permissions**: Ensure that Mona has the right permissions to access the folders it needs. Right-click on the directory and check its properties to make sure reading and writing are allowed.
 
 &nbsp;
 
