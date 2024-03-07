@@ -7,8 +7,6 @@ import taskList.TaskList;
 /**
  * Implements a user interface that displays messages to the user.
  * 
- * <p>Messages include greetings, help messages, and error messages.</p>
- * 
  * @author NicholasTanYY
  * @since January 2024
  * @version 1.0

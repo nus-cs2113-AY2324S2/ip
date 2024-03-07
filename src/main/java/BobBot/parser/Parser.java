@@ -17,9 +17,6 @@ import taskList.TaskList;
  * Implements a parser that interprets user input and performs the necessary 
  * operations.
  * 
- * <p>Operations include adding tasks, marking tasks as done, deleting tasks, 
- * and listing tasks.</p>
- * 
  * @author NicholasTanYY
  * @since January 2024
  * @version 1.0
