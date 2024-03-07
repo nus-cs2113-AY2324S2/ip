@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Parser {
     private final Scanner scanner;
+
     public Parser() {
         this.scanner = new Scanner(System.in);
     }
@@ -26,7 +27,12 @@ public class Parser {
             if (userCommand.equalsIgnoreCase("thank you and bye")) {
                 break;
             }
-            processCommand(userCommand);
+
+            try {
+                processCommand(userCommand);
+            } catch (TaskManagerException e) {
+                System.out.println(e.getMessage());
+            }
         }
         scanner.close();
     }
@@ -38,7 +44,7 @@ public class Parser {
      * @param userCommand The user command to be processed.
      */
 
-    private void processCommand(String userCommand) {
+    private void processCommand(String userCommand) throws TaskManagerException {
         if (userCommand.equalsIgnoreCase("hi")) {
             System.out.println("HEY HEY YOU YOU I CAN BE YOUR... task manager bot");
         } else if (userCommand.equalsIgnoreCase("bye")) {
@@ -50,10 +56,19 @@ public class Parser {
         } else if (userCommand.startsWith("unmark")) {
             TaskList.unmarkTask(userCommand);
         } else if (userCommand.startsWith("todo")) {
+            if (userCommand.strip().equals("todo")) {
+                throw new TaskManagerException("OOPS!!! The description of a todo cannot be empty.");
+            }
             TaskList.addTodoTask(userCommand);
         } else if (userCommand.startsWith("deadline")) {
+            if (userCommand.strip().equals("deadline")) {
+                throw new TaskManagerException("OOPS!!! The description of a deadline cannot be empty.");
+            }
             TaskList.addDeadline(userCommand);
         } else if (userCommand.startsWith("event")) {
+            if (userCommand.strip().equals("event")) {
+                throw new TaskManagerException("OOPS!!! The description of an event cannot be empty.");
+            }
             TaskList.addEvent(userCommand);
         } else if (userCommand.startsWith("delete")) {
             TaskList.deleteTask(userCommand);
@@ -61,7 +76,7 @@ public class Parser {
             String keyword = userCommand.substring(5);
             TaskList.findTask(keyword);
         } else {
-            System.out.println("bruh. do better, read instructions.");
+            throw new TaskManagerException("Do better. Read syntax instructions.");
         }
     }
 }

@@ -47,13 +47,16 @@ public class TaskList {
      *
      * @param userCommand The command input by the user, expected to contain a description of the task and a deadline, separated by '/by'.
      */
-    static void addDeadline(String userCommand) {
+    static void addDeadline(String userCommand) throws TaskManagerException {
         String[] descParts = userCommand.split("deadline");
         String[] deadlineParts = descParts[1].split("/by", 2);
 
-        if (deadlineParts.length != 2) {
-            System.out.println("Invalid deadline format. Please use '/by' to specify day.");
-            return;
+        if (descParts[1].trim().isEmpty()) {
+            throw new TaskManagerException("Invalid deadline format. Please use '/by' to specify the deadline.");
+        }
+
+        if (deadlineParts.length < 2) {
+            throw new TaskManagerException("Invalid deadline format. Please use '/by' to specify the deadline.");
         }
 
         String description = deadlineParts[0];
@@ -85,22 +88,24 @@ public class TaskList {
      *
      * @param userCommand The command input by the user, expected to contain a description of the task and a deadline, separated by '/from'.
      */
-    static void addEvent(String userCommand) {
+    static void addEvent(String userCommand) throws TaskManagerException {
 
-        String[] descParts = userCommand.split("event");
+        String[] descParts = userCommand.split("event", 2);
         String[] eventParts = descParts[1].split("/from", 2);
 
-        if (eventParts.length != 2) {
-            System.out.println("Invalid event format. Please use '/from' to specify start and end time.");
-            return;
+        if (descParts[1].trim().isEmpty()) {
+            throw new TaskManagerException("Invalid event format. Please use 'event <description> /from <start date> /to <end date>' to specify the event.");
+        }
+
+        if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
+            throw new TaskManagerException("Invalid event format. Please use '/from' to specify the start date and time.");
         }
 
         String description = eventParts[0].trim();
         String[] timeParts = eventParts[1].split("/to", 2);
 
         if (timeParts.length != 2) {
-            System.out.println("Invalid event format. Please use '/to' to specify end time.");
-            return;
+            throw new TaskManagerException("Invalid event format. Please use '/to' to specify the end date and time.");
         }
 
         // Parse the start and end times of command
@@ -113,8 +118,7 @@ public class TaskList {
             startTime = LocalDateTime.parse(startTimeString, formatter);
             endTime = LocalDateTime.parse(endTimeString, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date-time format. Please use the format 'DD-MM-YYYY HHmm'.");
-            return;
+            throw new TaskManagerException("Invalid date-time format. Please use the format 'DD-MM-YYYY HHmm'.");
         }
 
         // Format the start and end times for output
