@@ -2,6 +2,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Represents deadline task with a specific due date and time
+ */
+
 public class Deadline extends Task {
     private LocalDateTime byDateTime;
     private String byString;

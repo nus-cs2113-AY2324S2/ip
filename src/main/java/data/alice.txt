@@ -1,12 +1,5 @@
 E | 0 | sleep | 4pm | 6pm
-T | 0 | go school
-D | 0 | cs2113 assignment | 2024-03-03 10:10
+T | 1 | go school
 E | 0 | partyyyy | 10:00pm | 1:00am
 D | 0 | return book | 2-12-2019 1800
-D | 0 | finish chatbot | 08/03/2024
-D | 0 | finish chatbot | 08-03-2024
-D | 0 | finish chatbot | 8-03-2024 2000
-D | 0 | do work | 8-3-2024 2000
-D | 0 | do work | 8-3-2024 2000
-D | 0 | do work | 8-02-2023 2359
 D | 0 | sleep | 1-02-2019 1804

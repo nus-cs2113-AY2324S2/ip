@@ -1,6 +1,12 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+
+/**
+ *  This class is the main entry point of the Alice chatbot. It initialises the application
+ *  and handles user input commands to perform various task management operations such as
+ *  adding, deleting, marking/ unmarking tasks, and finding tasks by their keyword.
+ */
 
 public class Alice {
     private Storage storage;
@@ -8,7 +14,12 @@ public class Alice {
     private Ui ui;
     private Parser parser;
 
-
+    /**
+     * Constructs an instance of Alice and initialises the user interface, parser and storage.
+     * It also attempts to load any saved tasks from storage.
+     *
+     * @param filePath The file path where the tasks are saved and loaded from.
+     */
     public Alice(String filePath) {
         ui = new Ui();
         parser = new Parser();
@@ -21,6 +32,9 @@ public class Alice {
         }
     }
 
+    /**
+     * Starts the application and enters the command processing loop.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.showGreeting();
@@ -111,10 +125,20 @@ public class Alice {
     }
 
     private void handleFind(String input) throws AliceException {
-        String keyword = input.substring(5); // assuming 'find ' is 5 characters
-        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
-        ui.showFoundTasks(foundTasks);
+        String keyword = input.substring(5).trim(); // Assuming input starts with "find "
+        if (keyword.isEmpty()) {
+            throw new AliceException("Keyword cannot be empty.");
+        }
+
+        Map<Integer, Task> matchingTasks = tasks.findTasks(keyword);
+        ui.showMatchingTasks(matchingTasks);
     }
+
+    /**
+     * Main method that serves as the entry point of the application.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         new Alice("data/alice.txt").run();
     }

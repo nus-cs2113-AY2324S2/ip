@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ * The Ui class is responsible for managing all user interactions.
+ */
 
 public class Ui {
     private static final String LINE = "____________________________________________________________";
@@ -6,6 +11,8 @@ public class Ui {
     private static final String FAREWELL_MESSAGE = "bye bestie! catch ya later, and remember to stay hydrated <3";
     private static final String INVALID_INPUT_MESSAGE = "ayo my bad i can't seem to understand ya, try saying smt valid, or type 'help'";
     private static final String HELP_MESSAGE = "Feelin' lost? Just type 'help' and I'll be right here with the deets again!";
+
+    /** Prints greeting message to the user. */
     public void showGreeting() {
         System.out.println(LINE);
         System.out.println(GREETING_MESSAGE);
@@ -13,12 +20,14 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Prints farewell message to the user. */
     public void showFarewell() {
         System.out.println(LINE);
         System.out.println(FAREWELL_MESSAGE);
         System.out.println(LINE);
     }
 
+    /** Shows the help message with available commands. */
     public void showHelp(){
         System.out.println(LINE);
         System.out.println("okay bestie, here's what u can throw at me to help ya <3 :");
@@ -30,17 +39,19 @@ public class Ui {
         System.out.println("  - 'unmark [ task number ]': Took a lil step back? No worries, we can get back to it later u got this!");
         System.out.println("  - 'delete [ task number ]': Changed your mind about a task? Not to worry, ill make the task go poof!");
         System.out.println("  - 'find [ keyword ]': Want to find a particular task but forgot the full name? No worries, lemme know the keyword and ill find it for u!");
-        System.out.println("  - 'bye': Need to head off somewhere? I'll catch ya later! Rememeber that ur amazing bestie :)");
+        System.out.println("  - 'bye': Need to head off somewhere? I'll catch ya later! Remember that ur amazing bestie :)");
         System.out.println(HELP_MESSAGE);
         System.out.println(LINE);
     }
 
+    /** Displays an invalid input message to the user. */
     public void showInvalidInputMessage() {
         System.out.println(LINE);
         System.out.println(INVALID_INPUT_MESSAGE);
         System.out.println(LINE);
     }
 
+    /** Shows the list of tasks to the user. */
     public void showTasks(ArrayList<Task> tasks) {
         System.out.println(LINE);
         if (tasks.isEmpty()) {
@@ -54,12 +65,14 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Shows an error message to the user. */
     public void showError(String message) {
         System.out.println(LINE);
         System.out.println(message);
         System.out.println(LINE);
     }
 
+    /** Informs the user that a task has been deleted. */
     public void showTaskDeleted(Task task, int listSize) {
         System.out.println(LINE);
         System.out.println("gotcha, ive made task " + task + " go poof!");
@@ -67,6 +80,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Informs the user that a task has been added. */
     public void showTaskAdded(Task task, int listSize) {
         System.out.println(LINE);
         System.out.println("aight i gotchu bestie, added this task:");
@@ -75,6 +89,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Shows the task as marked done. */
     public void showMarkedTask(Task task) {
         System.out.println(LINE);
         System.out.println("yas queen, marked it off! we are crushing it frfr:");
@@ -82,6 +97,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /** Shows the task as unmarked. */
     public void showUnmarkedTask(Task task) {
         System.out.println(LINE);
         System.out.println("aight, took a lil step back, unmarked this one:");
@@ -89,26 +105,24 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public void showFoundTasks(ArrayList<Task> tasks) {
-        if (tasks.isEmpty()) {
-            System.out.println(LINE);
-            System.out.println("There are no matching tasks in your list.");
-            System.out.println(LINE);
+    /** Displays the tasks that match the search keyword. */
+    public void showMatchingTasks(Map<Integer, Task> matchingTasks) {
+        System.out.println(LINE);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
         } else {
-            System.out.println(LINE);
             System.out.println("Here are the matching tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+            for (Map.Entry<Integer, Task> entry : matchingTasks.entrySet()) {
+                System.out.println(entry.getKey() + ". " + entry.getValue().toString());
             }
-            System.out.println(LINE);
         }
+        System.out.println(LINE);
     }
 
+    /** Informs the user of a problem loading tasks from file. */
     public void showLoadingError() {
         System.out.println(LINE);
         System.out.println("ayo i wasnt able to load the tasks, do ensure that the file exists and is accessible");
         System.out.println(LINE);
     }
-
-
 }

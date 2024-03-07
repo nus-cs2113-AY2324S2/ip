@@ -3,6 +3,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+/**
+ * The Parser class is responsible for interpreting user commands and parsing strings into tasks and their attributes.
+ */
 public class Parser {
 
     private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
@@ -14,6 +17,12 @@ public class Parser {
             DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")
     );
 
+    /**
+     * Parses the task number from the user input.
+     * @param input The command entered by the user.
+     * @return The task number as an integer.
+     * @throws AliceException If the input does not contain a valid integer task number.
+     */
     public int parseTaskNumber(String input) throws AliceException {
         try {
             return Integer.parseInt(input.split(" ")[1]) - 1;
@@ -22,6 +31,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the description from a user input string.
+     * @param input The command entered by the user.
+     * @return The description as a string.
+     * @throws AliceException If the description is empty.
+     */
     public String parseDescription(String input) throws AliceException {
         String description = input.substring(input.indexOf(" ") + 1);
         if (description.isBlank()) {
@@ -40,6 +55,14 @@ public class Parser {
             this.by = by;
         }
     }
+
+    /**
+     * Parses the given input to extract a deadline description and due date.
+     *
+     * @param input The input string to parse.
+     * @return DeadlineData containing the description and the due date.
+     * @throws AliceException If the input format is invalid.
+     */
 
     public DeadlineData parseDeadline(String input) throws AliceException {
         String[] parts = input.split(" /by ", 2);
@@ -63,6 +86,13 @@ public class Parser {
             this.end = end;
         }
     }
+
+    /**
+     * Parses an event command input to create an EventData object.
+     * @param input The command entered by the user.
+     * @return An EventData object containing the description, start, and end attributes.
+     * @throws AliceException If the event command is formatted incorrectly.
+     */
     public EventData parseEvent(String input) throws AliceException {
         if (!input.contains("/to") || !input.contains("/from")) {
             throw new AliceException("ayo event commands must include '/from' and '/to' so that i'll know when your event starts and ends yea?");
@@ -85,6 +115,12 @@ public class Parser {
         return new EventData(description, start, end);
     }
 
+    /**
+     * Parses a line of text into a Task object.
+     * @param line The line of text representing a task.
+     * @return A Task object.
+     * @throws AliceException If the task type is unknown or the line is formatted incorrectly.
+     */
     public static Task parseTask(String line) throws AliceException {
         String[] parts = line.split(" \\| ");
         boolean isDone = parts[1].equals("1");
@@ -110,6 +146,15 @@ public class Parser {
         }
         return task;
     }
+
+    /**
+     * Attempts to parse the given date-time string into a LocalDateTime object.
+     * Tries multiple formatters based on different expected date formats.
+     *
+     * @param dateTimeStr The date-time string to parse.
+     * @return The LocalDateTime object if parsing is successful.
+     * @throws AliceException If all formatters fail to parse the given string.
+     */
 
     private static LocalDateTime parseDateTime(String dateTimeStr) throws AliceException {
         for (DateTimeFormatter formatter : FORMATTERS) {
