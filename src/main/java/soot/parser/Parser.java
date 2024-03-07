@@ -141,7 +141,7 @@ public class Parser {
      * @param userInput command inputted by the user.
      */
     private static void handleFindCommand(String userInput) {
-        ArrayList<Task> foundKeywordList = new ArrayList<Task>();
+        ArrayList<Task> foundKeywordList;
 
         String keywordToFind = userInput.substring(5);
         foundKeywordList = TaskList.findKeyword(keywordToFind);

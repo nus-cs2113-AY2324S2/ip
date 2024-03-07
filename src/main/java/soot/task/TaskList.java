@@ -253,7 +253,7 @@ public class TaskList {
     public static ArrayList<Task> findKeyword(String keyword) {
         ArrayList<Task> compiledList = new ArrayList<>();
         for (Task taskToCheck : taskList) {
-            if (taskToCheck.taskName.equals(keyword)) {
+            if (taskToCheck.taskName.contains(keyword)) {
                 compiledList.add(taskToCheck);
             }
         }
