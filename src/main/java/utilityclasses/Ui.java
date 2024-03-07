@@ -2,21 +2,29 @@ package utilityclasses;
 import drosstasks.Task;
 import java.util.ArrayList;
 
+/**
+ * The Ui class provides static methods to display various user interface messages for the Dross application.
+ */
 public class Ui {
 
-    //Method to print a line of _ characters
+    /**
+     * Prints a line of underscore characters to visually separate message sections.
+     */
     public static void printLine() {
         System.out.println("_".repeat(55));
     }
 
-    //Method to exit Dross bot
+    /**
+     * Displays a goodbye message to the user upon exiting the application.
+     */
     public static void printGoodbyeMessage() {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
-
-    //Opening message for Dross
+    /**
+     * Prints a welcome message when the application starts.
+     */
     public static void printWelcomeMessage(){
         printLine();
         System.out.println("Hello! I'm Dross");
@@ -24,14 +32,19 @@ public class Ui {
         printLine();
     }
 
-    //Empty search result message
+    /**
+     * Displays a message indicating that no search results were found.
+     */
     public static void printEmptySearchResult(){
         printLine();
         System.out.println("yeah that stuff, it not in the list...");
         printLine();
     }
 
-    //Search result display message
+    /**
+     * Shows the search results when tasks matching the search criteria are found.
+     * @param matches An ArrayList of Task objects that match the search criteria.
+     */
     public static void printSearchResults(ArrayList<Task> matches){
         printLine();
         System.out.println("These stuff have the same description of what you searched for or whatever");
