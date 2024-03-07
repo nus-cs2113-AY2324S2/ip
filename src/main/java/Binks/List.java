@@ -159,6 +159,12 @@ public class List {
         }
         Binks.createLineSpacing();
     }
+
+    /**
+     * Updates the text file with the updated version of our task list.
+     *
+     * @param list list of tasks that we want to store into the text file
+     */
     private void updateFile(ArrayList<Task> list) {
         String file = "binkslist.txt";
         //String taskDescription = list.toString();
