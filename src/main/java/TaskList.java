@@ -31,11 +31,12 @@ public class TaskList {
     public static final String COME_ON_MAN_PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END = "Come on man. Please use: event <description> /from <start> /to <end>";
     public static final String FROM = "/from";
     public static final String TO = "/to";
-    public static final String WHATCHA_DOING_BRUH_LISTEN = "Whatcha' doing bruh, listen. ";
     public static final String PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END = "Please use: event <description> /from <start> /to <end>";
     public static final String BY = "/by";
     public static final String CRAPPY_FORMATTING_PLEASE_USE_DEADLINE_DESCRIPTION_BY_DEADLINE = "Crappy formatting. Please use: deadline <description> /by <deadline>";
     public static final String PLEASE_SPECIFY_THE_TASK_INDEX_TO_DELETE = "Please specify the task index to delete.";
+    public static final String ERROR_DEADLINE_TASK_DESCRIPTION_CANNOT_BE_EMPTY = "Error: deadline task description cannot be empty.";
+    public static final String ERROR_TASK_TIME_CANNOT_BE_EMPTY = "Error: Task time cannot be empty.";
     public static List<Task> taskList = new ArrayList<>();
 
     /**
@@ -138,7 +139,7 @@ public class TaskList {
      */
     private static Task readLine(String line) throws DavinciException {
         try {
-            String[] tokens = line.split("/");
+            String[] tokens = line.split("//");
             String command = tokens[0].toLowerCase();
             boolean isDone = tokens[tokens.length - 1].equals(ONE);
             Task newTask = commandCases(command, tokens);
@@ -263,18 +264,25 @@ public class TaskList {
     private static void executeEventTask(String description) throws DavinciException {
         String[] eventParts = description.split(FROM, SPLIT_INTO_TWO_PARTS);
         if (eventParts.length == 2) {
-            String[] eventTimeParts = eventParts[1].split(TO, SPLIT_INTO_TWO_PARTS);
-            if (eventTimeParts.length == 2 && !eventTimeParts[0].trim().isEmpty() && !eventTimeParts[1].trim().isEmpty()) {
-                addTask(new Event(eventParts[0].trim(), eventTimeParts[0].trim(), eventTimeParts[1].trim()));
+            String eventDescription = eventParts[0].trim();
+            String eventTimes = eventParts[1].trim();
+
+            checkEventDescription(eventDescription);
+
+            String[] eventTimeParts = eventTimes.split(TO, SPLIT_INTO_TWO_PARTS);
+            if (eventTimeParts.length == 2) {
+                checkTimeParts(eventTimeParts[0].trim());
+                checkTimeParts(eventTimeParts[1].trim());
+
+                addTask(new Event(eventDescription, eventTimeParts[0].trim(), eventTimeParts[1].trim()));
                 Ui.echoTask(getTaskList());
+                writeFile();
             } else {
                 throw new DavinciException(COME_ON_MAN_PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END);
             }
         } else {
-            throw new DavinciException(WHATCHA_DOING_BRUH_LISTEN +
-                    PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END);
+            throw new DavinciException(PLEASE_USE_EVENT_DESCRIPTION_FROM_START_TO_END);
         }
-        writeFile();
     }
 
     /**
@@ -285,13 +293,55 @@ public class TaskList {
      */
     private static void executeDeadlineTask(String description) throws DavinciException {
         String[] deadlineParts = description.split(BY, SPLIT_INTO_TWO_PARTS);
-        if (deadlineParts.length == 2 && !deadlineParts[1].trim().isEmpty()) {
-            addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+        if (deadlineParts.length == 2) {
+            String deadlineDescription = deadlineParts[0].trim();
+            String deadlineTime = deadlineParts[1].trim();
+
+            checkDeadlineDescription(deadlineDescription);
+            checkTimeParts(deadlineTime);
+
+            addTask(new Deadline(deadlineDescription, deadlineTime));
             Ui.echoTask(getTaskList());
+            writeFile();
         } else {
             throw new DavinciException(CRAPPY_FORMATTING_PLEASE_USE_DEADLINE_DESCRIPTION_BY_DEADLINE);
         }
-        writeFile();
+    }
+
+    /**
+     * Checks if the event task description is empty and throws an exception if it is.
+     *
+     * @param description The event task description to be checked.
+     * @throws DavinciException If the event task description is empty.
+     */
+    private static void checkEventDescription(String description) throws DavinciException {
+        if (description.isEmpty()) {
+            throw new DavinciException("Error: event task description cannot be empty.");
+        }
+    }
+
+    /**
+     * Checks if the deadline task description is empty and throws an exception if it is.
+     *
+     * @param description The deadline task description to be checked.
+     * @throws DavinciException If the deadline task description is empty.
+     */
+    private static void checkDeadlineDescription(String description) throws DavinciException {
+        if (description.isEmpty()) {
+            throw new DavinciException(ERROR_DEADLINE_TASK_DESCRIPTION_CANNOT_BE_EMPTY);
+        }
+    }
+
+    /**
+     * Checks if the provided time part is empty and throws an exception if it is.
+     *
+     * @param timePart The time part to be checked (e.g., start time, end time, deadline time).
+     * @throws DavinciException If the time part is empty.
+     */
+    private static void checkTimeParts(String timePart) throws DavinciException {
+        if (timePart.isEmpty()) {
+            throw new DavinciException(ERROR_TASK_TIME_CANNOT_BE_EMPTY);
+        }
     }
 
     /**

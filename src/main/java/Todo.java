@@ -10,6 +10,6 @@ public class Todo extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("todo/%s/%s", description, isDone ? "1" : "0");
+        return String.format("todo//%s//%s", description, isDone ? "1" : "0");
     }
 }

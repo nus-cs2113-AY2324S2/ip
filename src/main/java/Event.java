@@ -20,8 +20,6 @@ class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("event/%s/%s/%s/%s", description, from, to, isDone ? "1" : "0");
+        return String.format("event//%s//%s//%s//%s", description, from, to, isDone ? "1" : "0");
     }
 }
-
-

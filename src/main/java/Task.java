@@ -31,7 +31,7 @@ public class Task {
     }
 
     public String toFileString() {
-        return String.format("%s/%s", getDescription(), isDone() ? "1" : "0");
+        return String.format("%s//%s", getDescription(), isDone() ? "1" : "0");
     }
 
     @Override
@@ -39,6 +39,3 @@ public class Task {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
 }
-
-
-

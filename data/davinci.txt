@@ -1,1 +1,5 @@
-event/Attend banquet dinner in Marina Bay Sands/6pm/11pm/1
+event//Attend banquet dinner in Marina Bay Sands//6pm//11pm//1
+todo//eat//1
+deadline//go and have fun//06/06/25//0
+event//finish dinner//2pm//4pm, 25/06/24//1
+event//go home//3pm, 25/06/24//4pm, 25/06/24//0

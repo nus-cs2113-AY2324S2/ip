@@ -19,6 +19,6 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("deadline/%s/%s/%s", description, by, isDone ? "1" : "0");
+        return String.format("deadline//%s//%s//%s", description, by, isDone ? "1" : "0");
     }
 }
