@@ -39,21 +39,27 @@ public class CommandManager {
                 break;
             case MARK:
                 processMarkCommand(rawArgument);
+                AnonBotFileWriter.saveAnonBotData();
                 break;
             case UNMARK:
                 processUnmarkCommand(rawArgument);
+                AnonBotFileWriter.saveAnonBotData();
                 break;
             case TODO:
                 TaskManager.createNewTask(rawArgument, TaskType.TODO);
+                AnonBotFileWriter.saveAnonBotData();
                 break;
             case DEADLINE:
                 TaskManager.createNewTask(rawArgument, TaskType.DEADLINE);
+                AnonBotFileWriter.saveAnonBotData();
                 break;
             case EVENT:
                 TaskManager.createNewTask(rawArgument, TaskType.EVENT);
+                AnonBotFileWriter.saveAnonBotData();
                 break;
             case DELETE:
                 processDeleteCommand(rawArgument);
+                AnonBotFileWriter.saveAnonBotData();
                 break;
             case FIND:
                 Finder.findTaskUsingKeyphrase(commandString, rawArgument);
