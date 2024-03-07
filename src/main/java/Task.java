@@ -8,7 +8,7 @@ public class Task {
     }
 
     public String toString() {
-        return "";
+        return this.description + " | " + (isDone ? "1" : "0");
     }
 
     public String getDescription() {

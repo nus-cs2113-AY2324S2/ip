@@ -1,11 +1,15 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lovie {
+    private static final String FILEPATH = "data/lovie.txt";
     public static void main(String[] args) {
         Scanner inputGetter = new Scanner(System.in);
+        FileManager fileManager = new FileManager(FILEPATH);
         String input;
-        ArrayList<Task> tasksList = new ArrayList<Task>();
+        ArrayList<Task> tasksList = fileManager.loadTasks();
 
         String LOGO = "██╗░░░░░░█████╗░██╗░░░██╗██╗███████╗ \n" +
                 "██║░░░░░██╔══██╗██║░░░██║██║██╔════╝ \n" +
@@ -15,24 +19,30 @@ public class Lovie {
                 "╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚══════╝ \n";
         print(LOGO + "Hey hey! My name is Lovie! How can I help you today?");
 
+        fileManager.loadTasks();
+
         while (true) {
             System.out.print("\t");
             input = inputGetter.nextLine();
             String processedInput = input.toLowerCase().trim();
+            String firstCommand = processedInput.split(" ")[0];
 
             // Switch statement to keep track of user input commands
-            switch (processedInput) {
+            switch (firstCommand) {
                 case "bye":
+                    fileManager.saveTasks(tasksList);
                     print("Thanks for using me! See you next time ♡〜٩( ˃▿˂ )۶〜♡");
-                    break;
+                    return;
                 case "list":
                     listTaskPrinter(tasksList);
                     break;
                 case "unmark":
                     unmarkTaskHelper(input, tasksList);
+                    fileManager.saveTasks(tasksList);
                     break;
                 case "mark":
                     markTaskHelper(input, tasksList);
+                    fileManager.saveTasks(tasksList);
                     break;
                 default:
                     String taskType = processedInput.split(" ")[0];
@@ -50,6 +60,7 @@ public class Lovie {
                             newTask = new Event(input);
                             tasksList.add(newTask);
                             addTaskPrinter(newTask);
+                            fileManager.saveTasks(tasksList);
                             break;
                         case "deadline":
                             try {
@@ -61,6 +72,7 @@ public class Lovie {
                             newTask = new Deadline(input);
                             tasksList.add(newTask);
                             addTaskPrinter(newTask);
+                            fileManager.saveTasks(tasksList);
                             break;
                         case "todo": //need to fix for input "todo todo"
                             try {
@@ -72,6 +84,7 @@ public class Lovie {
                             newTask = new ToDo(input);
                             tasksList.add(newTask);
                             addTaskPrinter(newTask);
+                            fileManager.saveTasks(tasksList);
                             break;
                         default:
                             invalidCommandPrinter();
