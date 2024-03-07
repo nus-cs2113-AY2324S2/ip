@@ -5,12 +5,29 @@ import java.time.format.DateTimeFormatter;
 import BobBot.exceptions.InvalidDeadlineException;
 import BobBot.parser.DateParser;
 
+/**
+ * Implements a deadline task that stores the description of the task and the
+ * deadline of the task.
+ * 
+ * <p> The description is stored in the format <code>[task] /by [deadline]</code>.</p>
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class Deadline extends Task {
 
     protected String task;
     protected String by;
     protected String parsedDateString;
 
+    /**
+     * Creates a deadline task with the given description.
+     * 
+     * @param description The description of the deadline task.
+     * @throws InvalidDeadlineException If the task description is empty or 
+     * does not contain a deadline.
+     */
     public Deadline(String description) throws InvalidDeadlineException {
         super(description);
 
@@ -36,6 +53,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the deadline task.
+     * 
+     * @return The string representation of the deadline task.
+     */
     @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.task + " (by: " + by + ")";

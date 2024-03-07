@@ -14,8 +14,23 @@ import BobBot.tasks.Todo;
 import BobBot.ui.Ui;
 import taskList.TaskList;
 
+/**
+ * Implements a parser that interprets user input and performs the necessary 
+ * operations.
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class Parser {
 
+    /**
+     * Parses the general commands for handling tasks and performs the 
+     * necessary operations.
+     * 
+     * <p>Operations include adding tasks, marking tasks as done, deleting tasks, 
+     * and listing tasks.</p>
+     */
     public static void runTaskManager() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -43,13 +58,20 @@ public class Parser {
                     TaskList.addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
-                Ui.printStandardExceptionMessage(e);
+                Ui.printTaskManipulationExceptionMessage(e);
             }
             Storage.saveFile();
             line = in.nextLine();
         }
     }
 
+    /**
+     * Parses the task commands and creates the respective task objects.
+     * 
+     * @param line the command to parse
+     * @param taskToParse the task to parse
+     * @return the task object created
+     */
     public static Task parseTaskCommands(String line, Task taskToParse) {
         try {
             if (line.startsWith("todo")) {
@@ -63,7 +85,7 @@ public class Parser {
                 return null;
             }
         } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-            Ui.printCustomExceptionMessage(e);
+            Ui.printTaskCreationExceptionMessage(e);
             return null;
         }
 
