@@ -16,6 +16,12 @@ public class Parser {
         return taskList.getTaskList();
     }
 
+    /**
+     * Executes command from user.
+     *
+     * @param command Command from user.
+     * @param argument Argument specified by user.
+     */
     public void executeCommand(String command, String argument)
             throws MissingParamsException, DukeException.EndListException,
             DukeException.InvalidCommandException, DukeException.InvalidIntegerException,
