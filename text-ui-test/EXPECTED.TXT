@@ -58,22 +58,22 @@ Why is the task description blank!
 You:
 -
 Krot:
-Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>
+Enter a due date with the initializer /by <YYYY-MM-DD>T<HH:MM>
 -
 You:
 -
 Krot:
-Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>
+Enter a due date with the initializer /by <YYYY-MM-DD>T<HH:MM>
 -
 You:
 -
 Krot:
-Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+Enter a date in the format <YYYY-MM-DD>T<HH:MM>
 -
 You:
 -
 Krot:
-Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+Enter a date in the format <YYYY-MM-DD>T<HH:MM>
 -
 You:
 -
@@ -90,12 +90,12 @@ What task are you trying to add??? Please enter a task
 You:
 -
 Krot:
-Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all
+Enter the duration with the initializer /from <YYYY-MM-DD>T<HH:MM> /to <YYYY-MM-DD>T<HH:MM> or don't try at all
 -
 You:
 -
 Krot:
-Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all
+Enter the duration with the initializer /from <YYYY-MM-DD>T<HH:MM> /to <YYYY-MM-DD>T<HH:MM> or don't try at all
 -
 You:
 -
@@ -115,12 +115,12 @@ Please enter the /from date before /to date
 You:
 -
 Krot:
-Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+Enter a date in the format <YYYY-MM-DD>T<HH:MM>
 -
 You:
 -
 Krot:
-Enter a date in the format <YYYY-MM-DD>T<HH-MM>
+Enter a date in the format <YYYY-MM-DD>T<HH:MM>
 -
 You:
 -

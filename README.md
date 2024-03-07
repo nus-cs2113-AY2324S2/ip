@@ -12,8 +12,8 @@ Prerequisites: JDK 11
 1. Download the latest Krot.jar from [here](https://github.com/tannerlie/ip/releases).
 2. Copy the file to the folder you want to use as the home folder for your Krot Task Manager.
 3. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Krot.jar command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds.<br>
-![Screenshot of Krot GUI](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Krot%20GUI.png)
+   A UI similar to the below should appear in a few seconds.<br>
+![Screenshot of Krot UI](https://raw.githubusercontent.com/tannerlie/ip/master/assets/Screenshot%20of%20Krot%20GUI.png)
 4. Type the command in the command box and press Enter to execute it. e.g. typing ```commands``` and pressing Enter will open the command window.
    Some example commands you can try.
    1. ```list```: Lists all the current tasks.

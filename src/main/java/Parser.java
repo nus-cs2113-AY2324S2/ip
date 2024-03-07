@@ -53,7 +53,7 @@ public class Parser {
         try {
             date = LocalDateTime.parse(line);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Enter a date in the format <YYYY-MM-DD>T<HH-MM>", e.getParsedString(), e.getErrorIndex());
+            throw new DateTimeParseException("Enter a date in the format <YYYY-MM-DD>T<HH:MM>", e.getParsedString(), e.getErrorIndex());
         }
         return date;
     }
@@ -112,7 +112,7 @@ public class Parser {
         }
         int byIndex = line.indexOf("/by");
         if (byIndex == -1) {
-            throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by <YYYY-MM-DD>T<HH-MM>"); // Throws exception if initializer not found
+            throw new ArrayIndexOutOfBoundsException("Enter a due date with the initializer /by <YYYY-MM-DD>T<HH:MM>"); // Throws exception if initializer not found
         }
         end = dateAndTimeParser(line.substring(byIndex + BY_PADDING).strip());
         ArrayList<Object> parsed = new ArrayList<>();
@@ -145,7 +145,7 @@ public class Parser {
             throw new EmptyInputException("Why is the task description blank!"); // Throws exception if task is blank
         }
         if (fromIndex == -1 || toIndex == -1) {
-            throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <YYYY-MM-DD>T<HH-MM> /to <YYYY-MM-DD>T<HH-MM> or don't try at all"); // Throws exception if initializers not found
+            throw new StringIndexOutOfBoundsException("Enter the duration with the initializer /from <YYYY-MM-DD>T<HH:MM> /to <YYYY-MM-DD>T<HH:MM> or don't try at all"); // Throws exception if initializers not found
         }
         try {
             String startString = line.substring(fromIndex + FROM_PADDING, toIndex).strip();
