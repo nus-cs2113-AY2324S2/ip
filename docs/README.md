@@ -94,14 +94,14 @@ Exits the chatbot Bobby.
 Format: `bye`
 
 ## <span style="color:LightBlue">Command Summary
-| Command                  | Description                                             |
-|--------------------------|---------------------------------------------------------|
-| `todo <description>`       | Adds a Todo task with a description                    |
-| `deadline <description> /by <deadline>` | Adds a Deadline task with a description and deadline |
+| Command                                                 | Description                                                     |
+|---------------------------------------------------------|-----------------------------------------------------------------|
+| `todo <description>`                                    | Adds a Todo task with a description                             |
+| `deadline <description> /by <deadline>`                 | Adds a Deadline task with a description and deadline            |
 | `event <description> /from <start time> /to <end time>` | Adds an Event task with a description, start time, and end time |
-| `list`                     | Lists all tasks                                         |
-| `delete <task number>`     | Deletes the specified task                             |
-| `mark <task number>`       | Marks a task as done                                   |
-| `unmark <task number>`     | Unmarks a task as done                                 |
-| `find <keyword>`           | Searches for tasks containing a specific keyword       |
-| `bye`                      | Exits the application                                  |
+| `list`                                                  | Lists all tasks                                                 |
+| `delete <task number>`                                  | Deletes the specified task                                      |
+| `mark <task number>`                                    | Marks a task as done                                            |
+| `unmark <task number>`                                  | Unmarks a task as done                                          |
+| `find <keyword>`                                        | Searches for tasks containing a specific keyword                |
+| `bye`                                                   | Exits the application                                           |
