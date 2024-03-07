@@ -55,7 +55,7 @@ public class TaskList {
      * @throws JasonException if the description is empty.
      */
     public void addTodoTask(String task) throws JasonException {
-        String taskDescription = task.substring(4).trim(); // trim() removes leading and trailing spaces
+        String taskDescription = task.substring(4).trim(); 
         if (taskDescription.isEmpty()) {
             throw new JasonException("The description of a todo cannot be empty.");
         }
