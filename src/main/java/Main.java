@@ -6,8 +6,10 @@ import static duke.list.*;
 
 public class Main {
     public static void main(String[] args) {
-        greet();
+        Ui ui = new Ui();
+
+        ui.greet();
         startList();
-        goodbye();
+        ui.goodbye();
     }
 }

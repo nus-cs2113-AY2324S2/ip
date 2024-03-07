@@ -11,35 +11,8 @@ import static duke.print.printMessage;
 import static duke.command.*;
 
 public class list {
-    public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
             {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete"};
-
-    /**
-     * Prints greeting.
-     */
-    public static void greet(){
-        String greetMessage = "Hello! I'm " + chatbotName + "\nWhat can I do for you?";
-        String logo =
-                " _______               .__        __   .__ \n" +
-                        " \\      \\   ___________|__|____  |  | _|__|\n" +
-                        " /   |   \\ /  _ \\_  __ \\  \\__  \\ |  |/ /  |\n" +
-                        "/    |    (  <_> )  | \\/  |/ __ \\|    <|  |\n" +
-                        "\\____|__  /\\____/|__|  |__(____  /__|_ \\__|\n" +
-                        "        \\/                     \\/     \\/   \n";
-
-        System.out.println("Hello from\n" + logo);
-        printMessage(greetMessage);
-    }
-
-    /**
-     * Prints goodbye message.
-     */
-    public static void goodbye(){
-        String goodbyeMessage = "Bye! Hope to see you again soon! MEGANE!!";
-
-        printMessage(goodbyeMessage);
-    }
 
     public static void executeCommand(List<Task> taskList, String command, String argument)
             throws MissingParamsException, DukeException.EndListException,
