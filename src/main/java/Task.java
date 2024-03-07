@@ -6,7 +6,9 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
-
+    public String getDescription() {
+        return description;
+    }
     String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
