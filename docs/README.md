@@ -1,6 +1,8 @@
 # Alexis Chatbot User Guide
 
-Alexis is a Command Line Interface (CLI) chatbot that helps you manage your tasks. If you can type fast, Alexis can get your task management done faster than a traditional Graphical User Interface (GUI) application. This guide will help you get started with Alexis and understand its key features.
+Alexis is a Command Line Interface (CLI) chatbot that helps you manage your tasks. If you can type fast, Alexis can get 
+your task management done faster than a traditional Graphical User Interface (GUI) application. This guide will help 
+you get started with Alexis and understand its key features.
 
 &nbsp;
 
@@ -26,7 +28,7 @@ Alexis is a Command Line Interface (CLI) chatbot that helps you manage your task
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed on your computer.
-2. Download the latest Alexis.jar from [here](#).
+2. Download the latest Alexis.jar from [here](https://github.com/imanamirshah/ip/releases/tag/A-Release).
 3. Copy the file into the folder that you wish to use this application in
 4. Open a terminal, `cd` into the folder you put the jar file in, and use `java -jar Alexis.jar` command to run chatbot.
 5. Refer to the [features](#features) below for implementations of each command.
@@ -37,15 +39,18 @@ Alexis is a Command Line Interface (CLI) chatbot that helps you manage your task
 
 > **Notes about the command format:**
 >
-> - Words in `UPPER_CASE` are the parameters to be supplied by the user.
-    >   e.g., in `todo TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `todo Read a book`.
+> - Words in `<UPPER_CASE>` are the parameters to be supplied by the user.
+    >   e.g., in `todo <TASK_DESCRIPTION>`, `<TASK_DESCRIPTION>` is a parameter which can be used as `todo Read a book`.
 > - Parameters must be in the specified order.
-    >   e.g., if the command specifies `/from START_DATE /to END_DATE`, parameters must be supplied in that order. `/to END_DATE /from START_DATE` is not acceptable.
-> - Dates and times specified in the following format `yyyy-MM-dd HHmm` will be automatically converted to `MMM dd yyyy, K.mm a` in the task list
+    >   e.g., if the command specifies `/from <START_DATE> /to <END_DATE>`, parameters must be supplied in that order.
+`/to <END_DATE> /from <START_DATE>` is not acceptable.
+> - Dates and times specified in the following format `yyyy-MM-dd HHmm` will be automatically converted to 
+`MMM dd yyyy, K.mm a` in the task list
     >   e.g., if you have given `2024-02-05 1334` as your deadline, it will be displayed as `Feb 05 2024. 1.34 PM`.
 > - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
     >   e.g., if the command specifies `list 123`, it will be interpreted as `list`.
-> - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+> - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
+lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
 &nbsp;
 
@@ -53,7 +58,7 @@ Alexis is a Command Line Interface (CLI) chatbot that helps you manage your task
 
 Adds a todo task to the task list. Todo tasks are tasks that have no date/time attached to it
 
-Format: `todo TASK_DESCRIPTION`
+Format: `todo <DESCRIPTION>`
 
 Examples:
 - `todo Read a book`
@@ -64,7 +69,7 @@ Examples:
 
 Adds a task with a deadline. Deadline tasks are tasks that need to be done before a specific date/time.
 
-Format: `deadline TASK_DESCRIPTION /by TASK_DEADLINE`
+Format: `deadline <DESCRIPTION> /by <DATE>`
 
 Examples:
 - `deadline Submit report /by 2023-03-10`
@@ -75,7 +80,7 @@ Examples:
 
 Adds an event task. Event tasks are tasks that start at a specific date/time and ends at a specific date/time.
 
-Format: `event TASK_DESCRIPTION /from START_DATE /to END_DATE`
+Format: `event <DESCRIPTION> /from <START_DATE> /to <END_DATE>`
 
 Examples:
 - `event Team camp /from 2023-03-15 /to 2023-03-16`
@@ -94,7 +99,7 @@ Format: `list`
 
 Marks a task as done.
 
-Format: `mark TASK_INDEX`
+Format: `mark <TASK_INDEX>`
 
 - Marks the task at the specified TASK_INDEX.
 - The index refers to the index number shown in the task list.
@@ -113,7 +118,7 @@ Unmarks a task.
 - The index refers to the index number shown in the task list.
 - The index must be a positive integer 1, 2, 3, …
 
-Format: `unmark TASK_INDEX`
+Format: `unmark <TASK_INDEX>`
 
 Examples:
 - `unmark 2`
@@ -124,7 +129,7 @@ Examples:
 
 Finds tasks that contain the given keyword.
 
-Format: `find KEYWORD`
+Format: `find <KEYWORD>`
 
 - The search is case-insensitive. e.g. `book` will match `Book`
 - The order of the keywords matters. e.g. `read book` will not match `book read`
@@ -139,7 +144,7 @@ Examples:
 
 Deletes the specified task.
 
-Format: `delete TASK_INDEX`
+Format: `delete <TASK_INDEX>`
 
 - Deletes the task at the specified TASK_INDEX.
 - The index refers to the index number shown in the task list.
@@ -160,13 +165,14 @@ Format: `bye`
 
 ### Saving the data
 
-Alexis automatically saves your tasks in the hard disk after any command that changes the task list. There is no need to save manually.
+Alexis automatically saves your tasks in the hard disk after any command that changes the task list. There is no need 
+to save manually.
 
 &nbsp;
 
 ## FAQ
 
-**Q:** How do I transfer my data to another computer? </br>
+**Q:** How do I transfer my data to another computer  
 **A:** Install the app on the other computer and overwrite the empty data file
 it creates with the file that contains the data.
 
