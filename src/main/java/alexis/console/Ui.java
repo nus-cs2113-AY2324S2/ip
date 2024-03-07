@@ -21,32 +21,49 @@ public class Ui {
             + "  |  | |  | |      |  |  `---. /  .''  \\(_|  |   \\       / \n"
             + "  `--' `--' `------'  `------''--'   '--' `--'    `-----'  \n";
     protected final static String LINE_BREAK = "____________________________________________________________";
-    private final static String GREETING = "Hello, I'm Alexis.\n" + "What can I do for you?";
-    private final static String GOODBYE = "Bye. Hope to see you again soon!";
+    private final static String GREETING = "Wassup fam, I'm Alexis.\n" + "How can I be of service today?\n"
+            + "If you are new here, type 'help' to see what you can do!";
+    private final static String GOODBYE = "Guess you don't need me anymore. See you again!!";
+    private final static String COMMANDS =  "Here's the list of commands that I can understand!\n"
+            + "1. todo <DESCRIPTION> - Add a general task.\n"
+            + "2. deadline <DESCRIPTION> /by <DATE> - Add a task with a deadline.\n"
+            + "3. event <DESCRIPTION> /from <START_DATE>  /to <END_DATE>  - Add an event with a start and end date.\n"
+            + "4. list - Display all your tasks.\n"
+            + "5. mark <TASK_INDEX> - Mark a task as completed using its item number.\n"
+            + "6. unmark <TASK_INDEX> - Mark a task as not completed using its item number.\n"
+            + "7. delete <TASK_INDEX> - Remove a task using its item number.\n"
+            + "8. find <KEYWORD> - Search for tasks containing the keyword.\n"
+            + "9. bye - My task here is done. See you again!.";
     private final static String INVALID_COMMAND_ERROR
-            = "Sorry bro I don't quite get what you wanna do. Please enter a valid command.";
+            = "AIYO wrong command lah. Please enter a valid command.";
     private final static String MISSING_DESCRIPTION_ERROR
-            = "Sorry bro I don't know what task you wanna add. Please add a description.";
+            = "ALAMAK BRO, you're missing a description. Please add a description.";
     public final static String MISSING_FIND_DESCRIPTION_ERROR
-            = "Sorry bro I don't know what task you are looking for. Please add a description.";
+            = "Sorry bro I don't know what task you are looking for. Please help me add description.";
     public final static String NO_MATCHING_TASK_MESSAGE = "Sorry bro looks like this task doesnt exist.";
     public  final static String MISSING_DEADLINE_ERROR = "Please indicate the deadline of your task.";
     public final static String MISSING_EVENT_START_OR_END_DATE_ERROR
             = "Please indicate the start and end dates/times for your event properly.";
     public final static String LIST_MESSAGE = "Here are the tasks in your list:";
-    public final static String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:";
-    public final static String MARK_UNDONE_MESSAGE = "OK, I've marked this task as not done yet:";
+    public final static String MARK_DONE_MESSAGE = "BAIK LAAA! I've marked this task as done:";
+    public final static String MARK_UNDONE_MESSAGE = "OHOR HAVEN'T FINISH, I've marked this task as not done yet:";
     public final static String MATCHING_TASKS_MESSAGE = "Here are the matching tasks in your list:";
-    public final static String MISSING_TASK_INDEX_MESSAGE = "Please tell me which task you are referring to.";
-    public final static String INVALID_TASK_INDEX_MESSAGE = "Sorry, I can't find the task you are referring to.";
+    public final static String MISSING_TASK_INDEX_MESSAGE = "EH, can tell me which task you are referring to.";
+    public final static String INVALID_TASK_INDEX_MESSAGE = "Sorry bro, I can't find the task you are referring to.";
     public final static String ADD_MESSAGE = "Got it. I've added this task:";
-    public final static String REMOVE_MESSAGE = "Noted. I've removed this task:";
+    public final static String REMOVE_MESSAGE = "Done bro, I've removed this task:";
     public final static String LIST_UPDATE_MESSAGE = "Now you have %d tasks in the list.\n";
 
     public static void printWelcomeMessage() {
         System.out.println(NAME);
         System.out.println(LINE_BREAK);
         System.out.println(GREETING);
+        System.out.println(LINE_BREAK);
+    }
+
+    public static void printCommands() {
+        System.out.println(LINE_BREAK);
+        System.out.println(COMMANDS);
         System.out.println(LINE_BREAK);
     }
 

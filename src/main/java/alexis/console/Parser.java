@@ -30,6 +30,9 @@ public class Parser {
                     continue;
                 }
                 switch (command) {
+                case HELP:
+                    Ui.printCommands();
+                    break;
                 case BYE:
                     return;
                 case LIST:
