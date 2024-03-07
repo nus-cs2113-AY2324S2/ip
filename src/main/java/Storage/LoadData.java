@@ -1,4 +1,5 @@
 package Storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,7 +8,10 @@ import java.util.Scanner;
 import exceptions.EmptyTaskException;
 import exceptions.MissingDeadlineException;
 import exceptions.MissingStartException;
-import tasks.*;
+import tasks.Task;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
 
 /**
  * Represents a utility class used to load tasks from a file.
@@ -18,6 +22,7 @@ public class LoadData extends Storage {
 
     /**
      * Constructs a LoadData object with the specified file path.
+     *
      * @param filepath The path to the file from which tasks will be loaded
      */
     public LoadData(String filepath) {
@@ -26,6 +31,7 @@ public class LoadData extends Storage {
 
     /**
      * Loads tasks from the specified file.
+     *
      * @param filepath The path to the file from which tasks will be loaded
      * @return The ArrayList of tasks loaded from the file
      * @throws FileNotFoundException If the specified file is not found
@@ -44,20 +50,20 @@ public class LoadData extends Storage {
             if (type == 'T') {
                 savedTasks.add(new ToDo(description));
             } else if (type == 'D') {
-                    String taskDescription = params[0].trim();
-                    String deadline = params[1].trim();
-                    savedTasks.add(new Deadline(taskDescription,deadline));
+                String taskDescription = params[0].trim();
+                String deadline = params[1].trim();
+                savedTasks.add(new Deadline(taskDescription, deadline));
             } else if (type == 'E') {
-                    String taskDescription = params[0].trim();
-                    String from = params[1].trim();
-                    String by = params[2].trim();
-                    savedTasks.add(new Event(taskDescription,from,by));
+                String taskDescription = params[0].trim();
+                String from = params[1].trim();
+                String by = params[2].trim();
+                savedTasks.add(new Event(taskDescription, from, by));
             } else {
                 break;
             }
             int index = savedTasks.size() - 1;
             savedTasks.get(index).setDone(isCompleted);
         } while (input.hasNext());
-    return savedTasks;
+        return savedTasks;
     }
 }

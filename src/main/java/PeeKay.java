@@ -17,16 +17,17 @@ public class PeeKay {
     /**
      * Instantiates a new iteration of PeeKay app. Creates a TaskList containing existing tasks from
      * the storage file, if any. Else, creates an empty TaskList.
+     *
      * @param filepath path of the storage file containing the existing tasks
      */
-    public PeeKay (String filepath) {
+    public PeeKay(String filepath) {
         try {
             tasks = new TaskList(Storage.load(filepath));
         } catch (FileNotFoundException e) {
             tasks = new TaskList();
             Ui.printLoadingErrorMessage();
         }
-        Parser parser = new Parser(filepath,tasks);
+        Parser parser = new Parser(filepath, tasks);
     }
 
     /**
@@ -38,6 +39,7 @@ public class PeeKay {
         Ui.showLine();
         chat();
     }
+
     public static void main(String[] args) {
         new PeeKay("src/data/peekay.txt").run();
     }
