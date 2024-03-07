@@ -58,6 +58,11 @@ public class CommandManager {
             case FIND:
                 Finder.findTaskUsingKeyphrase(commandString, rawArgument);
                 break;
+            case HELP:
+                System.out.println("List of Supported commands:");
+                Command.printListOfAvailableCommand();
+                System.out.println();
+                break;
             default: // Invalid Command
                 throw new InvalidCommandException(commandString);
             }

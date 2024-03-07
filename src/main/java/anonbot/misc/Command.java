@@ -15,6 +15,7 @@ public final class Command {
      * 7. `event` - Creates a new event task.
      * 8. `delete` - Deletes the specific task.
      * 9. `find` - Finds Keywords or Keyphrases to search the task list.
+     * 10. `help` - Shows the list of supported command.
  what about the invalid command?
       */
     public enum CommandType {
@@ -24,6 +25,7 @@ public final class Command {
         TODO, DEADLINE, EVENT,
         DELETE,
         FIND,
+        HELP,
         UNKNOWN // Catch-all Type, Not a valid command
     }
 
