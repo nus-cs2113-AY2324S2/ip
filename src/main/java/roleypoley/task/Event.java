@@ -23,6 +23,12 @@ public class Event extends Task {
         return split[0];
     }
 
+    /**
+     * Returns the start time of the task
+     * @param description task description
+     * @return start time of task
+     * @throws RoleyPoleyParseException if missing from: or /from
+     */
     private static String getFrom(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(from: |to: |/from |/to ");
         if (split.length == 1) {
@@ -31,6 +37,12 @@ public class Event extends Task {
         return split[1];
     }
 
+    /**
+     * Returns the end time of the task
+     * @param description task description
+     * @return end time of task
+     * @throws RoleyPoleyParseException if missing /to or to:
+     */
     private static String getTo(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(from: |to: |/from |/to ");
         if (split.length == 2) {
@@ -53,6 +65,10 @@ public class Event extends Task {
         return "E";
     }
 
+    /**
+     * Set event task as completed
+     * Prints out reply upon setting status of event task
+     */
     @Override
     public void markAsDone() {
         this.isDone = true;
@@ -61,6 +77,10 @@ public class Event extends Task {
                 "(from: " + this.from + "to: " + this.to + ")") ;
     }
 
+    /**
+     * Set event task as not completed
+     * Prints out reply upon setting status of event task
+     */
     @Override
     public void markAsUndone() {
         this.isDone = false;
