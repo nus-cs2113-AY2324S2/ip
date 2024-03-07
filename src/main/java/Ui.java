@@ -1,4 +1,6 @@
-import java.io.FileNotFoundException;
+/**
+ * deals with interactions with the user
+ */
 
 public class Ui {
     public void sayHi(){
