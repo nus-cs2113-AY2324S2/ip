@@ -16,7 +16,6 @@ public final class Command {
      * 8. `delete` - Deletes the specific task.
      * 9. `find` - Finds Keywords or Keyphrases to search the task list.
      * 10. `help` - Shows the list of supported command.
- what about the invalid command?
       */
     public enum CommandType {
         BYE, EXIT,
