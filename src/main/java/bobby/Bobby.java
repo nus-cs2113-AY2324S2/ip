@@ -48,6 +48,7 @@ public class Bobby {
             String description;
             String by;
             String from;
+            String keyword;
             int entry;
             command = parser.parseCommand(input);
             switch (command) {
@@ -141,6 +142,10 @@ public class Bobby {
                         ui.showSavingError();
                     }
                 }
+                break;
+            case "find":
+                keyword = parser.parseKeyword(input);
+                tasks.findTasks(keyword);
                 break;
             default:
                 ui.showInvalidCommandError();

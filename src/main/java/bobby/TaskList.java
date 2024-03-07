@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class TaskList {
     /** The list of tasks. */
     public ArrayList<Task> list;
+    private final Ui ui = new Ui();
 
     /**
      * Constructs a new TaskList instance with an empty task list.
@@ -71,5 +72,19 @@ public class TaskList {
      */
     public void unmarkTask(int entry) {
         list.get(entry - 1).setDone(false);
+
+    public void findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            ui.showNoMatchMessage();
+        } else {
+            ui.showMatchMessage();
+            ui.showList(matchingTasks);
+        }
     }
 }
