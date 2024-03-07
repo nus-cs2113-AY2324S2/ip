@@ -81,6 +81,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks from the list based on the keyword entered by the user.
+     * 
+     * @param line The command entered by the user.
+     * @return The list of tasks found based on the keyword.
+     */
     public static ArrayList<Task> findTasksFromKeyword(String line) {
         ArrayList<Task> tasksOfInterest = new ArrayList<>();
         String keywordString = line.substring("find".length()).trim();

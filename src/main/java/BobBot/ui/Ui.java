@@ -184,6 +184,11 @@ public class Ui {
         drawLine(true);
     }
     
+    /**
+     * Prints the filtered task list to the user.
+     * 
+     * @param tasksFound The list of tasks found from the keyword search.
+     */
     public static void printFilteredTaskList(ArrayList<Task> tasksFound) {
         
         System.out.println("\tHere are the matching tasks in your list:");
@@ -196,6 +201,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the tasks found from the keyword search with message formatting.
+     * 
+     * @param tasksFound The list of tasks found from the keyword search.
+     */
     public static void displayTasksFound(ArrayList<Task> tasksFound) {
         drawLine(true);
         printFilteredTaskList(tasksFound);
