@@ -1,7 +1,6 @@
 package Parser;
 
 import Storage.DukeFile;
-import TaskList.DeleteTask;
 import TaskList.Task;
 import Ui.PrintTask;
 import Ui.PrintText;
@@ -9,7 +8,8 @@ import Ui.PrintText;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static TaskList.AddTask.addSpecialTask;
+import static TaskList.TaskList.deleteTask;
+import static TaskList.TaskList.newSpecialTask;
 
 public class Manager {
     /**
@@ -42,7 +42,7 @@ public class Manager {
             case "todo":
             case "deadline":
             case "event":
-                Task specialTask = addSpecialTask(text);
+                Task specialTask = newSpecialTask(text);
                 if (specialTask.getType() != ' ') {
                     tasks.add(specialTask);
                     index++;
@@ -51,7 +51,7 @@ public class Manager {
                 }
                 break;
             case "delete":
-                DeleteTask.delete(userInputWords, tasks);
+                deleteTask(userInputWords, tasks);
                 index--;
                 PrintTask.printMultipleToFile(tasks, false);
                 break;

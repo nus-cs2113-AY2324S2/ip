@@ -14,4 +14,8 @@ public class TaskList {
     public static Task newSpecialTask(String description) {
         return AddTask.addSpecialTask(description);
     }
+
+    public static void deleteTask(String[] userInputWords, ArrayList<Task> tasks) {
+        DeleteTask.delete(userInputWords, tasks);
+    }
 }
