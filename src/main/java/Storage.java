@@ -24,7 +24,6 @@ public class Storage {
             index++;
         }
         boolean isInTxt = false;
-        //System.out.println("filling contents");
         return index;
     }
 

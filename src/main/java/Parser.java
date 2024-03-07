@@ -11,6 +11,8 @@ public class Parser {
     private static Storage storage;
     private static TaskList tasklist;
 
+    public String findInput;
+
     private void dealWithMark(String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
         isValidCommand = true;
         try {
@@ -55,6 +57,21 @@ public class Parser {
         System.out.println("Now you have " + index + " tasks in the list.");
         storage.saveToFile(tasks, index);
         return index;
+    }
+
+    private void dealWithFind(String findInput, ArrayList<Task> tasks, int index){
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        int matchingTasksIndex = 1;
+        System.out.println("Here are the matching tasks in your list: ");
+        for (int i = 0; i < index; i ++){
+            String xline = tasks.get(i).toString();
+            if (xline.contains(findInput)){
+                System.out.print(matchingTasksIndex + ". ");
+                matchingTasks.add(tasks.get(i));
+                System.out.println(matchingTasks.get(matchingTasksIndex - 1));
+                matchingTasksIndex ++;
+            }
+        }
     }
 
 
@@ -130,6 +147,12 @@ public class Parser {
                     index = deleteTask(tasks, inputs, index, isValidCommand);
                 } catch (ArrayIndexOutOfBoundsException e){
                     System.out.println("please secify which task you want to delete");
+                }
+            } else if (inputs[0].equals("find")){
+                try {
+                    dealWithFind(inputs[1], tasks, index);
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("please state what you would like to find");
                 }
             } else {
                 try {
