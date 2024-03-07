@@ -26,6 +26,13 @@ import taskList.TaskList;
  */
 public class Parser {
 
+    /**
+     * Parses the general commands for handling tasks and performs the 
+     * necessary operations.
+     * 
+     * <p>Operations include adding tasks, marking tasks as done, deleting tasks, 
+     * and listing tasks.</p>
+     */
     public static void runTaskManager() {
         String line;
         Scanner in = new Scanner(System.in);
@@ -57,6 +64,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task commands and creates the respective task objects.
+     * 
+     * @param line the command to parse
+     * @param taskToParse the task to parse
+     * @return the task object created
+     */
     public static Task parseTaskCommands(String line, Task taskToParse) {
         try {
             if (line.startsWith("todo")) {
