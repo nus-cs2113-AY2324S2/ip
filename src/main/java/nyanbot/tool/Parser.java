@@ -18,6 +18,7 @@ public class Parser {
     private static final String EVENT_COMMAND = "EVENT";
     private static final String BYE_COMMAND = "BYE";
     private static final String HELP_COMMAND = "HELP";
+    private static final String FIND_COMMAND = "FIND";
     private static boolean isRunning = true;
 
     /***
@@ -85,6 +86,10 @@ public class Parser {
                     break;
                 case EVENT_COMMAND:
                     tasks.addEvent(commands[1]);
+                    break;
+                case FIND_COMMAND:
+                    ArrayList<Task> foundTasks = tasks.findTasks(commands[1]);
+                    UI.printTasks(foundTasks);
                     break;
                 default:
                     UI.printInvalidInput();

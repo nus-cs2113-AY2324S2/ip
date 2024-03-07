@@ -16,7 +16,7 @@ import java.util.Scanner;
  * Stores task list in ./data/nyan.txt
  */
 public class Storage {
-    private static final String TRUE = "TRUE";
+    private static final String STATUS_COMPLETED = "TRUE";
     private static final String TODO_COMMAND = "TODO";
     private static final String EVENT_COMMAND = "EVENT";
     private static final String DEADLINE_COMMAND = "DEADLINE";
@@ -92,18 +92,18 @@ public class Storage {
      */
     private Task readLine(String line) {
         try {
-            String[] tokens = line.split("/");
+            String[] tokens = line.split("//");
             String command = tokens[0].toUpperCase();
             String status = tokens[1].toUpperCase();
-            Task task = readTask(command, tokens, status);
+            Task task = processTask(command, tokens, status);
             return task;
         } catch (ArrayIndexOutOfBoundsException e) {
-            UI.printNyanException("corrupted file");
+            UI.printNyanException("corrupted line");
         }
         return null;
     }
 
-    private Task readTask(String command, String[] tokens, String status) {
+    private Task processTask(String command, String[] tokens, String status) {
         Task task = new Task("");
         switch (command) {
             case TODO_COMMAND:
@@ -116,7 +116,7 @@ public class Storage {
                 task = new Event(tokens[2], tokens[3], tokens[4]);
                 break;
         }
-        if (status.equals(TRUE)) {
+        if (status.equals(STATUS_COMPLETED)) {
             task.markAsDone();
         }
         return task;
