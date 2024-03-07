@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package lovie.task;
 
 public class ToDo extends Task {
     public ToDo(String description) {

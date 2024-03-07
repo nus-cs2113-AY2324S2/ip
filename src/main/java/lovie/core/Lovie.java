@@ -1,5 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package lovie.core;
+
+import lovie.file.FileManager;
+import lovie.task.Task;
+import lovie.exception.LovieException;
+import lovie.task.Event;
+import lovie.task.Deadline;
+import lovie.task.ToDo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,7 +23,7 @@ public class Lovie {
                 "██║░░░░░██║░░██║░╚████╔╝░██║██╔══╝░░ \n" +
                 "███████╗╚█████╔╝░░╚██╔╝░░██║███████╗ \n" +
                 "╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚══════╝ \n";
-        print(LOGO + "Hey hey! My name is Lovie! How can I help you today?");
+        print(LOGO + "Hey hey! My name is lovie.core.Lovie! How can I help you today?");
 
         fileManager.loadTasks();
 

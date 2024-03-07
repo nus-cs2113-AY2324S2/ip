@@ -1,3 +1,10 @@
+package lovie.file;
+
+import lovie.task.Deadline;
+import lovie.task.Event;
+import lovie.task.Task;
+import lovie.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
