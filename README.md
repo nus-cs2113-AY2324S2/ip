@@ -1,15 +1,13 @@
-#User Guide for chatbot "Apple"
+# User Guide for chatbot "Apple"
 
 Chatbot Apple is an app to manage tasks, optimised for use through a Command Line Interface (CLI).
 
-##Quick Start
+## Quick Start
 1. Ensure Java 11 or above is installed in your computer
 2. Download `ip.jar` from [here](https://github.com/hongyijie06/ip/releases/tag/A-Jar)
 3. Open a command terminal, `cd` into the folder with the jar file and use the `java -jar ip.jar` command to run the application.
 
 A CLI similar to the picture below should appear in a few seconds. Note how the app returns the path to which the list of tasks is saved on the local computer.
-
-[picture](/initialSetup.png)
 
 4. Type the command into the command line and press Enter to execute it. e.g. typing list and pressing Enter will list the current tasks.
 Some example commands you can try:
@@ -21,7 +19,7 @@ Some example commands you can try:
 
 5. Refer to the Features below for more details on each command.
 
-##Features
+## Features
 
 [!NOTE]
 > Words in `UPPER_CASE` are parameters to be supplied by the user. e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 3`
@@ -31,10 +29,8 @@ Lists all tasks in the task list.
 
 Format: `list`
 
-[picture1](/List.png)
-
-##Add tasks
-###Add todo : `todo`
+## Add tasks
+### Add todo : `todo`
 Adds task of type todo to the list of tasks
 
 Format: `todo DESCRIPTION`
@@ -45,7 +41,7 @@ Examples:
 
 ADD PIC HERE
 
-###Add deadline: `deadline`
+### Add deadline: `deadline`
 Adds task of type deadline to the list of tasks
 
 Format: `deadline DESCRIPTION by DEADLINE`
@@ -56,7 +52,7 @@ Examples:
 
 ADD PIC HERE
 
-##Add event: `event`
+### Add event: `event`
 Adds task of type event to the list of tasks
 
 Format: `event DESCRIPTION from START to END`
@@ -67,7 +63,7 @@ Examples:
 
 ADD PIC HERE
 
-##Delete tasks: `delete`
+## Delete tasks: `delete`
 Deletes task from the list of tasks
 
 Format: `delete INDEX`
@@ -80,7 +76,7 @@ Examples:
 - `delete 3` Deletes third task in the list
 - `delete 5` Deletes fifth task in the list
 
-##Mark tasks as done: `mark`
+## Mark tasks as done: `mark`
 Marks tasks as completed
 
 Format: `mark INDEX`
@@ -93,7 +89,7 @@ Examples:
 - `mark 1` Marks first task in the list as done
 - `mark 6` Marks sixth task in the list as done
 
-##Unmark tasks: `unmark`
+## Unmark tasks: `unmark`
 Marks tasks as undone
 
 Format: `unmark INDEX`
@@ -106,7 +102,7 @@ Examples:
 - `unmark 1` Marks first task in the list as notdone
 - `unmark 2` Marks second task in the list as not done
 
-##Find Keywords: `find`
+## Find Keywords: `find`
 Filters list of tasks to those containing the keyword the user wants to find
 
 Format: `find KEYWORD`
@@ -115,12 +111,12 @@ Examples:
 - `find book` CLI returns a list with all the tasks with the `KEYWORD` `book`.
 - `find tutorial` CLI returns a list with all the tasks with the `KEYWORD` `tutorial`.
 
-##Exit app: `bye`
+## Exit app: `bye`
 Exits the chatbot
 
 Format: `bye`
 
-##Command Summary
+## Command Summary
 
 | Command | Format,Examples |
 | ------- | --------------- |
