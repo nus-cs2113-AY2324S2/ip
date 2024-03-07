@@ -3,6 +3,9 @@ package allez;
 import allez.task.Task;
 import java.util.ArrayList;
 
+/**
+ * Represents the executable commands
+ */
 public class Command {
     private final TaskList tasks;
     public Command(TaskList tasks) {
@@ -22,6 +25,12 @@ public class Command {
         }
     }
 
+    /**
+     * Create a task to be added into the task list
+     *
+     * @param line entered by user
+     * @param type the type of task to be added: ToDo, Deadline, Event
+     */
     public void createTask(String line, Allez.TaskType type) {
         boolean taskCreated;
 
@@ -91,6 +100,11 @@ public class Command {
         return false;
     }
 
+    /**
+     * Print the list of tasks
+     *
+     * @param tasks ArrayList of tasks
+     */
     public void printList(ArrayList<Task> tasks){
         int count = 0;
 
@@ -107,6 +121,11 @@ public class Command {
 
     }
 
+    /**
+     * Delete task specified by user
+     *
+     * @param line entered by user in context of deleting a task
+     */
     public void deleteTask(String line) {
         try {
             int toDelete = Parser.parseDelete(line);

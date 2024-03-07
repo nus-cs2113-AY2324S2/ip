@@ -1,4 +1,9 @@
 package allez;
+
+/**
+ * Entry point of the Allez Chatbot Application
+ * Initialises the application and start interactions with the user.
+ */
 public class Allez {
     private static Storage storage;
     private static TaskList tasks;
@@ -16,6 +21,9 @@ public class Allez {
         exit();
     }
 
+    /**
+     * Save the current list of tasks into the save file. Prints out the exit message.
+     */
     private static void exit() {
         storage.writeSave(tasks.getTasks());
         Ui.printExit();
@@ -30,6 +38,10 @@ public class Allez {
         }
     }
 
+    /**
+     * Set up required objects, load data from the save file if there is any.
+     * Prints out the greeting message.
+     */
     private static void startBot() {
         ui = new Ui();
         Ui.printGreeting();
@@ -39,6 +51,13 @@ public class Allez {
         c = new Command(tasks);
     }
 
+    /**
+     * Executes command specified.
+     *
+     * @param command user command to execute
+     * @param line line input from the user
+     * @return true if command received is "bye", false otherwise
+     */
     private static boolean executeCommands(String command, String line) {
         Ui.printHyphens();
 
