@@ -62,10 +62,11 @@ public class Parser {
         }
 
         String description = deadlineParts[0].trim();
-        String by = deadlineParts[1].trim();
+        String by = deadlineParts[1].trim(); // No change needed here, as Deadline constructor will handle the parsing.
         taskList.addTask(new Deadline(description, by, false));
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
+
 
     private static void parseEventCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         if (parts.length < 2) {

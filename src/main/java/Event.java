@@ -3,7 +3,7 @@ public class Event extends Task {
     private String to;
 
     public Event(String description, String from, String to, boolean isDone) {
-        super(description);
+        super(description, isDone);
         this.from = from;
         this.to = to;
         this.isDone = isDone;
