@@ -1,42 +1,52 @@
 package allez.task;
 
+/**
+ * An abstract class that is inherited by ToDo, Deadline and Event.
+ * Stores description of task and whether the task is done.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
-    }
-
-    private static int numberOfTasks = 0;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numberOfTasks +=1;
     }
 
+    /**
+     * Returns a String of symbols to show whether the task has been marked as done.
+     * [X] for done, [ ] for not done.
+     *
+     * @return a String that symbolises if a task has been done
+     */
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (isDone ? "[X]" : "[ ]");
     }
 
+    /**
+     * Returns the status and description of the task as a string.
+     *
+     * @return status and description of the task
+     */
     public String toString() {
         return this.getStatusIcon() +
                 " " + this.getDescription();
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markDone() {
         this.isDone = true;
     }
-    public void unmarkDone() {
-        this.isDone = false;
-    }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return description of task
+     */
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

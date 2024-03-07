@@ -12,19 +12,29 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-
+/**
+ * Handles storage of data from Chatbot usage to keep track of tasks inputted.
+ * Able to load and save data.
+ */
 public class Storage {
     private final File dataFile;
 
     public File getDataFile() {
         return dataFile;
     }
+
+    /**
+     * When object is initialised, store location of save file into object.
+     * Check if location is valid. If not, create a new file.
+     *
+     * @param filePath path of save file
+     */
     public Storage(String filePath) {
         dataFile = new File(filePath);
         verifyFile();
     }
 
-    public void verifyFile(){
+    private void verifyFile(){
         try {
             if (dataFile.exists()) {
                 return;
@@ -38,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Decipher save file and returns an ArrayList of Task objects
+     * from previous Chatbot usage.
+     *
+     * @return ArrayList of Task objects
+     */
     public ArrayList<Task> loadSave(){
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -89,6 +105,12 @@ public class Storage {
                 .readAllLines(dataFile.toPath(), Charset.defaultCharset());
     }
 
+    /**
+     * Store the current task list into the save file, so that
+     * it can be loaded up again the next time the application is used.
+     *
+     * @param tasks ArrayList of Task to be stored
+     */
     public void writeSave(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(dataFile);
