@@ -35,6 +35,13 @@ public class Storage {
     
     }
 
+    /**
+     * Loads the saved file if it exists, else creates a new save file.
+     * <p>It handles FileNotFoundException by creating a new save 
+     * file if the saved file is not found.</p>
+     * 
+     * @see FileNotFoundException for details on the exception
+     */
     public static void loadFile() {
         try {
             System.out.println("\tLoading from saved file ...");
@@ -45,8 +52,12 @@ public class Storage {
         }
     }
 
-    // adapted from
-    // https://nus-cs2113-ay2324s2.github.io/website/schedule/week6/topics.html#w6-3-java-file-access
+    /**
+     * Loads the contents of the saved file into the task list.
+     * 
+     * @param file the file to load the contents from
+     * @throws FileNotFoundException if the file is not found
+     */
     public static void loadFileContents(File file) throws FileNotFoundException {
         Scanner fileScanner = new Scanner(file);
 
@@ -57,6 +68,12 @@ public class Storage {
         TaskList.displayList();
     }
 
+    /**
+     * Creates a new save file if it does not exist.
+     * 
+     * @param saveFilePath the relative path to the save file
+     * @see IOException for details on the exception
+     */
     public static void createNewSaveFile(String saveFilePath) {
         try {
             if (!directory.exists()) {
@@ -73,7 +90,14 @@ public class Storage {
         Ui.drawLine(false);
     }
 
-    // rewrite the whole file
+    /**
+     * Saves the task list to the save file.
+     * 
+     * <p>It writes the task details to the save file in the format
+     * <code>taskNumber|taskMarkedStatus|taskDescription</code></p>
+     * 
+     * @see IOException for details on the exception
+     */
     public static void saveFile() {
         StringBuilder fileContents = new StringBuilder();
         String lineToAdd = new String();
@@ -93,6 +117,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a line to add to the save file.
+     * 
+     * @param taskIndex the index of the task to add to the save file
+     * @return the line to add to the save file
+     */
     private static String createFileLine(int taskIndex) {
         int taskNumberToDisplay = taskIndex;
         Task taskToSave = allTasks.get(taskIndex);
@@ -103,12 +133,23 @@ public class Storage {
         return textToAdd;
     }
 
+    /**
+     * Loads the markings of the tasks when porting from the save file.
+     * 
+     * @param taskNum the task number to load the markings for
+     * @param isMarked the marking status of the task
+     */
     private static void loadMarkings(int taskNum, boolean isMarked) {
         if (isMarked) {
             allTasks.get(taskNum).markAsDone();
         }
     }
 
+    /**
+     * Loads the tasks from the save file into the task list.
+     * 
+     * @param nextLine the line to load the tasks from
+     */
     private static void loadToList(String nextLine) {
         String[] taskItems = nextLine.split("\\|", -1);
         int taskNum = Integer.parseInt(taskItems[0]);
