@@ -10,19 +10,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class AnonBotFileWriter extends AnonBotFile {
-    private static void writeIndividualTask(FileWriter writer) {
+    private static void writeIndividualTasks(FileWriter writer) {
         for (Task task : TaskManager.getTaskList()) {
             try {
                 String data = ExportParser.convertTaskToCommandlineFormat(task);
                 writer.write(data);
                 writer.write(System.lineSeparator());
             } catch (IOException e) {
-                System.out.println("Unable to write to file");
+                System.out.println("Error: Unable to write to file");
                 e.printStackTrace();
             } catch (ExportDataException e) {
                 e.printErrorMessage();
             }
-
         }
     }
 
@@ -33,14 +32,12 @@ public class AnonBotFileWriter extends AnonBotFile {
             String taskNumber = String.valueOf(TaskManager.getNumberOfActiveTasks());
             writer.write(taskNumber);
             writer.write(System.lineSeparator());
-            writeIndividualTask(writer);
+            writeIndividualTasks(writer);
             writer.close();
-
         } catch (IOException e) {
-            System.out.println("Unable to write to file");
+            System.out.println("Error: Unable to write to file");
             e.printStackTrace();
         }
-
     }
 
     public static void saveAnonBotData() {
@@ -48,12 +45,10 @@ public class AnonBotFileWriter extends AnonBotFile {
         try {
             f.delete();
             f.createNewFile();
+            writeData();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            System.out.println("Unable to create file");
+            System.out.println("Error: Unable to create file");
         }
-        writeData();
     }
-
-
 }
