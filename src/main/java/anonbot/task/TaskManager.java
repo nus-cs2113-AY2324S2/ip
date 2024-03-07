@@ -59,7 +59,7 @@ public class TaskManager {
         Task newTask = createTask(taskDescription, taskType, totalTasksCreated, false);
         System.out.println("Alright. I have added this task: ");
         newTask.printTask();
-        System.out.println("Now you have " + totalTasksCreated + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
