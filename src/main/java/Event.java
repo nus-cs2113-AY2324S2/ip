@@ -1,3 +1,6 @@
+/**
+ * child class of Task to handle events
+ */
 public class Event extends Task{
     protected String from;
     protected String to;

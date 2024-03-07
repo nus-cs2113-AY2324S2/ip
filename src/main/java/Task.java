@@ -1,3 +1,7 @@
+/**
+ * variables and functions that children classes of tasks inherit
+ * children classes in this chatbot include event, deadline and todo
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

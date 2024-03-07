@@ -1,3 +1,6 @@
+/**
+ * child class of Task to handle todos
+ */
 public class Todo extends Task{
 
     public Todo(String description){

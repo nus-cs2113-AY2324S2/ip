@@ -2,6 +2,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * deals with making sense of the user command
+ */
 public class Parser {
     protected static String from;
     protected static String to;
@@ -13,6 +16,14 @@ public class Parser {
 
     public String findInput;
 
+    /**
+     * marks task as done
+     * @param inputs the array of words the user input
+     * @param tasks the array of tasks
+     * @param index the number of tasks in the array of tasks
+     * @param isValidCommand boolean is true if the command from the user is a valid action
+     * @throws IOException exception when local TaskList.txt file does not exist
+     */
     private void dealWithMark(String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
         isValidCommand = true;
         try {
@@ -27,6 +38,14 @@ public class Parser {
 
     }
 
+    /**
+     * marks task as undone
+     * @param inputs the array of words input by the user
+     * @param tasks the array of tasks
+     * @param index the number of tasks in the array of tasks
+     * @param isValidCommand boolean is true if the command from the user is a valid action
+     * @throws IOException exception when local TaskList.txt file does not exist
+     */
     private void dealWithUnmark(String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
         isValidCommand = true;
         try {
@@ -40,6 +59,12 @@ public class Parser {
         }
     }
 
+    /**
+     * lists tasks
+     * @param tasks the array of tasks
+     * @param index the number of tasks in the array of tasks
+     * @param isValidCommand boolean is true if the command from the user is a valid action
+     */
     private void listTasks(ArrayList<Task> tasks, int index, boolean isValidCommand){
         isValidCommand = true;
         System.out.println("Here are the tasks in your list: ");
@@ -49,6 +74,16 @@ public class Parser {
         }
     }
 
+    /**
+     * deletes task
+     * @param tasks the array of tasks
+     * @param inputs the array of words input by the user
+     * @param index the number of tasks in the array of tasks
+     * @param isValidCommand boolean is true if the command from the user is a valid action
+     * @return the number of tasks in the array of tasks after deletion
+     * @throws UnexpectedCommandException exception when the format or details of the tasks are not followed and provided respectively
+     * @throws IOException exception when local TaskList.txt file does not exist
+     */
     private int deleteTask(ArrayList<Task> tasks, String[] inputs, int index, boolean isValidCommand) throws UnexpectedCommandException, IOException {
         isValidCommand = true;
         Storage.fillFileContents(tasks, "TaskList.txt", index);
@@ -59,6 +94,12 @@ public class Parser {
         return index;
     }
 
+    /**
+     * filters tasks with the keyword input by the user
+     * @param findInput the keyword the user is looking for
+     * @param tasks the array of tasks
+     * @param index the number of tasks in the array of tasks
+     */
     private void dealWithFind(String findInput, ArrayList<Task> tasks, int index){
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         int matchingTasksIndex = 1;
@@ -87,6 +128,15 @@ public class Parser {
         }
     }
 
+    /**
+     * handles the different commands input by the user
+     * @param tasks the array of tasks
+     * @param index the number of tasks in the array of tasks
+     * @param line the user input
+     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IndexOutOfBoundsException exception when there is missing required details in the input
+     * @throws UnexpectedCommandException exception when the format or details of the tasks are not followed and provided respectively
+     */
     public Parser(ArrayList<Task> tasks, int index, String line) throws IOException, IndexOutOfBoundsException, UnexpectedCommandException {
         boolean isInTxt = true;
         index = Storage.fillFileContents(tasks, "TaskList.txt", index);
@@ -146,7 +196,7 @@ public class Parser {
                 try {
                     index = deleteTask(tasks, inputs, index, isValidCommand);
                 } catch (ArrayIndexOutOfBoundsException e){
-                    System.out.println("please secify which task you want to delete");
+                    System.out.println("please specify which task you want to delete");
                 }
             } else if (inputs[0].equals("find")){
                 try {

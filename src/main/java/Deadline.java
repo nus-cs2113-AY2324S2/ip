@@ -1,3 +1,6 @@
+/**
+ * child class of Task to handle deadlines
+ */
 public class Deadline extends Task{
     protected String by;
 
