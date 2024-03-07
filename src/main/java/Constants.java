@@ -1,3 +1,7 @@
+/**
+ * The Constants class holds constant values used throughout the application.
+ */
+
 public class Constants {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
