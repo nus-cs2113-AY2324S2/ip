@@ -40,15 +40,15 @@ you get started with Alexis and understand its key features.
 > **Notes about the command format:**
 >
 > - Words in `<UPPER_CASE>` are the parameters to be supplied by the user.
-    >   e.g., in `todo <TASK_DESCRIPTION>`, `<TASK_DESCRIPTION>` is a parameter which can be used as `todo Read a book`.
+    >   e.g. in `todo <TASK_DESCRIPTION>`, `<TASK_DESCRIPTION>` is a parameter which can be used as `todo Read a book`.
 > - Parameters must be in the specified order.
-    >   e.g., if the command specifies `/from <START_DATE> /to <END_DATE>`, parameters must be supplied in that order.
+    >   e.g. if the command specifies `/from <START_DATE> /to <END_DATE>`, parameters must be supplied in that order.
 `/to <END_DATE> /from <START_DATE>` is not acceptable.
 > - Dates and times specified in the following format `yyyy-MM-dd HHmm` will be automatically converted to 
 `MMM dd yyyy, K.mm a` in the task list
-    >   e.g., if you have given `2024-02-05 1334` as your deadline, it will be displayed as `Feb 05 2024. 1.34 PM`.
+    >   e.g. if you have given `2024-02-05 1334` as your deadline, it will be displayed as `Feb 05 2024. 1.34 PM`.
 > - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
-    >   e.g., if the command specifies `list 123`, it will be interpreted as `list`.
+    >   e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 > - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple 
 lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
