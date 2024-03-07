@@ -8,7 +8,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File("./data/tasks.txt");
 
@@ -30,7 +30,7 @@ public class Storage {
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasksToFile(ArrayList<Task> tasks) {
         File file = new File("./data/tasks.txt");
         file.getParentFile().mkdirs();
         try(PrintWriter writer = new PrintWriter(file)){

@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Parser {
     public static void parseUserCommand(String userCommand, TaskList taskList, Ui ui) {
@@ -31,6 +31,9 @@ public class Parser {
                 case "delete":
                     parseDeleteCommand(parts, taskList, ui);
                     break;
+                case "find":
+                    parseFindCommand(parts, taskList, ui);
+                    break;
                 default:
                     ui.showError("Invalid command. Please enter a valid command.");
             }
@@ -59,10 +62,11 @@ public class Parser {
         }
 
         String description = deadlineParts[0].trim();
-        String by = deadlineParts[1].trim();
+        String by = deadlineParts[1].trim(); // No change needed here, as Deadline constructor will handle the parsing.
         taskList.addTask(new Deadline(description, by, false));
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
+
 
     private static void parseEventCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         if (parts.length < 2) {
@@ -127,4 +131,23 @@ public class Parser {
             throw new JoeyException("Please enter a valid task number to delete.");
         }
     }
+
+    private static void parseFindCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        if (parts.length < 2) {
+            throw new JoeyException("Please provide a keyword to search for.");
+        }
+
+        String keyword = parts[1].toLowerCase();
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : taskList.getTasks()) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        ui.showMatchingTasks(matchingTasks);
+    }
+
+
 }
