@@ -63,10 +63,10 @@ The task descriptions are **case-sensitive** and are displayed as entered.
 > `todo <description>`<br>
 >  Adds a todo task with the given description.
 
-> `deadline <description> /by <date>`<br>
+> `deadline <description> /by <date and/or time>`<br>
 >  Adds a deadline task with the given description and date.
 
-> `event <description> /from <start date> /to <end date>`<br>
+> `event <description> /from <start date and/or time> /to <end date and/or time>`<br>
 >  Adds an event task with the given description and start and end dates.
 
 * The date and time format is specified in the [Appendix](#Date-and-Time-Format).
@@ -75,12 +75,20 @@ The task descriptions are **case-sensitive** and are displayed as entered.
 `todo read book`<br>
 Adds a todo task with the description "read book".
 
-`deadline return book /by 2024-03-30`<br>
+`deadline return book /by 2024-03-30 1600`<br>
 Adds a deadline task with the description "return book" and the date "2024-03-30".
 
 `event project meeting /from 2024-03-07 100 /to 2024-03-07 230`<br>
 Adds an event task with the description "project meeting"<br>
-with the start date and time `Mar 07 2024, 1:00pm` and the end date `Mar 07 2024, 2:30pm`.
+with the start date and time `Mar 7, 2024, 1:00 PM` and the end date `Mar 7, 2024, 2:30 PM`.
+
+> [!NOTE]
+> - The time field is optional and defaults to 12:00 AM if not specified.<br>
+> - Unspecified dates are automatically set to the current date from the system clock.
+> - Using unsupported date and time formats will create a tasks with the date and time as the literal input.
+>   - For example:
+      `deadline Hand in assignments /by tomorrow afternoon`<br>
+      Adds a deadline task with the description "Hand in assignments" and the date and time as a literal "tomorrow afternoon".
 
 #### Expected outcome
 ```
@@ -90,12 +98,12 @@ You now have a whopping 1 tasks in the list. Keep 'em coming!
 ```
 ```
 Awesome sauce! Task successfully added:
-  [D][ ] return book (by: Mar 30 2024)
+  [D][ ] return book (by: Mar 30, 2024, 4:00 PM)
 You now have a whopping 2 tasks in the list. Keep 'em coming!
 ```
 ```
 Awesome sauce! Task successfully added:
-  [E][ ] project meeting (from: Mar 07 2024, 01:00am to: Mar 07 2024, 02:30am)
+  [E][ ] project meeting (from: Mar 7, 2024, 1:00 PM to: Mar 7, 2024, 2:30 PM)
 You now have a whopping 3 tasks in the list. Keep 'em coming!
 ```
 
@@ -113,8 +121,8 @@ Lists all the tasks in the list of tasks.
 ```
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][X] return book (by: Mar 30 2024)
-3. [E][X] project meeting (from: Mar 07 2024, 13:00pm to: Mar 07 2024, 14:30pm)
+2. [D][X] return book (by: Mar 30, 2024, 4:00 PM)
+3. [E][X] project meeting (from: Mar 7, 2024, 2:30 PM to: Mar 7, 2024, 2:30 PM)
 ```
 
 
@@ -137,7 +145,7 @@ Ta-da! Task conquered! I've marked this task as done:
 ```
 ```
 Whoopsie-daisy! This task is back in action:
-   [D][ ] return book (by: Mar 30 2024)
+   [D][ ] return book (by: Mar 30, 2024, 4:00 PM)
 ```
 
 
@@ -153,7 +161,7 @@ Deletes a task from the list of tasks.
 #### Expected outcome
 ```
 Task gone with the digital wind!
-  [E][ ] project meeting (from: Mar 07 2024, 01:00am to: Mar 07 2024, 02:30am)
+  [E][ ] project meeting (from: Mar 7, 2024, 1:00 PM to: Mar 7, 2024, 2:30 PM)
 Now down to 1 tasks in the list.
 ```
 
@@ -171,7 +179,7 @@ Finds a task from the list of tasks that contains the given keyword.
 ```
 Behold! Your tasks surface:
 1.[T][X] read book
-2.[D][ ] return book (by: Mar 30 2024)
+2.[D][ ] return book (by: Mar 30, 2024, 4:00 PM)
 ```
 
 
