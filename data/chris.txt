@@ -1,3 +1,2 @@
-1. [T][ ] eat
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting(from: Mon 2pm to: 4pm)
+1. [D][ ] eat breakfast (by: 1900)
+2. [T][ ] write

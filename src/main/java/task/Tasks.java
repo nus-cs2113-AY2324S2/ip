@@ -32,6 +32,10 @@ public class Tasks implements Serializable{
         this.isChecked = false;
     }
 
+    public boolean contain(String searchKey) {
+        return this.task.contains(searchKey);
+    }
+
     @Override
     public String toString() {
         if (this.isChecked) {

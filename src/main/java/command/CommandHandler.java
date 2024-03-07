@@ -13,6 +13,8 @@ public class CommandHandler {
     private static final String EVENTS = "event(.*)";
     private static final String EXIT = "bye";
 
+    private static final String FIND = "find(.*)";
+
     public static boolean handle(String command,
                               TaskLists listCommands) throws InputException {
         if (command.equals(EXIT)) {
@@ -36,7 +38,10 @@ public class CommandHandler {
         } else if (command.matches(DELETE)) {
             decodeDelete(command, listCommands);
             return true;
-        } else {
+        } else if (command.matches(FIND)) {
+            decodeFind(command, listCommands);
+            return true;
+        }else {
             throw new InputException("I cannot understand the command");
         }
     }
@@ -132,6 +137,13 @@ public class CommandHandler {
     public static void decodeExit(TaskLists listCommands) {
         DataManage.saveText(listCommands);
         System.out.println(Message.FAREWELL);
+    }
+
+    private static void decodeFind(String command,
+            TaskLists listCommands) throws InputException {
+        String[] split = command.split(" ");
+        String searchKey = split[1];
+        listCommands.search(searchKey);
     }
 
 }
