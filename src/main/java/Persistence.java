@@ -117,7 +117,7 @@ public class Persistence {
      * @param taskCount The current number of tasks in the list.
      * @throws CustomException If an error occurs during task creation.
      */
-    public static void spawnDeadline(ArrayList<Task> tasks,String[] task, int taskCount) throws CustomException {
+    public static void spawnDeadline(ArrayList<Task> tasks, String[] task, int taskCount) throws CustomException {
 
         String label = task[1].trim();
         String due = task[2].trim();
@@ -138,7 +138,7 @@ public class Persistence {
      * @param taskCount The current number of tasks in the list.
      * @throws CustomException If an error occurs during task creation.
      */
-    public static void spawnEvent(ArrayList<Task> tasks,String[] task, int taskCount) throws CustomException {
+    public static void spawnEvent(ArrayList<Task> tasks, String[] task, int taskCount) throws CustomException {
 
         String label = task[1].trim();
         String from = task[2].trim();
@@ -161,7 +161,7 @@ public class Persistence {
      * @param taskCount The current number of tasks in the list.
      * @throws CustomException If an error occurs during task creation.
      */
-    public static void spawnToDo(ArrayList<Task> tasks,String[] task, int taskCount) throws CustomException {
+    public static void spawnToDo(ArrayList<Task> tasks, String[] task, int taskCount) throws CustomException {
         String label = task[1].trim();
         boolean isCompleted = !task[3].trim().isEmpty();
 
@@ -175,13 +175,13 @@ public class Persistence {
      * Updates the completion status of a task in the tasks list based on a provided boolean value.
      *
      * @param tasks The list of tasks to update.
-     * @param value A boolean value representing the new completion status (true for completed, false for incomplete).
+     * @param isCompleted A boolean representing the new completion status (true for completed, false for incomplete).
      * @param taskCount The index of the task in the list to update.
      * @throws CustomException If an error occurs during task update.
      */
-    public static void updateCompletion(ArrayList<Task> tasks, boolean value, int taskCount) throws CustomException {
+    public static void updateCompletion(ArrayList<Task> tasks, boolean isCompleted, int taskCount) throws CustomException {
         try {
-            tasks.get(taskCount).setCompleted(value);
+            tasks.get(taskCount).setCompleted(isCompleted);
         } catch (CustomException e) {
             Reply.printException(e);
         }

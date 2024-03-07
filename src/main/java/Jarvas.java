@@ -8,7 +8,7 @@ public class Jarvas {
     /**
      * Executes the Jarvas bot. The full procedure of initialising, processing and terminating is executed.
      *
-     * @param args Command-line arguments from the user.
+     * @param args A string representing the command-line arguments from the user.
      * @throws CustomException If an error occurs during the execution of the command.
      */
     public static void main(String[] args) {

@@ -20,6 +20,7 @@ public class Deadline extends Task {
      * an array of strings containing the information.
      *
      * @param input A string containing the Deadline information in the format "label /by deadline".
+     * @throws CustomException If the Deadline due is invalid or unspecified.
      * @return An array of strings containing the extracted label and due date.
      */
     public static String[] getDeadline(String input) {
@@ -52,7 +53,7 @@ public class Deadline extends Task {
      * Retrieves the string representation of the {@code Deadline} task.
      * Inherits the {@code toString} method from the parent {@code Task} class.
      *
-     * @return A formatted string representing the {@code Deadline} task,
+     * @return A formatted string representing the {@code Deadline} task.
      * including the symbol representing completion status, description and the deadline.
      */
     @Override

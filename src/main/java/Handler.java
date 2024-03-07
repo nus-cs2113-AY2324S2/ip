@@ -13,10 +13,9 @@ public class Handler {
      * then creates the relevant {@code Task} object based on details entered.
      *
      * @param tasks The tasks list to be managed, adding the relevant {@code Task} object into the list.
-     * @throws IOException If an error occurs during file operations.
      * @throws CustomException If an error occurs during command processing.
      */
-    public static void processInput(ArrayList<Task> tasks) throws IOException {
+    public static void processInput(ArrayList<Task> tasks) throws CustomException {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
 
@@ -82,7 +81,7 @@ public class Handler {
                     break;
 
                 default:
-                    
+
                     break; // valueOf results in immediate exception for non-match with enum Command
 
                 }
@@ -237,6 +236,6 @@ public class Handler {
     public static void terminateBot(ArrayList<Task> tasks) {
         Persistence.saveTasks(tasks);
         Reply.printGoodbyeMessage();
-        Reply.printReply("Saved tasks as: " + Constant.FILE_NAME);
+        Reply.printReply("Saved tasks to: " + Constant.FILE_NAME);
     }
 }

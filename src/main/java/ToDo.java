@@ -16,7 +16,7 @@ public class ToDo extends Task {
      * Retrieves the string representation of the {@code ToDo} task.
      * Inherits the {@code toString} method from the parent {@code Task} class.
      *
-     * @return A formatted string representing the {@code ToDo} task,
+     * @return A formatted string representing the {@code ToDo} task.
      * including the symbol representing completion status and description.
      */
     @Override
