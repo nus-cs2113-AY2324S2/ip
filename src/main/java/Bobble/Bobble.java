@@ -30,51 +30,51 @@ public class Bobble {
         String userInput = input.nextLine();
 
         while (!userInput.equals("bye")) {
-            String[] UserInputs = Parser.getCommandAndDescription(userInput);
-            String command = UserInputs[0];
+            String[] userInputs = Parser.getCommandAndDescription(userInput);
+            String command = userInputs[0];
             try {
                 switch (command.toLowerCase()) {
                 case "list":
                     ui.listResponse(tasks.taskList);
                     break;
                 case "todo":
-                    ToDo newToDo = new ToDo(UserInputs[1]);
+                    ToDo newToDo = new ToDo(userInputs[1]);
                     tasks.addNewTask(newToDo);
                     ui.addTaskResponse(tasks.taskList, newToDo);
                     storage.saveAddedTask(tasks.taskList);
                     break;
                 case "deadline":
-                    Deadline newDeadline = Parser.getNewDeadline(UserInputs[1]);
+                    Deadline newDeadline = Parser.getNewDeadline(userInputs[1]);
                     tasks.addNewTask(newDeadline);
                     ui.addTaskResponse(tasks.taskList, newDeadline);
                     storage.saveAddedTask(tasks.taskList);
                     break;
                 case "event":
-                    Event newEvent = Parser.getNewEvent(UserInputs[1]);
+                    Event newEvent = Parser.getNewEvent(userInputs[1]);
                     tasks.addNewTask(newEvent);
                     ui.addTaskResponse(tasks.taskList, newEvent);
                     storage.saveAddedTask(tasks.taskList);
                     break;
                 case "mark":
-                    int taskNumber = Parser.getTaskNumber(userInput, "mark");
+                    int taskNumber = Integer.parseInt(userInputs[1]) - 1;
                     tasks.markTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
                     ui.printMarkResponse(tasks.taskList.get(taskNumber).toString());
                     break;
                 case "unmark":
-                    taskNumber = Parser.getTaskNumber(userInput, "unmark");
+                    taskNumber = Integer.parseInt(userInputs[1]) - 1;
                     tasks.unmarkTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
                     ui.printUnmarkResponse(tasks.taskList.get(taskNumber));
                     break;
                 case "delete":
-                    taskNumber = Parser.getTaskNumber(userInput, "delete");
+                    taskNumber = Integer.parseInt(userInputs[1]) - 1;
                     ui.printDeleteResponse(tasks.taskList, tasks.taskList.get(taskNumber));
                     tasks.deleteTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
                     break;
                 case "find":
-                    String keyword = UserInputs[1];
+                    String keyword = userInputs[1];
                     tasks.findTask(keyword);
                     break;
                 default:
