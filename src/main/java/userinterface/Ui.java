@@ -1,9 +1,9 @@
-package UserInterface;
+package userinterface;
 
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.util.ArrayList;
 

@@ -1,13 +1,13 @@
-package CommandHandler;
+package commandhandler;
 
-import Exceptions.ArgumentNotFoundException;
-import Exceptions.IncorrectFormatException;
-import Exceptions.TaskNotFoundException;
-import Parser.Parser;
-import Storage.DataHandler;
-import Tasks.Task;
-import Tasks.Todo;
-import UserInterface.Ui;
+import exceptions.ArgumentNotFoundException;
+import exceptions.IncorrectFormatException;
+import exceptions.TaskNotFoundException;
+import parser.Parser;
+import storage.DataHandler;
+import tasks.Task;
+import tasks.Todo;
+import userinterface.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;

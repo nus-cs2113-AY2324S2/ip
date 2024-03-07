@@ -1,9 +1,9 @@
-import CommandHandler.TaskList;
-import Exceptions.IncorrectFormatException;
-import Exceptions.TaskNotFoundException;
-import Exceptions.ArgumentNotFoundException;
-import Exceptions.CommandNotFoundException;
-import UserInterface.Ui;
+import commandhandler.TaskList;
+import exceptions.IncorrectFormatException;
+import exceptions.TaskNotFoundException;
+import exceptions.ArgumentNotFoundException;
+import exceptions.CommandNotFoundException;
+import userinterface.Ui;
 
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * This exception deals with the case when a parameter is expected

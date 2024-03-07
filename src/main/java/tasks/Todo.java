@@ -1,18 +1,15 @@
-package Tasks;
+package tasks;
 
-import Tasks.Task;
-
-public class Deadline extends Task {
+public class Todo extends Task {
     /** BADGE is the symbol representing each type of subtask */
-    private final static char BADGE = 'D';
+    private final static char BADGE = 'T';
 
     @Override
     public char getBadge() {
         return BADGE;
     }
 
-
-    public Deadline(String description) {
+    public Todo(String description) {
         super(description);
     }
 }

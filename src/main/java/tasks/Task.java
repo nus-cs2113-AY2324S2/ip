@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 /**
  * The Task class represents a task with a description and completion status.

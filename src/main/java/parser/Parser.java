@@ -1,9 +1,9 @@
-package Parser;
+package parser;
 
-import Exceptions.ArgumentNotFoundException;
-import Exceptions.IncorrectFormatException;
-import Exceptions.TaskNotFoundException;
-import Tasks.Task;
+import exceptions.ArgumentNotFoundException;
+import exceptions.IncorrectFormatException;
+import exceptions.TaskNotFoundException;
+import tasks.Task;
 
 import java.util.ArrayList;
 

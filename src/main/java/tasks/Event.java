@@ -1,6 +1,4 @@
-package Tasks;
-
-import Tasks.Task;
+package tasks;
 
 public class Event extends Task {
     /** BADGE is the symbol representing each type of subtask */

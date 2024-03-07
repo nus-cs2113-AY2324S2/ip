@@ -12,7 +12,7 @@ You can add three types of tasks:
 
 Each task type helps you categorize tasks for better organization.
 
-### List Tasks
+### List tasks
 Display all tasks, including to-dos, deadlines, and events, with their status (completed or pending) and additional information like timeframe and deadline timing.
 
 ### Mark Task as Done
@@ -24,7 +24,7 @@ Restore any completed task to pending status based on its list number for easy t
 ### Delete Task
 Remove tasks that are no longer needed or were added by mistake.
 
-### Find Tasks
+### Find tasks
 Search for tasks by keywords to quickly find specific tasks in your list. This feature helps you find tasks and know their deadlines, timeframes, and indices for marking or unmarking.
 
 ### Save Data
@@ -96,7 +96,7 @@ Adds a task with specific date and time.
          Now you have 3 tasks in the list.
       -----------------------------------------
 
-### `list` - Lists all Tasks
+### `list` - Lists all tasks
 Display all of your tasks, including To-dos, Deadlines and Events along with their status (completed or pending) and their deadline or timeframe.
 
 **Example of usage:**
@@ -151,7 +151,7 @@ Removes a specific task from the list based on the list number provided.
          Now you have 2 tasks in the list.
       -----------------------------------------
 
-### `find` - Find Tasks
+### `find` - Find tasks
 Search for tasks using keywords to quickly find specific tasks in the filtered list.
 
 **Example of usage:**
