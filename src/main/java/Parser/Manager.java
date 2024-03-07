@@ -11,6 +11,10 @@ import java.util.Scanner;
 import static TaskList.TaskList.deleteTask;
 import static TaskList.TaskList.newSpecialTask;
 
+/**
+ * A class to
+ * Perform different operations to the task list according to different user inputs.
+ */
 public class Manager {
     /**
      * Monitoring user input, print and update the list of tasks constantly

@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents a command to search for tasks that have description matched with user's input.
+ */
 public class SearchTasks {
     /**
      * Returns a list of tasks that have description matched with the input line of string.

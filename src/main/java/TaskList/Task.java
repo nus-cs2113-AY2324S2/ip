@@ -41,20 +41,12 @@ public class Task {
         return description;
     }
 
-    public boolean getIsDone() {
-        return isDone;
-    }
-
     public void setIsDone(boolean done) {
         isDone = done;
     }
 
     public char getType() {
         return type;
-    }
-
-    public void setType(char type) {
-        this.type = type;
     }
 
     /**
