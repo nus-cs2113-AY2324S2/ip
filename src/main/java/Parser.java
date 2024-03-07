@@ -1,10 +1,24 @@
+/**
+ * This class parses user input strings into Command objects to be executed.
+ */
 public class Parser {
     private final String userInput;
 
+    /**
+     * Constructor for the Parser class.
+     *
+     * @param userInput the user input string to parse
+     */
     public Parser(String userInput) {
         this.userInput = userInput;
     }
 
+    /**
+     * Parses the user input string and returns the corresponding Command object,
+     * or null if the input doesn't match any recognized commands.
+     *
+     * @return the Command object representing the parsed command, or null if not recognized
+     */
     public Command parseCommand() {
         if (userInput.startsWith("mark")) {
             return new MarkCommand(Integer.parseInt(userInput.substring(5)) - 1);

@@ -1,5 +1,3 @@
-import jdk.jfr.Description;
-
 import java.io.*;
 import java.util.Scanner;
 import java.io.FileWriter;

@@ -1,15 +1,31 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class represents the user interface (UI) for the task management application.
+ * It interacts with the user, takes input commands, and interacts with the `TaskList`
+ * to manage tasks.
+ */
 public class Ui {
+
     private final Scanner scanner;
+
     private final TaskList taskList;
 
+    /**
+     * Constructor for the Ui class.
+     *
+     * @param taskList the TaskList object to be used by the UI
+     */
     public Ui(TaskList taskList) {
         this.scanner = new Scanner(System.in);
         this.taskList = taskList;
     }
 
+    /**
+     * Starts the user interface loop, continuously prompting the user for commands
+     * until the user enters "bye" to exit.
+     */
     public void start() {
         System.out.println("Hello! I'm Wongster\nWhat can I do for you?\n");
 
