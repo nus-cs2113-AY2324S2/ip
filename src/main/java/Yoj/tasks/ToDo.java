@@ -4,9 +4,13 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public String taskType() {
+        return "[T]";
+    }
+
     // Prints task
     @Override
     public String toString(){
-        return "[T]" + super.toString();
+        return taskType() + super.toString();
     }
 }

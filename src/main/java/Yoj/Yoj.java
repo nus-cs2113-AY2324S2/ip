@@ -1,11 +1,10 @@
 package Yoj;
 
-import Yoj.tasks.*;
 import Yoj.exception.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
-
-import static Yoj.List.manageUserInput;
-
+import static Yoj.List.*;
 
 public class Yoj {
     public static void printLine() {
@@ -29,10 +28,11 @@ public class Yoj {
         printLine();
     }
 
-    public static void main(String[] args) throws YojException, InvalidCommandException {
+    public static void main(String[] args) throws YojException, InvalidCommandException, FileNotFoundException {
         printHello();
         // get user input
         Scanner in = new Scanner(System.in);
+        tasks = YojFile.loadTasks();
         String userInput;
         do {
             userInput = in.nextLine();
@@ -42,6 +42,8 @@ public class Yoj {
                 System.out.println(e.getMessage());
             } catch (InvalidCommandException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } while (!userInput.equals("bye"));
         in.close();
