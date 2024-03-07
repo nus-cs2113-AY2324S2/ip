@@ -1,5 +1,6 @@
-# Aragorn
-
+# User Guide 
+________________________________
+Aragorn is a simple chatbot that helps you tracks your tasks!
 ## Quick Start
 1. Ensure you have Java 11 or above installed on your computer.
 2. Download the latest joe.jar release [here](https://github.com/vimalapugazhan/ip/releases).
