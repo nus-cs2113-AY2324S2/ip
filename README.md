@@ -47,8 +47,3 @@ Find tasks based on keywords
 Example of usage: 
 <br>`find <keyword>`</br>
 `find abc`
-
-
-```
-expected output
-```
