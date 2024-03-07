@@ -31,12 +31,12 @@ ______________________________
 ______________________________
 ______________________________
 Got it. I've added this task:
-  [E][ ] Tutorial (from: 1pm  to: 3pm)
+  [E][ ] Tutorial (from: 1pm to: 3pm)
 Now you have 3 tasks in the list.
 ______________________________
 ______________________________
 Got it. I've added this task:
-  [E][ ] Lecture (from: 3pm  to: 5pm)
+  [E][ ] Lecture (from: 3pm to: 5pm)
 Now you have 4 tasks in the list.
 ______________________________
 ______________________________
@@ -66,15 +66,15 @@ YOU GOTTA SAVE ME AND MY HEART!!
 ______________________________
 ______________________________
 Got it. I've added this task:
-  [E][ ] Seminar (from: 5pm  to: 7pm)
+  [E][ ] Seminar (from: 5pm to: 7pm)
 Now you have 5 tasks in the list.
 ______________________________
 ______________________________
 1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm  to: 3pm)
-4.[E][ ] Lecture (from: 3pm  to: 5pm)
-5.[E][ ] Seminar (from: 5pm  to: 7pm)
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[E][ ] Seminar (from: 5pm to: 7pm)
 ______________________________
 ______________________________
 Got it. I've added this task:
@@ -109,9 +109,9 @@ ______________________________
 ______________________________
 1.[T][ ] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm  to: 3pm)
-4.[E][ ] Lecture (from: 3pm  to: 5pm)
-5.[E][ ] Seminar (from: 5pm  to: 7pm)
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[E][ ] Seminar (from: 5pm to: 7pm)
 6.[D][ ] RealizeIt (by: Thursday)
 7.[D][ ] Coursemology (by: Friday)
 8.[D][ ] Teammates (by: Saturday)
@@ -122,11 +122,11 @@ Nice! I've marked this task as done
 ______________________________
 ______________________________
 Nice! I've marked this task as done
-  [E][X] Tutorial (from: 1pm  to: 3pm)
+  [E][X] Tutorial (from: 1pm to: 3pm)
 ______________________________
 ______________________________
 Nice! I've marked this task as done
-  [E][X] Seminar (from: 5pm  to: 7pm)
+  [E][X] Seminar (from: 5pm to: 7pm)
 ______________________________
 ______________________________
 Nice! I've marked this task as done
@@ -135,24 +135,24 @@ ______________________________
 ______________________________
 1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][X] Tutorial (from: 1pm  to: 3pm)
-4.[E][ ] Lecture (from: 3pm  to: 5pm)
-5.[E][X] Seminar (from: 5pm  to: 7pm)
+3.[E][X] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[E][X] Seminar (from: 5pm to: 7pm)
 6.[D][ ] RealizeIt (by: Thursday)
 7.[D][X] Coursemology (by: Friday)
 8.[D][ ] Teammates (by: Saturday)
 ______________________________
 ______________________________
 Nice! I've marked this task as undone
-  [E][ ] Tutorial (from: 1pm  to: 3pm)
+  [E][ ] Tutorial (from: 1pm to: 3pm)
 ______________________________
 ______________________________
 Nice! I've marked this task as undone
-  [E][ ] Lecture (from: 3pm  to: 5pm)
+  [E][ ] Lecture (from: 3pm to: 5pm)
 ______________________________
 ______________________________
 Nice! I've marked this task as undone
-  [E][ ] Seminar (from: 5pm  to: 7pm)
+  [E][ ] Seminar (from: 5pm to: 7pm)
 ______________________________
 ______________________________
 Nice! I've marked this task as undone
@@ -161,9 +161,9 @@ ______________________________
 ______________________________
 1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm  to: 3pm)
-4.[E][ ] Lecture (from: 3pm  to: 5pm)
-5.[E][ ] Seminar (from: 5pm  to: 7pm)
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[E][ ] Seminar (from: 5pm to: 7pm)
 6.[D][ ] RealizeIt (by: Thursday)
 7.[D][X] Coursemology (by: Friday)
 8.[D][ ] Teammates (by: Saturday)
@@ -187,9 +187,9 @@ ______________________________
 ______________________________
 1.[T][X] Eat Breakfast
 2.[T][ ] Eat Lunch
-3.[E][ ] Tutorial (from: 1pm  to: 3pm)
-4.[E][ ] Lecture (from: 3pm  to: 5pm)
-5.[E][ ] Seminar (from: 5pm  to: 7pm)
+3.[E][ ] Tutorial (from: 1pm to: 3pm)
+4.[E][ ] Lecture (from: 3pm to: 5pm)
+5.[E][ ] Seminar (from: 5pm to: 7pm)
 6.[D][ ] RealizeIt (by: Thursday)
 7.[D][X] Coursemology (by: Friday)
 8.[D][ ] Teammates (by: Saturday)
@@ -200,7 +200,7 @@ ______________________________
 ______________________________
 ______________________________
  Noted. I've removed this task:
-  [E][ ] Tutorial (from: 1pm  to: 3pm)
+  [E][ ] Tutorial (from: 1pm to: 3pm)
 ______________________________
 ______________________________
  Noted. I've removed this task:
@@ -220,8 +220,8 @@ Invalid instruction ZENBU FAKE!!
 ______________________________
 ______________________________
 1.[T][ ] Eat Lunch
-2.[E][ ] Lecture (from: 3pm  to: 5pm)
-3.[E][ ] Seminar (from: 5pm  to: 7pm)
+2.[E][ ] Lecture (from: 3pm to: 5pm)
+3.[E][ ] Seminar (from: 5pm to: 7pm)
 4.[D][X] Coursemology (by: Friday)
 5.[D][ ] Teammates (by: Saturday)
 ______________________________

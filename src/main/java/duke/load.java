@@ -70,6 +70,7 @@ public class load {
         List<Task> taskList = new ArrayList<>();
         File databaseFile = new File(filePath);
         try {
+            databaseFile.getParentFile().mkdirs();
             databaseFile.createNewFile();
         } catch (IOException e) {
             throw new DukeException.DatabaseLoadException();
