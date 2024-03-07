@@ -40,5 +40,6 @@ Start the application via `MarioUI`. Enter commands in the input field to manage
 - **unmark**: Mark tasks as not completed.
 - **postpone**: Postpone tasks to a new date/time.
 - **bye**: Exit the application.
+- **help**: View all command syntax.
 
 This documentation provides an overview of the Mario Task Manager's structure and functionality.
