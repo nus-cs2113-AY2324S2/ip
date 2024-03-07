@@ -64,7 +64,7 @@ public class TaskList {
         ArrayList<Task> results = new ArrayList<>();
 
        for (Task t: tasks) {
-           if (t.description.contains(query)) {
+           if (t.description.toLowerCase().contains(query.toLowerCase())) {
                results.add(t);
            }
        }
