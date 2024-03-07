@@ -100,7 +100,6 @@ public class Storage {
      * Creates a string representation of the data contained in a list of tasks,
      * before saving the string to the database folder.
      *
-     * @param filePath Path to database file.
      * @param taskList List of tasks to be saved.
      */
     public void saveTasks (List<Task> taskList)
