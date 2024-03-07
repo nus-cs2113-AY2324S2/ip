@@ -7,6 +7,7 @@ public class InvalidMarkArgumentException extends InvalidArgumentException {
 
     @Override
     public void printErrorMessage() {
-        System.out.format("[Error] There is no task number %s to %s" + System.lineSeparator(), getArgument(), getCommand());
+        System.out.format("[Error] There is no task number %s to %s" + System.lineSeparator(),
+                getArgument(), getCommand());
     }
 }

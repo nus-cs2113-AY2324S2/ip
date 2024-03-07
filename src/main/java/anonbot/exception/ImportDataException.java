@@ -1,14 +1,22 @@
 package anonbot.exception;
 
 public class ImportDataException extends Exception implements AnonbotExceptionHandler {
-    private static String errorDescription;
+    private String importErrorDescription;
 
     public ImportDataException(String errorDescription) {
-        ImportDataException.errorDescription = errorDescription;
+        setImportErrorDescription(errorDescription);
+    }
+
+    private void setImportErrorDescription(String importErrorDescription) {
+        this.importErrorDescription = importErrorDescription;
+    }
+
+    private String getImportErrorDescription() {
+        return this.importErrorDescription;
     }
 
     @Override
     public void printErrorMessage() {
-        System.out.println(errorDescription);
+        System.out.println(getImportErrorDescription());
     }
 }

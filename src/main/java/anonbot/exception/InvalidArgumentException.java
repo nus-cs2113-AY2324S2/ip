@@ -7,7 +7,7 @@ public class InvalidArgumentException extends Exception implements AnonbotExcept
     private String argument;
     private String commandArgumentSyntax;
 
-    public InvalidArgumentException(String command, String argument){
+    public InvalidArgumentException(String command, String argument) {
         setCommand(command);
         setArgument(argument);
         setCommandArgumentSyntax(command);
@@ -16,9 +16,11 @@ public class InvalidArgumentException extends Exception implements AnonbotExcept
     private void setCommand(String command) {
         this.command = command;
     }
+
     private void setArgument(String argument) {
         this.argument = argument;
     }
+
     private void setCommandArgumentSyntax(String command) {
         this.commandArgumentSyntax = Command.getAssociatedCommandArgumentSyntax(command);
     }
@@ -30,13 +32,15 @@ public class InvalidArgumentException extends Exception implements AnonbotExcept
     protected String getArgument() {
         return this.argument;
     }
-    protected String getCommandArgumentSyntax() {
+
+    private String getCommandArgumentSyntax() {
         return this.commandArgumentSyntax;
     }
 
     protected void printSyntax() {
         System.out.println("Syntax: " + getCommandArgumentSyntax());
     }
+
     @Override
     public void printErrorMessage() {
         System.out.println("[Error] Command " + getCommand() + " has invalid argument " + getArgument());

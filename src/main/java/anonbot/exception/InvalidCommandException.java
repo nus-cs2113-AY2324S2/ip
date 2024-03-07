@@ -6,11 +6,15 @@ public class InvalidCommandException extends Exception implements AnonbotExcepti
     private String invalidCommand;
 
     public InvalidCommandException(String invalidCommand) {
+        setInvalidCommand(invalidCommand);
+    }
+
+    private void setInvalidCommand(String invalidCommand) {
         this.invalidCommand = invalidCommand;
     }
 
     private String getInvalidCommand() {
-        return invalidCommand;
+        return this.invalidCommand;
     }
 
     @Override
