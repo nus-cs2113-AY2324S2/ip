@@ -9,7 +9,12 @@ public class TaskList {
         return tasks.size();
     }
 
-    public static void addNewTask(String commandWord, String command) throws IOException {
+    /**
+     * Creates a new Task of various classes based on commandWord
+     * @param commandWord the Task subclass to create
+     * @param command The description and details of the Task
+     */
+    public static void addNewTask(String commandWord, String command) {
         switch (commandWord) {
         case "todo":
             tasks.add(ToDo.addTodo(command));
@@ -27,6 +32,11 @@ public class TaskList {
     }
 
 
+    /**
+     * Deletes a task and overwrites the save file, removing it from the save
+     * @param ind the index of the Task to be deleted
+     * @throws IOException when the new file has error being written to
+     */
     public static void deleteTask(String ind) throws IOException {
         int index = Integer.parseInt(ind) + OFFSET;
         System.out.println("Task Deleted: " + tasks.get(index));
@@ -45,12 +55,11 @@ public class TaskList {
         tasks.get(index).setDone(false);
     }
 
-    public static void printAllTasks() {
-        for (Task t: tasks) {
-            t.printTask();
-        }
-    }
-
+    /**
+     * Searches all tasks for any task that contains query in its description
+     * @param query the search query
+     * @return an ArrayList of Tasks that contains the query
+     */
     public static ArrayList<Task> findTasks(String query) {
         ArrayList<Task> results = new ArrayList<>();
 

@@ -9,6 +9,12 @@ public class Storage {
     private static final String filename = "./saved.txt";
     private static final Path filePath = Paths.get(filename);
 
+    /**
+     * Loads all the information from the save file
+     * Creates a new save file if there is none found.
+     *
+     * @throws IOException when there is an error in restoring the save.
+     */
     public static void loadFileContents() throws IOException {
         try {
             File file = filePath.toFile();
@@ -31,6 +37,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the user command into the file
+     * @param text the user command
+     * @throws IOException when there is an error writing to the save file.
+     */
     public static void writeToFile(String text) throws IOException {
         try {
             FileWriter fw = new FileWriter(filename, true);
@@ -41,6 +52,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes and creates a new save file with all existing tasks
+     *
+     * @throws IOException when there is an error in writing to new file
+     */
     public static void overwriteFile() throws IOException {
         try {
             File file = filePath.toFile() ;

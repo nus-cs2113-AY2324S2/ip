@@ -43,6 +43,10 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Prints the tasks given in the array one by one
+     * @param tasks the tasks to be printed
+     */
     public static void printTasks(ArrayList<Task> tasks) {
         int taskNo = OFFSET;
         for (Task t : tasks) {
