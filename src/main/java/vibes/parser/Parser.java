@@ -25,6 +25,7 @@ public class Parser {
     public static final int EVENT_DESC_INDEX = 0;
     public static final int EVENT_FROM_INDEX = 1;
     public static final int EVENT_TO_INDEX = 2;
+    public static final int KEYWORD_INDEX = 1;
 
     /**
      * Parses the full user input for a "Todo" task.
@@ -113,5 +114,14 @@ public class Parser {
      */
     public static String parseCommand(String userInput) {
         return userInput.split(SPACE_CHAR)[COMMAND_INDEX].toLowerCase();
+    }
+
+    public static String parseKeyword(String userInput) throws InvalidArgumentException {
+        String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
+        if (parts.length == SPLIT_TO_TWO_LENGTH){
+            return parts[KEYWORD_INDEX];
+        } else {
+            throw new InvalidArgumentException(ErrorMessages.KEYWORD_NOT_FOUND);
+        }
     }
 }

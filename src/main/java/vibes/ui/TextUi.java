@@ -117,4 +117,15 @@ public class TextUi {
     public void showError(String message) {
         System.out.println(message);
     }
+
+    public void listMatchedTasks(String keyword, ArrayList<Task> tasks) {
+        int matchIndex = 1;
+        System.out.println(Messages.LIST_MATCHED_TASKS_MESSAGE);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)){
+                System.out.printf((PRINT_TASK_ITEM_FORMAT) + "%n", matchIndex, tasks.get(i));
+                matchIndex++;
+            }
+        }
+    }
 }
