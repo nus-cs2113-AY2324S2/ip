@@ -15,126 +15,108 @@ public class Duke {
             String input = scanner.nextLine().trim();
             System.out.println("____________________________________________________________");
 
-            // Handles the "bye" command
-            if (input.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soooon!");
-                System.out.println("____________________________________________________________");
-                break; // Exit the loop
-            }
-
-            // Handles the "list" command
-            if (input.equalsIgnoreCase("list")) {
-                if (taskCount == 0) {
-                    System.out.println("No tasks added yet.");
-                } else {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + "." + tasks[i]);
-                    }
-                }
-                System.out.println("____________________________________________________________");
-                continue; // Skip the rest of the loop and start over
-            }
-
-            // Handles the "mark" command
-            if (input.startsWith("mark")) {
-                String[] parts = input.split(" ");
-
-                if (parts.length != 2) {
-                    System.out.println("Invalid command format.");
-                } else {
-                    int index = Integer.parseInt(parts[1]) - 1;
-                    if (index >= 0 && index < taskCount) {
-                        tasks[index].markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
+            try {
+                if (input.equalsIgnoreCase("bye")) {
+                    System.out.println("Bye. Hope to see you again soooon!");
+                    System.out.println("____________________________________________________________");
+                    break;
+                } else if (input.equalsIgnoreCase("list")) {
+                    if (taskCount == 0) {
+                        System.out.println("No tasks added yet.");
                     } else {
-                        System.out.println("Invalid task index.");
+                        System.out.println("Here are the tasks in your list:");
+                        for (int i = 0; i < taskCount; i++) {
+                            System.out.println((i + 1) + "." + tasks[i]);
+                        }
                     }
-                }
-
-                System.out.println("____________________________________________________________");
-                continue;
-            }
-
-            // Handles the "unmark" command
-            if (input.startsWith("unmark")) {
-                String[] parts = input.split(" ");
-
-                if (parts.length != 2) {
-                    System.out.println("Invalid command format.");
-                } else {
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("mark")) {
+                    String[] parts = input.split(" ");
+                    if (parts.length != 2) {
+                        throw new DukeException("Invalid command format. Usage: mark <task_number>");
+                    }
                     int index = Integer.parseInt(parts[1]) - 1;
-                    if (index >= 0 && index < taskCount) {
-                        tasks[index].markAsUndone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
-                    } else {
-                        System.out.println("Invalid task index.");
+                    if (index < 0 || index >= taskCount) {
+                        throw new DukeException("Invalid task number.");
                     }
-                }
-
-                System.out.println("____________________________________________________________");
-                continue;
-            }
-
-            // Handles adding tasks
-            if (input.startsWith("todo")) {
-                String description = input.substring(5).trim();
-                tasks[taskCount] = new Todo(description);
-                taskCount++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-                continue;
-            }
-
-            if (input.startsWith("deadline")) {
-                String[] parts = input.split("/by");
-                if (parts.length != 2) {
-                    System.out.println("Invalid command format.");
+                    tasks[index].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
                     System.out.println("____________________________________________________________");
-                    continue;
-                }
-                String description = parts[0].substring(9).trim();
-                String by = parts[1].trim();
-                tasks[taskCount] = new Deadline(description, by);
-                taskCount++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
-                System.out.println("____________________________________________________________");
-                continue;
-            }
-
-            if (input.startsWith("event")) {
-                String[] parts = input.split("/from");
-                if (parts.length != 2) {
-                    System.out.println("Invalid command format.");
+                } else if (input.startsWith("unmark")) {
+                    String[] parts = input.split(" ");
+                    if (parts.length != 2) {
+                        throw new DukeException("Invalid command format. Usage: unmark <task_number>");
+                    }
+                    int index = Integer.parseInt(parts[1]) - 1;
+                    if (index < 0 || index >= taskCount) {
+                        throw new DukeException("Invalid task number.");
+                    }
+                    tasks[index].markAsUndone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
                     System.out.println("____________________________________________________________");
-                    continue;
-                }
-                String[] eventParts = parts[1].split("/to");
-                if (eventParts.length != 2) {
-                    System.out.println("Invalid command format.");
+                } else if (input.startsWith("todo")) {
+                    String description = input.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new DukeException("Sorry! The description of a todo can't be empty");
+                    }
+                    tasks[taskCount] = new Todo(description);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                    continue;
+                } else if (input.startsWith("deadline")) {
+                    String[] parts = input.split("/by");
+                    if (parts.length != 2) {
+                        throw new DukeException("Invalid command format. Usage: deadline <description> /by <date>");
+                    }
+                    String description = parts[0].substring(9).trim();
+                    String by = parts[1].trim();
+                    if (description.isEmpty() || by.isEmpty()) {
+                        throw new DukeException("OOPS!!! Both description and date cannot be empty.");
+                    }
+                    tasks[taskCount] = new Deadline(description, by);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else if (input.startsWith("event")) {
+                    String[] parts = input.split("/from");
+                    if (parts.length != 2) {
+                        throw new DukeException("Invalid command format. Usage: event <description> /from <start> /to <end>");
+                    }
+                    String[] eventParts = parts[1].split("/to");
+                    if (eventParts.length != 2) {
+                        throw new DukeException("Invalid command format. Usage: event <description> /from <start> /to <end>");
+                    }
+                    String description = parts[0].substring(5).trim();
+                    String from = eventParts[0].trim();
+                    String to = eventParts[1].trim();
+                    if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                        throw new DukeException("OOPS!!! All fields (description, start, end) must be provided.");
+                    }
+                    tasks[taskCount] = new Event(description, from, to);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } else {
+                    throw new DukeException("Invalid command");
                 }
-                String description = parts[0].substring(5).trim();
-                String from = eventParts[0].trim();
-                String to = eventParts[1].trim();
-                tasks[taskCount] = new Event(description, from, to);
-                taskCount++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCount - 1]);
-                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
                 System.out.println("____________________________________________________________");
-                continue;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid task number. Please enter a valid number.");
+                System.out.println("____________________________________________________________");
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Sorry! The description of a todo can't be empty");
+                System.out.println("____________________________________________________________");
             }
-
-            System.out.println("Sorry, I don't understand that command.");
-            System.out.println("____________________________________________________________");
         }
         scanner.close();
     }
