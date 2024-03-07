@@ -14,7 +14,7 @@ class Deadline extends Task {
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
             DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm")
     };
-    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    private static final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
