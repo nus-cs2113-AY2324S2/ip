@@ -1,5 +1,6 @@
 package anonbot.task;
 
+import anonbot.exception.InvalidArgumentException;
 import anonbot.exception.InvalidDeleteCommandException;
 import anonbot.exception.InvalidMarkCommandException;
 import anonbot.exception.InvalidTaskException;
@@ -123,7 +124,7 @@ public class TaskManager {
         taskToMark.markAsUndone();
     }
 
-    public static void deleteTask(int taskNumber) throws InvalidDeleteCommandException {
+    public static void deleteTask(int taskNumber) throws InvalidArgumentException {
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             if (task.getTaskNumber() == taskNumber) {
@@ -134,6 +135,6 @@ public class TaskManager {
                 return;
             }
         }
-        throw new InvalidDeleteCommandException("delete", Integer.toString(taskNumber));
+        throw new InvalidArgumentException("delete", Integer.toString(taskNumber));
     }
 }

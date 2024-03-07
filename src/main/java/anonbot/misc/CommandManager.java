@@ -5,6 +5,7 @@ import anonbot.data.AnonBotFileWriter;
 import anonbot.exception.EmptyArgumentException;
 import anonbot.exception.IncompleteCommandException;
 import anonbot.exception.InvalidTaskException;
+import anonbot.exception.InvalidArgumentException;
 import anonbot.task.Task.TaskType;
 import anonbot.task.TaskManager;
 import anonbot.exception.InvalidCommandException;
@@ -90,12 +91,16 @@ public class CommandManager {
         }
     }
 
-    private static void processDeleteCommand(String rawArgument) throws IncompleteCommandException {
+    private static void processDeleteCommand(String rawArgument) throws InvalidArgumentException {
+        if (rawArgument.isEmpty()) {
+            throw new EmptyArgumentException("delete");
+        }
+
         try {
             int taskNumber = Parser.getTaskNumberFromString(rawArgument);
             TaskManager.deleteTask(taskNumber);
         } catch (NumberFormatException e) {
-            throw new IncompleteCommandException("delete", rawArgument);
+            throw new InvalidArgumentException("delete", rawArgument);
         }
     }
 }
