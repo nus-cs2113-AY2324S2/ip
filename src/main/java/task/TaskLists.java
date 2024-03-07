@@ -19,6 +19,7 @@ public class TaskLists implements Serializable{
 
     /**
      * Add Task to the array inside TaskLists.
+     *
      * @param task Task assigned.
      */
     public void addTask(Tasks task) {
@@ -55,6 +56,11 @@ public class TaskLists implements Serializable{
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Delete the Task at that index.
+     *
+     * @param index index of the Task to delete.
+     */
     public void delete(int index) {
         Tasks fetch = this.tasksList.get(index - 1);
         this.tasksList.remove(index - 1);
@@ -66,10 +72,18 @@ public class TaskLists implements Serializable{
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Print the number of tasks stored inside the array of the class.
+     */
     public void taskNumPrint() {
         System.out.println("Now you have " + this.tasksList.size() + " tasks in the list");
     }
 
+    /**
+     * Get the number of tasks stored inside the array of the class.
+     *
+     * @return the number of tasks stored inside the array of the class.
+     */
     public int tasksSize() {
         return this.tasksList.size();
     }
@@ -83,6 +97,11 @@ public class TaskLists implements Serializable{
         }
     }
 
+    /**
+     * Print all the tasks inside the class in the intended format.
+     *
+     * @return all the tasks inside the class in an intended format.
+     */
     public void search(String key) {
         int count = 0;
         String out = "";

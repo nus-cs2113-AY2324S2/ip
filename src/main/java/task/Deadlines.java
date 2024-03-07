@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The Deadline class represents a task that needs to be done before a specific date/time.
+ */
 public class Deadlines extends Tasks{
     private String deadline;
 
