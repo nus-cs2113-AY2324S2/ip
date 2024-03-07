@@ -38,13 +38,13 @@ public class Parser {
      * Attempts to extract an index variable from the user input's additional information. Is called when the main program
      * confirms that the user wish to execute list operations(delete/mark/unmark).
      * @return the index of the target task in the task list
-     * @throws MissingInformationException if there are no additional information. This indicates that the user has missing
+     * @throws MissingIndexException if there are no additional information. This indicates that the user has missing
      * instructions for the index.
      */
     public int getIndexFromCommand()
-        throws MissingInformationException {
+        throws MissingIndexException {
         if (additionalNotes == null) {
-            throw new MissingInformationException();
+            throw new MissingIndexException();
         }
         return Integer.parseInt(additionalNotes)-1;
     }

@@ -4,6 +4,7 @@ import daisy.storage.Storage;
 import daisy.tasklist.TaskList;
 import daisy.ui.Ui;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -17,7 +18,6 @@ public class Daisy {
 
     /**
      * Main running process for the Daisy application
-     * @param args
      */
     public static void main(String[] args) {
 
@@ -43,7 +43,7 @@ public class Daisy {
                     try {
                         String keyWord = userInput.getFindInfo();
                         tasks.findTasks(keyWord);
-                    } catch (MissingInformationException e) {
+                    } catch (IllegalFindFormatException e) {
                         ui.printTodoMissingError();
                     }
                     break;
@@ -51,7 +51,7 @@ public class Daisy {
                     try {
                         int taskNo = userInput.getIndexFromCommand();
                         tasks.markDone(taskNo, ui);
-                    } catch (MissingInformationException e) {
+                    } catch (MissingIndexException | NumberFormatException e) {
                         ui.printIndexMissingError();
                     }
                     break;
@@ -59,7 +59,7 @@ public class Daisy {
                     try {
                         int taskNo = userInput.getIndexFromCommand();
                         tasks.markUndone(userInput.getIndexFromCommand(), ui);
-                    } catch (MissingInformationException e) {
+                    } catch (MissingIndexException | NumberFormatException e) {
                         ui.printIndexMissingError();
                     }
                     break;
@@ -67,7 +67,7 @@ public class Daisy {
                     try {
                         int taskNo = userInput.getIndexFromCommand();
                     tasks.deleteTask(userInput.getIndexFromCommand());
-                    } catch (MissingInformationException e) {
+                    } catch (MissingIndexException | NumberFormatException e) {
                         ui.printIndexMissingError();
                     }
                     break;
@@ -82,7 +82,7 @@ public class Daisy {
                     try {
                         String[] separate_deadlines = userInput.getDeadlineInfo();
                         tasks.createDeadline(separate_deadlines[0],separate_deadlines[1], true, false);
-                    } catch (IllegalDeadlineFormatException e) {
+                    } catch (IllegalDeadlineFormatException | DateTimeParseException e) {
                         ui.printDeadlineInputError();
                     }
                     break;
@@ -90,7 +90,7 @@ public class Daisy {
                     try {
                         String[] separate_events = userInput.getEventInfo();
                         tasks.createEvent(separate_events[0],separate_events[1], separate_events[2], true, false);
-                    } catch (IllegalEventFormatException e){
+                    } catch (IllegalEventFormatException | DateTimeParseException e){
                         ui.printEventInputError();
                     }
                     break;

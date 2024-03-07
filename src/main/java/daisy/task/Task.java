@@ -46,6 +46,11 @@ public class Task {
         return String.format("%s,%s", (this.isDone)? "1":"0", this.taskName);
     }
 
+    /**
+     * Returns a boolean value to determine whether a task instance has a task name that contains the keyword.
+     * @param keyWord keyword used to compare with the task name
+     * @return a boolean value which determines whether the task instance has a task name that contains the keyword
+     */
     public boolean contains(String keyWord) {
         return taskName.contains(keyWord);
     }

@@ -152,6 +152,10 @@ public class TaskList {
         addTask(newEvent, sendPrintOut);
     }
 
+    /**
+     * Returns a list of tasks with their task names containing the keyword.
+     * @param keyWord search keyword used to find the task names
+     */
     public void findTasks(String keyWord) {
         int count = 1;
         for (Task task : tasks) {

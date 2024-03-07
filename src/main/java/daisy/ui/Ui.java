@@ -71,8 +71,8 @@ public class Ui {
     }
 
     /**
-     * Alerts the user on the MissingInformationException
-     * @see daisy.error.MissingInformationException
+     * Alerts the user on the MissingIndexException
+     * @see daisy.error.MissingIndexException
      */
     public void printIndexMissingError() {
         System.out.println("Error! No index detected for this operation. Try again!");
