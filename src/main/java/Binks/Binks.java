@@ -138,7 +138,7 @@ public class Binks {
             default:
                 createLineSpacing();
                 System.out.println("This is not a valid command!");
-                createLineSpacing();
+                createLineSpacing(); 
             }
         }
     }
