@@ -68,11 +68,15 @@ public class Ui {
     }
 
     /**
-     * Displays the task list to the user.
+     * Displays the task list to the user if there are tasks present.
      *
      * @param taskList The object of the task list to be displayed.
      */
     public void showTaskList(TaskList taskList) {
+        if (taskList.getListLength() == 0) {
+            printMessage("Task list is empty... Add some tasks now! (^.^)");
+            return;
+        }
         System.out.print(HORIZONTAL_LINE);
         System.out.println("These are the tasks in your list:");
         taskList.printTasks();
@@ -146,7 +150,7 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public void sayGoodbye() {
-        printMessage("Goodbye, see you next time! (◠‿◠)");
+        printMessage("Goodbye, see you next time! (^_^)");
     }
 
     /**
@@ -163,7 +167,7 @@ public class Ui {
      * Displays an error message when an empty description is provided for a task.
      */
     public void showIllegalDescriptionErr() {
-        printMessage("Hey your description is empty (ಠ_ಠ)");
+        printMessage("Hey your description is empty (-_-)");
     }
 
     /**
@@ -183,7 +187,7 @@ public class Ui {
     }
 
     public void showEventSeqErr() {
-        printMessage("Are you a time traveller (°□°) 'from' date cannot be later than the 'to' date");
+        printMessage("Are you a time traveller (o.O) 'from' date cannot be later than the 'to' date");
     }
 
     /**
