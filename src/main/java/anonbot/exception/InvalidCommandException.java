@@ -14,7 +14,7 @@ public class InvalidCommandException extends Exception implements AnonbotExcepti
     @Override
     public void printErrorMessage() {
         if (getInvalidCommand().isEmpty()) {
-            System.out.println("[Error] No command entered");
+            System.out.println("[Error] No command entered. Please check that there are no leading spaces.");
         } else {
             System.out.println("[Error] Invalid command entered: " + getInvalidCommand());
         }
