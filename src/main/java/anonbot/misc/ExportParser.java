@@ -1,12 +1,12 @@
 package anonbot.misc;
 
-import anonbot.exception.InvalidTaskException;
+import anonbot.exception.ExportDataException;
 import anonbot.task.Deadline;
 import anonbot.task.Event;
 import anonbot.task.Task;
 
 public class ExportParser {
-    public static String convertTaskToCommandlineFormat(Task task) throws InvalidTaskException {
+    public static String convertTaskToCommandlineFormat(Task task) throws ExportDataException {
         String taskDescription = task.getTaskDescription();
         String taskNumberString = String.valueOf(task.getTaskNumber());
         String isTaskDoneString = task.isTaskDone() ? "Y" : "N";
@@ -23,7 +23,7 @@ public class ExportParser {
             return String.format("event %s %s %s /from %s /to %s",
                     isTaskDoneString, taskNumberString, taskDescription, eventTask.getFrom(), eventTask.getTo());
         default:
-            throw new InvalidTaskException("Unknown Task Type. Not saving this task.");
+            throw new ExportDataException("Unknown Task Type. Not saving this task.");
         }
     }
 }

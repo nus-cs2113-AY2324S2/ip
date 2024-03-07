@@ -1,6 +1,6 @@
 package anonbot.data;
 
-import anonbot.exception.InvalidTaskException;
+import anonbot.exception.ExportDataException;
 import anonbot.misc.ExportParser;
 import anonbot.task.Task;
 import anonbot.task.TaskManager;
@@ -19,7 +19,7 @@ public class AnonBotFileWriter {
             } catch (IOException e) {
                 System.out.println("Unable to write to file");
                 e.printStackTrace();
-            } catch (InvalidTaskException e) {
+            } catch (ExportDataException e) {
                 e.printErrorMessage();
             }
 
