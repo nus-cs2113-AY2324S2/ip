@@ -7,14 +7,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class handles reading from and writing to a file.
+ */
 public class Storage {
     private String filePath;
     private Ui ui = new Ui();
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates a new file if it does not exist.
+     */
     public void createFile() {
         File f = new File(filePath);
         try {
@@ -22,7 +33,6 @@ public class Storage {
         } catch (IOException e) {
             ui.showTextFileError();
         }
-
     }
 
     private static void readFile(String line, ArrayList<Task> tasks) {
@@ -32,7 +42,7 @@ public class Storage {
         String description = parts[2].trim();
         switch (label) {
         case "T":
-            tasks.add(new Todo(description,isDone));
+            tasks.add(new Todo(description, isDone));
             break;
         case "D":
             String by = parts[3].trim();
@@ -47,6 +57,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into the provided ArrayList.
+     *
+     * @param tasks The ArrayList to store the loaded tasks.
+     * @throws FileNotFoundException If the file is not found.
+     */
     public void loadFile(ArrayList<Task> tasks) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner scanner = new Scanner(f);
@@ -56,6 +72,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object into a string format suitable for writing to the file.
+     *
+     * @param task The Task object to convert.
+     * @return The string representation of the Task object.
+     */
     public static String taskToFileFormat(Task task) {
         if (task instanceof Todo) {
             return "T | " + (task.isDone ? "1" : "0") + " | " + task.getDescription() + "\n";
@@ -68,6 +90,12 @@ public class Storage {
         return "";
     }
 
+    /**
+     * Writes tasks from the provided ArrayList to the file.
+     *
+     * @param tasks The ArrayList containing the tasks to write.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void writeToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
@@ -76,5 +104,3 @@ public class Storage {
         fw.close();
     }
 }
-
-
