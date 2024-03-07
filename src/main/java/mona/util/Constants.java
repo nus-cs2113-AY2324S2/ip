@@ -61,8 +61,9 @@ public final class Constants {
             "She can't find a task with that number! " +
             "Perhaps you could double-check the task index using the 'list' command and try again?";
     public static final String ERROR_LOADING_FILE = "Uh-oh! Mona thinks the saved .txt file might be could be " +
-            "corrupted. So, we'll need to stop here. Please peek at the User Guide at https://nur-haziq.github.io/ip/ " +
-            "for how to fix this. Mona's going to take a little break until then!";
+            "corrupted. So, we'll need to stop here. Please peek at the 'Editing the data file' section on the " +
+            "User Guide at https://nur-haziq.github.io/ip/ for how to fix this. " +
+            "Mona's going to take a little break until then!";
 
     public static final String HELP_MESSAGE = "Need some help? Mona's got you covered! Here's what I can do: " +
             System.lineSeparator() + System.lineSeparator() +

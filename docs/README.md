@@ -20,6 +20,7 @@ Mona is a Command Line Interface (CLI) chatbot application designed to streamlin
   - [Marking a Task as Not Done: `unmark`](#marking-a-task-as-not-done-unmark)
   - [Exiting the program: `bye`](#exiting-the-program-bye)
   - [Saving the data](#saving-the-data)
+  - [Editing the data file] (#editing-the-data-file)
 - [Command summary](#command-summary)
 
 &nbsp;
@@ -201,6 +202,25 @@ Exits the application.
 
 The data is saved automatically after any command that modifies the task list (e.g., `add`, `delete`, `mark`, `unmark`). There is no need to save manually.
 
+&nbsp;
+
+## Editing the data file
+
+Mona data are saved automatically as a .txt file `[JAR file location]/data/tasks.txt`. Advanced users are welcome to update data directly by editing that data file.
+
+> **Caution:** If your changes to the data file make its format invalid, it can cause Mona to behave in unexpected ways (e.g. storing of null values). Therefore, edit the data file only if you are confident that you can update it correctly. It is highly recommended to take a backup of the file before editing it.
+
+### Data file format for editing (or for rectifying a corrupted file)
+
+Should you wish to edit the data file directly, please follow the format below:
+
+- Each line represents a stored task.
+- There are 3 components to a line.
+  - Example: `D | 0 | do work /by Sunday`
+    - `D` represents a Deadline Task. It can be `T`, `D`, or `E`, corresponding to `ToDo`, `Deadline`, or `Event` tasks, respectively.
+    - The second component, `0`, represents whether the task is done (`0` for not done, `1` for done).
+    - The third component is the description and further parameters of the task. This should be formatted in the same way as how you would add a new task.
+  
 &nbsp;
 
 ## Command Summary
