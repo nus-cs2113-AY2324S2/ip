@@ -13,17 +13,18 @@ Jarvas is a bot used for managing a task list, optimised for use via a Command L
   - [Deleting Tasks: `delete`](#deleting-tasks-delete)
   - [Find a Task: `find`](#find-a-task-find)
   - [Print Help Message: `help`](#print-help-message-help)
-  - [Exit and Write Data: `bye`](#exit-and-write-data-bye)
+  - [Exit and Write Data: `bye`](#exit-bot-bye)
 * [Frequently Asked Questions (FAQ)](#faq)
 
 ## Quick Start
 
 1. Ensure that you have the latest Java 11.
 2. Download the latest `ip.jar` file from https://github.com/L5-Z/ip/releases.
-3. Copy the file to the folder you want to use as the home folder for Jarvas.
-4. Open a command terminal (either cmd.exe or bash), `cd` to the folder with `ip.jar` in it, and use `java -jar ip.jar` to run the application.
-5. The welcome message for Jarvas should be printed to the console.
-6. Type commands in the command line and press <kbd>Enter</kbd> to execute it. Using help and pressing <kbd>Enter</kbd> will print the help message.
+3. Create a new folder to use as the home folder for Jarvas, on your local drive.
+4. Copy the file to the folder you have created.
+5. Open a command terminal (either cmd.exe or bash), `cd` to the folder with `ip.jar` in it, and use `java -jar ip.jar` to run the application.
+6. The welcome message for Jarvas should be printed to the console.
+7. Type commands in the command line and press <kbd>Enter</kbd> to execute it. Using `help` and pressing <kbd>Enter</kbd> will print the help message.
 
 ```
 $ java -jar ip.jar
