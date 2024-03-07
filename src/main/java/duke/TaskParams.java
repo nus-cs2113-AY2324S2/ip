@@ -1,5 +1,5 @@
 package duke;
 
 public enum TaskParams {
-    DESCRIPTION, BY, START, END
+    DESCRIPTION, BY, START, END, TARGET
 }

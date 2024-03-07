@@ -182,7 +182,14 @@ public class TaskList {
      *
      * @param target Target phrase to search for.
      */
-    public void find(String target){
+    public void findTask(String target) throws MissingParamsException {
+        if (target.isEmpty()) {
+            List<TaskParams> missingParams = new ArrayList<>();
+            missingParams.add(TaskParams.TARGET);
+
+            throw new MissingParamsException(missingParams);
+        }
+
         List<Task> matches = new ArrayList<>();
 
         for (Task task : taskList){
@@ -193,10 +200,9 @@ public class TaskList {
 
         if (matches.isEmpty()){
             printMessage("No matches!!");
-        }
-        else {
+        } else {
             new TaskList(matches).printList(
-                    " Here are the matching tasks in your list-gari:");
+                    "Here are the matching tasks in your list-gari:");
         }
     }
 }

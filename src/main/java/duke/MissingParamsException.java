@@ -27,6 +27,9 @@ public class MissingParamsException extends Exception {
             case END:
                 errorMessage.append("to ");
                 break;
+            case TARGET:
+                errorMessage.append("target ");
+                break;
             }
         }
 
