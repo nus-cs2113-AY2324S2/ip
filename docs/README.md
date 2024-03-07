@@ -8,7 +8,7 @@ Allez is a desktop app for managing your tasks via a Command Line Interface (CLI
 :information_source: Notes about the command format:
 > - Words in `UPPER_CASE` are parameters to be supplied by users.
 > e.g in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo math homework`.
-> - 
+> 
 > - Words that begin with a `/` needs to be supplied by user.
 > e.g in `deadline DESCRIPTION /by BY`, `/by` is required for the command.
 >
