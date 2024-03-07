@@ -16,8 +16,8 @@ public class Ui {
 
 
     /**
-     *  Prints the task list in the order with the Badge, Status
-     *  and the Description for each task.
+     * Prints the task list in the order with the Badge, Status
+     * and the Description for each task.
      */
     public void displayList(ArrayList<Task> inputList, boolean matching) {
 
@@ -32,48 +32,48 @@ public class Ui {
             if (value == null) {
                 break;
             }
-            char Badge = getBadge(value);
-            System.out.println((i + 1) + ".[" + Badge + "]"
+            char badge = getBadge(value);
+            System.out.println((i + 1) + ".[" + badge + "]"
                     + "[" + value.getStatusIcon() + "] " + value.description);
         }
         System.out.println(DIVIDER);
     }
 
     private char getBadge(Task value) {
-        char Badge = ' ';
+        char badge = ' ';
         if (value instanceof Todo) {
-            Badge = ((Todo) value).getBadge();
+            badge = ((Todo) value).getBadge();
         } else if (value instanceof Deadline) {
-            Badge = ((Deadline) value).getBadge();
+            badge = ((Deadline) value).getBadge();
         } else if (value instanceof Event) {
-            Badge = ((Event) value).getBadge();
+            badge = ((Event) value).getBadge();
         }
-        return Badge;
+        return badge;
     }
 
 
     /**
-     *  Prints a message stating that the intended task has been unmarked.
-     *  It also prints the structure of the updated task.
+     * Prints a message stating that the intended task has been unmarked.
+     * It also prints the structure of the updated task.
      */
     public void displayUnmarkMsg(int index, ArrayList<Task> inputList) {
-        char Badge = getBadge(inputList.get(index));
+        char badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println((index + 1) + ".[" + Badge + "]" + "[ ] "
+        System.out.println((index + 1) + ".[" + badge + "]" + "[ ] "
                 + inputList.get(index).description);
         System.out.println(DIVIDER);
     }
 
     /**
-     *  Prints a message stating that the intended task has been marked.
-     *  It also prints the structure of the updated task.
+     * Prints a message stating that the intended task has been marked.
+     * It also prints the structure of the updated task.
      */
     public void displayMarkMsg(int index, ArrayList<Task> inputList) {
-        char Badge = getBadge(inputList.get(index));
+        char badge = getBadge(inputList.get(index));
         System.out.println(DIVIDER);
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println((index + 1) + ".[" + Badge + "]" + "[X] "
+        System.out.println((index + 1) + ".[" + badge + "]" + "[X] "
                 + inputList.get(index).description);
         System.out.println(DIVIDER);
     }
@@ -93,28 +93,28 @@ public class Ui {
 
 
     /**
-     *  Prints a message stating that the intended task has been deleted.
-     *  It also prints the deleted task.
+     * Prints a message stating that the intended task has been deleted.
+     * It also prints the deleted task.
      */
-    public void displayDeleteMsg(Task inputObj, int arrayLength){
-        char Badge = getBadge(inputObj);
+    public void displayDeleteMsg(Task inputObj, int arrayLength) {
+        char badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("I've removed this task:");
-        System.out.println(" [" + Badge + "]" + "["+ inputObj.getStatusIcon()
+        System.out.println(" [" + badge + "]" + "[" + inputObj.getStatusIcon()
                 + "] " + inputObj.description);
         System.out.println("Now you have " + (arrayLength - 1) + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 
     /**
-     *  Prints acknowledgement stating that the intended task has been added to the list.
-     *  It also prints the structure of the latest task.
+     * Prints acknowledgement stating that the intended task has been added to the list.
+     * It also prints the structure of the latest task.
      */
     public void displayAcknowledgement(Task inputObj, int arrayLength) {
-        char Badge = getBadge(inputObj);
+        char badge = getBadge(inputObj);
         System.out.println(DIVIDER);
         System.out.println("Got it. I've added this task:");
-        System.out.println(" [" + Badge + "]" + "[ ] " + inputObj.description);
+        System.out.println(" [" + badge + "]" + "[ ] " + inputObj.description);
         System.out.println("Now you have " + arrayLength + " tasks in the list.");
         System.out.println(DIVIDER);
     }
