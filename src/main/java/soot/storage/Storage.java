@@ -19,7 +19,8 @@ import java.util.Scanner;
  * The stored tasks will be loaded and added into an ArrayList.
  */
 public class Storage {
-    private static final String FILE_PATH = "saved-data/saved.txt";
+    private static final String SAVED_FILE_PATH = "./saved-data/saved.txt";
+    private static final String SAVED_FILE_DIRECTORY_PATH = "./saved-data";
 
     public Storage(TaskList taskList) {
         loadSavedFile(taskList);
@@ -27,13 +28,25 @@ public class Storage {
 
     public static void loadSavedFile(TaskList taskList) {
         try {
-            ArrayList<String> savedFile = Storage.readSavedFile(FILE_PATH);
+            ArrayList<String> savedFile = Storage.readSavedFile(SAVED_FILE_PATH);
             for (String s : savedFile) {
                 Storage.loadOneSavedTask(s);
             }
         } catch (FileNotFoundException e) {
-            UserUi.printMessageWithDivider("No file was found, i will create one immediately");
-            File savedData = new File(FILE_PATH);
+            UserUi.printMessageWithDivider("there was no previously saved task list!");
+            createFileDirectory();
+        }
+    }
+
+    public static void createFileDirectory() {
+        File fileDirectory = new File(SAVED_FILE_DIRECTORY_PATH);
+        if (fileDirectory.exists()) {
+            return;
+        }
+
+        boolean hasCreatedDir = fileDirectory.mkdir();
+        if (!hasCreatedDir) {
+            UserUi.printMessageWithDivider("there was a problem trying to create a saved file");
         }
     }
 
@@ -48,6 +61,7 @@ public class Storage {
     public static ArrayList<String> readSavedFile(String filePath) throws FileNotFoundException {
         ArrayList<String> readFile = new ArrayList<>();
         File savedFile = new File(filePath);
+        System.out.println(savedFile.getAbsolutePath());
         Scanner s = new Scanner(savedFile);
         while (s.hasNext()) {
             readFile.add(s.nextLine());
@@ -89,13 +103,12 @@ public class Storage {
             UserUi.printMessageWithDivider("!! there was an error with the previously saved file, " +
                     "sorry about it :o \nunfortunately, i will have to get rid of the previous data...");
             TaskList.clearTaskList();
-            File savedData = new File("saved-data/saved.txt");
         }
     }
 
     public static void tryToSaveFile() {
         try {
-            Storage.saveFinalFile();
+            saveFinalFile();
         } catch (IOException e) {
             System.out.println("there was a problem saving your tasks to the hard disk...");
         }
@@ -108,7 +121,7 @@ public class Storage {
      * @throws IOException If there was a problem when saving the file.
      */
     public static void saveFinalFile() throws IOException {
-        FileWriter fw = new FileWriter("saved-data/saved.txt");
+        FileWriter fw = new FileWriter(SAVED_FILE_PATH);
 
         for (int i = 0; i < TaskList.getSize(); i++) {
             String stringToSave = TaskList.formatTaskToSave(i);
