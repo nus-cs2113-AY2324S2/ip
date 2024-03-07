@@ -1,2 +1,2 @@
-[T][ ] sleep
-[E][ ] open day (from: 03-09 9:00 to: 03-12 12:00)
+[T][ ] eat
+[D][ ] eat (by: noon)
