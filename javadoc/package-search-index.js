@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"command"},{"l":"exceptions"},{"l":"logic"},{"l":"templates"},{"l":"templates.task"}];updateSearchResults();
