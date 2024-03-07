@@ -40,9 +40,9 @@ public class Parser {
 
     private void processCommand(String userCommand) {
         if (userCommand.equalsIgnoreCase("hi")) {
-            System.out.println("Hello! I am Avril the Bot and I am at your service!");
+            System.out.println("HEY HEY YOU YOU I CAN BE YOUR... task manager bot");
         } else if (userCommand.equalsIgnoreCase("bye")) {
-            System.out.println("You should say thank you, then say bye.");
+            System.out.println("Bro. Say 'thank you and bye'. If not i'm not letting you exit~~");
         } else if (userCommand.equalsIgnoreCase("list")) {
             TaskList.displayTasks();
         } else if (userCommand.startsWith("mark")) {
@@ -61,7 +61,7 @@ public class Parser {
             String keyword = userCommand.substring(5);
             TaskList.findTask(keyword);
         } else {
-            System.out.println("bruh. read instructions. type properly.");
+            System.out.println("bruh. do better, read instructions.");
         }
     }
 }
