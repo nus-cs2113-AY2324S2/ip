@@ -11,6 +11,9 @@ public class Parser {
     public static Todo parseTodo(String userInput) throws EkudException {
 
         int dividerPosition = userInput.indexOf(" ");
+        if(dividerPosition == -1) {
+            throw new EkudException();
+        }
         int descriptionStart = dividerPosition + 1;
         return new Todo(userInput.substring(descriptionStart));
     }

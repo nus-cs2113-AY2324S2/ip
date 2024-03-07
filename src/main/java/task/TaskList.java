@@ -31,7 +31,7 @@ public class TaskList {
             UI.showTaskCountMessage(taskCount);
         }
         catch (EkudException error) {
-            System.out.println(UI.EMPTY_TODO_DESCRIPTION_MESSAGE);
+            System.out.println("Unable to add new Todo.");
         }
     }
 
