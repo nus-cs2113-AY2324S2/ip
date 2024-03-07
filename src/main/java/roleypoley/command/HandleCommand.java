@@ -28,7 +28,7 @@ public class HandleCommand {
      * Determines the command and execute it
      *
      * @param userInput full user input string
-     * @return true if userInputs "bye", otherwise return false
+     * @return true if userInputs "bye", otherwise it will return false
      */
     public static boolean executeCommand(String userInput) {
         String[] splitString = userInput.split(" ");
