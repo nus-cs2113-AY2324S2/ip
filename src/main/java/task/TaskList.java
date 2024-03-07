@@ -31,7 +31,7 @@ public class TaskList {
             UI.showTaskCountMessage(taskCount);
         }
         catch (EkudException error) {
-            System.out.println("Unable to add new Todo.");
+            System.out.println(UI.TODO_FORMAT_ERROR_MESSAGE);
         }
     }
 
@@ -44,10 +44,10 @@ public class TaskList {
                 UI.showTaskCountMessage(taskCount);
         }
         catch (EkudException error) {
-            System.out.println("Unable to add new Deadline.");
+            System.out.println(UI.DEADLINE_ERROR_MESSAGE);
         }
         catch (IndexOutOfBoundsException error) {
-            System.out.println("Invalid format. Unable to add new Deadline.");
+            System.out.println(UI.DEADLINE_FORMAT_ERROR_MESSAGE);
         }
     };
 
@@ -60,10 +60,10 @@ public class TaskList {
             UI.showTaskCountMessage(taskCount);
         }
         catch (EkudException error) {
-            System.out.println("Unable to add new Event.");
+            System.out.println(UI.EVENT_ERROR_MESSAGE);
         }
         catch (IndexOutOfBoundsException error) {
-            System.out.println("Invalid format. Unable to add new Event.");
+            System.out.println(UI.EVENT_FORMAT_ERROR_MESSAGE);
         }
     };
 

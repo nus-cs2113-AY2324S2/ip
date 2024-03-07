@@ -18,11 +18,15 @@ public class UI {
 
     public static String TASK_ADDED_MESSAGE = "Got it. I've added this task:";
 
-    public static String EMPTY_TODO_DESCRIPTION_MESSAGE = "The description of a Todo cannot be empty.";
+    public static String TODO_FORMAT_ERROR_MESSAGE = "Invalid Todo format.";
 
-    public static String EMPTY_DEADLINE_DESCRIPTION_MESSAGE = "The description of a Deadline cannot be empty.";
+    public static String DEADLINE_FORMAT_ERROR_MESSAGE = "Invalid Deadline format.";
 
-    public static String EMPTY_EVENT_DESCRIPTION_MESSAGE = "The description of an Event cannot be empty.";
+    public static String DEADLINE_ERROR_MESSAGE = "Error. Unable to add Deadline.";
+
+    public static String EVENT_FORMAT_ERROR_MESSAGE = "Invalid Event format.";
+
+    public static String EVENT_ERROR_MESSAGE = "Error. Unable to add Event.";
 
     public static String INVALID_TASK_NUM_MESSAGE = "The task number is not valid or not provided.";
 
