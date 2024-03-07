@@ -1,44 +1,30 @@
 package interactions;
-import customexceptions.*;
+import customexceptions.IncompletePromptException;
+import customexceptions.UnknownPromptException;
+import tasks.TaskList;
 
 public class Ui {
     // Sorted instructions
-    public static final String[] INSTRUCTIONS = {"bye", "deadline", "delete", "event", "list",
+    public static final String[] INSTRUCTIONS = {"bye", "deadline", "delete", "event", "find", "list",
             "mark", "rename", "todo"};
     public String getName() {
         return name;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String name;
     public Ui() {
         name = "MOBY";
-    }
-    public void rename(String line) {
-        String newName = line.substring(7);
-        this.name = newName.toUpperCase();
-        System.out.println("Renamed chatbot to " + this.name);
     }
     public void greet() { 
         System.out.println(name + ": Hello! I'm " + name + "!");
         System.out.println(name + ": What can I do for you?");
     }
-    public int parseIndex(String line, String keyword) {
-        int len = keyword.length();
-        return Integer.parseInt(line.substring(len + 1));
-//        try {
-//            return Integer.parseInt(line.substring(len)) + 1;
-//        } catch (NumberFormatException e) {
-//            return -1;
-//        }
-    }
-    public void echo(String line) {
-        System.out.println(line.substring(5));
-    }
-    public boolean isTypo(String line) { // identifies and deals with typo
-        String[] words = line.split(" ");
-        String typo = words[0];
-        int typoSize = typo.length();
+    public boolean isTypo(String word) {
         for (String instruction : INSTRUCTIONS) {
-            if (!instruction.equals(typo) && instruction.startsWith(typo)) {
+            if (!instruction.equals(word) && instruction.startsWith(word)) {
                 System.out.println("Did you mean: " + instruction + "?");
                 return true;
             }

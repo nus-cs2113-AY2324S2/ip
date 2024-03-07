@@ -1,5 +1,4 @@
-E | [/] | contest | today -> day to tomorrow
-T | [ ] | that
-D | [ ] | hw | december
-E | [ ] | class | 9am -> 12pm
-T | [/] | buy food
+T | [ ] | this
+T | [/] | that
+E | [ ] | another contest | 1pm -> 5pm
+D | [ ] | contest submission | friday
