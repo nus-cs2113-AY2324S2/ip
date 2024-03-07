@@ -20,12 +20,22 @@ public class ControlPanel {
     private DataStorage storage;
     private UserDetails userDetails;
 
+    /**
+     * Constructs a ControlPanel object with the specified task manager, data storage, and user details.
+     *
+     * @param taskManager  the task manager to be used
+     * @param storage      the data storage to be used
+     * @param userDetails the user details to be used
+     */
     public ControlPanel(TaskManager taskManager, DataStorage storage, UserDetails userDetails) {
         this.taskManager = taskManager;
         this.storage = storage;
         this.userDetails = userDetails;
     }
 
+    /**
+     * Starts the control panel and handles user input.
+     */
     public void start() {
         try (Scanner scanner = new Scanner(System.in)) {
             menu();
@@ -93,7 +103,9 @@ public class ControlPanel {
         }
     }
 
-    // Display the menu options
+    /**
+     * Displays the menu options.
+     */
     private static void menu() {
         System.out.println("How may I assist you today?");
         System.out.println("1. List tasks");
@@ -108,12 +120,18 @@ public class ControlPanel {
         System.out.print("Enter the symbol corresponding to your choice: ");
     }
 
-    // List all tasks
+    /**
+     * Lists all tasks.
+     */
     private void listTasks() {
         taskManager.listTasks();
     }
 
-    // Add a todo task
+    /**
+     * Adds a todo task with the given input.
+     *
+     * @param input the input string containing the task description and priority
+     */
     private void addTodoTask(String input) {
         String[] parts = input.split(" ?/ ?");
         if (parts.length < 2 || parts[1].isEmpty()) {
@@ -132,7 +150,11 @@ public class ControlPanel {
         storage.saveTasks(taskManager.getAllTasks());
     }
 
-
+    /**
+     * Adds a deadline task with the given input.
+     *
+     * @param input the input string containing the task description, deadline date, and priority
+     */
     private void addDeadlineTask(String input) {
         // Adjusted split regex to account for spaces accurately
         String[] parts = input.split(" ?/by | ?/ ?");
@@ -156,10 +178,12 @@ public class ControlPanel {
         taskManager.addTask(taskManager.new Deadline("Deadline", description, by, priority));
         storage.saveTasks(taskManager.getAllTasks());
     }
-    
 
-
-    // Add an event task
+    /**
+     * Adds an event task with the given input.
+     *
+     * @param input the input string containing the task description, start date, end date, and priority
+     */
     private void addEventTask(String input) {
         String[] parts = input.split(" ?/from | ?/to | ?/");
         if (parts.length < 4) {
@@ -170,7 +194,7 @@ public class ControlPanel {
         String startDateString = parts[1];
         String endDateString = parts[2];
         TaskManager.Priority priority;
-    
+
         try {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate startDate = LocalDate.parse(startDateString, dateFormatter);
@@ -186,9 +210,12 @@ public class ControlPanel {
             return;
         }
     }
-    
 
-    // Mark a task as done
+    /**
+     * Marks a task as done with the given input.
+     *
+     * @param input the input string containing the task number
+     */
     private void markTaskAsDone(String input) {
         try {
             int taskNumber = Integer.parseInt(input.substring(5)) - 1;
@@ -204,7 +231,11 @@ public class ControlPanel {
         }
     }
 
-    // Delete a task
+    /**
+     * Deletes a task with the given input.
+     *
+     * @param input the input string containing the task number
+     */
     private void deleteTask(String input) {
         try {
             int taskNumber = Integer.parseInt(input) - 1;

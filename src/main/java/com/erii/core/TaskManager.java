@@ -2,8 +2,6 @@ package com.erii.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -158,7 +156,9 @@ public class TaskManager {
             return isDone ? "[X]" : "[ ]";
         }
 
-            // Convert Event to string
+        /* 
+         * Convert Event to string
+        */
         @Override
         public String toString() {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -168,12 +168,16 @@ public class TaskManager {
 
     private List<Task> tasks = new ArrayList<>();
 
-    // Get the size of the task list
+    /**
+     * Get the size of the task list
+     */
     public int listSize() {
         return tasks.size();
     }
 
-    // Add a task to the task list
+    /**
+     * Add a task to the task list
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
@@ -182,12 +186,16 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    // Load a task from Text to the task list
+    /**
+     * Load a task from Text to the task list
+     */
     public void loadTask(Task task) {
         tasks.add(task);
     }
 
-    // List all tasks in the task list
+    /**
+     * List all tasks in the task list
+     */
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -196,19 +204,25 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    // Sort the task list by priority
+    /**
+     * Sort the task list by priority
+     */
     public void sortListByPriority() {
         tasks.sort((Task t1, Task t2) -> t1.getPriority().compareTo(t2.getPriority()));
         System.out.println("Tasks sorted by priority.");
     }
 
-    // Sort the task list by type
+    /**
+     * Sort the task list by type
+     */
     public void sortListByType() {
         tasks.sort((Task t1, Task t2) -> t1.getName().compareTo(t2.getName()));
         System.out.println("Tasks sorted by type.");
     }
 
-    // Mark a task as done
+    /**
+     * Mark a task as done
+     */
     public void markTaskAsDone(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.get(taskIndex);
@@ -229,7 +243,9 @@ public class TaskManager {
         }
     }
 
-    // Delete a task from the task list
+    /**
+     * Delete a task from the task list
+     */
     public void deleteTask(int taskIndex) {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             Task task = tasks.remove(taskIndex);
@@ -242,11 +258,16 @@ public class TaskManager {
         }
     }
 
-    // Get a copy of all tasks in the task list
+    /**
+     * Get a copy of all tasks in the task list
+     */
     public List<Task> getAllTasks() {
         return new ArrayList<>(tasks);
     }
 
+    /**
+     * List tasks on a specific date
+     */
     public void listTasksOn(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         System.out.println("Tasks on " + date.format(formatter) + ":");
@@ -265,7 +286,9 @@ public class TaskManager {
         }
     }
 
-    // Method to search tasks by keyword
+    /**
+     * Method to search tasks by keyword
+     */
     public void findTasks(String keyword) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
@@ -287,7 +310,9 @@ public class TaskManager {
     }
 
 
-    // Validate and convert a priority string to Priority enum
+    /**
+     * Validate and convert a priority string to Priority enum
+     */
     public static Priority validateAndConvertPriority(String priorityString) throws IllegalArgumentException {
         try {
             return Priority.valueOf(priorityString.toUpperCase());

@@ -24,7 +24,11 @@ public class DataStorage {
     private static final String TASKS_FILE = "./data/tasks.txt";
     private static final String USER_DETAILS_FILE = "./data/userDetails.txt";
 
-    // Save tasks to a file
+    /**
+     * Save tasks to a file
+     *
+     * @param tasks The list of tasks to be saved
+     */
     public void saveTasks(List<Task> tasks) {
         try (PrintWriter writer = new PrintWriter(new File(TASKS_FILE))) {
             for (Task task : tasks) {
@@ -35,7 +39,12 @@ public class DataStorage {
         }
     }
 
-    // Load tasks from a file
+    /**
+     * Load tasks from a file
+     *
+     * @param taskManager The task manager instance
+     * @return The list of loaded tasks
+     */
     public List<Task> loadTasks(TaskManager taskManager) {
         List<Task> tasks = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(TASKS_FILE))) {
@@ -53,7 +62,11 @@ public class DataStorage {
         return tasks;
     }
 
-    // Save user details to a file
+    /**
+     * Save user details to a file
+     *
+     * @param userDetails The user details to be saved
+     */
     public void saveUserDetails(UserDetails userDetails) {
         File file = new File(USER_DETAILS_FILE);
         File parentDir = file.getParentFile();
@@ -69,7 +82,11 @@ public class DataStorage {
         }
     }
 
-    // Load user details from a file
+    /**
+     * Load user details from a file
+     *
+     * @return The loaded user details
+     */
     public UserDetails loadUserDetails() {
         UserDetails userDetails = new UserDetails();
         try (Scanner scanner = new Scanner(new File(USER_DETAILS_FILE))) {
