@@ -25,7 +25,9 @@ Hiko has following Features
 ### 4.Auto write in.
 - Hiko will auto record down the tasks that you have input in the .txt file under /docs folder.
 
-## 1. Setting up in Intellij
+
+> [!NOTE]
+> Setting up Intellij.
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
@@ -52,4 +54,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 # Updates
 
-31/01/2024: Updated new function 'task recording'. Now whatever you type will be recorded as task..
+08/03/2024 Finalize Hiko.
