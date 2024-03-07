@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * This class deals with the application's UI
+ */
 public class UI {
     public static final String LINE_SEPARATOR = "--------------------------------------";
 
@@ -14,14 +17,6 @@ public class UI {
         System.out.println(UI.LINE_SEPARATOR);
         System.out.println(message);
         System.out.println(UI.LINE_SEPARATOR);
-    }
-    public static void takeResponse (TaskList tasks) {
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        while (!line.equals("bye")) {
-            Parser.responseToCommand(line, tasks);
-            line = in.nextLine();
-        }
     }
 
     public static void bye () {

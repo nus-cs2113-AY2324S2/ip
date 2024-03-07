@@ -1,6 +1,9 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Represents an event with name, start and end time
+ */
 public class Event extends Task {
     //Attributes
     protected String from;
@@ -8,6 +11,7 @@ public class Event extends Task {
     protected String to;
 
     //Constructors
+
     public Event (String name, String from, String to) {
         super(name);
         this.from = from;
@@ -21,6 +25,7 @@ public class Event extends Task {
     }
 
     //Methods
+
     public String getCSV () {
         return "E" + "," + super.getCSV() + "," + from + "," + to;
     }

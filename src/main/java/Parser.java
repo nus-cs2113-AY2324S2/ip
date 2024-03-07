@@ -1,5 +1,8 @@
-import java.io.FileNotFoundException;
+import java.util.Scanner;
 
+/**
+ * Process user's inputs from the terminal
+ */
 public class Parser {
     private static void checkValidDeadline (String command) throws WrongInputFormat, MissingEntries, MissingTaskName {
         String[] commandWords = command.split("/");
@@ -31,14 +34,10 @@ public class Parser {
 
             if (commandWords[1].length() < 6) {
                 throw new MissingEntries();
-            } else {
-                String from = commandWords[1].substring(5);
             }
 
             if (commandWords[2].length() < 4) {
                 throw new MissingEntries();
-            } else {
-                String to = commandWords[2].substring(3);
             }
 
         }
@@ -114,6 +113,15 @@ public class Parser {
         return new Deadline(taskName.trim(), by.trim());
     }
 
+    public static void takeResponse (TaskList tasks) {
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+        while (!line.equals("bye")) {
+            Parser.responseToCommand(line, tasks);
+            line = in.nextLine();
+        }
+    }
+
     private static Event parseEvent (String command) {
         String[] commandWords = command.split("/");
 
@@ -144,12 +152,17 @@ public class Parser {
         return command.equals("todo") || command.equals("deadline") || command.equals("event");
     }
 
-    private static boolean isValidCommand (String command) {
-        return command.equals("list") || command.equals("mark") || command.equals("unmark") || command.equals("delete")
-                || command.equals("save") || isValidTask(command);
+    private static boolean isValidFind (String command){
+        String[] commandWords = command.split(" ");
+        return commandWords.length >= 2 && commandWords[0].equals("find");
     }
 
-    public static void responseToCommand (String command, TaskList tasks) {
+    private static boolean isValidCommand (String command) {
+        return command.equals("list") || command.equals("mark") || command.equals("unmark") || command.equals("delete")
+                || command.equals("save") || command.equals("find") || isValidTask(command) || isValidFind(command);
+    }
+
+    private static void responseToCommand (String command, TaskList tasks) {
         String[] commandWords = command.split(" ");
         if (!isValidCommand(commandWords[0])) {
             UI.printMessage("Command not recognized");
@@ -163,6 +176,12 @@ public class Parser {
             tasks.unmark(Integer.parseInt(commandWords[1]));
         } else if (commandWords[0].equals("delete")) {
             tasks.delete(Integer.parseInt(commandWords[1]));
+        } else if (commandWords[0].equals("find")) {
+            if (isValidFind(command)) {
+                tasks.find(commandWords[1]);
+            } else {
+                UI.printMessage("Missing argument for the ```find``` command");
+            }
         } else {
             if (Parser.isValidTaskCommand(command, commandWords)) {
                 Task newTask;

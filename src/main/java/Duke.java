@@ -1,3 +1,7 @@
+/**
+ * This is the chatbot.
+ */
+
 public class Duke {
     private TaskList tasks;
     private Storage storage;
@@ -9,7 +13,7 @@ public class Duke {
     }
 
     public void run(){
-        UI.takeResponse(tasks);
+        Parser.takeResponse(tasks);
         UI.bye();
     }
 
