@@ -15,6 +15,7 @@ import n.task.*;
 import java.util.ArrayList;
 
 public class TaskList {
+    public static final int BEGIN_INDEX_OF_KEYWORD = 4;
     public static ArrayList<Task> taskList = new ArrayList<>();
     /**
      * Adds a task to the task list based on the provided user input message.
@@ -59,7 +60,7 @@ public class TaskList {
                 break;
             case ToDo:
                 try {
-                    taskDescription = message.substring(4);
+                    taskDescription = message.substring(BEGIN_INDEX_OF_KEYWORD);
                     taskList.add(new ToDo(taskDescription, taskList.size()));
                 } catch (EmptyTaskDescriptionException e) {
                     Ui.printFormatErrorMessage(taskType);
@@ -82,6 +83,12 @@ public class TaskList {
             int indexToDelete = Integer.parseInt(message.split(" ")[1]) - 1;
             if (indexToDelete < taskList.size()) {
                 Ui.printTaskDeletedMessage(indexToDelete);
+                //updates the task index of tasks that come after the task to be deleted
+                for (Task task:taskList) {
+                    if(task.getIndex() > indexToDelete) {
+                        task.setIndex(task.getIndex() - 1) ;
+                    }
+                }
                 taskList.remove(indexToDelete);
             } else {
                 Ui.printMessage(Ui.TASK_INDEX_OUT_OF_BOUNDS_ERROR);
@@ -157,7 +164,7 @@ public class TaskList {
      * @return An ArrayList of String representations of tasks that match the search criteria.
      */
     public static ArrayList<String> findTask(String message) {
-        String keyword = message.trim().substring(4).trim();
+        String keyword = message.trim().substring(BEGIN_INDEX_OF_KEYWORD).trim();
         ArrayList<String> searchResult = new ArrayList<>();
         for (Task task : taskList) {
             if (task.getDescription().contains(keyword)) {

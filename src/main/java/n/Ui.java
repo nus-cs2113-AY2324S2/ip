@@ -180,7 +180,7 @@ public class Ui {
             printMessage(NO_SEARCH_RESULT_MESSAGE);
         } else {
             printLine();
-            System.out.println(INDENT+"Here are the tasks in your list:");
+            System.out.println(INDENT+"Here are the tasks I found in your list:");
             for (String task : searchResult) {
                 System.out.println(INDENT+ task);
             }
