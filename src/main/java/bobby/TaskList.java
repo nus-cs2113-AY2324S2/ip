@@ -74,6 +74,11 @@ public class TaskList {
         list.get(entry - 1).setDone(false);
     }
 
+    /**
+     * Finds tasks containing a specific keyword in their descriptions and displays them.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     */
     public void findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : list) {
