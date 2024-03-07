@@ -55,6 +55,18 @@ public class Ui {
         }
     }
 
+    public static void showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks match your keyword.");
+        } else {
+            System.out.println("Tasks that match your keyword:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
+    }
+
+
     /**
      * Displays the number of tasks in the list to the user.
      *

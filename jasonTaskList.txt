@@ -1,3 +1,2 @@
 [T][ ] eat
 [D][ ] eat (by: noon)
-[E][ ] eat (from: Feb 10 10:10 to: Oct 10 00:00)

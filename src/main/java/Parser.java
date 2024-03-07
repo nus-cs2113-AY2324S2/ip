@@ -30,6 +30,8 @@ public class Parser {
                 Ui.showList(taskList.getTasks());
             } else if (parts[0].equalsIgnoreCase("delete")) {
                 taskList.deleteTask(parts);
+            } else if (parts[0].equalsIgnoreCase("find")) {
+                taskList.findTasks(parts);
             } else {
                 // For "todo", "deadline", "event" commands
                 taskList.addTasks(input);
