@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 public class Duke {
 
+    /**
+     * lists tasks saved in the local TaskList.txt file
+     * @param filePath the path to the local TaskList.txt file
+     * @throws FileNotFoundException exception when local TaskList.txt file does not exist
+     */
     private static void printFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source

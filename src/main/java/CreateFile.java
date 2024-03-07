@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * creates local TaskList.txt file on the local machine
+ */
 public class CreateFile {
     public static void CreateFile(){
         File f = new File("TaskList.txt");
