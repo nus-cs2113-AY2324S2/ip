@@ -25,22 +25,6 @@ public class Task {
         setTaskStatus(false);
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
-    public int getTaskNumber() {
-        return taskNumber;
-    }
-
-    public boolean isTaskDone() {
-        return isTaskDone;
-    }
-
-    public TaskType getTaskType() {
-        return taskType;
-    }
-
     /**
      * Sets the task description.
      *
@@ -50,11 +34,19 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
     /**
      * Give the newly created task an associated task number.
      */
     private void setTaskNumber(int taskNumber) {
         this.taskNumber = taskNumber;
+    }
+
+    public int getTaskNumber() {
+        return taskNumber;
     }
 
     /**
@@ -66,8 +58,16 @@ public class Task {
         this.isTaskDone = isTaskDone;
     }
 
+    public boolean isTaskDone() {
+        return isTaskDone;
+    }
+
     private void setTaskType(TaskType taskType) {
         this.taskType = taskType;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     private char getCharRepresentationOfTaskType() {

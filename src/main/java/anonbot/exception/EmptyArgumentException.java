@@ -1,7 +1,6 @@
 package anonbot.exception;
 
 public class EmptyArgumentException extends InvalidArgumentException {
-
     public EmptyArgumentException(String command) {
         super(command, "");
     }

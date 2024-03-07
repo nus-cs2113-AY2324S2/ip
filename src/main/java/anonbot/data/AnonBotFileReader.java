@@ -7,10 +7,9 @@ import anonbot.task.TaskManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
-public class AnonBotFileReader {
+public class AnonBotFileReader extends AnonBotFile {
     private static int getMostRecentTaskNumber(Scanner fileReader) throws ImportDataException {
         if (!fileReader.hasNextLine()) {
             throw new ImportDataException("File is empty");
@@ -32,6 +31,7 @@ public class AnonBotFileReader {
                 boolean isTaskDone = parsedData[1].equals("Y");
                 int taskNumber = Integer.parseInt(parsedData[2]);
                 String taskDescription = parsedData[3];
+
                 switch (taskType) {
                 case "todo":
                     TaskManager.createTask(taskDescription, Task.TaskType.TODO, taskNumber, isTaskDone);
@@ -55,16 +55,14 @@ public class AnonBotFileReader {
     }
 
     public static void loadAnonBotData() {
-        File f = new File(AnonBotFile.FILE_NAME);
+        File f = new File(getDefaultFileName());
         try {
             Scanner fileReader = new Scanner(f);
             int mostRecentTaskNumber = getMostRecentTaskNumber(fileReader);
             if (fileReader.hasNextLine()) {
-                TaskManager.setNumberOfActiveTasks(mostRecentTaskNumber);
+                TaskManager.setTotalTasksCreated(mostRecentTaskNumber);
                 populateTasks(fileReader);
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("Warning: Unable to find the task list to load.");
             return;

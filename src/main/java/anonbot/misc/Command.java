@@ -16,7 +16,6 @@ public final class Command {
      * 8. `delete` - Deletes the specific task.
      * 9. `find` - Finds Keywords or Keyphrases to search the task list.
      * 10. `help` - Shows the list of supported command.
- what about the invalid command?
       */
     public enum CommandType {
         BYE, EXIT,
@@ -29,11 +28,15 @@ public final class Command {
         UNKNOWN // Catch-all Type, Not a valid command
     }
 
+    public enum CommandStatus {
+        STATUS_OK, STATUS_EXIT
+    }
+
     private static String getCommandStringFromCommandType(CommandType commandType) {
         return commandType.name().toLowerCase();
     }
 
-    public static CommandType getCommandTypeFromString (String commandString) {
+    public static CommandType getCommandTypeFromCommandString(String commandString) {
         try {
             return CommandType.valueOf(commandString.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -41,6 +44,9 @@ public final class Command {
         }
     }
 
+    /**
+     * Prints a Comma-separated list of supported commands.
+     */
     public static void printListOfAvailableCommand() {
         for (CommandType commandEnum : CommandType.values()) {
             if (commandEnum != CommandType.UNKNOWN) {
@@ -50,7 +56,7 @@ public final class Command {
     }
 
     public static String getAssociatedCommandArgumentSyntax(String command) {
-        Command.CommandType commandType = Command.getCommandTypeFromString(command);
+        Command.CommandType commandType = Command.getCommandTypeFromCommandString(command);
         switch (commandType) {
         case MARK:
             return "mark <task_number>";

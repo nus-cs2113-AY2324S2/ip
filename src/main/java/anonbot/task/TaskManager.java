@@ -7,24 +7,27 @@ import anonbot.exception.InvalidMarkArgumentException;
 import java.util.ArrayList;
 
 public class TaskManager {
+    /**
+     * Number of tasks created throughout (both currently active and deleted)
+     */
     private static int totalTasksCreated = 0;
-    private static ArrayList<Task> taskList = new ArrayList<Task>();
+    private static final ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static ArrayList<Task> getTaskList() {
         return taskList;
+    }
+
+    public static void setTotalTasksCreated(int totalTasks) {
+        totalTasksCreated = totalTasks;
     }
 
     public static int getNumberOfActiveTasks() {
         return totalTasksCreated;
     }
 
-    public static void setNumberOfActiveTasks(int numActiveTasks) {
-        totalTasksCreated = numActiveTasks;
-    }
-
     public static Task createTask(String taskDescription, Task.TaskType taskType,
             int taskNumber, boolean isTaskDone) {
-        Task newTask = null;
+        Task newTask;
 
         switch (taskType) {
         case TODO:
@@ -36,9 +39,13 @@ public class TaskManager {
         case EVENT:
             newTask = new Event(taskDescription, taskNumber);
             break;
+        default:
+            newTask = null;
         }
-        newTask.setTaskStatus(isTaskDone);
-        taskList.add(newTask);
+        if (newTask != null) {
+            newTask.setTaskStatus(isTaskDone);
+            taskList.add(newTask);
+        }
         return newTask;
     }
 
@@ -54,11 +61,14 @@ public class TaskManager {
 
         // We currently do not check if the deadline and event tasks has the right format i.e. `/by`, `/to`, `/from`.
         // As long as there is a description, we shall accept the new task
-        // Todo: Add a default clause to catch any new unhandled task types
         totalTasksCreated += 1;
         Task newTask = createTask(taskDescription, taskType, totalTasksCreated, false);
-        System.out.println("Alright. I have added this task: ");
-        newTask.printTask();
+        if (newTask != null) {
+            System.out.println("Alright. I have added this task: ");
+            newTask.printTask();
+        } else {
+            System.out.println("Oops, Something went wrong. I can't add the task requested.");
+        }
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
@@ -79,7 +89,7 @@ public class TaskManager {
      */
     public static void printTasksUsingKeyphrase(String keyphrase) {
         System.out.println("Here are the available tasks found using the keyword:");
-        for (Task t:taskList) {
+        for (Task t : taskList) {
             String taskDescription = t.getTaskDescription();
             if (taskDescription.toLowerCase().contains(keyphrase.toLowerCase())) {
                 t.printTask();

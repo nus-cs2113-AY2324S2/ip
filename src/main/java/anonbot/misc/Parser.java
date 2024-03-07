@@ -21,28 +21,6 @@ public class Parser {
     }
 
     /**
-     * Checks if the command argument contains a purely numeric string.
-     *
-     * @param commandArgument The argument portion of the user input.
-     * @return Whether the argument is a number of type String.
-     */
-    public static boolean isValidTaskNumberString(String commandArgument) {
-        // We are only expecting 1 argument since this is only called by the `mark` and `unmark` commands
-        String[] argumentList = commandArgument.split(" ");
-        if (argumentList.length != 1) {
-            return false;
-        }
-
-        try {
-            Integer.parseInt(commandArgument);
-        } catch (NumberFormatException e) {
-            // We reject those with a mix of alphanumeric characters
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Gets the task number by converting the string to integer type.
      * Assumes that the input has been checked and is valid.
      *
@@ -55,6 +33,7 @@ public class Parser {
 
     /**
      * Parse the raw deadline description and break into its constituent parts.
+     * Currently does not check if the deadline task has the right format (/by)
      *
      * @param rawDeadlineDescription The unformatted deadline description
      * @return The formatted event description in the form {"Deadline Description", "/by info"}
@@ -66,7 +45,6 @@ public class Parser {
         String[] splitStringArray = rawDeadlineDescription.split(" /by ", 2);
         parsedDeadlineSubstrings[0] = splitStringArray[0];
 
-        // We currently do not check if the deadline task has the right format (/by)
         if (splitStringArray.length == 2) {
             parsedDeadlineSubstrings[1] = splitStringArray[1];
         }
@@ -76,6 +54,7 @@ public class Parser {
 
     /**
      * Parse the raw event description and break into its constituent parts.
+     * Currently not check if the event task has the right format (/from, /to).
      *
      * @param rawEventDescription The unformatted event description.
      * @return The formatted event description in the form {"Event Description", "/from info", "/to info"}
@@ -87,7 +66,6 @@ public class Parser {
         String[] splitStringArray = rawEventDescription.split(" /from ", 2);
         parsedEventSubstrings[0] = splitStringArray[0];
 
-        // We currently do not check if the event task has the right format (/from, /to)
         if (splitStringArray.length != 2) {
             return parsedEventSubstrings;
         }

@@ -2,14 +2,15 @@ package anonbot;
 
 import anonbot.data.AnonBotFile;
 import anonbot.data.AnonBotFileReader;
+import anonbot.exception.InitialisationException;
 import anonbot.exception.InvalidCommandException;
 import anonbot.misc.CommandManager;
-import anonbot.misc.Status;
+import anonbot.misc.Command.CommandStatus;
 
 public class AnonBot {
     private static void runMainLoop() {
-        Status commandStatus = Status.STATUS_OK;
-        while (commandStatus != Status.STATUS_EXIT) {
+        CommandStatus commandStatus = CommandStatus.STATUS_OK;
+        while (commandStatus != CommandStatus.STATUS_EXIT) {
             String userInput = Ui.getUserInput();
             Ui.printSectionBar(false);
             try {
@@ -23,7 +24,13 @@ public class AnonBot {
     }
 
     public static void main(String[] args) {
-        AnonBotFile.initialiseDefaultDirectory();
+        try {
+            AnonBotFile.initialiseDefaultDirectory();
+        } catch (InitialisationException e) {
+            e.printErrorMessage();
+            return;
+        }
+
         AnonBotFileReader.loadAnonBotData();
         Ui.printGreetings();
         runMainLoop();
