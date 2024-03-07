@@ -56,7 +56,7 @@ Are you sure you'll ever get to it? Fine, I've added this task:
 You now have 2 tasks in the list.
 ```
 
-### `Event` - Creates an Event
+### `event` - Creates an Event
 
 Adds an Event into the task list.
 
