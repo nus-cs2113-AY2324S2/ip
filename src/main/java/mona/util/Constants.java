@@ -44,7 +44,8 @@ public final class Constants {
     public static final String DATE_TIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final String DATE_TIME_OUTPUT_FORMAT = "MMM dd YYYY, hh:mm a";
 
-    // Thees are the error messages printed when a user enters an invalid command.
+    // Thees are the error messages printed when the user enters an invalid command, or when there's error in
+    // loading from the storage file.
     public static final String INVALID_COMMAND_ERROR_MESSAGE = "Hmm, Mona didn't quite catch that. " +
             "Could you try again? Or type 'help' to see what Mona can do!";
     public static final String EMPTY_FIELDS_ERROR_MESSAGE = "Oh no, looks like something's missing. " +
@@ -59,6 +60,9 @@ public final class Constants {
     public static final String INDEX_OUT_OF_BOUNDS_ERROR_MESSAGE = "Mona's scratching her head. " +
             "She can't find a task with that number! " +
             "Perhaps you could double-check the task index using the 'list' command and try again?";
+    public static final String ERROR_LOADING_FILE = "Uh-oh! Mona thinks the saved .txt file might be could be " +
+            "corrupted. So, we'll need to stop here. Please peek at the User Guide at https://nur-haziq.github.io/ip/ " +
+            "for how to fix this. Mona's going to take a little break until then!";
 
     public static final String HELP_MESSAGE = "Need some help? Mona's got you covered! Here's what I can do: " +
             System.lineSeparator() + System.lineSeparator() +

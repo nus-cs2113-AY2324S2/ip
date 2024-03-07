@@ -29,6 +29,11 @@ public class Mona {
      * executing them until the "bye" command is received.
      */
     public void run() {
+        if (storage.isCorrupted()) {
+            ConsolePrint.printErrorMessage(Constants.ERROR_LOADING_FILE);
+            return;
+        }
+
         String userCommand = ui.getUserInput();
         Parser inputParser = new Parser(userCommand);
 

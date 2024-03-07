@@ -1,5 +1,6 @@
 package mona.storage;
 
+import java.io.Console;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -9,6 +10,7 @@ import java.io.IOException;
 
 import mona.exception.MonaException;
 import mona.input.Parser;
+import mona.output.ConsolePrint;
 import mona.task.Deadline;
 import mona.task.Event;
 import mona.task.Task;
@@ -21,6 +23,7 @@ import mona.util.Constants;
 public class Storage {
 
     protected String filePath;
+    protected boolean isCorrupted;
 
     /**
      * Constructor for Storage. Initializes the relative file path for storage.
@@ -29,6 +32,11 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.isCorrupted = false; // set to false by default
+    }
+
+    public boolean isCorrupted() {
+        return isCorrupted;
     }
 
     /**
@@ -106,10 +114,20 @@ public class Storage {
         try {
             ArrayList<String> dataItems = readFile();
             taskList = parse(dataItems);
-        } catch (IOException | MonaException e) {
-            e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            isCorrupted = true;
+        } catch (MonaException e) {
+            ConsolePrint.printErrorMessage(e.getMessage());
+            isCorrupted = true;
+        } catch (IOException e) {
+            isCorrupted = true;
         }
-        return taskList;
+
+        if (taskList == null) {
+            return new ArrayList<Task>();
+        } else {
+            return taskList;
+        }
     }
 
     /**
@@ -190,7 +208,8 @@ public class Storage {
                 tasks.add(newEvent);
                 break;
             default:
-                System.out.println("Unknown task encountered. Skipping");
+                System.out.println("Unknown task encountered.");
+                isCorrupted = true;
                 break;
             }
         }
