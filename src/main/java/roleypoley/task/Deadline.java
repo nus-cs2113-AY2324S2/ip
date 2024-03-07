@@ -20,6 +20,12 @@ public class Deadline extends Task {
         return split[0];
     }
 
+    /**
+     * Get due date of deadline tasks
+     * @param description task description
+     * @return due date of task
+     * @throws RoleyPoleyParseException when by: or /by does not exist
+     */
     private static String getDueDate(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(by:|/by");
         if (split.length == 1) {
