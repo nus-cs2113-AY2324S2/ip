@@ -10,9 +10,7 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        System.out.println("Hello from\n" + UI.logo);
-
-        System.out.println("I'm Ekud! What can I do for you?");
+        System.out.println(UI.GREETING_MESSAGE);
 
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -24,7 +22,7 @@ public class Duke {
             tasks = storage.readFromFile();
         }
         catch (FileNotFoundException error){
-            System.out.println("The file cannot be found.");
+            System.out.println(UI.FILE_NOT_FOUND_MESSAGE);
         }
 
         userInput = in.nextLine();
@@ -58,7 +56,7 @@ public class Duke {
                     throw new EkudException();
                 }
                 catch (EkudException error){
-                    System.out.println("OOPS! That is not a valid input.");
+                    System.out.println(UI.INVALID_COMMAND_MESSAGE);
                 }
             }
             userInput = in.nextLine();
@@ -68,9 +66,9 @@ public class Duke {
             storage.writeToFile(tasks);
         }
         catch(IOException error) {
-            System.out.println("Oops. Something went wrong when saving tasks.");
+            System.out.println(UI.FILE_WRITE_ERROR_MESSAGE);
         }
 
-        System.out.println("Bye. Hope to see you again soon.");
+        System.out.println(UI.EXIT_MESSAGE);
     }
 }
