@@ -74,7 +74,7 @@ public class TaskList {
     protected void addDeadlineTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(deadline);
 
-        int indexDeadline = line.lastIndexOf('/');
+        int indexDeadline = line.indexOf('/');
         // checks for invalid input
         if (indexDeadline == -1) {
             throw new InvalidParamsException("No deadline argument: Add a parameter '/' followed by the deadline");
@@ -83,7 +83,13 @@ public class TaskList {
             throw new InvalidParamsException("No deadline description");
         }
         // process input as Deadline object
-        String deadline = "(by: " + line.substring(indexDeadline + 1) + ")";
+        String deadline = "(by: ";
+        if (Parser.isValidDeadline(line.substring(indexDeadline + 1))) {
+            deadline += Parser.formatDeadline(line.substring(indexDeadline + 1));
+        } else {
+            deadline += line.substring(indexDeadline + 1);
+        }
+        deadline += ")";
         String description = line.substring(startIndexOfDescription, indexDeadline);
         // add to tasks
         Task newTask = new Deadline(description, deadline);

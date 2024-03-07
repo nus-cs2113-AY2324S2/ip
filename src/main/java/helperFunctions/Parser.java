@@ -1,5 +1,8 @@
 package helperFunctions;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     public static boolean processUserInput(TaskList tasks, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         String[] req = line.split(" ");
@@ -24,5 +27,26 @@ public class Parser {
             throw new InvalidParamsException("No such command." + System.lineSeparator() + Ui.printCommandsList());
         }
         return true;
+    }
+
+    public static String formatDeadline(String deadline) {
+        String formattedDeadline = deadline.replaceAll("/", "-").trim();
+        LocalDate dateObject = LocalDate.parse(formattedDeadline);
+        return dateObject.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    // Checks for format "yyyy-mm-dd"
+    public static boolean isValidDeadline(String deadline) {
+        int LENGTH_OF_DEADLINE_COMPONENTS = 3;
+        int LENGTH_OF_YEAR = 4;
+        int LENGTH_OF_MONTHS = 2;
+        int LENGTH_OF_DAYS = 2;
+
+        String formattedDeadline = deadline.replaceAll("/", "-").trim();
+        String[] deadlineParts = formattedDeadline.split("-");
+        return ((deadlineParts.length == LENGTH_OF_DEADLINE_COMPONENTS)
+                && (deadlineParts[0].length() == LENGTH_OF_YEAR)
+                && (deadlineParts[1].length() == LENGTH_OF_MONTHS)
+                && (deadlineParts[2].length() == LENGTH_OF_DAYS));
     }
 }
