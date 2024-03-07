@@ -1,5 +1,9 @@
 T|borrow book|0
-E|project meeting|1|Mon 2pm|4pm
+D|return book|1|Sunday
+E|project meeting|0|Mon 2pm|4pm
+T|borrow book|0
+D|return book|0|Sunday
+E|project meeting|0|Mon 2pm|4pm
 T|borrow book|0
 D|return book|0|Sunday
 E|project meeting|0|Mon 2pm|4pm

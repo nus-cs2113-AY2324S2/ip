@@ -23,7 +23,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object.
+     * Returns a formatted string representation of the Event object.
      *
      * @return A string representation of the Event object.
      */
@@ -33,7 +33,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event object for saving to a file.
+     * Returns a formatted string representation of the Event object for saving to a file.
      *
      * @return A string representation of the Event object for saving to a file.
      */

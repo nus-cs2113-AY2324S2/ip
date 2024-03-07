@@ -62,20 +62,26 @@ What now? Forge ahead or risk oblivion?
 ----------------------------------------------------------------
     Your list of Tasks
      1. [T][ ] borrow book
-     2. [D][X] return book (by: Sunday)
-     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     4. [T][ ] borrow book
-     5. [D][ ] return book (by: Sunday)
-     6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     7. [T][ ] borrow book
+     2. [T][X] borrow book
+     3. [D][ ] return book (by: Sunday)
+     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     5. [T][ ] borrow book
+     6. [D][ ] return book (by: Sunday)
+     7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     8. [T][ ] borrow book
+     9. [D][ ] return book (by: Sunday)
+     10. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     11. [T][ ] borrow book
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 Deadline acknowledged. Time ticks away, mortal.
 What next? Embrace purpose or succumb to chaos?
+     12. [D][ ] return book (by: Sunday)
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 Event recorded. Destiny's hourglass turns.
 What now? Seize control or be swept by its sands?
+     13. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 Task vanquished. Another notch on the blade of progress.
@@ -84,14 +90,15 @@ What next, mortal?
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 Behold, the deeds that align with your purpose.
-     1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     10. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     13. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 Task vanquished. Another notch on the blade of progress.
 What next, mortal?
-         [E][X] project meeting (from: Mon 2pm to: 4pm)
+         [D][X] return book (by: Sunday)
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 Task restored from the depths of completion.
@@ -102,19 +109,23 @@ Reclaim victory or face the abyss once more.
 ----------------------------------------------------------------
 Task erased. Its existence now a whisper in the winds of fate.
 What's your next decree?
-         [D][X] return book (by: Sunday)
-8 tasks linger, shadows yet unvanquished. How will you face them?
+         [T][X] borrow book
+12 tasks linger, shadows yet unvanquished. How will you face them?
 ----------------------------------------------------------------
 ----------------------------------------------------------------
     Your list of Tasks
      1. [T][ ] borrow book
-     2. [E][X] project meeting (from: Mon 2pm to: 4pm)
-     3. [T][ ] borrow book
-     4. [D][ ] return book (by: Sunday)
-     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     6. [T][ ] borrow book
-     7. [D][ ] return book (by: Sunday)
-     8. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     2. [D][X] return book (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [T][ ] borrow book
+     5. [D][ ] return book (by: Sunday)
+     6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     7. [T][ ] borrow book
+     8. [D][ ] return book (by: Sunday)
+     9. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     10. [T][ ] borrow book
+     11. [D][ ] return book (by: Sunday)
+     12. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ----------------------------------------------------------------
 ----------------------------------------------------------------
             Until the next battle, mortal.

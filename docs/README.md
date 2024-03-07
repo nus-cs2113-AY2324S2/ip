@@ -1,208 +1,154 @@
-# User Guide
+# Kratos Task Management Application User Guide
 
 ## Features
 
+### Adding Tasks
+- **Todo Tasks**: Enables the user to add a todo task to the task list, a simple task without a deadline.
+- **Deadline Tasks**: Facilitates the addition of a deadline task to the task list, a task with a specific end date.
+- **Event Tasks**: Allows the user to add an event task to the task list, a task that spans a specific period.
+
 ### Marking Tasks
-
-Allows the user to mark tasks as done or undone.
-
-### Adding Todo Tasks
-
-Enables the user to add a todo task to the task list.
-
-### Adding Deadline Tasks
-
-Facilitates the addition of a deadline task to the task list.
-
-### Adding Event Tasks
-
-Allows the user to add an event task to the task list.
+- Allows the user to mark tasks as done or undone, enhancing task management with a simple toggle.
 
 ### Deleting Tasks
-
-Allows the user to delete a task from the task list.
+- Allows the user to delete a task from the task list, providing the ability to clean up completed or irrelevant tasks.
 
 ### Finding Tasks
-
-Enables the user to search for tasks containing a specific keyword.
+- Enables the user to search for tasks containing a specific keyword, making it easy to locate specific tasks in the list.
 
 ### Help Command
-
-Enables the user to view all the commands at ones disposal.
+- Enables the user to view all the commands at ones disposal, providing a quick reference for available commands.
 
 ### List Tasks
-
-Allows the user to view the list of all tasks saved.
+- Allows the user to view the list of all tasks saved, giving an overview of the current task list.
 
 ## Usage
 
-### `todo <task_description>` - Add a todo task
-
-Adds a todo task with the specified description to the task list.
-
-Example of usage:
-
-`todo Buy groceries`
-
-Expected outcome:
-
-A todo task with the description "Buy groceries" will be added to the task list.
-
+### Adding a Todo Task
+```bash
+todo <task_description>
+```
+- **Example**: `todo Buy groceries`
+- **Expected Outcome**: A todo task with the description "Buy groceries" will be added to the task list.
 ```
 Task noted. A duty without a deadline? Dangerous.
 What now? Forge ahead or risk oblivion?
+     7. [T][ ] homework
 ```
 
-### `deadline <description> /by <deadline>` - Add a deadline task
-
-Adds a deadline task with the specified description and deadline to the task list.
-
-Example of usage:
-
-`deadline Submit report /by 2024-03-31`
-
-Expected outcome:
-
-A deadline task with the description "Submit report" and the deadline "2024-03-31" will be added to the task list.
-
+### Adding a Deadline Task
+```bash
+deadline <description> /by <deadline>
 ```
+- **Example**: `deadline Submit report /by 2024-03-31`
+- **Expected Outcome**: A deadline task with the description "Submit report" and the deadline "2024-03-31" will be added to the task list.
+```
+// Example Output
 Deadline acknowledged. Time ticks away, mortal.
 What next? Embrace purpose or succumb to chaos?
+     9. [D][ ] call manager (by: 4pm)
 ```
 
-### `event <description> /from <start_date> /to <end_date>` - Add an event task
-
-Adds an event task with the specified description, start date, and end date to the task list.
-
-Example of usage:
-
-`event Project meeting /from 2024-03-05 /to 2024-03-07`
-
-Expected outcome:
-
-An event task with the description "Project meeting", start date "2024-03-05", and end date "2024-03-07" will be added to the task list.
-
+### Adding an Event Task
+```bash
+event <description> /from <start_date> /to <end_date>
 ```
+- **Example**: `event Project meeting /from 2024-03-05 /to 2024-03-07`
+- **Expected Outcome**: An event task with the description "Project meeting", start date "2024-03-05", and end date "2024-03-07" will be added to the task list.
+```
+// Example Output
 Event recorded. Destiny's hourglass turns.
 What now? Seize control or be swept by its sands?
+     8. [E][ ] marraige (from: 4pm to: 5pm)
 ```
 
-### `mark <task_number>` - Mark a task as done
-
-Marks the specified task as done.
-
-Example of usage:
-
-`mark 2`
-
-Expected outcome:
-
-The task with index 2 will be marked as done.
-
+### Marking a Task as Done
+```bash
+mark <task_number>
 ```
+- **Example**: `mark 2`
+- **Expected Outcome**: The task with index 2 will be marked as done.
+```
+// Example Output
 Task vanquished. Another notch on the blade of progress.
-What next, mortal?
-         [T][X] borrow book
+        What next, mortal?
+        [T][X] borrow book
 ```
 
-### `unmark <task_number>` - Mark a task as undone
-
-Marks the specified task as undone.
-
-Example of usage:
-
-`unmark 3`
-
-Expected outcome:
-
-The task with index 3 will be marked as undone.
-
+### Marking a Task as Undone
+```bash
+unmark <task_number>
 ```
+- **Example**: `unmark 3`
+- **Expected Outcome**: The task with index 3 will be marked as undone.
+```
+// Example Output
 Task restored from the depths of completion.
 A twist of fate, mortal. What now?
 Reclaim victory or face the abyss once more.
-         [T][ ] borrow book
+        [T][ ] borrow book
 ```
 
-### `delete <task_number>` - Delete a task
-
-Deletes the specified task from the task list.
-
-Example of usage:
-
-`delete 1`
-
-Expected outcome:
-
-The task with index 1 will be deleted from the task list.
-
+### Deleting a Task
+```bash
+delete <task_number>
 ```
+- **Example**: `delete 1`
+- **Expected Outcome**: The task with index 1 will be deleted from the task list.
+```
+// Example Output
 Task erased. Its existence now a whisper in the winds of fate.
 What's your next decree?
-         [D][X] return book (by: Sunday)
-8 tasks linger, shadows yet unvanquished. How will you face them?
+        [E][X] project meeting (from: Mon 2pm to: 4pm)
+10 tasks linger, shadows yet unvanquished. How will you face them?
 ```
 
-### `find <keyword>` - Find tasks
-
-Searches for tasks containing the specified keyword in their descriptions.
-
-Example of usage:
-
-`find project`
-
-Expected outcome:
-
-Displays a list of tasks containing the keyword "meeting".
-
+### Finding Tasks
+```bash
+find <keyword>
 ```
+- **Example**: `find project`
+- **Expected Outcome**: Displays a list of tasks containing the keyword "meeting".
+```
+// Example Output
 Behold, the deeds that align with your purpose.
-     1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     2. [E][X] project meeting 1 (from: Mon 2pm to: 4pm)
+     5. [E][ ] project meeting 2 (from: Mon 2pm to: 4pm)
 ```
 
-### `help` - Display Commands
-
-Displays all valid commands available to user.
-
-Example of usage:
-
-`help`
-
-Expected outcome:
-
-Displays a list of Commands in a neat formatted order.
-
+### Displaying Commands
+```bash
+help
 ```
-╔════════════════════════════════════════╗
-║           Available Commands           ║
-╠════════════════════════════════════════╣
-║ 1. list            - Display all tasks ║
-║ 2. mark <num>      - Mark task as done ║
-║ 3. unmark <num>    - Unmark task       ║
-║ 4. deadline <desc> - Add a deadline    ║
-║ 5. todo <desc>     - Add a todo        ║
-║ 6. event <desc>    - Add an event      ║
-║ 7. delete <num>    - Delete a task     ║
-║ 8. find <keyword>  - Find tasks        ║
-║ 9. bye             - Exit program      ║
-╚════════════════════════════════════════╝
+- **Example**: `help`
+- **Expected Outcome**: Displays a list of Commands in a neat formatted order.
+```
+// Example Output
+        ╔════════════════════════════════════════╗
+        ║           Available Commands           ║
+        ╠════════════════════════════════════════╣
+        ║ 1. list            - Display all tasks ║
+        ║ 2. mark <num>      - Mark task as done ║
+        ║ 3. unmark <num>    - Unmark task       ║
+        ║ 4. deadline <desc> - Add a deadline    ║
+        ║ 5. todo <desc>     - Add a todo        ║
+        ║ 6. event <desc>    - Add an event      ║
+        ║ 7. delete <num>    - Delete a task     ║
+        ║ 8. find <keyword>  - Find tasks        ║
+        ║ 9. bye             - Exit program      ║
+        ╚════════════════════════════════════════╝
 ```
 
-### `list` - Display Tasks
-
-Displays all task the user has stored.
-
-Example of usage:
-
-`help`
-
-Expected outcome:
-
-Displays a list of Tasks which also tell us if they are completed or not.
-
+### Displaying Tasks
+```bash
+list
 ```
+- **Example**: `list`
+- **Expected Outcome**: Displays a list of Tasks which also tell us if they are completed or not.
+```
+// Example Output
 ----------------------------------------------------------------
-    Your list of Tasks
+Your list of Tasks
      1. [T][ ] helllo
      2. [E][X] car wash (from: saturday night 6pm to: 9pm)
      3. [T][X] work

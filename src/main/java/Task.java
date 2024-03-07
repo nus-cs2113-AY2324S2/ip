@@ -13,7 +13,7 @@ public class Task {
     }
 
     /**
-     * Returns the status icon of the task.
+     * Returns the status icon ('X' : Done and <blank> : Not Done) of the task.
      *
      * @return The status icon of the task.
      */
@@ -45,7 +45,7 @@ public class Task {
     }
 
     /**
-     * Converts the task to a string representation that can be written to a file.
+     * Converts the task to a formatted string representation that can be written to a file.
      *
      * @return A string representation of the task for file storage.
      */

@@ -74,16 +74,21 @@ public class Ui {
      * Display the tasks in the list based on the purpose.
      *
      * @param tasksList The list of tasks.
+     * @param purpose   Specifies which method the function is called from.
      */
-    public static void displayTasks(String purpose,ArrayList<Task> tasksList) {
+    public static void displayTasks(String purpose, ArrayList<Task> tasksList) {
         System.out.println(Ui.LINE);
         String display = purpose.equalsIgnoreCase("find") ? matchedTasks : fullListOfTasks;
         System.out.println(display);
-        for (int i = 0; i < tasksList.size(); i++) {
-            System.out.printf("     %d. %s%n", i + 1, tasksList.get(i).toString());
+
+        for (Task task : tasksList) {
+            int index = Kratos.tasksList.indexOf(task) + 1; // Get the actual index of the task in the main tasksList
+            System.out.printf("     %d. %s%n", index, task.toString());
         }
+
         System.out.println(Ui.LINE);
     }
+
 
     /**
      * Method to greet the user with ASCII art
@@ -155,6 +160,8 @@ public class Ui {
         System.out.println(Ui.LINE);
         System.out.println(sentence1 +
                 sentence2);
+        int index = Kratos.tasksList.size()-1; // Get the actual index of the task in the main tasksList
+        System.out.printf("     %d. %s%n", index+1, Kratos.tasksList.get(index).toString());
         System.out.println(Ui.LINE);
     }
 
@@ -164,19 +171,19 @@ public class Ui {
      * @param type The type of task (deadline, todo, or event).
      */
     public static void displayMessageSelector(String type){
-        String x;
-        String x1;
+        String firstSentence;
+        String secondSentence;
         if (type.equalsIgnoreCase("deadline")){
-            x = "Deadline acknowledged. Time ticks away, mortal.\n";
-            x1 =  "What next? Embrace purpose or succumb to chaos?";
+            firstSentence = "Deadline acknowledged. Time ticks away, mortal.\n";
+            secondSentence =  "What next? Embrace purpose or succumb to chaos?";
         } else if (type.equalsIgnoreCase("todo")) {
-            x = "Task noted. A duty without a deadline? Dangerous.\n";
-            x1 =  "What now? Forge ahead or risk oblivion?";
+            firstSentence = "Task noted. A duty without a deadline? Dangerous.\n";
+            secondSentence =  "What now? Forge ahead or risk oblivion?";
         } else {
-            x = "Event recorded. Destiny's hourglass turns.\n";
-            x1 =  "What now? Seize control or be swept by its sands?";
+            firstSentence = "Event recorded. Destiny's hourglass turns.\n";
+            secondSentence =  "What now? Seize control or be swept by its sands?";
         }
-        taskAddMessage(x, x1);
+        taskAddMessage(firstSentence, secondSentence);
     }
 
     /**
@@ -206,5 +213,12 @@ public class Ui {
         System.out.println("║ 8. find <keyword>  - Find tasks        ║");
         System.out.println("║ 9. bye             - Exit program      ║");
         System.out.println("╚════════════════════════════════════════╝");
+    }
+
+    public static void noTaskFound() {
+        System.out.println(LINE);
+        System.out.println("None dare to stand before your path,\n" +
+                "for you have already vanquished them all.");
+        System.out.println(LINE);
     }
 }

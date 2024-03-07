@@ -19,7 +19,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object.
+     * Returns a formatted string representation of the Deadline object.
      *
      * @return A string representation of the Deadline object.
      */
@@ -29,7 +29,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline object for saving to a file.
+     * Returns a formatted string representation of the Deadline object for saving to a file.
      *
      * @return A string representation of the Deadline object for saving to a file.
      */

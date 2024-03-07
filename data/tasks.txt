@@ -1,6 +1,10 @@
 T|helllo|0
 E|car wash|1|saturday night 6pm|9pm
-T|work|1
 T|project 1|0
 T|project 2|1
 D|assignment|0|tonight
+D|work|0|4
+T|homework|0
+E|marraige|0|4pm|5pm
+D|phone|0|4pm
+T|Top G|0

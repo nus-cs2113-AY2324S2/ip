@@ -52,9 +52,9 @@ public class Kratos {
         try {
             if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(Parser.splitTaskNumber(userInput)[1]); //Extract task number
-                listOfTasks.identifyAndMarkTasks(taskNumber - 1, Parser.splitTaskNumber(userInput)[0],tasksList);
+                TaskList.identifyAndMarkTasks(taskNumber - 1, Parser.splitTaskNumber(userInput)[0],tasksList);
             } else if (userInput.startsWith("deadline")) {
-                listOfTasks.addDeadline(userInput,tasksList);
+                TaskList.addDeadline(userInput,tasksList);
             } else if (userInput.startsWith("todo")) {
                 listOfTasks.addTodo(userInput,tasksList);
             } else if (userInput.startsWith("event")) {
