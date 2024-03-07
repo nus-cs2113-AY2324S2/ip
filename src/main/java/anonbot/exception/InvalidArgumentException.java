@@ -2,11 +2,20 @@ package anonbot.exception;
 
 import anonbot.misc.Command;
 
+/**
+ * General Exception Class that handles invalid arguments for commands that expect arguments.
+ */
 public class InvalidArgumentException extends Exception implements AnonbotExceptionHandler {
     private String command;
     private String argument;
     private String commandArgumentSyntax;
 
+    /**
+     * Creates a new InvalidArgument exception.
+     *
+     * @param command The associated command for which the argument is invalid.
+     * @param argument The argument that caused the exception.
+     */
     public InvalidArgumentException(String command, String argument) {
         setCommand(command);
         setArgument(argument);
@@ -37,6 +46,9 @@ public class InvalidArgumentException extends Exception implements AnonbotExcept
         return this.commandArgumentSyntax;
     }
 
+    /**
+     * Prints to console the required syntax for a particular command.
+     */
     protected void printSyntax() {
         System.out.println("Syntax: " + getCommandArgumentSyntax());
     }

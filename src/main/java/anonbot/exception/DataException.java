@@ -1,5 +1,8 @@
 package anonbot.exception;
 
+/**
+ * Exception class related to writing and reading data to and from storage.
+ */
 public class DataException extends Exception implements AnonbotExceptionHandler {
     private String dataErrorDescription;
 

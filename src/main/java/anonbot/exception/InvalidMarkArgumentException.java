@@ -1,5 +1,8 @@
 package anonbot.exception;
 
+/**
+ * Exception class for invalid arguments for mark and unmark commands
+ */
 public class InvalidMarkArgumentException extends InvalidArgumentException {
     public InvalidMarkArgumentException(String command, String argument) {
         super(command, argument);
