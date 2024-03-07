@@ -36,7 +36,7 @@ public class TaskList {
      *
      * @param index index of specific task
      */
-    private String displayListItem(int index) { // change from void to string
+    private String displayListItem(int index) {
         return ((index + 1) + ". [" + tasks.get(index).getType() + "]["
                 + tasks.get(index).getStatus() + "] "
                 + tasks.get(index).getDescription()
@@ -60,7 +60,7 @@ public class TaskList {
         String timeRange = " (from: " + line.substring(indexFrom + 1, indexTo) +
                 "to " + line.substring(indexTo + 1) + ")";
         // add to tasks
-        Task newTask = new Event(description, timeRange);
+        Task newTask = new Event(description, timeRange, tasks.size() + 1);
         tasks.add(newTask);
         if (isReadMode) {
             return; // no need execute code below (for writing only)
@@ -92,7 +92,7 @@ public class TaskList {
         deadline += ")";
         String description = line.substring(startIndexOfDescription, indexDeadline);
         // add to tasks
-        Task newTask = new Deadline(description, deadline);
+        Task newTask = new Deadline(description, deadline, tasks.size() + 1);
         tasks.add(newTask);
 
         if (isReadMode) {
@@ -114,7 +114,7 @@ public class TaskList {
         // process input
         String description = line.substring(startIndexOfDescription);
         // add to tasks
-        Task newTask = new Todo(description);
+        Task newTask = new Todo(description, tasks.size() + 1);
         tasks.add(newTask);
         if (isReadMode) {
             // no need execute code below (for writing only)
@@ -157,7 +157,7 @@ public class TaskList {
      * @param req    String[] input from user
      * @param isMark type of operation: mark or unmark
      */
-    protected void markOperation( String[] req, boolean isMark, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
+    protected void markOperation(String[] req, boolean isMark, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
         // check for input validity
         if (req.length < 2) {
             throw new InvalidParamsException("invalid mark/ unmark operation");
@@ -187,5 +187,24 @@ public class TaskList {
         String mark = isMark ? "marked" : "unmarked";
         System.out.println("Has " + mark + " task" + taskNum + ":");
         System.out.print(displayListItem(taskNum - 1));
+    }
+
+    public void findOperation(String[] req, String filePath) throws InvalidParamsException {
+        // check for input validity
+        if (req.length < 2) {
+            throw new InvalidParamsException("invalid find operation");
+        }
+        String findKeyword = req[1];
+        String tasksToPrint = "";
+        for (Task task : tasks) {
+            if (task.getDescription().contains(findKeyword)) {
+                tasksToPrint += displayListItem(task.getTaskNum() - 1);
+            }
+        }
+        if (tasksToPrint.isEmpty()) {
+            System.out.println("No tasks found");
+            return;
+        }
+        System.out.print(tasksToPrint);
     }
 }

@@ -1,12 +1,13 @@
-1. [T][1] item2
+1. [T][0] item2
 2. [T][0] item5
-3. [D][1] item6 (by: sfadsfs)
-4. [T][0] item2
-5. [T][1] item6
-6. [D][0] item7 (by: efs)
-7. [D][0] kjdfl (by: sdf)
-8. [D][0] sdf(by:  sdf sd /fds)
-9. [D][0] something (by: by 2/12/2019)
-10. [D][0] something (by:  2/12/2019)
-11. [D][0] haha (by:  2/12/2019)
-12. [D][0] halo (by: Dec 11 2019)
+3. [T][0] item2
+4. [T][1] item6
+5. [D][0] item7 (by: efs)
+6. [D][0] kjdfl (by: sdf)
+7. [D][0] sdf(by:  sdf sd /fds)
+8. [D][0] something (by: by 2/12/2019)
+9. [D][0] something (by:  2/12/2019)
+10. [D][1] haha (by:  2/12/2019)
+11. [D][1] halo (by: Dec 11 2019)
+12. [T][0] testing
+13. [D][0] someting (by: Aug 22 2014)

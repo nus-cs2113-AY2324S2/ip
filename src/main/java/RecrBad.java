@@ -3,7 +3,7 @@ import helperFunctions.Storage;
 import helperFunctions.TaskList;
 import helperFunctions.Ui;
 
-public class RecrBad { //TODO more OOP
+public class RecrBad {
     private TaskList tasks;
     public RecrBad(String FILE_PATH) {
         tasks = new TaskList();
