@@ -6,29 +6,43 @@ import java.util.Scanner;
 public class Ui {
 
     /**
-     * Reads user input
+     * Reads user input and process accordingly, infinitely till sayBye()
+     *
+     * @param tasks TaskList object of tasks
+     * @param FILE_NAME to store tasks in
      */
-    public static void readInput(TaskList tasks, String FILE_PATH) {
+    public static void readInput(TaskList tasks, String FILE_NAME) {
         Scanner in = new Scanner(System.in);
-        boolean isRun = true;
+        boolean isRunning = true;
 
-        while (isRun) {
+        while (isRunning) {
             printLine();
             String userInput = in.nextLine(); // reads input
             // process input
             try {
                 boolean isReadMode = false;
-                isRun = Parser.processUserInput(tasks, userInput, FILE_PATH, isReadMode);
+                isRunning = Parser.processUserInput(tasks, userInput, FILE_NAME, isReadMode);
             } catch (InvalidParamsException e) {
                 showLoadingError(e.getMessage()); // prints out error message
             }
         }
         sayBye();
     }
+
+    /**
+     * Prints errorMessage
+     *
+     * @param errorMessage if got error
+     */
     public static void showLoadingError(String errorMessage) {
         System.out.println(errorMessage);
     }
 
+    /**
+     * Returns list of possible commands
+     *
+     * @return list of possible commands
+     */
     public static String printCommandsList() {
         return "## Possible user commands: \n" +
                 "1. todo <task>                            : Add todo task \n" +
@@ -36,7 +50,8 @@ public class Ui {
                 "3. event <task> /<startTime> /<endTime>   : Add event \n" +
                 "4. list                                   : List all tasks\n" +
                 "5. mark/unmark <taskIndex>                : Mark task <index> as done/ undone\n" +
-                "6. bye                                    : Exit Program";
+                "6. find <keyword>                         : Finds keyword in list of tasks\n" +
+                "7. bye                                    : Exit Program";
     }
 
     /**
@@ -66,7 +81,7 @@ public class Ui {
     }
 
     /**
-     * Prints ending message
+     * Prints ending message and a random quote
      */
     public static void sayBye() {
         // generating random quote

@@ -7,10 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Functions relating to FILE_NAME storing all the tasks
+ */
 public class Storage {
-    public static void appendToFile(String filePath, String textToAppend) throws InvalidParamsException {
+    /**
+     * Appends a task to Tasks in FILE_NAME
+     *
+     * @param FILE_NAME to store tasks in
+     * @param textToAppend the new Task to add
+     * @throws InvalidParamsException if error appending to file
+     */
+    public static void appendToFile(String FILE_NAME, String textToAppend) throws InvalidParamsException {
         try {
-            FileWriter fw = new FileWriter(filePath, true); // in append mode
+            FileWriter fw = new FileWriter(FILE_NAME, true); // in append mode
             fw.write(textToAppend);
             fw.close();
         } catch (IOException e) {
@@ -18,9 +28,16 @@ public class Storage {
         }
     }
 
-    public static void writeToFile(String filePath, String textToWrite) throws InvalidParamsException {
+    /**
+     * Overwrites all tasks in FILE_NAME
+     *
+     * @param FILE_NAME to store tasks in
+     * @param textToWrite the new tasks to write
+     * @throws InvalidParamsException if error writting to file
+     */
+    public static void writeToFile(String FILE_NAME, String textToWrite) throws InvalidParamsException {
         try {
-            FileWriter fw = new FileWriter(filePath); // overwrites file
+            FileWriter fw = new FileWriter(FILE_NAME); // overwrites file
             fw.write(textToWrite);
             fw.close();
         } catch (IOException e) {
@@ -28,16 +45,24 @@ public class Storage {
         }
     }
 
-    public static String getAbsoluteFilePath(String FILE_PATH) {
+    /**
+     * Gets absolute file path to FILE_NAME
+     *
+     * @param FILE_NAME to store tasks in
+     * @return absolute file path
+     */
+    public static String getAbsoluteFilePath(String FILE_NAME) {
         String currentDirectory = System.getProperty("user.dir");
         java.nio.file.Path directoryPath = java.nio.file.Paths.get(currentDirectory);
-        return directoryPath + "/" + FILE_PATH;
+        return directoryPath + "/" + FILE_NAME;
     }
 
     /**
-     * Checks if saveFile.txt exists
+     * Checks if FILE_NAME exists. If not, create it.
      *
+     * @param f File object pointing to absoluteFilePath
      * @param absoluteFilePath of saveFile.txt
+     * @throws InvalidParamsException if error creating file
      */
     public static void isFileExist(File f, String absoluteFilePath) throws InvalidParamsException {
         try {
@@ -52,22 +77,34 @@ public class Storage {
     }
 
     /**
-     * convert each line in textFile to a Task
+     * Checks if FILE_NAME exists and process it
+     *
+     * @param FILE_NAME to store tasks in
+     * @param tasks TaskList object to store all tasks
+     * @throws InvalidParamsException if error creating or processing file
      **/
-    public static void readFile(String FILE_PATH, TaskList tasks) throws InvalidParamsException {
-        String absoluteFilePath = getAbsoluteFilePath(FILE_PATH);
+    public static void readFile(String FILE_NAME, TaskList tasks) throws InvalidParamsException {
+        String absoluteFilePath = getAbsoluteFilePath(FILE_NAME);
         File f = new File(absoluteFilePath);
 
         try {
             isFileExist(f, absoluteFilePath);
-            processFile(f, FILE_PATH, tasks);
+            processFile(f, FILE_NAME, tasks);
         } catch (InvalidParamsException e) {
             throw new InvalidParamsException(e.getMessage());
         }
 
     }
 
-    private static void processFile(File f, String FILE_PATH, TaskList tasks) throws InvalidParamsException {
+    /**
+     * Process FILE_NAME ie adds tasks to Tasks
+     *
+     * @param f File Object pointing to absolute file path of FILE_NAME
+     * @param FILE_NAME to store tasks in
+     * @param tasks TaskList object to hold all tasks
+     * @throws InvalidParamsException if file not found or invalid mark command
+     */
+    private static void processFile(File f, String FILE_NAME, TaskList tasks) throws InvalidParamsException {
         Scanner s;
         try {
             s = new Scanner(f);  // create a Scanner using file as source
@@ -76,55 +113,74 @@ public class Storage {
         }
         int lineNum = 1; // keeps track of current lineNum
         while (s.hasNext()) {
-            String lineInFile = s.nextLine(); // read line in file
+            String currentLineInFile = s.nextLine();
 
             // process lines in saveFile.txt
-            int START_INDEX_OF_TYPE = lineInFile.indexOf('[') + 1; // format of text: "1. [T][1] startOfTaskDescription"
+            int START_INDEX_OF_TYPE = currentLineInFile.indexOf('[') + 1; // format of text: "1. [T][1] startOfTaskDescription"
             int START_INDEX_OF_MARK = START_INDEX_OF_TYPE + 3; // mark index is 3 positions to the right
             int START_INDEX_OF_DESCRIPTION = START_INDEX_OF_MARK + 3; // description index is 3 more positions to the right
 
             // checks validity of index
-            if (!isIndexesValid(lineInFile, START_INDEX_OF_TYPE, START_INDEX_OF_MARK, START_INDEX_OF_DESCRIPTION)) {
-                throw new InvalidParamsException(lineInFile + " is not valid");
+            if (!isIndexesValid(currentLineInFile, START_INDEX_OF_TYPE, START_INDEX_OF_MARK, START_INDEX_OF_DESCRIPTION)) {
+                throw new InvalidParamsException(currentLineInFile + " is not valid");
             }
 
             String command = "";
             char mark;
             try {
-                command += generateCommandFromFileLine(START_INDEX_OF_TYPE, START_INDEX_OF_DESCRIPTION, lineInFile);
-                mark = getMarkStatus(START_INDEX_OF_MARK, lineInFile);
+                command += generateCommandFromFileLine(START_INDEX_OF_TYPE, START_INDEX_OF_DESCRIPTION, currentLineInFile);
+                mark = getMarkStatus(START_INDEX_OF_MARK, currentLineInFile);
             } catch (InvalidParamsException e) {
                 throw new InvalidParamsException(e.getMessage());
             }
 
             // process command in file
             boolean isReadMode = true;
-            Parser.processUserInput(tasks, command, FILE_PATH, isReadMode);
+            Parser.processUserInput(tasks, command, FILE_NAME, isReadMode);
 
             // create mark command (for mark tasks only)
             if (mark == '1') {
                 // create mark command
                 String markCommand;
                 markCommand = "mark " + lineNum;
-                Parser.processUserInput(tasks, markCommand, FILE_PATH, isReadMode);
+                Parser.processUserInput(tasks, markCommand, FILE_NAME, isReadMode);
             }
             lineNum += 1;
         }
     }
-    private static boolean isIndexesValid(String lineInFile, int START_INDEX_OF_TYPE,
+
+    /**
+     * Checks if indexes are valid to add tasks when processing FILE_NAME
+     *
+     * @param currentLineInFile which is being processed
+     * @param START_INDEX_OF_TYPE in currentLineInFile for task.getType()
+     * @param START_INDEX_OF_MARK in currentLineInFile for task.getStatus()
+     * @param START_INDEX_OF_DESCRIPTION in currentLineInFile for task.getDescription()
+     * @return true if valid, else false
+     */
+    private static boolean isIndexesValid(String currentLineInFile, int START_INDEX_OF_TYPE,
             int START_INDEX_OF_MARK, int START_INDEX_OF_DESCRIPTION) {
-        return !(lineInFile.indexOf('[') == -1) ||
-                (START_INDEX_OF_TYPE + 1 > lineInFile.length()) ||
-                (START_INDEX_OF_MARK + 1 > lineInFile.length()) ||
-                (START_INDEX_OF_DESCRIPTION + 1 > lineInFile.length());
+        return !(currentLineInFile.indexOf('[') == -1) ||
+                (START_INDEX_OF_TYPE + 1 > currentLineInFile.length()) ||
+                (START_INDEX_OF_MARK + 1 > currentLineInFile.length()) ||
+                (START_INDEX_OF_DESCRIPTION + 1 > currentLineInFile.length());
     }
 
+    /**
+     * Generate command to add tasks when processing FILE_NAME
+     *
+     * @param START_INDEX_OF_TYPE in currentLineInFile for task.getType()
+     * @param START_INDEX_OF_DESCRIPTION in currentLineInFile for task.getDescription()
+     * @param currentLineInFile which is being processed
+     * @return command to add tasks
+     * @throws InvalidParamsException if invalid or missing task.type
+     */
     private static String generateCommandFromFileLine(int START_INDEX_OF_TYPE,
-            int START_INDEX_OF_DESCRIPTION, String lineInFile) throws InvalidParamsException {
+            int START_INDEX_OF_DESCRIPTION, String currentLineInFile) throws InvalidParamsException {
 
         try {
             String command = "";
-            char type = lineInFile.charAt(START_INDEX_OF_TYPE);
+            char type = currentLineInFile.charAt(START_INDEX_OF_TYPE);
 
             if (type == 'T') {
                 command += "todo ";
@@ -133,9 +189,9 @@ public class Storage {
             } else if (type == 'E') {
                 command += "event ";
             } else {
-                throw new InvalidParamsException(lineInFile + " type is not valid");
+                throw new InvalidParamsException(currentLineInFile + " type is not valid");
             }
-            command += getDescriptionCommand(type, START_INDEX_OF_DESCRIPTION, lineInFile);
+            command += getDescriptionCommand(type, START_INDEX_OF_DESCRIPTION, currentLineInFile);
 
             return command;
 
@@ -144,33 +200,49 @@ public class Storage {
         }
     }
 
-    private static String getDescriptionCommand(char type, int START_INDEX_OF_DESCRIPTION, String lineInFile) {
+    /**
+     * Get description from currentLineInFile when processing FILE_NAME
+     *
+     * @param type of task
+     * @param START_INDEX_OF_DESCRIPTION in currentLineInFile for task.getDescription()
+     * @param currentLineInFile which is being processed
+     * @return taskDescription
+     */
+    private static String getDescriptionCommand(char type, int START_INDEX_OF_DESCRIPTION, String currentLineInFile) {
         String taskDescription = "";
 
         if (type == 'D') {
-            int startIndexToChange = lineInFile.lastIndexOf("(by: "); // change "(by: " to "/"
-            int endIndexToChange = lineInFile.lastIndexOf(")"); // change ")" to ""
-            taskDescription += lineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
+            int startIndexToChange = currentLineInFile.lastIndexOf("(by: "); // change "(by: " to "/"
+            int endIndexToChange = currentLineInFile.lastIndexOf(")"); // change ")" to ""
+            taskDescription += currentLineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
             taskDescription += "/";
-            taskDescription += lineInFile.substring(startIndexToChange + 5, endIndexToChange);
+            taskDescription += currentLineInFile.substring(startIndexToChange + 5, endIndexToChange);
         } else if (type == 'E') { // process input for event params
-            int midIndexToChange = lineInFile.lastIndexOf("to "); // change "to " to "/"
-            int startIndexToChange = lineInFile.lastIndexOf("(from: ", midIndexToChange); // change "(from: " to "/"
-            int endIndexToChange = lineInFile.lastIndexOf(')'); // change ")" to "" ie last elem
-            taskDescription += lineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
+            int midIndexToChange = currentLineInFile.lastIndexOf("to "); // change "to " to "/"
+            int startIndexToChange = currentLineInFile.lastIndexOf("(from: ", midIndexToChange); // change "(from: " to "/"
+            int endIndexToChange = currentLineInFile.lastIndexOf(')'); // change ")" to "" ie last elem
+            taskDescription += currentLineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
             taskDescription += "/";
-            taskDescription += lineInFile.substring(startIndexToChange + 7, midIndexToChange);
+            taskDescription += currentLineInFile.substring(startIndexToChange + 7, midIndexToChange);
             taskDescription += "/";
-            taskDescription += lineInFile.substring(midIndexToChange + 3, endIndexToChange);
+            taskDescription += currentLineInFile.substring(midIndexToChange + 3, endIndexToChange);
         } else { // type == 'T'
-            taskDescription = lineInFile.substring(START_INDEX_OF_DESCRIPTION);
+            taskDescription = currentLineInFile.substring(START_INDEX_OF_DESCRIPTION);
         }
         return taskDescription;
     }
 
-    private static char getMarkStatus(int START_INDEX_OF_MARK, String lineInFile)
+    /**
+     * Gets mark status of file when processing FILE_NAME
+     *
+     * @param START_INDEX_OF_MARK in currentLineInFile for task.getStatus()
+     * @param currentLineInFile which is being processed
+     * @return mark: '0' = unmarked, '1' = marked
+     * @throws InvalidParamsException if invalid mark
+     */
+    private static char getMarkStatus(int START_INDEX_OF_MARK, String currentLineInFile)
             throws InvalidParamsException {
-        char mark = lineInFile.charAt(START_INDEX_OF_MARK);
+        char mark = currentLineInFile.charAt(START_INDEX_OF_MARK);
 
         if (mark != '0' && mark != '1') {
             throw new InvalidParamsException("invalid mark");
