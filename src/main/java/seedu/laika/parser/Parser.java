@@ -10,8 +10,17 @@ import seedu.laika.ui.TextUi;
 
 import java.util.Objects;
 
+/**
+ * Parses user input into commands for execution.
+ */
 public class Parser {
 
+
+    /**
+     * Converts a string command into a Task object.
+     * @param command input command split into an array with the first element indicating if the task is done.
+     * @return Task object created from the command string.
+     */
     public static Task commandtoTask(String[] command) {
         Task task = null;
         if(command[1].startsWith("todo")){
@@ -35,6 +44,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Parses the user input line and executes the command.
+     * @param line the complete input line provided by the user.
+     * @param taskList the current list of tasks.
+     * @return true if the application should continue running, false if it should terminate (on "bye" command).
+     */
     public boolean parse(String line, TaskList taskList){
         String[] words = line.split(" ", 2);
 

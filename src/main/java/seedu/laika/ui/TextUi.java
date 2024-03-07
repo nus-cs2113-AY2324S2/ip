@@ -6,6 +6,9 @@ import seedu.laika.tasklist.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the UI of the application.
+ */
 public class TextUi {
 
     public static final String PREFIX = "Laika: ";

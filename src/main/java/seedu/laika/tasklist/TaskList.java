@@ -9,6 +9,9 @@ import seedu.laika.ui.TextUi;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the list of tasks and commands managed by the application.
+ */
 public class TaskList {
 
     protected ArrayList<Task> tasks;
@@ -24,6 +27,10 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Marks task as done or undone based on provided command word.
+     * @param words String[] containing command word and index of task to be marked.
+     */
     public void modifyTask(String[] words) {
         int taskNumber = Integer.parseInt(words[1]);
         if (words[0].equals("mark")) {
@@ -36,6 +43,10 @@ public class TaskList {
         System.out.println(tasks.get(taskNumber - 1));
     }
 
+    /**
+     * Deletes a task in the tasklist based on provided index.
+     * @param words String[] containing delete command and index of task to be deleted.
+     */
     public void deleteTask(String[] words) {
         int taskNumber = Integer.parseInt(words[1]);
         TextUi.deleteTaskMessage(tasks, taskNumber);
@@ -43,6 +54,11 @@ public class TaskList {
         lines.remove(taskNumber - 1);
     }
 
+    /**
+     * Adds a task to the tasklist based on the provided input string.
+     * @param line String containing task information.
+     * @throws LaikaException If the input format is incorrect.
+     */
     public void addTask(String line) throws LaikaException {
         if (line.startsWith("todo")) {
             String[] words = line.split(" ", 2);
@@ -88,6 +104,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints a numbered list of the tasks in the tasklist.
+     * If tasklist is empty, user is informed.
+     */
     public void displayTasks() {
         if (tasks.isEmpty()) {
             TextUi.showErrorMessage(TextUi.MESSAGE_EMPTY_LIST);
@@ -99,6 +119,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints a numbered list of tasks containing the input given.
+     * @param word String containing the keyword.
+     */
     public void findTasks(String word) {
         ArrayList<Task> similarTasks = new ArrayList<>();
         for (Task task : tasks) {
