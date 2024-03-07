@@ -16,7 +16,7 @@ public class ToDo extends Task {
 
     @Override
     public String toAddString() {
-        return "[E]" + " [ ] " + description;
+        return "[T]" + " [ ] " + description;
     }
 
     @Override
