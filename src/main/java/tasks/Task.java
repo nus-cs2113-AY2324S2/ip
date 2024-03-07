@@ -5,10 +5,13 @@ public class Task {
     protected boolean isDone;
     protected char type;
 
-    public Task(String description){
+    protected int taskNum;
+
+    public Task(String description, int taskNum){
         this.description = description;
         this.isDone = false;
         this.type = ' ';
+        this.taskNum = taskNum;
     }
 
     public String getDescription(){
@@ -26,5 +29,7 @@ public class Task {
     public char getType(){
         return type;
     }
-
+    public int getTaskNum() {
+        return taskNum;
+    }
 }

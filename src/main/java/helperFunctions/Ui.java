@@ -14,11 +14,11 @@ public class Ui {
 
         while (isRun) {
             printLine();
-            String line = in.nextLine(); // reads input
+            String userInput = in.nextLine(); // reads input
             // process input
             try {
                 boolean isReadMode = false;
-                isRun = Parser.processUserInput(tasks, line, FILE_PATH, isReadMode);
+                isRun = Parser.processUserInput(tasks, userInput, FILE_PATH, isReadMode);
             } catch (InvalidParamsException e) {
                 showLoadingError(e.getMessage()); // prints out error message
             }
