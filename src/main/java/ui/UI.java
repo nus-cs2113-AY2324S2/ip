@@ -38,6 +38,10 @@ public class UI {
 
     public static String LIST_TASK_MESSAGE = "Here are the tasks in your list:";
 
+    public static String FIND_ERROR_MESSAGE = "Error searching for relevant tasks.";
+
+    public static String FIND_RESULT_MESSAGE = "Here are the matching tasks in your list:";
+
     public static String EXIT_MESSAGE = "Goodbye. Hope to see you again soon.";
 
     public static void showTaskCountMessage(int taskCount) {

@@ -53,6 +53,9 @@ public class Duke {
             else if(userCommand.equals("delete")){
                 tasks.delete(userInput);
             }
+            else if(userCommand.equals("find")) {
+                tasks.find(userInput);
+            }
             else{
                 try {
                     throw new EkudException();

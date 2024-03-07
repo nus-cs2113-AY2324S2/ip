@@ -130,6 +130,35 @@ public class TaskList {
         }
     }
 
+    public void find(String userInput) {
+        String[] userInputWords = userInput.split(" ");
+        ArrayList<Task> relevantTasks = new ArrayList<Task>();
+
+        try {
+            if(userInputWords.length <= 1) {
+                throw new EkudException();
+            }
+            else {
+                String keyword = userInputWords[1].toLowerCase();
+
+                for(int i = 0; i < taskCount; i++) {
+                    String currentTask = tasks.get(i).toString().toLowerCase();
+                    if(currentTask.contains(keyword)) {
+                        relevantTasks.add(tasks.get(i));
+                    }
+                }
+                System.out.println(UI.FIND_RESULT_MESSAGE);
+
+                for(int i = 0; i < relevantTasks.size(); i++) {
+                    System.out.println((i + 1) + "." + relevantTasks.get(i));
+                }
+            }
+        }
+        catch (EkudException error) {
+            System.out.println(UI.FIND_ERROR_MESSAGE);
+        }
+    }
+
     public void addTaskFromFile(String currentLine) {
         if(currentLine.contains("[T]")){
             int descriptionStart = currentLine.indexOf("[T]") + 7;
