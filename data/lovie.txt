@@ -1,2 +1,4 @@
-todo say hi | 0
-event say hi /from hi /to hi | 0
+todo hi hi hi  | 0
+deadline deadline /by deadline | 0
+todo todo todo | 1
+event event event /from event /to event | 0

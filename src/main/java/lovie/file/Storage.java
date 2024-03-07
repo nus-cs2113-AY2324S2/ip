@@ -1,9 +1,6 @@
 package lovie.file;
 
-import lovie.task.Deadline;
-import lovie.task.Event;
-import lovie.task.Task;
-import lovie.task.ToDo;
+import lovie.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,15 +11,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class FileManager {
+public class Storage {
     private String filePath;
 
-    public FileManager(String relativePath) {
+    public Storage(String relativePath) {
         this.filePath = relativePath;
     }
 
-    public ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() {
+        TaskList tasks = new TaskList();
         File file = new File(filePath);
 
         if (file.exists()) {
@@ -31,7 +28,7 @@ public class FileManager {
                 while ((line = reader.readLine()) != null) {
                     Task task = parseTaskLine(line);
                     if (task != null) {
-                        tasks.add(task);
+                        tasks.addTask(task);
                     }
                 }
             } catch (IOException e) {
@@ -42,7 +39,7 @@ public class FileManager {
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(TaskList tasks) {
         try {
             Files.createDirectories(Paths.get(filePath).getParent());
         } catch (IOException e) {
@@ -50,8 +47,8 @@ public class FileManager {
         }
 
         try (FileWriter writer = new FileWriter(filePath, false)) {
-            for (Task task : tasks) {
-                writer.write(task.toString());
+            for (int i = 0; i < tasks.getSize(); i += 1) {
+                writer.write(tasks.get(i).toString());
                 writer.write(System.lineSeparator());
             }
         } catch (IOException e) {
