@@ -39,15 +39,17 @@ public class TextUi {
     public static void displayList(ArrayList<Task> taskList, boolean isFind) {
         if (taskList.isEmpty()) {
             System.out.println("\tLooks like you need to find more work to do! Task list is empty!");
+        } else if (isFind) {
+            System.out.println("\tHere are the matching tasks in your list:");
         } else {
             System.out.println("\tHere are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.get(i) == null) {
-                    break;
-                }
-                System.out.println("\t" + (i + 1) + ".[" + taskList.get(i).getTaskTypeIcon() + "]["
-                        + taskList.get(i).getStatusIcon() + "] " + taskList.get(i).getDescription());
+        }
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i) == null) {
+                break;
             }
+            System.out.println("\t" + (i + 1) + ".[" + taskList.get(i).getTaskTypeIcon() + "]["
+                    + taskList.get(i).getStatusIcon() + "] " + taskList.get(i).getDescription());
         }
     }
 

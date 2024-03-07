@@ -53,6 +53,9 @@ public class HandleCommand {
                 EditCommand(splitString[0], taskNum);
                 createLine();
                 return false;
+            case "find":
+                findCommand(userInput);
+                return false;
             default:
                 break;
             }
