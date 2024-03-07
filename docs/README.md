@@ -16,7 +16,33 @@ Meet BobBot, your CLI-based task management sidekick designed for speedy typing 
 ## Features 
 
 ### Viewing help: `help`
-This command displays the list of commands available.
+Displays the list of commands available. <br>
+Usage: `help` <br>
+Example of usage and corresponding output:
+```
+help
+        ______________________________________________________________________________
+        I see you require some help. Fear not, I shall come to your assistance.
+
+        Here are the options available to you:
+                help - Display this help menu
+
+                Task Operations:
+                mark ... - Mark a task as done
+                unmark ... - Mark a task as undone
+                delete ... - Delete a task from the list
+
+                Task Viewing:
+                list - Display the list of tasks
+                find ... - Search for tasks with a keyword
+
+                Task Creation:
+                todo ... - State something you want to add to the TODO list
+                deadline ... - Tell me about an important deadline you need to meet
+                event ... - Let me know what event you have coming up
+                bye - We bid our farewells (sob)
+        ______________________________________________________________________________
+```
 
 ### Adding a task: `todo`, `deadline`, `event`
 Adds a task to the task list. 
@@ -24,6 +50,11 @@ Adds a task to the task list.
 - `deadline` adds a task that needs to be done before a specific date/time 
 - `event` adds a task that starts at a specific date/time and ends at a specific date/time.
 
+Usage: <br> 
+- todo `<description>` <br>
+- deadline `<description>` /by `<date>` `<time>` <br>
+- event `<description>` /from `<date>` `<time>` to `<date>` `<time>` <br>
+       
 Example of usage and corresponding output:
 ```
 todo bake cake
