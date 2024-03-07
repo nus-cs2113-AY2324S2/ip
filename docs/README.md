@@ -83,7 +83,6 @@ Lists all tasks your task list.<br>
 * Format: `list`.<br>
   Example of usage: `list`.<br>
 * Expected outcome:<br>
-
    ```
     ____________________________________________________
      Here are the tasks in your list:
@@ -92,8 +91,6 @@ Lists all tasks your task list.<br>
      3. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
     ____________________________________________________
    ```
-
-<br>
 
 [Back to Commands Usage Overview](#commands-usage-overview)<br>
 
@@ -128,7 +125,6 @@ Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
   Example of usage: `find GDP2021`.<br>
 * Expected outcome:<br>
-
    ```
     ____________________________________________________
      Here are the matching tasks in your list:
@@ -136,8 +132,6 @@ Displays your tasks containing `WORD` in your task list.<br>
      2. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
     ____________________________________________________
    ```
-
-<br>
 
 ### 8. Delete a task in task list: `delete`
 Deletes the selected task shown in the current task list.<br>
