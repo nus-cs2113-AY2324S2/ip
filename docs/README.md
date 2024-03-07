@@ -1,6 +1,37 @@
 # User Guide
 This is the user guide for the Binks task manager :)
-## Features 
+
+* [Quick Start](#quick-start)
+* [Features](#features)
+* [Usage](#usage)
+* [`list` - Lists out the current task list](#list---Lists-out-the-current-task-list)
+* [`mark` - Marks the corresponding task with an 'X'](#mark---marks-the-corresponding-task-with-an-x)
+* [`unmark` - Unmarks the corresponding task](#unmark---Unmarks-the-corresponding-task)
+* [`bye` - Exits the chatbot](#bye---Exits-the-chatbot)
+* [`todo` - Adds a todo task into the list](#todo---Adds-a-todo-task-into-the-list)
+* [`deadline` - Adds a todo task into the list](#deadline---Adds-a-todo-task-into-the-list)
+* [`event` - Adds an event task into the list](#event---Adds-an-event-task-into-the-list)
+* [`delete` - Deletes a task from the list](#delete---Deletes-a-task-from-the-list)
+* [`find` - Finds task in the list](#find---Finds-task-in-the-list)
+
+
+
+
+## Quick Start
+
+1. Ensure you have Java 11 or above installed in your Computer.
+
+2. Download the latest ip.jar from [here](https://github.com/EugeneChanJiajun/ip/releases/tag/A-Release).
+
+3. Copy the file to the folder you want to use as the home folder for your chatbot.
+
+4. Open a command terminal, cd into the folder you put the jar file in 
+
+5. Use the java -jar ip.jar command to run the application.
+   
+6. A GUI similar to the below should appear in a few seconds.
+
+## Features
 
 Users are able to add and delete todo, deadline and event type tasks as well as mark and unmark them based on whether or not the task is completed. 
 Upon exiting the chatbot, the list that the user has input will be saved and re-uploaded when the user comes back. 
