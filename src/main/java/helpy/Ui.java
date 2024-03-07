@@ -62,7 +62,7 @@ public class Ui {
         String deleteInfo = "- delete <task number>: Removes the task from the task list\n";
         String findInfo = "- find <keyword>: Search for tasks containing the provided keyword";
 
-        printMessage("Need some help? Here's the commands that are available (´⊙ω⊙`)\n\n" +
+        printMessage("Need some help? Here's the commands that are available (^-^)\n\n" +
                 helpInfo + byeInfo + todoInfo + deadlineInfo + eventInfo + listInfo +
                 markInfo + unmarkInfo + deleteInfo + findInfo);
     }
