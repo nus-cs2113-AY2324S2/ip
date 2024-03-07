@@ -170,6 +170,11 @@ public class Ui {
                 INPUT_INSTRUCTION+
                 format);
     }
+    /**
+     * Prints the search results to the console.
+     *
+     * @param searchResult An ArrayList of String representations of tasks to be printed.
+     */
     public void printSearchResult(ArrayList<String> searchResult) {
         if (searchResult.isEmpty()) {
             printMessage(NO_SEARCH_RESULT_MESSAGE);

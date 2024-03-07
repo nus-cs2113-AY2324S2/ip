@@ -149,6 +149,13 @@ public class TaskList {
             Ui.printMessage(Ui.NO_TASK_INDEX_ERROR);
         }
     }
+    /**
+     * Finds tasks in a task list based on a given keyword in the command message.
+     *
+     * @param message The search message containing the keyword in the format
+     *                "find [keyword]".
+     * @return An ArrayList of String representations of tasks that match the search criteria.
+     */
     public static ArrayList<String> findTask(String message) {
         String keyword = message.trim().substring(4).trim();
         ArrayList<String> searchResult = new ArrayList<>();
