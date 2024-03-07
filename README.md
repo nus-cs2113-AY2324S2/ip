@@ -6,7 +6,11 @@ Join and discover more uses of Hiko !!!
 # Quick Start
 
 1.Download the release package hiko.jar.
+<<<<<<< HEAD
 2.Run by right-clicking and selecting “open in terminal”.
+=======
+2.Run by right-clicking and selecting “open in terminal”. 
+>>>>>>> 14731387b440fe9083afcc2e9ee31b40daefb391
 3.Type in the following: java -jar hiko.jar
 4.Strart using Hiko !
 
@@ -54,4 +58,8 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 # Updates
 
+<<<<<<< HEAD
 08/03/2024 Finalize Hiko.
+=======
+08/03/2024 Finalize Hiko.
+>>>>>>> 14731387b440fe9083afcc2e9ee31b40daefb391
