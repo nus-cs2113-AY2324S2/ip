@@ -1,20 +1,18 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.print.printMessage;
-import static duke.command.*;
+import static duke.TaskList.*;
 
 public class list {
     public static final String[] validCommands =
             {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete"};
 
-    public static void executeCommand(List<Task> taskList, String command, String argument)
+    public static void executeCommand(TaskList taskList, String command, String argument)
             throws MissingParamsException, DukeException.EndListException,
             DukeException.InvalidCommandException, DukeException.InvalidIntegerException,
             DukeException.IntegerOutOfBoundsException {
@@ -28,25 +26,25 @@ public class list {
 
         switch (command) {
         case "list":
-            printList(taskList);
+            taskList.printList();
             break;
         case "mark":
-            markTask(taskList, argument, true);
+            taskList.markTask(argument, true);
             break;
         case "unmark":
-            markTask(taskList, argument, false);
+            taskList.markTask(argument, false);
             break;
         case "todo":
-            addToDo(taskList, argument);
+            taskList.addToDo(argument);
             break;
         case "deadline":
-            addDeadline(taskList, argument);
+            taskList.addDeadline(argument);
             break;
         case "event":
-            addEvent(taskList, argument);
+            taskList.addEvent(argument);
             break;
         case "delete":
-            deleteTask(taskList, argument);
+            taskList.deleteTask(argument);
             break;
         }
     }
@@ -56,14 +54,16 @@ public class list {
      */
     public static void startList(){
         Storage storage = new Storage("src/main/java/db/tasks.txt");
-        List<Task> taskList;
+        List<Task> list;
 
         try {
-            taskList = storage.loadTasks();
+            list = storage.loadTasks();
         } catch (DukeException.DatabaseLoadException e) { // DatabaseLoadException is a terminal error
             e.printErrorMessage();
             throw new RuntimeException();
         }
+
+        TaskList taskList = new TaskList(list);
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -100,7 +100,7 @@ public class list {
         }
 
         try {
-            storage.saveTasks(taskList);
+            storage.saveTasks(taskList.getTaskList());
         } catch (IOException e) {
             String errorMessage = "Failed to save existing tasks to database!!\n"
                     + "GO!! GO!!";

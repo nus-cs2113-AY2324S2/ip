@@ -4,13 +4,21 @@ import java.util.List;
 
 import static duke.print.*;
 
-public class command {
+public class TaskList {
+    protected List<Task> taskList;
+
+    public TaskList(List<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
     /**
      * Prints list of tasks.
-     *
-     * @param taskList List of tasks.
      */
-    public static void printList(List<Task> taskList){
+    public void printList(){
         printLine();
         for(int i = 0; i < taskList.size(); i++){
             Task task = taskList.get(i);
@@ -21,10 +29,8 @@ public class command {
 
     /**
      * Prints a newly-added task.
-     *
-     * @param taskList List of tasks.
      */
-    public static void printAddedTask(List<Task> taskList){
+    public void printAddedTask(){
         Task lastTask = taskList.get(taskList.size() - 1);
         printMessage("Got it. I've added this task:\n"
                 + "  " + lastTask + "\n"
@@ -34,23 +40,21 @@ public class command {
     /**
      * Adds a to-do task to list of tasks.
      *
-     * @param taskList List of tasks.
      * @param argument information of to-do to be added.
      */
-    public static void addToDo(List<Task> taskList, String argument)
+    public void addToDo(String argument)
             throws MissingParamsException {
         Task newTask = new ToDo(argument);
         taskList.add(newTask);
-        printAddedTask(taskList);
+        printAddedTask();
     }
 
     /**
      * Adds a deadline task to list of tasks.
      *
-     * @param taskList List of tasks.
      * @param argument information of deadline to be added.
      */
-    public static void addDeadline(List<Task> taskList, String argument)
+    public void addDeadline(String argument)
             throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", by = "";
@@ -72,16 +76,15 @@ public class command {
 
         Task newTask = new Deadline(description, by);
         taskList.add(newTask);
-        printAddedTask(taskList);
+        printAddedTask();
     }
 
     /**
      * Adds an event task to list of tasks.
      *
-     * @param taskList List of tasks.
      * @param argument information of deadline to be added.
      */
-    public static void addEvent(List<Task> taskList, String argument)
+    public void addEvent(String argument)
             throws MissingParamsException {
         String[] tokens = argument.split("/");
         String description = "", start = "", end = "";
@@ -109,17 +112,16 @@ public class command {
 
         Task newTask = new Event(description, start, end);
         taskList.add(newTask);
-        printAddedTask(taskList);
+        printAddedTask();
     }
 
     /**
      * Marks task as done or undone.
      *
-     * @param taskList List of tasks.
      * @param instruction User instruction on which task to mark.
      * @param done Status of task - done or undone.
      */
-    public static void markTask(List<Task> taskList, String instruction, boolean done)
+    public void markTask(String instruction, boolean done)
             throws DukeException.InvalidIntegerException,
             DukeException.IntegerOutOfBoundsException {
         int taskNumber;
@@ -142,10 +144,9 @@ public class command {
     /**
      * Deletes task specified by User.
      *
-     * @param taskList List of tasks.
      * @param instruction User instruction on which task to delete.
      */
-    public static void deleteTask(List<Task> taskList, String instruction)
+    public void deleteTask(String instruction)
             throws DukeException.InvalidIntegerException,
             DukeException.IntegerOutOfBoundsException {
         int taskNumber;
