@@ -84,6 +84,10 @@ public class Persistence {
                         spawnEvent(tasks, task, taskCount);
                         break;
 
+                    default:
+
+                        break; // valueOf results in immediate exception for non-match with enum Command
+
                     }
                 } catch (IllegalArgumentException e) {
                     Reply.printException(e, Constant.LOAD_ERROR + (taskCount + 1) + Constant.CORRUPT_ERROR);

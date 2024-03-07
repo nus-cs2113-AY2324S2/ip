@@ -32,6 +32,7 @@ public class Handler {
                     return;
 
                 case MARK:
+                    // Fallthrough
                 case UNMARK:
 
                     handleMarkUnmark(userInput, tasks, command);
@@ -79,6 +80,11 @@ public class Handler {
                     List.searchList(tasks, userInput);
 
                     break;
+
+                default:
+                    
+                    break; // valueOf results in immediate exception for non-match with enum Command
+
                 }
             } catch (IllegalArgumentException e) {
                 Reply.printException(e, Constant.INVALID_COMMAND);
