@@ -1,37 +1,21 @@
 package Yoj;
 
-import Yoj.exception.*;
+import Yoj.exception.InvalidCommandException;
+import Yoj.exception.YojException;
 import Yoj.storage.Storage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import static Yoj.List.*;
+import Yoj.ui.*;
+
+import static Yoj.List.List.*;
+import Yoj.List.List.*;
 
 public class Yoj {
-    public static void printLine() {
-        System.out.println("________________________________________");
-    }
-    public static void printShortLine() {
-        System.out.println("_____________");
-    }
-    public static void printHello() {
-        String logo =
-                "__   __   ___    _____ \n"
-                        + "\\ \\ / /  / _ \\  | ___ |\n"
-                        + " \\ Y /  | | | |     | | \n"
-                        + "  \\ /   | | | |     | | \n"
-                        + "  | |   | |_| |  ___| | \n"
-                        + "  |_|    \\___/  |____/          \n";
-        printLine();
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm YOJ");
-        System.out.println("What can I do for you?");
-        printLine();
-    }
 
     public static void main(String[] args) throws YojException, InvalidCommandException, FileNotFoundException {
-        printHello();
+        Ui.printHello();
         // get user input
         Scanner in = new Scanner(System.in);
         tasks = Storage.loadTasks();
