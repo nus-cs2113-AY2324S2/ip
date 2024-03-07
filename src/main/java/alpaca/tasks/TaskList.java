@@ -4,22 +4,24 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks
+ * Manages a list of tasks, providing operations to manipulate and query the tasks.
  */
 public class TaskList {
     private List<Task> tasks = new ArrayList<>();
 
     /**
-     * Add a task to the list  
-     * @param task
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Delete a task from the list
-     * @param taskIndex
+     * Deletes a task from the task list based on its index.
+     *
+     * @param taskIndex The index of the task to be deleted.
      */
     public void deleteTask(int taskIndex) {
         System.out.println("I've removed this task: ");
@@ -28,8 +30,9 @@ public class TaskList {
     }
 
     /**
-     * Save the tasks to a file
-     * @return
+     * Formats the task list for saving to a file.
+     *
+     * @return A string representation of all tasks formatted for file storage.
      */
     public String saveTask() {
         String result = "";
@@ -40,17 +43,19 @@ public class TaskList {
     }
 
     /**
-     * Get the total number of tasks
-     * @return
+     * Returns the total number of tasks in the list.
+     *
+     * @return The total number of tasks.
      */
     public int getTotalTaskNumber() {
         return this.tasks.size();
     }
 
     /**
-     * Get the task at the specified index
-     * @param taskIndex
-     * @return
+     * Checks if a task index is valid within the current task list.
+     *
+     * @param taskIndex The index to check.
+     * @return {@code true} if the index is valid, {@code false} otherwise.
      */
     public boolean isCountValid(int taskIndex) {
         if (taskIndex <= getTotalTaskNumber() - 1) {
@@ -60,9 +65,9 @@ public class TaskList {
     }
 
     /**
-     * Get the task at the specified index
-     * @param taskIndex
-     * @return
+     * Marks a task as completed based on its index.
+     *
+     * @param taskIndex The index of the task to be marked as done.
      */
     public void markTask(int taskIndex) {
         tasks.get(taskIndex).mark();
@@ -71,14 +76,16 @@ public class TaskList {
     }
 
     /**
-     * Mark the last task in the list
+     * Marks the last task in the list as completed.
      */
     public void markLastTask() {
         tasks.get(tasks.size() - 1).mark();
     }
 
     /**
-     * Unmark the last task in the list
+     * Unmarks a task as not completed based on its index.
+     *
+     * @param taskIndex The index of the task to be unmarked.
      */
     public void unmarkTask(int taskIndex) {
         tasks.get(taskIndex).unmark();
@@ -87,8 +94,9 @@ public class TaskList {
     }
 
     /**
-     * Get the task at the specified index
-     * @return
+     * Lists all tasks in a formatted string.
+     *
+     * @return A formatted string listing all tasks with their indices.
      */
     public String listTasks() {
         String taskList = "";
@@ -99,11 +107,11 @@ public class TaskList {
     }
 
     /**
-     * Get the task at the specified index
-     * @param keyword
-     * @return
+     * Lists all tasks that contain the given keyword in a formatted string.
+     *
+     * @param keyword The keyword to filter tasks by.
+     * @return A formatted string listing all matching tasks with their indices.
      */
-
     public String listMatchingTasks(String keyword) {
         String taskList = "";
         for (int i = 0; i < tasks.size(); i++) {

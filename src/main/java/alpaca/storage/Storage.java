@@ -17,6 +17,9 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles file operations for storing and retrieving the task list.
+ */
 public class Storage {
     private static final String FILE_PATH = "data/Alpaca.txt";
     private static final File file = new File(FILE_PATH);
@@ -25,14 +28,20 @@ public class Storage {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
+    /**
+     * Checks if the storage file exists.
+     *
+     * @return {@code true} if the file exists, {@code false} otherwise.
+     */
     public static boolean isFileExist() {
         return file.exists();
     }
 
     /**
-     * Read the contents of the file and add the tasks to the task list
-     * @param tasks
-     * @throws IOException
+     * Reads tasks from the file and adds them to the provided task list.
+     *
+     * @param tasks The task list to populate with tasks from the file.
+     * @throws IOException If an error occurs during file reading.
      */
     private static void readFileContents(TaskList tasks) throws IOException {
         try (Scanner s = new Scanner(file)) {
@@ -48,10 +57,11 @@ public class Storage {
     }
 
     /**
-     * Convert the text from the file to a task
-     * @param text
-     * @return
-     * @throws InvalidFileException
+     * Converts a line of text from the file into a Task object.
+     *
+     * @param text The line of text representing a task.
+     * @return The task represented by the text.
+     * @throws InvalidFileException If the text format is invalid.
      */
     private static Task textToTask(String text) throws InvalidFileException {
         String[] split = text.split("\\|");
@@ -90,8 +100,9 @@ public class Storage {
     }
 
     /**
-     * Restore the task list from the file
-     * @return the task list restored from the file
+     * Restores and returns the task list from the file.
+     *
+     * @return The task list populated with tasks from the file.
      */
     public static TaskList startFileReader(TaskList tasks) {
         try {
@@ -113,10 +124,11 @@ public class Storage {
     }
 
     /**
-     * Write the task list to the file
-     * @param filePath the file path
-     * @param textToAdd the text to be added to the file
-     * @throws IOException
+     * Writes the entire task list to the file, overwriting any existing content.
+     *
+     * @param filePath The path of the file where the task list will be saved.
+     * @param textToAdd The string representation of the entire task list.
+     * @throws IOException If an error occurs during file writing.
      */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -125,8 +137,9 @@ public class Storage {
     }
 
     /**
-     * Start the file writer
-     * @param taskList the task list to be written to the file
+     * Initiates writing the current task list to the file.
+     *
+     * @param taskList The string representation of the task list to be written to the file.
      */
     public static void startFileWriter(String taskList) {
         String filePath = "data/Alpaca.txt";

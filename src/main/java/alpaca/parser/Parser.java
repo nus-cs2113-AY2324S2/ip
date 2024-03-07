@@ -71,13 +71,13 @@ public class Parser {
     }
 
     /**
-     * Executes a simple or parameterized command after parsing.
+     * Parses and executes an 'event' command with detailed date and time.
      *
-     * Handles basic operations like listing, marking, unmarking, deleting tasks, and exiting.
-     * Throws InvalidCommandException for unrecognized commands.
+     * Validates the input and creates an event task, considering start and end times.
+     * Throws exceptions for invalid input.
      *
-     * @param details Additional details or parameters for the command, if any.
-     * @throws InvalidCommandException if the command is not recognized.
+     * @param details The command details including event description and timing.
+     * @throws AlpacaException if the event details are invalid.
      */
     private void parseEventCommand(String details) throws AlpacaException {
         String[] eventParts = details.split(" /from ", 2);
@@ -111,6 +111,16 @@ public class Parser {
         }
         addEventCommand.execute();
     }
+
+    /**
+     * Parses and executes a 'deadline' command with a specific due date and time.
+     *
+     * Validates the input and creates a deadline task, considering the due date and time.
+     * Throws exceptions for invalid input.
+     *
+     * @param details The command details including deadline description and due timing.
+     * @throws AlpacaException if the deadline details are invalid.
+     */
     private void parseDeadlineCommand(String details) throws AlpacaException {
     String[] deadlineParts = details.split(" /by ", 2);
     String[] timeParts = deadlineParts[1].split(" ");
@@ -132,8 +142,19 @@ public class Parser {
         }
         addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], date), tasks);
     }
-    addDeadlineCommand.execute();
-}
+        addDeadlineCommand.execute();
+    }
+
+    /**
+     * Executes basic commands identified by the first word in the user input.
+     *
+     * Supports operations like listing tasks, marking/unmarking tasks, deleting tasks, and finding tasks.
+     * Throws InvalidCommandException for unrecognized commands.
+     *
+     * @param command The first word of the user input, identifying the command type.
+     * @param details The rest of the user input, providing additional command details.
+     * @throws InvalidCommandException if the command is unrecognized.
+     */
     public void executeCommand (String command, String details) throws InvalidCommandException{
         switch (command) {
         case "list":

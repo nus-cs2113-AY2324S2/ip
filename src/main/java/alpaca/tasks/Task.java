@@ -1,7 +1,7 @@
 package alpaca.tasks;
 
 /**
- * Represents a task in the task list
+ * Abstract representation of a task in the task list，super class of all tasks.
  */
 abstract public class Task {
     protected final String description;
@@ -10,8 +10,9 @@ abstract public class Task {
     protected int IntIsDone; //for saving
 
     /**
-     * Constructor for a task
-     * @param description the description of the task
+     * Constructs a task with the specified description.
+     *
+     * @param description The description of the task.
      */
     Task(String description) {
         this.isDone = false;
@@ -20,8 +21,7 @@ abstract public class Task {
     }
 
     /**
-     * Get the description of the task
-     * @return the description of the task
+     * Marks the task as completed.
      */
     public void mark() {
         this.isDone = true;
@@ -29,8 +29,7 @@ abstract public class Task {
     }
 
     /**
-     * Get the description of the task
-     * @return the description of the task
+     * Unmarks the task, setting it as not completed.
      */
     public void unmark() {
         this.isDone = false;
@@ -38,8 +37,9 @@ abstract public class Task {
     }
 
     /**
-     * Get the description of the task
-     * @return the description of the task
+     * Returns a string representation of the task, indicating its completion status and description.
+     *
+     * @return A string representation of the task.
      */
     public String toString() {
         if (isDone) {
@@ -48,5 +48,10 @@ abstract public class Task {
         return  "[ ] " + description;
     }
 
+    /**
+     * Abstract method to save the task in a format suitable for file storage.
+     *
+     * @return A string representation of the task for saving.
+     */
     abstract public String save();
 }
