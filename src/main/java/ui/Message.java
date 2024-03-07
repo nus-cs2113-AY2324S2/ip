@@ -48,6 +48,9 @@ public class Message {
 
     public static final String ADD_TASK_MESSAGE_END = " tasks in the list. Keep 'em coming!";
 
+    public static final String EVENT_TIME_ERROR_MESSAGE = "Oops! Looks like you've created a time paradox!\n"
+            + "The start time of the event should be before the end time.";
+
     public static final String LIST_MESSAGE_FRONT = "Behold, the mighty task(s) in your realm:\n";
 
     public static final String LIST_MESSAGE_END = "\nThese tasks await your valiant efforts, noble taskmaster!";
@@ -95,5 +98,5 @@ public class Message {
 
     public static final String FIND_MESSAGE = "Behold! Your tasks surface:\n";
 
-    public static String FIND_FAIL_MESSAGE = "No tasks found with the keyword :(";
+    public static final String FIND_FAIL_MESSAGE = "No tasks found with the keyword :(";
 }

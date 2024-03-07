@@ -1,5 +1,6 @@
 package task;
 
+import exception.AdamException;
 import ui.Parser;
 
 import java.io.Serializable;
@@ -44,7 +45,7 @@ public class TaskList implements Serializable {
      * @param token The token of the task to be added.
      * @param parsedInput The parsed input of the task to be added.
      */
-    public void addTask(Parser token, String[] parsedInput) {
+    public void addTask(Parser token, String[] parsedInput) throws AdamException {
         if (token == Parser.TODO) {
             tasks.add(new ToDo(parsedInput[0]));
         } else if (token == Parser.DEADLINE) {

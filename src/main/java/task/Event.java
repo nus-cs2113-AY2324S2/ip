@@ -1,13 +1,17 @@
 package task;
 
+import exception.AdamException;
+import ui.Message;
 import ui.Time;
+
+import java.time.LocalDateTime;
 
 /**
  * The Event class represents a task that starts at a specific time and ends at a specific time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String to;
+    private String from;
 
     /**
      * Constructs an Event object.
@@ -16,18 +20,19 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws AdamException {
         super(description);
-
         try {
+            LocalDateTime fromDateAndTime = Time.parseDateAndTime(from);
+            LocalDateTime toDateAndTime = Time.parseDateAndTime(to);
             this.from = Time.standardize(from);
+            this.to = Time.standardize(to);
+
+            if (fromDateAndTime.isAfter(toDateAndTime)) {
+                throw new AdamException(Message.EVENT_TIME_ERROR_MESSAGE);
+            }
         } catch (IllegalArgumentException e) {
             this.from = from;
-        }
-
-        try {
-            this.to = Time.standardize(to);
-        } catch (IllegalArgumentException e) {
             this.to = to;
         }
     }
