@@ -18,7 +18,7 @@ public class HandleCommand {
     protected static ArrayList<Task> taskList = new ArrayList<>();
     private static String myPath = "./src/main/java/RoleyPoleyData.txt";
 
-    public static ArrayList<Task> getTaskList() {
+    public static ArrayList<Task> getTaskList() { 
         return taskList;
     }
 
