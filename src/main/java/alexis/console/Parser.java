@@ -107,10 +107,11 @@ public class Parser {
      */
     public static String parseDescription(String input) throws MissingFieldException {
         int firstSpace = input.indexOf(" ");
-        if (firstSpace == -1) {
+        String description = input.substring(firstSpace + 1).trim();
+        if (firstSpace == -1 | description.isEmpty()) {
             throw new MissingFieldException();
         }
-        return input.substring(firstSpace + 1).trim();
+        return description;
     }
 
     public static String getDateTime(String input) {
