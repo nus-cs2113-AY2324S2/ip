@@ -2,6 +2,7 @@ package roleypoley.data;
 
 import roleypoley.command.HandleCommand;
 import roleypoley.exception.RoleyPoleyFileException;
+import roleypoley.exception.RoleyPoleyParseException;
 import roleypoley.task.Deadline;
 import roleypoley.task.Event;
 import roleypoley.task.Todo;
@@ -28,7 +29,7 @@ public class ReadFile {
                     convertTask(line);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | RoleyPoleyParseException e) {
             File textFile = new File("RoleyPoleyData.txt");
         }
     }
@@ -39,7 +40,7 @@ public class ReadFile {
      * @param line a line of string read in from the text file
      * @throws RoleyPoleyFileException if task has not been indicated as '1' or '0'
      */
-    public static void convertTask(String line) throws RoleyPoleyFileException {
+    public static void convertTask(String line) throws RoleyPoleyFileException, RoleyPoleyParseException {
         String[] identifyTaskType = line.split(" ");
         String description = line.substring("X | Y | ".length());
         boolean isDone = switch (identifyTaskType[2]) {

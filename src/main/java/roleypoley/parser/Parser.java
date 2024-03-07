@@ -22,7 +22,16 @@ public class Parser {
         String[] splitString = userInput.split(" ");
         final String commandWord = splitString[0];
         final String arguments = userInput.replaceFirst(commandWord, "").trim();
-
+        if (splitString.length == 1) {
+            switch (commandWord) {
+            case "todo":
+                throw new RoleyPoleyParseException("toDoError");
+            case "deadline":
+                throw new RoleyPoleyParseException("deadlineError");
+            case "event":
+                throw new RoleyPoleyParseException("eventError");
+            }
+        }
         return switch (commandWord) {
             case "todo" -> new Task(arguments, false);
             case "deadline" -> new Deadline(arguments, false);

@@ -1,5 +1,7 @@
 package roleypoley.task;
 
+import roleypoley.exception.RoleyPoleyParseException;
+
 /**
  * Represents Event tasks to be completed
  */
@@ -10,7 +12,7 @@ public class Event extends Task {
     /**
      * Assumption: Every field must be present and not NULL
      */
-    public Event(String description, boolean isDone) {
+    public Event(String description, boolean isDone) throws RoleyPoleyParseException {
         super(getTask(description), isDone);
         this.from = getFrom(description);
         this.to = getTo(description);
@@ -21,13 +23,19 @@ public class Event extends Task {
         return split[0];
     }
 
-    private static String getFrom(String description) {
+    private static String getFrom(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(from: |to: |/from |/to ");
+        if (split.length == 1) {
+            throw new RoleyPoleyParseException("eventError");
+        }
         return split[1];
     }
 
-    private static String getTo(String description) {
+    private static String getTo(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(from: |to: |/from |/to ");
+        if (split.length == 2) {
+            throw new RoleyPoleyParseException("deadlineError");
+        }
         int endIndex = split[2].length();
         if (description.contains(")")) {
             endIndex -= 1;

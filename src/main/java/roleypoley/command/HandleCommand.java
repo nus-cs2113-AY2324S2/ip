@@ -76,7 +76,7 @@ public class HandleCommand {
         String[] splitString = userInput.split(" ");
         if (splitString.length == 2) {
             for (Task task : taskList) {
-                if (task.getDescription().toLowerCase().contains(splitString[1])) {
+                if (task.getDescription().toLowerCase().contains(splitString[1].toLowerCase())) {
                     searchList.add(task);
                 }
             }

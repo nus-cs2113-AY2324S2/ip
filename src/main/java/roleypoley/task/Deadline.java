@@ -1,11 +1,13 @@
 package roleypoley.task;
 
+import roleypoley.exception.RoleyPoleyParseException;
+
 /**
  * Represents Deadline tasks to be completed
  */
 public class Deadline extends Task {
     protected String by;
-    public Deadline(String description, boolean isDone) {
+    public Deadline(String description, boolean isDone) throws RoleyPoleyParseException {
         super(getTask(description), isDone);
         this.by = getDueDate(description);
     }
@@ -18,8 +20,11 @@ public class Deadline extends Task {
         return split[0];
     }
 
-    private static String getDueDate(String description) {
+    private static String getDueDate(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(by:|/by");
+        if (split.length == 1) {
+            throw new RoleyPoleyParseException("deadlineError");
+        }
         int endIndex = split[1].length();
         if (description.contains(")")) {
             endIndex -= 1;
