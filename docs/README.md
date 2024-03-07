@@ -21,7 +21,7 @@ e.g. if the command specifies help 123, it will be interpreted as help.
 There are three types of tasks you can add.
 
 #### Adding a ToDo task: `todo`
-Adds a ToDo task to the list of tasks.\
+Adds a ToDo task to the list of tasks.
 
 Format: `todo DESCRIPTION`
 
