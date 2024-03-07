@@ -6,8 +6,5 @@
 6. [D][0] kjdfl (by: sdf)
 7. [D][0] sdf(by:  sdf sd /fds)
 8. [D][0] something (by: by 2/12/2019)
-9. [D][0] something (by:  2/12/2019)
-10. [D][1] haha (by:  2/12/2019)
-11. [D][1] halo (by: Dec 11 2019)
-12. [T][0] testing
-13. [D][0] someting (by: Aug 22 2014)
+9. [T][0] fdsjfk
+10. [E][0] sjk (from: sd fsto  )

@@ -7,7 +7,7 @@ public class Todo extends Task {
         this.type = 'T';
     }
     @Override
-    public char getType(){
+    public char getType() {
         return type;
     }
 }
