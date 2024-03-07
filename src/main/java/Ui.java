@@ -10,6 +10,9 @@ public class Ui {
     }
 
     public void showByeMessage() {
+        System.out.println(DASHED_LINE);
+        System.out.println(" Hey girlie! I hope I am helpful to managing your tasks.");
+        System.out.println(" Don't worry, I have all your tasks saved! bye bye, take care:)!");
         System.out.println(" bye bye, take care:)!");
         System.out.println(DASHED_LINE);
     }
