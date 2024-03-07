@@ -124,6 +124,22 @@ public class UI {
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!" +
                 " You have to finish this by "  + date + ", so be reminded!");
     }
+
+    public static void printTask(ArrayList<Task> toDoList, int counter, int i) {
+        System.out.println(counter + ". " + toDoList.get(i));
+    }
+
+    public static void printTaskNotFoundMessage(String input) {
+        System.out.println("Uhm... I'm sorry but, I could not find any tasks containing '" + input + "'... Maybe try again?");
+    }
+
+    public static void printIllegalArgumentException() {
+        System.out.println("Uh oh, you did not provide a task number! Please try again!");
+    }
+
+    public static void printFindingMessage(String input) {
+        System.out.println("Gotcha! Finding tasks containing '" + input + "'...");
+    }
 }
 
 
