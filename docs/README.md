@@ -14,9 +14,6 @@ This is the user guide for the Binks task manager :)
 * [`delete` - Deletes a task from the list](#delete---Deletes-a-task-from-the-list)
 * [`find` - Finds task in the list](#find---Finds-task-in-the-list)
 
-
-
-
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer.
