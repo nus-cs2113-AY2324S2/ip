@@ -2,9 +2,6 @@ package alpaca.commands;
 
 import alpaca.tasks.TaskList;
 
-/**
- * Parent class for all commands
- */
 public abstract class AlpacaCommand {
     protected TaskList tasks;
 
