@@ -10,20 +10,20 @@ Join and discover more uses of Hiko !!!
 3.Type in the following: java -jar hiko.jar
 4.Strart using Hiko !
 
-##Features
+## Features
 Hiko has following Features
 
-###1.Store "ToDo" tasks
--By typing (todo + task descriptions), hiko will auto record down the task that you have to do.
+### 1.Store "ToDo" tasks
+- By typing (todo + task descriptions), hiko will auto record down the task that you have to do.
 
-###2.Store "Event" tasks
--By typing (event + event name + /from start time + /to end time) ,hiko will auto record down the event with start and end time.
+### 2.Store "Event" tasks
+- By typing (event + event name + /from start time + /to end time) ,hiko will auto record down the event with start and end time.
 
-###3.Store "DeadLine" tasks
--By typing (deadline + task name + /by end time) ,hiko will auto record down the task with its deadline.
+### 3.Store "DeadLine" tasks
+- By typing (deadline + task name + /by end time) ,hiko will auto record down the task with its deadline.
 
-###4.Auto write in.
--Hiko will auto record down the tasks that you have input in the .txt file under /docs folder.
+### 4.Auto write in.
+- Hiko will auto record down the tasks that you have input in the .txt file under /docs folder.
 
 ## 1. Setting up in Intellij
 
