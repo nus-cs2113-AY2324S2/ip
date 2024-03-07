@@ -25,7 +25,6 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: "+formattedFrom+" to: "+formattedTo+")";
     }
 
-
     protected String getTaskType()
     {
         return "E";
