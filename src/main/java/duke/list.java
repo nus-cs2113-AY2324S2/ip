@@ -9,46 +9,6 @@ import static duke.print.printMessage;
 import static duke.TaskList.*;
 
 public class list {
-    public static final String[] validCommands =
-            {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete"};
-
-    public static void executeCommand(TaskList taskList, String command, String argument)
-            throws MissingParamsException, DukeException.EndListException,
-            DukeException.InvalidCommandException, DukeException.InvalidIntegerException,
-            DukeException.IntegerOutOfBoundsException {
-        if (command.equalsIgnoreCase("bye")) {
-            throw new DukeException.EndListException();
-        }
-
-        if (Arrays.stream(validCommands).noneMatch(command::equals)){
-            throw new DukeException.InvalidCommandException();
-        }
-
-        switch (command) {
-        case "list":
-            taskList.printList();
-            break;
-        case "mark":
-            taskList.markTask(argument, true);
-            break;
-        case "unmark":
-            taskList.markTask(argument, false);
-            break;
-        case "todo":
-            taskList.addToDo(argument);
-            break;
-        case "deadline":
-            taskList.addDeadline(argument);
-            break;
-        case "event":
-            taskList.addEvent(argument);
-            break;
-        case "delete":
-            taskList.deleteTask(argument);
-            break;
-        }
-    }
-
     /**
      * Creates a list that users can add tasks to, read, and mark tasks as done or undone.
      */
@@ -63,7 +23,7 @@ public class list {
             throw new RuntimeException();
         }
 
-        TaskList taskList = new TaskList(list);
+        Parser parser = new Parser(new TaskList(list));
 
         String line;
         Scanner in = new Scanner(System.in);
@@ -82,7 +42,7 @@ public class list {
             }
 
             try {
-                executeCommand(taskList, command, argument);
+                parser.executeCommand(command, argument);
             } catch (DukeException.EndListException e) {
                 break;
             } catch (DukeException.InvalidCommandException e) {
@@ -100,7 +60,7 @@ public class list {
         }
 
         try {
-            storage.saveTasks(taskList.getTaskList());
+            storage.saveTasks(parser.getList());
         } catch (IOException e) {
             String errorMessage = "Failed to save existing tasks to database!!\n"
                     + "GO!! GO!!";
