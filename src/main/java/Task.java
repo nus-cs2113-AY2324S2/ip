@@ -23,7 +23,7 @@ public class Task {
         return description;
     }
 
-    // Method to update the status icon based on task completion
+    // The method to update status icon based on task completion
     public void updateStatusIcon() {
         // If the task is done, mark it with [X], otherwise mark it with [ ]
         String statusIcon = (isDone ? "[X]" : "[ ]");
