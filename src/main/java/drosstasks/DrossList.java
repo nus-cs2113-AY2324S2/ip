@@ -3,10 +3,10 @@ import drosstasks.Event;
 import myexceptions.InvalidTodoException;
 import java.util.ArrayList;
 
-public class List {
+public class DrossList {
     private ArrayList<Task> tasks;
 
-    public List() {
+    public DrossList() {
         this.tasks = new ArrayList<Task>(); // Use ArrayList instead of array
     }
 
