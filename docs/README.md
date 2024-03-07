@@ -1,54 +1,85 @@
-# Jason Chatbot User Guide
+# Jason : Personal Task Manager User Guide
 
-Welcome to Jason, your personal task management chatbot! Jason helps you efficiently manage your daily tasks through a simple and intuitive command-line interface. This guide will introduce you to the features and commands supported by Jason.
+```
+   J     A     SSSS    OOO   N   N 
+   J    A A    S      O   O  NN  N 
+   J   A A A    SSS   O   O  N N N 
+J  J  A     A      S  O   O  N  NN 
+ JJJ A       A  SSSS   OOO   N   N 
+Eyy wassup I'm Jason
+What can I do for you?
+```
+Welcome to Jason, your dedicated task manager chatbot designed to streamline your to-do list and manage deadlines and events with ease. This guide will navigate you through Jason's capabilities and how you can interact with it to manage your tasks efficiently.
 
 ## Features
 
-1. **Task Management:** Jason allows you to add, delete, mark as done, and list tasks.
-2. **Task Types:** Create different types of tasks such as Todo, Deadline, and Event.
-3. **Date and Time Parsing:** Jason can interpret dates and times in various formats for deadlines and events.
-4. **Keyword Search:** Quickly find tasks by searching for keywords.
-5. **Data Persistence:** Jason saves your tasks to a file for easy retrieval and continuity.
+- **Task Management:** Seamlessly add, delete, mark tasks as done or not done, and list all tasks in an intutive manner.
+- **Supports Multiple Task Types:** Jason can handle various types of tasks, such as To-dos, Deadlines, and Events, catering to all your scheduling needs.
+- **Date and Time formatting:** For deadlines and events, Jason can understand and process different date and time formats, making it easier for you to set reminders.
+- **Search by Keyword:** Quickly locate specific tasks by searching for keywords.
+- **Data Storage:** All input tasks are stored locally, ensuring you can pick up where you left off.
 
 ## Commands
 
+Below are the commands for Jason:
+
 ### Adding Tasks
 
-- **Todo:** `todo [description]` - Adds a todo task with the given description.
-- **Deadline:** `deadline [description] /by [date/time]` - Adds a deadline task with the given description and due date/time.
-- **Event:** `event [description] /from [start] /to [end]` - Adds an event task with the given description and start/end times.
+- **Todo Task:** `todo [description]`  
+  Add a simple task without date/time requirements.
+  
+- **Deadline Task:** `deadline [description] /by [YYYY-MM-DD]`  
+  Add a task with a specific due date.
+  
+- **Event Task:** `event [description] /from [MM-DD HH:MM] /to [MM-DD HH:MM] `  
+  Schedule an event with a start and endtime.
 
-### Managing Tasks
+### Task Management
 
-- **List:** `list` - Displays all tasks in the task list.
-- **Mark as Done:** `mark [task number]` - Marks the task with the specified number as done.
-- **Mark as Not Done:** `unmark [task number]` - Marks the task with the specified number as not done.
-- **Delete:** `delete [task number]` - Deletes the task with the specified number from the task list.
-- **Find:** `find [keyword]` - Searches for tasks containing the specified keyword in their descriptions.
+- **List Tasks:** `list`  
+  Displays all your tasks.
+  
+- **Mark Task as Done:** `mark [task number]`  
+  Marks a specific task as completed.
+  
+- **Unmark Task:** `unmark [task number]`  
+  Reverts a task to not done.
+  
+- **Delete Task:** `delete [task number]`  
+  Removes a task from your list.
+  
+- **Find Task:** `find [keyword]`  
+  Lists tasks containing the specified keyword.
 
 ### Exiting
 
-- **Exit:** `bye` - Exits Jason.
+- **Exit:** `bye`  
+  Saves all input tasks and terminates the program .
+
+## Examples
+
+Here's an example of how you can use Jason:
+
+- Add a todo task: `todo Finish the assignment`
+- Set a deadline:  `deadline Submit assignment /by 2024-12-20`
+- Schedule an event: `event Project meeting /from 12-15 09:00 /to 12-17 09:00`
+- Mark a task as done:  `mark 2`
+- Mark task as not done: `unmark 1`
+- Remove task from list: `delete 4`
+- Search for a task: `find CS2113`
 
 ## Date and Time Formats
 
-- **Deadline:** `dd/MM/yyyy HHmm` (e.g., 18/12/2024 1800)
-- **Event:** Use `dd-MM HH:mm` for input and Jason will automatically parse and format the dates and times.
+When adding deadlines or events, please follow these formats for date/time:
 
-## Example Usage
+- Deadlines: `YYYY-MM-DD`
+- Events: `MM-DD HH:MM`
 
-1. Add a todo task: `todo Read a book`
-2. Add a deadline task: `deadline Submit report /by 31/12/2024 1900`
-3. Add an event task: `event Team meeting /from 19-10 14:00 /to 19-10 15:00`
-4. List all tasks: `list`
-5. Mark a task as done: `mark 1`
-6. Find tasks containing a keyword: `find report`
-7. Exit Jason: `bye`
+## Some Useful Tips
 
-## Tips
+- Be precise with task descriptions for easy retrieval.
+- Ensure deadline and event tasks always follow the exact date/time format. 
+- Use the `find` command to quickly locate tasks.
+- Remember to terminate Jason with the `bye` command to save tasks before shutting down.
 
-- Provide clear and concise task descriptions.
-- Use the keyword search feature to quickly find relevant tasks.
-- Remember to exit using the `bye` command to save your tasks before closing Jason.
-
-Thank you for using Jason, your friendly chatbot for managing tasks. Happy tasking!
+Thank you for choosing Jason as your task management assistant!
