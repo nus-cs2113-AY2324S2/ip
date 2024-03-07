@@ -18,7 +18,7 @@ public class Adam {
         Scanner scanner = new Scanner(System.in);
         TaskList tasks = new TaskList();
         String input;
-        boolean exitFlag = false;
+        boolean canExit = false;
 
         try {
             tasks = Storage.loadTasks();
@@ -28,13 +28,13 @@ public class Adam {
 
         System.out.println(Message.GREETING_MESSAGE);
 
-        while (!exitFlag) {
+        while (!canExit) {
             input = scanner.nextLine();
             System.out.println(Message.DELIMITER);
 
             try {
-                exitFlag = CommandGenerator.generate(input).execute(tasks);
-                // return true if it's exitCommand; false otherwise
+                canExit = CommandGenerator.generate(input).execute(tasks);
+                // set to true if it's exitCommand; false otherwise
                 Storage.saveTasks(tasks);
             } catch (AdamException error) {
                 System.out.println(error.getMessage());
