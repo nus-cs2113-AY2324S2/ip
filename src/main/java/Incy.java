@@ -67,6 +67,8 @@ public class Incy {
                 taskManager.handleDeleteCommand(input);
             } else if (input.startsWith("list by ")) {
                 taskManager.handleListByDateCommand(input);
+            } else if (input.startsWith("find ")) {
+                taskManager.handleFindCommand(input);
             } else {
                 taskManager.handleAddTask(input);
             }
@@ -138,6 +140,26 @@ class TaskManager {
                 "Now you've got " + tasks.size() + " tasks on your plate.\n" +
                 Constants.LINE_STRING_BOTTOM);
         saveTasksToFile();
+    }
+
+    void handleFindCommand(String input) throws IncyException {
+        if (input.length() <= 5) {
+            throw new IncyException("Oi, you forgot to tell me what to find, mate!");
+        }
+        String keyword = input.substring(5).trim().toLowerCase();
+        System.out.println(Constants.LINE_STRING_TOP);
+        boolean found = false;
+        int index = 1;
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword)) {
+                System.out.println(Constants.ANSI_CYAN + "  " + index++ + ". " + task);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println(Constants.ANSI_RED + "No tasks found with the keyword '" + keyword + "', bruv.");
+        }
+        System.out.println(Constants.LINE_STRING_BOTTOM);
     }
 
     void handleListByDateCommand(String input) throws IncyException {
