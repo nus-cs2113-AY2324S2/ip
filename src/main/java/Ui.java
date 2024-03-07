@@ -7,8 +7,8 @@ public class Ui {
      * Prints messages to indicate start of user's session.
      */
     public static void greetUser() {
-        System.out.println("Hello! I'm Ms Chatty :)");
-        System.out.println("What can I do for you?");
+        System.out.println(Messages.GREET_USER_MESSAGE);
+        System.out.println(Messages.PROMPTS_USER_INPUT);
     }
 
     /**
@@ -26,7 +26,7 @@ public class Ui {
      * Prints messages to indicate end of user's session.
      */
     public static void endSession() {
-        System.out.println("Tasks saved successfully.");
-        System.out.println("Bye! Hope to see you again :)");
+        System.out.println(Messages.TASKS_SAVED_MESSAGE);
+        System.out.println(Messages.FAREWELL_MESSAGE);
     }
 }

@@ -52,7 +52,7 @@ public class Storage {
                 appendToFile(FILEPATH, task.taskInFileFormat());
             }
         } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
+            System.out.println(Messages.ERROR_SAVING_DATA_MESSAGE + e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class Storage {
 
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Data file is corrupted: " + e.getMessage());
+            System.out.println(Messages.FILE_CORRUPTED_MESSAGE + e.getMessage());
         }
         return revertedTasks;
     }
@@ -82,8 +82,9 @@ public class Storage {
      * @return task in list format.
      */
     public static Task revertTaskToListFormat(String line) {
+        String itemIsDone = "1";
         String[] arrayOfTask = line.split(" \\| ", 3);
-        boolean isDone = arrayOfTask[1].equals("1");
+        boolean isDone = arrayOfTask[1].equals(itemIsDone);
         String description;
 
         switch (arrayOfTask[0]) {
@@ -99,7 +100,8 @@ public class Storage {
             return newDeadline;
         case "E":
             String[] arrayOfEventSubsequentParts = arrayOfTask[2].split("[|\\-]");
-            Event newEvent = new Event(arrayOfEventSubsequentParts[0], arrayOfEventSubsequentParts[1], arrayOfEventSubsequentParts[2]);
+            Event newEvent = new Event(arrayOfEventSubsequentParts[0], arrayOfEventSubsequentParts[1],
+                    arrayOfEventSubsequentParts[2]);
             newEvent.setDone(isDone);
             return newEvent;
         default:
@@ -122,7 +124,7 @@ public class Storage {
                 tasks.addAll(revertTasksToListFormat(lines));
             }
         } catch (IOException e) {
-            System.out.println("Error reading tasks from file: " + e.getMessage());
+            System.out.println(Messages.ERROR_READING_FILE_MESSAGE + e.getMessage());
         }
 
         return tasks;

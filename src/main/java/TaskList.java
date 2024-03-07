@@ -10,7 +10,7 @@ public class TaskList {
      * @param tasks The array list containing tasks inputted.
      */
     public static void printTasks(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println(Messages.PRINT_TASK_LIST);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.print((i + 1) + ".");
             tasks.get(i).printTask();
@@ -26,10 +26,10 @@ public class TaskList {
      */
     public static void markAndUnmarkTask(ArrayList<Task> tasks, int taskNumber, String[] arrayOfCommand) {
         if (arrayOfCommand[0].equals("mark")) {
-            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(Messages.MARK_DONE_MESSAGE);
             tasks.get(taskNumber).markAsDoneOrNotDone(arrayOfCommand);
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(Messages.UNMARK_DONE_MESSAGE);
             tasks.get(taskNumber).markAsDoneOrNotDone(arrayOfCommand);
         }
         System.out.print(" ");
@@ -44,7 +44,8 @@ public class TaskList {
      * @param tasks The array list containing tasks inputted.
      * @param taskCount An integer to keep track of the number of tasks in the list.
      */
-    public static void handleMarkAndUnmarkRequest(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks, int taskCount) {
+    public static void handleMarkAndUnmarkRequest(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks,
+                                                  int taskCount) {
         arrayOfCommand = userCommand.split(" ", 2);
         try {
             if (arrayOfCommand.length < 2 || arrayOfCommand[1].isEmpty()) {
@@ -56,9 +57,9 @@ public class TaskList {
             }
             markAndUnmarkTask(tasks, taskNumber - 1, arrayOfCommand);
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.print(Guide.MARK_AND_UNMARK_REQUEST_FORMAT);
+            System.out.println(Messages.MARK_AND_UNMARK_REQUEST_FORMAT);
         } catch (NullPointerException e) {
-            System.out.print(Guide.OUT_OF_BOUND);
+            System.out.print(Messages.OUT_OF_BOUND);
         }
     }
 
@@ -88,7 +89,7 @@ public class TaskList {
             tasks.add(event);
         }
 
-        System.out.println("Got it. I've added this task:");
+        System.out.println(Messages.TASK_ADDED_MESSAGE);
         tasks.get(tasks.size() - 1).printTask();
     }
 
