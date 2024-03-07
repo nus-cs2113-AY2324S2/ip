@@ -1,6 +1,7 @@
 /**
- * An exception to be thrown when the
- * user create a task without a task name
+ * An exception to be thrown when
+ * a user attempts to create a task
+ * without a name.
  */
 public class MissingTaskName extends Exception {
 }

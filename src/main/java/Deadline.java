@@ -1,7 +1,8 @@
 // add code here
 
 /**
- * Represents a deadline
+ * A deadline class containing
+ * deadline's name and date
  */
 public class Deadline extends Task {
     //Attributes
@@ -23,22 +24,17 @@ public class Deadline extends Task {
     //Methods
 
     /**
-     * Get a String of the deadline's CSV format.
-     * The format is "D + status + name + date".
-     * For example: "D,1,CS2113 weekly quiz,8/3/24" means
-     * that the user finished (1) the deadline (CS2113 weekly quiz)
-     * by the date (8/3/24).
-     *
-     * Useful when saving a Deadline object to a file.
-     * @return the CSV representation of the object
+     * @return a CS representation of a Deadline object.
+     * For example, "D,1,CS2113 Weekly Quiz,8/3/2024 2359"
+     * means the user already finished (1) a deadline
+     * named "CS2113 Weekly Quiz" due 8/3/2024 at 2359.
      */
     public String getCSV () {
         return "D" + "," + super.getCSV() + "," + by;
     }
 
     /**
-     * Get the String representation of the object
-     * @return a String containing the deadline's status, name and date.
+     * @return a String representation of a Deadline object
      */
     public String toString () {
         return "[D]" + super.toString() + " (do by: " + by + ")";

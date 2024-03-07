@@ -5,15 +5,20 @@
 public class Duke {
     private TaskList tasks;
     private Storage storage;
+    private Parser parser;
 
     public Duke(){
         UI.welcome();
         storage = new Storage();
+        parser = new Parser();
         tasks = new TaskList(storage.loadFromDisk());
     }
 
+    /**
+     * execute Stella
+     */
     public void run(){
-        Parser.takeResponse(tasks);
+        parser.takeResponse(tasks);
         UI.bye();
     }
 

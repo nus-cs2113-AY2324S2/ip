@@ -1,6 +1,7 @@
 /**
- * An exception to be thrown when the user
- * enter fewer entries than required
+ * An exception to be thrown
+ * when a user input a command
+ * with insufficient arguments
  */
 public class MissingEntries extends Exception {
 }

@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
 /**
- * Process user's inputs from the terminal
+ * Parse user's input and
+ * respond to it.
  */
 public class Parser {
     private static void checkValidDeadline (String command) throws WrongInputFormat, MissingEntries, MissingTaskName {
-        String[] commandWords = command.split("/");
+        String[] commandWords = command.split("-");
 
         if (commandWords.length != 2) {
             throw new WrongInputFormat();
@@ -22,7 +23,7 @@ public class Parser {
     }
 
     private static void checkValidEvent (String command) throws WrongInputFormat, MissingEntries, MissingTaskName {
-        String[] commandWords = command.split("/");
+        String[] commandWords = command.split("-");
         if (commandWords.length != 3) {
             throw new WrongInputFormat();
         } else {
@@ -97,7 +98,7 @@ public class Parser {
         return true;
     }
 
-    public static boolean isValidTaskCommand (String command, String[] commandWords) {
+    private static boolean isValidTaskCommand (String command, String[] commandWords) {
         if (commandWords[0].equals("deadline")) {
             return isValidDeadline(command);
         } else if (commandWords[0].equals("event")) {
@@ -107,23 +108,14 @@ public class Parser {
     }
 
     private static Deadline parseDeadline (String command) {
-        String[] commandWords = command.split("/");
+        String[] commandWords = command.split("-");
         String taskName = commandWords[0].substring(9);
         String by = commandWords[1].substring(3);
         return new Deadline(taskName.trim(), by.trim());
     }
 
-    public static void takeResponse (TaskList tasks) {
-        Scanner in = new Scanner(System.in);
-        String line = in.nextLine();
-        while (!line.equals("bye")) {
-            Parser.responseToCommand(line, tasks);
-            line = in.nextLine();
-        }
-    }
-
     private static Event parseEvent (String command) {
-        String[] commandWords = command.split("/");
+        String[] commandWords = command.split("-");
 
         String eventName = commandWords[0].substring(6);
 
@@ -138,7 +130,7 @@ public class Parser {
         return new Todo(commandWords[1].trim());
     }
 
-    public static Task parseCommand (String command) {
+    private static Task parseCommand (String command) {
         String[] commandWords = command.split(" ");
         if (commandWords[0].equals("deadline")) {
             return parseDeadline(command);
@@ -188,6 +180,22 @@ public class Parser {
                 newTask = Parser.parseCommand(command);
                 tasks.addTask(newTask);
             }
+        }
+    }
+
+    /**
+     * Take user's input from the terminal and
+     * decide how Stella will react to user's commands
+     * (list, create a task, mark, unmark, delete, or
+     * throw an error message).
+     * @param tasks the current user's task list
+     */
+    public void takeResponse (TaskList tasks) {
+        Scanner in = new Scanner(System.in);
+        String line = in.nextLine();
+        while (!line.equals("bye")) {
+            responseToCommand(line, tasks);
+            line = in.nextLine();
         }
     }
 }

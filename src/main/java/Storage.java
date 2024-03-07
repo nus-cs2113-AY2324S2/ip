@@ -6,8 +6,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
- * Handle the storage of users' data
- * on their local devices.
+ * Handle storing user's task list into computer
  */
 public class Storage {
     private String path;
@@ -37,6 +36,9 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Save the current task list into the computer
+     */
     public void save(ArrayList<Task> tasks){
         try {
             saveRaw(tasks);
@@ -68,6 +70,9 @@ public class Storage {
         }
     }
 
+    /**
+     * @return an ArrayList of Task saved in the computer
+     */
     public ArrayList<Task> loadFromDisk(){
         loadFromDiskWithExceptionHandle();
         return tasksList;
