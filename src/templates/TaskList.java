@@ -5,6 +5,14 @@ import templates.task.Task;
 import templates.task.Deadline;
 import templates.task.Event;
 
+/**
+ * Represents a collection of tasks in the Mario application. Provides functionality to add, mark, unmark, delete,
+ * find tasks by keyword, and find tasks by date. Each task operation modifies the task list and provides feedback
+ * about the operation performed. Additionally, it offers methods to retrieve the total number of tasks and generate
+ * string representations of tasks, facilitating interactions with the user through textual output.
+ */
+
+ 
 public class TaskList{
     ArrayList<Task> list;
 

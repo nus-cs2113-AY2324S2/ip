@@ -3,6 +3,14 @@ package logic;
 import templates.TaskList;
 import command.BaseCommand;
 
+/**
+ * The Mario class serves as the central logic component of the Mario chat application, coordinating the application's functionality.
+ * It manages tasks, processes user commands, and interacts with the UI and storage systems. Upon instantiation, it initializes
+ * the Storage and UI components, loads existing tasks from a file, and starts the command processing loop. It provides methods
+ * for running the application loop, saving the current state of tasks, and retrieving the task list for command execution.
+ */
+
+ 
 public class Mario{
     private static String MARIO_FILEPATH = "Mario.txt";
     private TaskList taskList;

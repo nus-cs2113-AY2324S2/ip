@@ -8,6 +8,14 @@ import java.util.ArrayList;
 
 import exceptions.MarioDateTimePassed;
 
+/**
+ * Encapsulates date and time functionality for tasks in the Mario application. It provides methods for parsing date strings
+ * into LocalDateTime objects according to multiple predefined formats. The class checks for date validity, ensuring that
+ * input dates have not passed and are in the correct format. It supports comparisons to determine if one date is before another
+ * and to check for equality. The toString method returns a formatted date string for display.
+ */
+
+ 
 public class BaseDate{
     private static final List<String> dateFormats = List.of(
             "yyyy-MM-dd",
