@@ -11,9 +11,8 @@ import java.io.IOException;
 
 public class Main {
     public static final String PATHNAME = "src/data/prevData";
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
+    public static void printLine()
+
 
     public static void printGreetings() {
         printLine();
