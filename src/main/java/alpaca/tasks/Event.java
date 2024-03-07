@@ -1,48 +1,24 @@
 package alpaca.tasks;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 public class Event extends Task {
 
-    private LocalDateTime from;
-    private LocalDateTime to;
+    protected String from;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+    protected String to;
 
-
-    public Event (String taskName, LocalDate startDay, LocalTime startTime, LocalDate endDay, LocalTime endTime) {
-        super(taskName);
-        this.from = LocalDateTime.of(startDay, startTime);
-        this.to = LocalDateTime.of(endDay, endTime);
-    }
-
-    public Event (String taskName, LocalDate startDay,  LocalDate endDay) {
-        super(taskName);
-        this.from = LocalDateTime.of(startDay, LocalTime.parse("00:00"));
-        this.to = LocalDateTime.of(endDay, LocalTime.parse("00:00"));
-    }
-
-    public Event (String taskName, LocalDateTime from,  LocalDateTime to) {
-        super(taskName);
+    public Event(String description, String from, String to) {
+        super(description);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String toString() {
-        String formattedStartTime = this.from.format(formatter);
-        String formattedEndTime = this.to.format(formatter);
-        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
+        return "[E]" + super.toString() + " (from: " + from +
+            " to: " + to + ")";
     }
 
-    @Override
     public String save() {
-        String formattedStartTime = this.from.format(formatter);
-        String formattedEndTime = this.to.format(formatter);
-        return "E | " + this.IntIsDone + " | " + this.description + " | " + formattedStartTime +
-            "| " + formattedEndTime;
+        return "E | " + IntIsDone + " | " + description + " | " + from
+            + "-" + to;
     }
 }
