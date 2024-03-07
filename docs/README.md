@@ -1,4 +1,4 @@
-# User Guide 
+# Aragorn 
 ________________________________
 Aragorn is a simple chatbot that helps you tracks your tasks!
 ## Quick Start
