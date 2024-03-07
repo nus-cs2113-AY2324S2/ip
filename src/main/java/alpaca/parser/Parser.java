@@ -85,6 +85,10 @@ public class Parser {
             ExitCommand exitCommand = new ExitCommand();
             exitCommand.execute();
             break;
+        case "find":
+            FindCommand findCommand = new FindCommand(details, tasks);
+            findCommand.execute();
+            break;
         default:
             throw new InvalidCommandException();
         }
