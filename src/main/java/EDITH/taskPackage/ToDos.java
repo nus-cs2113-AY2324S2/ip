@@ -1,4 +1,4 @@
-package taskPackage;
+package EDITH.taskPackage;
 
 /**
  * Represents a to-do task, which is a type of task with no specific deadline or timeframe.

@@ -1,6 +1,6 @@
-package ui;
+package EDITH.ui;
 
-import taskPackage.Task;
+import EDITH.taskPackage.Task;
 import java.util.List;
 
 /**

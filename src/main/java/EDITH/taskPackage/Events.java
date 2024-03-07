@@ -1,4 +1,4 @@
-package taskPackage;
+package EDITH.taskPackage;
 
 /**
  * Represents an event task, which is a type of task that occurs within a specific timeframe.

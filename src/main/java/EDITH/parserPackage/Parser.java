@@ -1,9 +1,9 @@
-package parserPackage;
+package EDITH.parserPackage;
 
-import edithExceptionPackage.ChatBotExceptions;
-import storagePackage.Storage;
-import taskListPackage.TaskList;
-import ui.Ui;
+import EDITH.edithExceptionPackage.ChatBotExceptions;
+import EDITH.storagePackage.Storage;
+import EDITH.taskListPackage.TaskList;
+import EDITH.ui.Ui;
 
 /**
  * Parses user commands and executes corresponding actions.

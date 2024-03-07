@@ -1,4 +1,4 @@
-package taskPackage;
+package EDITH.taskPackage;
 
 /**
  * Represents a task with a description and completion status.

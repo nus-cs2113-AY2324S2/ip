@@ -1,8 +1,9 @@
-import edithExceptionPackage.ChatBotExceptions;
-import parserPackage.Parser;
-import storagePackage.Storage;
-import taskListPackage.TaskList;
-import ui.Ui;
+package EDITH;
+
+import EDITH.parserPackage.Parser;
+import EDITH.storagePackage.Storage;
+import EDITH.taskListPackage.TaskList;
+import EDITH.ui.Ui;
 
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ public class ChatBot {
     private final Scanner in;
 
     /**
-     * Constructs a ChatBot object with the specified file path for task storage.
+     * Constructs a EDITH.ChatBot object with the specified file path for task storage.
      *
      * @param filePath The file path for task storage.
      */

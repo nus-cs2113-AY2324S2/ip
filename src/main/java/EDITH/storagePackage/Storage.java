@@ -1,11 +1,11 @@
-package storagePackage;
+package EDITH.storagePackage;
 
-import taskListPackage.TaskList;
-import taskPackage.Deadlines;
-import taskPackage.Events;
-import taskPackage.Task;
-import taskPackage.ToDos;
-import ui.Ui;
+import EDITH.taskListPackage.TaskList;
+import EDITH.taskPackage.Deadlines;
+import EDITH.taskPackage.Events;
+import EDITH.taskPackage.Task;
+import EDITH.taskPackage.ToDos;
+import EDITH.ui.Ui;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Storage {
     private static final String FILENAME = "text.txt";
-    private static final String DIRECTORY = "src/data";
+    private static final String DIRECTORY = "src/main/java/data";
 
     /**
      * Loads tasks from the file.
@@ -41,6 +41,10 @@ public class Storage {
                 System.out.println("Tasks have been loaded from " + filePath);
             } else {
                 System.out.println("No tasks file found at " + filePath);
+                // Create the file if it doesn't exist
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+                System.out.println("New tasks file created at " + filePath);
             }
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks from " + filePath);
@@ -116,5 +120,4 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,11 +1,11 @@
-package taskListPackage;
+package EDITH.taskListPackage;
 
-import taskPackage.Deadlines;
-import taskPackage.Events;
-import taskPackage.Task;
-import taskPackage.ToDos;
-import ui.Ui;
-import edithExceptionPackage.ChatBotExceptions;
+import EDITH.taskPackage.Deadlines;
+import EDITH.taskPackage.Events;
+import EDITH.taskPackage.Task;
+import EDITH.taskPackage.ToDos;
+import EDITH.ui.Ui;
+import EDITH.edithExceptionPackage.ChatBotExceptions;
 
 import java.util.ArrayList;
 import java.util.List;

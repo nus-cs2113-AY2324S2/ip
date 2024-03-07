@@ -1,4 +1,4 @@
-package taskPackage;
+package EDITH.taskPackage;
 
 /**
  * Represents a deadline task, which is a type of task with a specific deadline.

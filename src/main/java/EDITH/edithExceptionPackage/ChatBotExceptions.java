@@ -1,4 +1,4 @@
-package edithExceptionPackage;
+package EDITH.edithExceptionPackage;
 
 /**
  * Represents the exception that is thrown when an error occurs in the program.
