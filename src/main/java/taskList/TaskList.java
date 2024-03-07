@@ -25,13 +25,21 @@ public class TaskList {
         return allTasks;
     }
 
+    /**
+     * Displays the task list.
+     */
     public static void displayList() {
         Ui.drawLine(true);
         Ui.printTaskList();
         Ui.drawLine(true);
     }
-    
 
+    /**
+     * Adds a task to the list.
+     * 
+     * @param line The command entered by the user.
+     * @param isLoad A boolean to indicate if the task is loaded from the save file.
+     */
     public static void addTask(String line, boolean isLoad) {
 
         Task newTask = null;
@@ -53,6 +61,12 @@ public class TaskList {
         MARK, UNMARK, DELETE
     }
 
+    /**
+     * Performs the task operation based on the command entered by the user.
+     * 
+     * @param line The command entered by the user.
+     * @param status The type of task operation to perform.
+     */
     public static void performTaskOperation(String line, TaskStatus status) {
         int taskNumber = Integer.parseInt(line.replaceAll("\\D", "").trim()) - 1;
         
