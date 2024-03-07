@@ -1,5 +1,6 @@
 package alpaca.exceptions;
 
+
 /**
  * Parent class for all exceptions
  */

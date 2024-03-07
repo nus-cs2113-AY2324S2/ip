@@ -98,11 +98,14 @@ public class TaskList {
         return taskList;
     }
 
+<<<<<<< HEAD
     /**
      * Get the task at the specified index
      * @param keyword
      * @return
      */
+=======
+>>>>>>> master
     public String listMatchingTasks(String keyword) {
         String taskList = "";
         for (int i = 0; i < tasks.size(); i++) {
