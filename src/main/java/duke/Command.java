@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Class that contains the executions for all possible commands
+ */
 public class Command {
     private static TaskList taskList = new TaskList();
     private static UnparsedTaskList inputList = new UnparsedTaskList();
