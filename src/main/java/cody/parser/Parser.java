@@ -37,7 +37,7 @@ public class Parser {
         case "find":
             return handleFindCommand(argument);
         case "help":
-            return Ui.HELP_MESSAGE;
+            return handleHelpCommand(argument);
         default:
             return taskList.addTask(input);
         }
@@ -82,6 +82,13 @@ public class Parser {
             throw new CodyException("The 'find' command requires a keyword to search for");
         }
         return taskList.findTask(argument);
+    }
+
+    private String handleHelpCommand(String argument) throws CodyException {
+        if (!argument.isEmpty()) {
+            throw new CodyException("The 'help' command does not take any arguments");
+        }
+        return Ui.HELP_MESSAGE;
     }
 
     private int parseTaskNumber(String argument) throws CodyException {
