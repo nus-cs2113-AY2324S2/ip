@@ -91,7 +91,7 @@
   [X] borrow book
   ````
 + ### Marking a task as not done
-_Although the default status of the task is not done, users may sometimes
+  _Although the default status of the task is not done, users may sometimes
 accidentally mark the task as done, so they can reverse this action._
   + **Example of usage**:
   ````
@@ -114,7 +114,7 @@ accidentally mark the task as done, so they can reverse this action._
   Now you have 3 tasks in the list.
   ````
 + ### Error handling 
-_handles errors such as improper user input, eg without descriptions_
+  _handles errors such as improper user input, eg without descriptions_
   + **Example of usage**:
   ````
   todo
@@ -125,12 +125,12 @@ _handles errors such as improper user input, eg without descriptions_
   Help: Tasks start with todo, deadline or event.
   ````
 + ### Goodbye
-_exits the chatbot after this command, and user data is saved in a text file_
-+ **Example of usage**:
+  _exits the chatbot after this command, and user data is saved in a text file_
+  + **Example of usage**:
   ````
   bye
   ````
-+ **Expected outcome**:
+  + **Expected outcome**:
   ````
   Bye. Hope to see you again soon!
   ````
