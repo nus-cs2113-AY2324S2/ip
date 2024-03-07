@@ -14,17 +14,6 @@ public class Task {
     }
 
     /**
-     * Extracts number from the inputted user command.
-     *
-     * @param userCommand The user command from which the number is to be extracted.
-     * @return The extracted number from the user command.
-     */
-    public static int extractNumber(String userCommand) {
-        String numberExtracted = userCommand.replaceAll("[^0-9]", "");
-        return Integer.parseInt(numberExtracted);
-    }
-
-    /**
      * Sets the status of the task as done or not done.
      *
      * @param status The status indicates whether the task is done or not.
@@ -79,5 +68,4 @@ public class Task {
     public void printTask() {
         System.out.println(getStatusIcon() + " " + description);
     }
-
 }
