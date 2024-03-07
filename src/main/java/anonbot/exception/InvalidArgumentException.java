@@ -17,20 +17,20 @@ public class InvalidArgumentException extends Exception implements AnonbotExcept
         this.command = command;
     }
 
-    private void setArgument(String argument) {
-        this.argument = argument;
-    }
-
-    private void setCommandArgumentSyntax(String command) {
-        this.commandArgumentSyntax = Command.getAssociatedCommandArgumentSyntax(command);
-    }
-
     protected String getCommand() {
         return this.command;
     }
 
+    private void setArgument(String argument) {
+        this.argument = argument;
+    }
+
     protected String getArgument() {
         return this.argument;
+    }
+
+    private void setCommandArgumentSyntax(String command) {
+        this.commandArgumentSyntax = Command.getAssociatedCommandArgumentSyntax(command);
     }
 
     private String getCommandArgumentSyntax() {

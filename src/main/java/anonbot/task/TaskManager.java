@@ -15,12 +15,12 @@ public class TaskManager {
         return taskList;
     }
 
-    public static int getNumberOfActiveTasks() {
-        return totalTasksCreated;
-    }
-
     public static void setTotalTasksCreated(int totalTasks) {
         totalTasksCreated = totalTasks;
+    }
+
+    public static int getNumberOfActiveTasks() {
+        return totalTasksCreated;
     }
 
     public static Task createTask(String taskDescription, Task.TaskType taskType,

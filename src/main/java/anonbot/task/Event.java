@@ -14,20 +14,20 @@ public class Event extends Task {
         setTo(formattedEventDescription[2]);
     }
 
-    public String getFrom() {
-        return from;
-    }
-
     public void setFrom(String from) {
         this.from = from;
     }
 
-    public String getTo() {
-        return to;
+    public String getFrom() {
+        return from;
     }
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public String getTo() {
+        return to;
     }
 
     @Override
