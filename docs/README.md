@@ -4,6 +4,13 @@
 
 Atlas is an app for managing and scheduling your tasks
 
+## How to start the application?
+
+1. Make sure the JDK 11 is installed on the device
+2. Download the ip.jar file and put the file in an empty folder
+3. Open a command window in that folder
+4. Run the command java -jar ip.jar
+
 ## Features
 
 **Add Tasks:** You are able to add tasks such as todos, deadlines and events.
