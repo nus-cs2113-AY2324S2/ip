@@ -4,7 +4,7 @@ import Bobble.task.Deadline;
 import Bobble.task.Event;
 
 public class Parser {
-    public static String[] getCommandAndDesc(String input) {
+    public static String[] getCommandAndDescription(String input) {
         return input.split(" ", 2);
     }
 

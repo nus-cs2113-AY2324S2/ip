@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public String filePath;
+    private String filePath;
     private static final String DIRECTORY_PATH = "./data";
     private static final String DIVIDER = "\\|";
     private ArrayList<Task> savedTaskList = new ArrayList<>();
@@ -128,7 +128,7 @@ public class Storage {
     }
 
     private void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(this.filePath, true); // create a FileWriter in append mode
+        FileWriter fw = new FileWriter(this.filePath, true);
         fw.write(textToAppend + "\n");
         fw.close();
     }
