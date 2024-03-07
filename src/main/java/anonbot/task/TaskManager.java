@@ -1,9 +1,8 @@
 package anonbot.task;
 
 import anonbot.exception.InvalidArgumentException;
-import anonbot.exception.InvalidDeleteCommandException;
+import anonbot.exception.EmptyTaskArgumentException;
 import anonbot.exception.InvalidMarkCommandException;
-import anonbot.exception.InvalidTaskException;
 
 import java.util.ArrayList;
 
@@ -44,9 +43,9 @@ public class TaskManager {
     }
 
     public static void createNewTask(String taskDescription, Task.TaskType taskType)
-            throws InvalidTaskException {
+            throws EmptyTaskArgumentException {
         if (taskDescription.isEmpty()) {
-            throw new InvalidTaskException("Invalid Task: Task Description is empty");
+            throw new EmptyTaskArgumentException(taskType.name().toLowerCase());
         }
         if (taskType == Task.TaskType.INVALID) {
             System.out.println("Invalid Task Type");

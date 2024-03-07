@@ -50,12 +50,14 @@ public final class Command {
     public static String getAssociatedCommandArgumentSyntax(String command) {
         Command.CommandType commandType = Command.getCommandTypeFromString(command);
         switch (commandType) {
-
         case MARK:
         case UNMARK:
         case TODO:
+            return "todo <description>";
         case DEADLINE:
+            return "deadline <description> [/by <end_time>]";
         case EVENT:
+            return "event <description> [/from <start_time> [/to <end_time>]]";
         case DELETE:
             return "delete <task_number>";
         case FIND:
