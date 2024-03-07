@@ -4,18 +4,14 @@ import java.io.IOException;
 import exception.EkudException;
 import task.TaskList;
 import storage.Storage;
+import ui.UI;
 
 public class Duke {
 
     public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        */
+
+        System.out.println("Hello from\n" + UI.logo);
+
         System.out.println("I'm Ekud! What can I do for you?");
 
         String userInput;
