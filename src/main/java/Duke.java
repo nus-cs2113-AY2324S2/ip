@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -24,36 +25,36 @@ public class Duke {
     public void run() {
         TaskList tasks;
         Storage file;
-        try {
-            file = new Storage(filename);
+        file = new Storage(filename);
+        try{
             tasks = file.decodeTasks();
-            while (true) {
-                this.userInterface.printInputMessage();
-                String line = this.scanner.nextLine();
-                if (line.equals("bye")) {
-                    break;
-                }
-                if (line.isEmpty()) {
-                    continue;
-                }
-                if (line.equals("list")) {
-                    tasks.printTasks();
-                    continue;
-                }
-                try {
-                    Parser help = new Parser(line, tasks, file);
-                    Parser newHelp = help.parseParams();
-                    tasks = newHelp.getTaskList();
-                    file = newHelp.getStorage();
-                } catch (JxExceptions e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            userInterface.printLeaveMessage();
-        } catch (IOException ex) {
-            System.out.println("Error when handling files " + ex.getMessage());
-            throw new RuntimeException(ex);
+        } catch (FileNotFoundException ex) {
+            tasks = new TaskList();
         }
+
+        while (true) {
+            this.userInterface.printInputMessage();
+            String line = this.scanner.nextLine();
+            if (line.equals("bye")) {
+                break;
+            }
+            if (line.isEmpty()) {
+                continue;
+            }
+            if (line.equals("list")) {
+                tasks.printTasks();
+                continue;
+            }
+            try {
+                Parser help = new Parser(line, tasks, file);
+                Parser newHelp = help.parseParams();
+                tasks = newHelp.getTaskList();
+                file = newHelp.getStorage();
+            } catch (JxExceptions e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        userInterface.printLeaveMessage();
     }
 
     /**
