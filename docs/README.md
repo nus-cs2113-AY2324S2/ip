@@ -92,6 +92,7 @@ Lists all tasks your task list.<br>
     ____________________________________________________
    ```
 
+
 [Back to Commands Usage Overview](#commands-usage-overview)
 
 ### 5. Mark a task in task list: `mark`
@@ -132,6 +133,7 @@ Displays your tasks containing `WORD` in your task list.<br>
      2. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
     ____________________________________________________
    ```
+
 
 ### 8. Delete a task in task list: `delete`
 Deletes the selected task shown in the current task list.<br>
