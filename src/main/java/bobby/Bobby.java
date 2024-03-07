@@ -26,7 +26,7 @@ public class Bobby {
         storage = new Storage(filePath);
         parser = new Parser();
         tasks = new TaskList();
-        storage.createFile();
+        storage.createFileAndFolder();
         try {
             storage.loadFile(tasks.list);
         } catch (FileNotFoundException e) {

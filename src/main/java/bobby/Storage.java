@@ -24,11 +24,15 @@ public class Storage {
     }
 
     /**
-     * Creates a new file if it does not exist.
+     * Creates a new file and data folder if it does not exist.
      */
-    public void createFile() {
-        File f = new File(filePath);
+    public void createFileAndFolder() {
         try {
+            File f = new File(filePath);
+            File parentDir = f.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs();
+            }
             f.createNewFile();
         } catch (IOException e) {
             ui.showTextFileError();
