@@ -5,6 +5,9 @@ import exception.EkudException;
 import ui.UI;
 import ui.Parser;
 
+/**
+ * This TaskList class contains a list of tasks and methods to interact with it.
+ */
 public class TaskList {
 
     private int taskCount = 0;

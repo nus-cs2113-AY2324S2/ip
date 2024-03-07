@@ -1,5 +1,8 @@
 package ui;
 
+/**
+ * This UI class contains the messages to be displayed.
+ */
 public class UI {
 
     private static String LOGO = " ____        _        \n"

@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * This Event class represents a task and its ongoing period.
+ */
 public class Event extends Task {
 
     protected String startTime;
