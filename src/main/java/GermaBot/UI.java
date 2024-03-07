@@ -5,6 +5,9 @@ import Tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a class object for printing to standard output, as well as reading input.
+ */
 public class UI {
     static final String LINE= "____________________________________________";
     static final String WELCOME_MESSAGE = "Hei...! GermaBot here! \n"
@@ -78,6 +81,10 @@ public class UI {
                 " Remember to include the Task' Type in front of the input!!");
     }
 
+    /**
+     * Prints the list of tasks currently stored in the toDoList.
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     */
     public static void printTaskList(ArrayList<Task> toDoList) {
         System.out.println("Gotcha! Here are your tasks:");
         for (int i = 0; i < toDoList.size(); i++) {
@@ -106,12 +113,21 @@ public class UI {
                 "Let's try again!");
     }
 
+    /**
+     * Deletes a task to be removed from the task list.
+     * @param toDoList the list of tasks in the form of an ArrayList.
+     * @param idxToDelete is the index of the task that is going to be deleted.
+     */
     public static void deleteTask(ArrayList<Task> toDoList, int idxToDelete) {
         System.out.println("Okay! I've removed this task from your To Do List:");
         System.out.println(toDoList.get(idxToDelete));
         toDoList.remove(idxToDelete);
         System.out.println("Now you have, let me count... " + toDoList.size() + " items left in your " +
                 "To Do List!");
+    }
+
+    public static void printCreateTodoMessage(String toDoTask) {
+        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
     }
 
     public static void printCreateEventMessage(String toDoTask, String startDate, String endDate) {

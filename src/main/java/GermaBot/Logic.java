@@ -10,10 +10,20 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 
+
+/**
+ * Contains the main logic for handling user commands in the GermaBot application.
+ */
 public class Logic {
 
     public static TaskManager taskManager = new TaskManager();
 
+    /**
+     * Returns the index of a task in the arraylist that is specified in the input.
+     * @param input The user input.
+     * @return The index parsed from the input.
+     * @throws IllegalArgumentException If the input format is invalid, such as if there is no index provided.
+     */
     public static int getIdx(String input) throws IllegalArgumentException {
         int spaceIndex = input.indexOf(" ");
         if (spaceIndex == -1 || spaceIndex == input.length() - 1) {
@@ -22,7 +32,14 @@ public class Logic {
         return Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
     }
 
-
+    /**
+     * Creates a new ToDo task based on user input and adds it to the task list.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input containing the task description.
+     * @throws EmptyTaskException If the task description is empty.
+     * @throws IOException If there is an error saving the task to the file.
+     */
     public static void createTodo(ArrayList<Task> toDoList, String input) throws EmptyTaskException, IOException {
         int idxBetweenTodoAndDescription = 5;
         String toDoTask = input.substring(input.indexOf("todo ") + idxBetweenTodoAndDescription);
@@ -32,9 +49,18 @@ public class Logic {
         taskManager.addTodo(toDoList, toDoTask);
         Task.setNoOfTask(Task.getNoOfTask() + 1);
         Storage.saveTodo(new ToDo(toDoTask), 'T');
-        System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
+        UI.printCreateTodoMessage(toDoTask);
     }
 
+    /**
+     * Creates a new Deadline task based on user input and adds it to the task list.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input containing the task description and deadline.
+     * @throws EmptyTaskException If the task description is empty.
+     * @throws MissingDeadlineException If the deadline is missing.
+     * @throws IOException If there is an error saving the task to the file.
+     */
     public static void createDeadline(ArrayList<Task> toDoList, String input) throws EmptyTaskException, MissingDeadlineException, IOException {
         String description = input.replaceFirst("deadline ", "");
         if (description.equals("deadline")) {
@@ -56,6 +82,16 @@ public class Logic {
         UI.printCreateDeadlineMessage(toDoTask, date);
     }
 
+    /**
+     * Creates a new Event task based on user input and adds it to the task list.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input containing the task description, start date, and end date.
+     * @throws EmptyTaskException If the task description is empty.
+     * @throws MissingDeadlineException If the end date is missing.
+     * @throws MissingStartDateException If the start date is missing.
+     * @throws IOException If there is an error saving the task to the file.
+     */
     public static void createEvent(ArrayList<Task> toDoList, String input) throws EmptyTaskException, MissingDeadlineException,
             MissingStartDateException, IOException {
         String description = input.replaceFirst("event ", "");
@@ -87,6 +123,13 @@ public class Logic {
         UI.printCreateEventMessage(toDoTask, startDate, endDate);
     }
 
+    /**
+     * Deletes a task from the task list based on the index specified in the user input.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input containing the index of the task to be deleted.
+     * @throws TaskNotFoundException If the specified task index is not found.
+     */
     public static void deleteTask(ArrayList<Task> toDoList, String input) throws TaskNotFoundException {
         try {
             int idxToDelete = getIdx(input);
@@ -101,6 +144,12 @@ public class Logic {
         }
     }
 
+    /**
+     * Processes user input to create, delete, or manage tasks.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input command.
+     */
     public static void createTask(ArrayList<Task> toDoList, String input) {
         if (input.startsWith("delete")) {
             try {
@@ -146,6 +195,12 @@ public class Logic {
         }
     }
 
+    /**
+     * Searches for tasks in the task list that match the keyword specified in the user input.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input containing the search keyword.
+     */
     public static void findTask(ArrayList<Task> toDoList, String input) {
         int counter = 1;
         int idxBetweenFindAndDescription = 5;
@@ -165,6 +220,13 @@ public class Logic {
         }
     }
 
+    /**
+     * Interprets and executes the command specified in the user input.
+     *
+     * @param toDoList The list of tasks in the form of an ArrayList.
+     * @param input The user input command.
+     * @throws UnknownInputException If the input command is not recognized.
+     */
     public static void readCommand(ArrayList<Task> toDoList, String input) throws UnknownInputException {
         if (input.startsWith("delete") || input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             createTask(toDoList, input);
