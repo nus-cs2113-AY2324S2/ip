@@ -5,6 +5,7 @@ import static duke.print.printMessage;
 /** Universal print functions used by most Classes */
 public class Ui {
     public static final String chatbotName = "Noriaki";
+
     /**
      * Prints greeting.
      */
