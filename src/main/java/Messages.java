@@ -30,10 +30,12 @@ public class Messages{
     public static final String MARK_DONE_MESSAGE = "Nice! I've marked this task as done:";
     public static final String UNMARK_DONE_MESSAGE = "OK, I've marked this task as not done yet:";
     public static final String TASK_ADDED_MESSAGE = "Got it. I've added this task:";
+    public static final String ITEM_REMOVED_MESSAGE = "Item above has been removed!";
     public static final String FILE_CORRUPTED_MESSAGE = "Data file is corrupted: ";
     public static final String ERROR_SAVING_DATA_MESSAGE = "Error saving tasks to file: ";
     public static final String ERROR_READING_FILE_MESSAGE = "Error reading tasks from file: ";
     public static final String TASKS_SAVED_MESSAGE = "Tasks saved successfully.";
     public static final String FAREWELL_MESSAGE = "Bye! Hope to see you again :)";
-
+    public static final String NUMBER_OF_TASKS_MESSAGE_FRONT = "Now you have ";
+    public static final String NUMBER_OF_TASKS_MESSAGE_BACK = " task(s) in the list.";
 }
