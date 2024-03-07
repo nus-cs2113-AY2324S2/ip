@@ -30,7 +30,7 @@ public class Bobble {
         String userInput = input.nextLine();
 
         while (!userInput.equals("bye")) {
-            String[] UserInputs = Parser.getCommandAndDesc(userInput);
+            String[] UserInputs = Parser.getCommandAndDescription(userInput);
             String command = UserInputs[0];
             try {
                 switch (command.toLowerCase()) {
@@ -72,6 +72,10 @@ public class Bobble {
                     ui.printDeleteResponse(tasks.taskList, tasks.taskList.get(taskNumber));
                     tasks.deleteTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
+                    break;
+                case "find":
+                    String keyword = UserInputs[1];
+                    tasks.findTask(keyword);
                     break;
                 default:
                     throw new BobbleExceptionCommand();
