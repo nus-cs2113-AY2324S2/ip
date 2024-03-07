@@ -8,12 +8,17 @@ public class Todo extends Task{
     {
         super(task,isComplete);
     }
-    public String toString() {
+
+    public String toString()
+    {
         return "[T]" + super.toString();
     }
-    protected String getTaskType() {
+
+    protected String getTaskType()
+    {
         return "T";
     }
+
     public String toFileFormat() {
         return String.format("%s | %d | %s", getTaskType(), this.isComplete() ? 1 : 0, this.getTask());
     }
