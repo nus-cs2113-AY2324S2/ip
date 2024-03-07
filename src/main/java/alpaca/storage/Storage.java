@@ -9,12 +9,16 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private static final String FILE_PATH = "data/Alpaca.txt";
     private static final File file = new File(FILE_PATH);
 
     private static int isTaskDone; //keep track of task status in the file
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 
     public static boolean isFileExist() {
         return file.exists();
@@ -41,11 +45,13 @@ public class Storage {
             return new Todo(split[2].strip());
 
         case "D":
-            return new Deadline(split[2].strip(), split[3].strip());
+            LocalDateTime deadline = LocalDateTime.parse(split[3].strip(), formatter);
+            return new Deadline(split[2].strip(), deadline);
 
         case "E":
-            String[] date = split[3].split("-");
-            return new Event(split[2].strip(), date[0].strip(), date[1].strip());
+            LocalDateTime from = LocalDateTime.parse(split[3].strip(), formatter);
+            LocalDateTime to = LocalDateTime.parse(split[4].strip(), formatter);
+            return new Event(split[2].strip(), from, to);
 
         default:
             throw new InvalidFileException();
