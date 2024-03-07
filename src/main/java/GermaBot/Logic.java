@@ -12,6 +12,8 @@ import java.io.File;
 
 public class Logic {
 
+    public static TaskManager taskManager = new TaskManager();
+
     public static int getIdx(String input) {
         return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
     }
@@ -22,7 +24,7 @@ public class Logic {
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
-        toDoList.add(new ToDo(toDoTask));
+        taskManager.addTodo(toDoList, toDoTask);
         Task.setNoOfTask(Task.getNoOfTask() + 1);
         Storage.saveTodo(new ToDo(toDoTask), 'T');
         System.out.println("Gotcha! Added '" + toDoTask + "' to your To Do List!");
@@ -43,7 +45,7 @@ public class Logic {
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
-        toDoList.add(new Deadline(description.substring(0, idxOfEndDate - 1), date));
+        taskManager.addDeadline(toDoList, description, idxOfEndDate, date);
         Task.setNoOfTask(Task.getNoOfTask() + 1);
         Storage.saveDeadline(new Deadline(description.substring(0, idxOfEndDate - 1), date), 'D');
         UI.printCreateDeadlineMessage(toDoTask, date);
@@ -74,7 +76,7 @@ public class Logic {
         if (toDoTask.isBlank()) {
             throw new EmptyTaskException();
         }
-        toDoList.add(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate));
+        taskManager.addEvent(toDoList, description, idxOfFrom, startDate, endDate);
         Task.setNoOfTask(Task.getNoOfTask() + 1);
         Storage.saveEvent(new Event(description.substring(0, idxOfFrom - 1), startDate, endDate), 'E');
         UI.printCreateEventMessage(toDoTask, startDate, endDate);
@@ -86,7 +88,8 @@ public class Logic {
             throw new TaskNotFoundException();
         } else {
             UI.deleteTask(toDoList, idxToDelete);
-            Task.setNoOfTask(Task.getNoOfTask() - 1);;
+            Task.setNoOfTask(Task.getNoOfTask() - 1);
+            ;
         }
     }
 
@@ -98,8 +101,7 @@ public class Logic {
                 int idx = getIdx(input);
                 UI.printTaskNotFoundException(idx);
             }
-        }
-        else if (input.startsWith("todo")) {
+        } else if (input.startsWith("todo")) {
             try {
                 createTodo(toDoList, input);
             } catch (EmptyTaskException e) {
@@ -107,8 +109,7 @@ public class Logic {
             } catch (IOException e) {
                 UI.printIOException();
             }
-        }
-        else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline")) {
             try {
                 createDeadline(toDoList, input);
             } catch (EmptyTaskException e) {
@@ -118,8 +119,7 @@ public class Logic {
             } catch (IOException e) {
                 UI.printIOException();
             }
-        }
-        else if (input.startsWith("event")) {
+        } else if (input.startsWith("event")) {
             try {
                 createEvent(toDoList, input);
             } catch (EmptyTaskException e) {
@@ -137,8 +137,7 @@ public class Logic {
     public static void readCommand(ArrayList<Task> toDoList, String input) throws UnknownInputException {
         if (input.startsWith("delete") || input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             createTask(toDoList, input);
-        }
-        if (input.equals("list")) {
+        } else if (input.equals("list")) {
             if (toDoList.isEmpty()) {
                 UI.printListEmptyMessage();
             } else {
@@ -146,14 +145,13 @@ public class Logic {
             }
         } else if (input.contains("unmark")) {
             int idx = getIdx(input);
-            toDoList.get(idx).setDone(false);
+            taskManager.markTaskUndone(toDoList, idx);
             UI.printMarkUndone(idx, toDoList);
         } else if (input.contains("mark")) {
             int idx = getIdx(input);
-            toDoList.get(idx).setDone(true);
+            taskManager.markTaskDone(toDoList, idx);
             UI.printMarkDone(idx, toDoList);
-        }
-        else {
+        } else {
             throw new UnknownInputException();
         }
     }
