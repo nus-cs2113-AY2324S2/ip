@@ -7,6 +7,9 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Assumption: Every field must be present and not NULL
+     */
     public Event(String description, boolean isDone) {
         super(getTask(description), isDone);
         this.from = getFrom(description);

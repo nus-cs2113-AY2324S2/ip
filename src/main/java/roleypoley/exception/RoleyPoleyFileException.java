@@ -1,5 +1,9 @@
 package roleypoley.exception;
 
+/**
+ * Handle exception regarding reading and storing data from text file
+ * Displays the appropriate format if there is an error
+ */
 public class RoleyPoleyFileException extends Exception {
     public RoleyPoleyFileException(String errorMessage) {
         switch (errorMessage) {
