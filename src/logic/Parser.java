@@ -7,6 +7,7 @@ import command.DeleteCommand;
 import command.EventCommand;
 import command.FindCommand;
 import command.FinddateCommand;
+import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.PostponeCommand;
@@ -21,13 +22,17 @@ import templates.task.Task;
 import templates.task.ToDo;
 
 /**
- * Parser class is responsible for interpreting and converting user input strings into executable command objects within the Mario chat application.
- * It analyzes the first word of the input to determine the command type and constructs the corresponding command object with the provided details.
- * Additionally, it includes utility methods for removing the first word from the input string and verifying the presence of necessary arguments in the command string.
- * The class also includes a method for parsing tasks from strings, facilitating the initialization of tasks from saved data.
+ * Parser class is responsible for interpreting and converting user input
+ * strings into executable command objects within the Mario chat application.
+ * It analyzes the first word of the input to determine the command type and
+ * constructs the corresponding command object with the provided details.
+ * Additionally, it includes utility methods for removing the first word from
+ * the input string and verifying the presence of necessary arguments in the
+ * command string.
+ * The class also includes a method for parsing tasks from strings, facilitating
+ * the initialization of tasks from saved data.
  */
 
- 
 public class Parser {
     public static BaseCommand parse(String args) throws Exception {
         String firstWord = args.split(" ")[0].toLowerCase();
@@ -72,6 +77,8 @@ public class Parser {
             case "postpone":
                 checkTaskString(taskString);
                 return new PostponeCommand(taskString);
+            case "help":
+                return new HelpCommand();
             default:
                 return null;
         }
@@ -96,7 +103,7 @@ public class Parser {
         }
     }
 
-    public static void parseTaskFromString(String data, TaskList taskList) throws Exception{
+    public static void parseTaskFromString(String data, TaskList taskList) throws Exception {
         Task task = null;
         data = data.substring(data.indexOf("["), data.length());
         Boolean markedStatus = data.charAt(5) == 'X';
