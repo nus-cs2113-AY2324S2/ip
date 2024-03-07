@@ -22,7 +22,7 @@ of your to-do list.
 ## Quick Start
 
 1. Ensure that you have the latest Java 11.
-2. Download the latest `ip.jar` file from _github link_.
+2. Download the latest `ip.jar` file from https://github.com/syj02/ip/releases.
 3. Copy the file to the folder you want to use as the home folder for Jane.
 4. Open a command terminal, `cd` to the folder containing `ip.jar` and use 
    `java -jar ip.jar` to run the application.
