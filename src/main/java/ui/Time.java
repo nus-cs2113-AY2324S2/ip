@@ -15,12 +15,12 @@ public class Time {
             "yyyy[-][ ][.][/]MM[-][ ][.][/]dd",  // 1989<?>06<?>04
             "dd[-][ ][.][/]MM[-][ ][.][/]yyyy",  // 04<?>06<?>1989
             "dd[-][ ][.][/]MMM[-][ ][.][/]yyyy", // 04<?>Jun<?>1989
-            "MMM dd[,] yyyy", // Jun 04(,) 1989
+            "MMM dd[,] yyyy",                    // Jun 04(,) 1989
     };
 
     private static final String[] TIME_PATTERNS = {
-            "HH[:]mm",    // 24-hour format with leading zeros (e.g. 13:45, 1345)
-            "hh[:]mma",   // 12-hour format with leading zeros and AM/PM indicator (e.g. 01:45pm, 0145pm)
+            "HH[:]mm",  // 24-hour format with leading zeros (e.g. 13:45, 1345)
+            "hh[:]mma", // 12-hour format with leading zeros and AM/PM indicator (e.g. 01:45pm, 0145pm)
             "H:mm",     // 24-hour format without leading zeros (e.g. 9:45)
             "h:mma",    // 12-hour format without leading zeros, with AM/PM indicator (e.g. 1:45pm)
             "Hmm",      // 24-hour format without separators and leading zeros (e.g. 945)
@@ -63,8 +63,8 @@ public class Time {
                     String today = LocalDate.now().toString();
                     DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder()
                             .parseCaseInsensitive()
-                            .appendPattern("yyyy-MM-dd").appendPattern(" ")
-                            .appendPattern(timePattern)
+                            .append(DateTimeFormatter.ISO_LOCAL_DATE)
+                            .appendPattern(" ").appendPattern(timePattern)
                             .toFormatter();
 
                     return LocalDateTime.parse(today + " " + input.toLowerCase(), timeFormatter);
@@ -79,7 +79,7 @@ public class Time {
 
     /**
      * <h3>To be used on the event or deadline task to standardize the date and time input.</h3>
-     * <p>The date and time input will be standardized to MMM dd, yyyy, hh:mma<br>
+     * <p>The date and time input will be standardized to MMM dd, yyyy, h:mma<br>
      * (e.g., Oct 15, 2019, 6:00PM) with time being optional.</p>
      *
      * @param inputDateTime The date and time input to be standardized.
