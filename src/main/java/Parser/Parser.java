@@ -38,11 +38,11 @@ public class Parser {
         }
         String event = input.substring(EVENT_TASK_INDEX);
         String[] parts = event.split(" /from ");
-        if (parts.length == 1){
+        if (parts.length == 1) {
             throw new IncorrectFormatException();
         }
         String[] time = parts[1].split(" /to ");
-        if (time.length == 1){
+        if (time.length == 1) {
             throw new IncorrectFormatException();
         }
         return parts[0] + " (from: " + time[0] + " to: " + time[1] + ")";
@@ -61,7 +61,7 @@ public class Parser {
         }
         String deadline = input.substring(DEADLINE_TASK_INDEX);
         String[] parts = deadline.split(" /by ");
-        if (parts.length == 1){
+        if (parts.length == 1) {
             throw new IncorrectFormatException();
         }
         return parts[0] + " (by: " + parts[1] + ")";
@@ -81,7 +81,7 @@ public class Parser {
         return input.substring(TODO_TASK_INDEX);
     }
 
-    public String parseFind(String input)  {
+    public String parseFind(String input) {
         return input.substring(FIND_TASK_INDEX);
     }
 
@@ -89,10 +89,10 @@ public class Parser {
      * Gets the index of the task to mark as done from the input string.
      *
      * @param inputList the list of task objects
-     * @param input the input string containing the index of the task to mark as done
+     * @param input     the input string containing the index of the task to mark as done
      * @return the index of the task to mark as done
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
-     * @throws TaskNotFoundException if the specified task index is out of bounds
+     * @throws TaskNotFoundException     if the specified task index is out of bounds
      */
     public int getIndexMark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (MARK_TASK_INDEX > input.length()) {
@@ -109,10 +109,10 @@ public class Parser {
      * Gets the index of the task to mark as not done from the input string.
      *
      * @param inputList the list of task objects
-     * @param input the input string containing the index of the task to unmark as undone
+     * @param input     the input string containing the index of the task to unmark as undone
      * @return the index of the task to unmark as undone
      * @throws ArgumentNotFoundException if the required arguments are not found in the input
-     * @throws TaskNotFoundException if the specified task index is out of bounds
+     * @throws TaskNotFoundException     if the specified task index is out of bounds
      */
     public int getIndexUnmark(ArrayList<Task> inputList, String input) throws ArgumentNotFoundException, TaskNotFoundException {
         if (UNMARK_TASK_INDEX > input.length()) {
