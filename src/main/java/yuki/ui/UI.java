@@ -5,6 +5,9 @@ import yuki.Utils;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * Handles interactions with user.
+ */
 public class UI {
     private final Scanner in;
 
@@ -24,6 +27,9 @@ public class UI {
         Utils.printExitMessage();
     }
 
+    /**
+     * Greets user, then accepts input that the user keys into the keyboard.
+     */
     public String getUserInput() {
         System.out.println("Enter command:");
         String fullInputLine = in.nextLine();

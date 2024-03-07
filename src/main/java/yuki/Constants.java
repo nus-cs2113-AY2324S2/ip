@@ -40,6 +40,6 @@ public class Constants {
     public static final int INDEX_DESCRIPTION = 1;
 
     // for mark, unmark, and delete commands.
-    // extract index of task from the user input.
+    // extracts index of task from the user input.
     public static final int TASK_INDEX = 1;
 }
