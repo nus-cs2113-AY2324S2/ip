@@ -25,7 +25,7 @@ public class TaskManager {
 
     public static Task createTask(String taskDescription, Task.TaskType taskType,
             int taskNumber, boolean isTaskDone) {
-        Task newTask = null;
+        Task newTask;
 
         switch (taskType) {
         case TODO:
@@ -37,9 +37,13 @@ public class TaskManager {
         case EVENT:
             newTask = new Event(taskDescription, taskNumber);
             break;
+        default:
+            newTask = null;
         }
-        newTask.setTaskStatus(isTaskDone);
-        taskList.add(newTask);
+        if (newTask != null) {
+            newTask.setTaskStatus(isTaskDone);
+            taskList.add(newTask);
+        }
         return newTask;
     }
 
@@ -57,8 +61,12 @@ public class TaskManager {
         // As long as there is a description, we shall accept the new task
         totalTasksCreated += 1;
         Task newTask = createTask(taskDescription, taskType, totalTasksCreated, false);
-        System.out.println("Alright. I have added this task: ");
-        newTask.printTask();
+        if (newTask != null) {
+            System.out.println("Alright. I have added this task: ");
+            newTask.printTask();
+        } else {
+            System.out.println("Oops, Something went wrong. I can't add the task requested.");
+        }
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
