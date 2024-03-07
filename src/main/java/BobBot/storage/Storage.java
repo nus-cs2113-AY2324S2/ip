@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import BobBot.taskList.TaskList;
 import BobBot.tasks.Task;
 import BobBot.ui.Ui;
-import taskList.TaskList;
 
 /**
  * Implements a storage system that saves task details entered by the user.

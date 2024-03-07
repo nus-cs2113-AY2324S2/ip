@@ -7,12 +7,12 @@ import BobBot.exceptions.InvalidDeadlineException;
 import BobBot.exceptions.InvalidEventException;
 import BobBot.exceptions.InvalidTodoException;
 import BobBot.storage.Storage;
+import BobBot.taskList.TaskList;
 import BobBot.tasks.Deadline;
 import BobBot.tasks.Event;
 import BobBot.tasks.Task;
 import BobBot.tasks.Todo;
 import BobBot.ui.Ui;
-import taskList.TaskList;
 
 /**
  * Implements a parser that interprets user input and performs the necessary 

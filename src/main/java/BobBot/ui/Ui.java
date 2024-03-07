@@ -3,8 +3,8 @@ package BobBot.ui;
 import java.util.ArrayList;
 
 import BobBot.exceptions.BobBotExceptions;
+import BobBot.taskList.TaskList;
 import BobBot.tasks.Task;
-import taskList.TaskList;
 
 /**
  * Implements a user interface that displays messages to the user.
