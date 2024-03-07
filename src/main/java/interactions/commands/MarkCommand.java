@@ -1,0 +1,53 @@
+package interactions.commands;
+
+import interactions.Storage;
+import interactions.Ui;
+import tasks.Task;
+import tasks.TaskList;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class MarkCommand extends Command {
+    public MarkCommand() {
+
+    }
+
+    /**
+     * Marks or unmarks a task from the task list given the index given in the input.
+     *
+     * @param tasklist List of tasks containing ToDo's, Events and Deadlines.
+     */
+    public void mark(TaskList tasklist) {
+        boolean isMark = firstWord.equals("mark");
+        int index = Integer.parseInt(taskDescription);
+        ArrayList<Task> list = tasklist.getList();
+        Task markedTask = list.get(index - 1);
+        if (markedTask.isMarked() == isMark) {
+            System.out.println("This task is already set as " + (isMark ? "marked." : "unmarked."));
+            return;
+        }
+        if (isMark) {
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.print(INDENT);
+        markedTask.setMarked(isMark);
+        markedTask.print();
+    }
+    @Override
+    public void execute(TaskList taskList, Storage storage) {
+        setLastCommand(this);
+        try {
+            mark(taskList);
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry, please input an integer.");
+        }
+        try {
+            storage.saveToFile("data/list.txt", taskList);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+}
