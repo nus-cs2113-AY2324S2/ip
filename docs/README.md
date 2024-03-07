@@ -13,7 +13,7 @@ Jarvas is a bot used for managing a task list, optimised for use via a Command L
   - [Deleting Tasks: `delete`](#deleting-tasks-delete)
   - [Find a Task: `find`](#find-a-task-find)
   - [Print Help Message: `help`](#print-help-message-help)
-  - [Exit and Write Data: `bye`](#exit-bot-bye)
+  - [Exit Bot and Write Data: `bye`](#exit-bot-bye)
 * [Frequently Asked Questions (FAQ)](#faq)
 
 ## Quick Start
@@ -308,7 +308,7 @@ find format: find *keyword*
 ____________________________________________________________
 ```
 
-### Exit and Write Data: `bye`
+### Exit Bot: `bye`
 
 Exits bot and writes task list data to `saveFile.txt`. 
 Exiting bot **without** `bye` **MAY write** to `saveFile.txt` but can **result in corruption**.
