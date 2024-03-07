@@ -34,16 +34,15 @@ public class Task {
         Task task;
         switch (taskType) {
             case "D":
-                task = new Deadline(description); // Create Deadline task
+                task = new Deadline(description);
                 break;
             case "E":
-                task = new Event(description); // Create Event task
+                task = new Event(description);
                 break;
             case "T":
-                task = new ToDo(description); // Create Todo task
+                task = new ToDo(description);
                 break;
             default:
-                // Handle unknown task type
                 task = null;
                 break;
         }

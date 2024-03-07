@@ -9,9 +9,7 @@ public class Deadline extends Task {
         if (dividerIndex == -1) {
             this.description = description;
             setDateOfDeadline(null);
-        }
-
-        else {
+        } else {
             String endDate = description.substring(dividerIndex + 3);
             String descriptionWithoutDate = description.substring(0, (dividerIndex - 1)).replace("deadline", "");
             setDateOfDeadline(endDate);

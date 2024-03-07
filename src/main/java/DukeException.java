@@ -14,8 +14,7 @@ public class DukeException extends Exception {
 
             if (input.startsWith("mark") || input.startsWith("unmark")) {
                 System.out.println("The task to marked or unmarked is not stated clearly.");
-            }
-            else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+            } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                 System.out.println("Incomplete " + splitInput[0] + " detected. " +
                         "Your statement is not clear. Please fix this.");
             }
