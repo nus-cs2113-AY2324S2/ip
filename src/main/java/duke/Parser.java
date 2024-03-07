@@ -30,7 +30,8 @@ public class Parser {
 
         switch (command) {
         case "list":
-            taskList.printList();
+            String message = "";
+            taskList.printList(message);
             break;
         case "mark":
             taskList.markTask(argument, true);
