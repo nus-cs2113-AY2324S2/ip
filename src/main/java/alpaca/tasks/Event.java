@@ -1,10 +1,16 @@
 package alpaca.tasks;
 
+<<<<<<< HEAD
+/**
+ * Represents an event task
+ */
+=======
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+>>>>>>> master
 public class Event extends Task {
 
     private LocalDateTime from;
