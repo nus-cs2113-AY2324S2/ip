@@ -1,5 +1,8 @@
 package anonbot.misc;
 
+/**
+ * Provides functionality to break up raw user input into commands and respective arguments.
+ */
 public class Parser {
     public static String getCommand(String userInput) {
         return userInput.split(" ", 2)[0];
@@ -33,7 +36,7 @@ public class Parser {
 
     /**
      * Parse the raw deadline description and break into its constituent parts.
-     * Currently does not check if the deadline task has the right format (/by)
+     * Does not check if the deadline task has the right format (/by)
      *
      * @param rawDeadlineDescription The unformatted deadline description
      * @return The formatted event description in the form {"Deadline Description", "/by info"}
@@ -54,7 +57,7 @@ public class Parser {
 
     /**
      * Parse the raw event description and break into its constituent parts.
-     * Currently not check if the event task has the right format (/from, /to).
+     * Does not check if the event task has the right format (/from, /to).
      *
      * @param rawEventDescription The unformatted event description.
      * @return The formatted event description in the form {"Event Description", "/from info", "/to info"}
