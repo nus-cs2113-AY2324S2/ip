@@ -7,6 +7,10 @@ import jason.tasks.Events;
 
 import jason.errorhandling.JasonException;
 
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  * Represents a list of tasks including todos, deadlines, and events.
  * Allows for adding, deleting, marking, and unmarking tasks.
@@ -68,17 +72,26 @@ public class TaskList {
      * @throws JasonException if the format is invalid or description/date/time is empty.
      */
     public void addDeadlineTask(String task) throws JasonException {
-        if (!task.contains("/by")) {
-            throw new JasonException("Invalid task format. Use 'deadline [description] /by [date/time]'.");
-        }
         String[] parts = task.split("/by", 2);
-        String taskDescription = parts[0].substring(9).trim();
-        String taskDeadlineBy = parts[1].trim();
-
-        if (taskDescription.isEmpty() || taskDeadlineBy.isEmpty()) {
-            throw new JasonException("Invalid task. Description and date/time cannot be empty.");
+        if (parts.length < 2) {
+            throw new JasonException("Invalid deadline format. Use 'deadline [description] /by yyyy-MM-dd'.");
         }
-        Deadline newDeadline = new Deadline(taskDescription, taskDeadlineBy);
+
+        String taskDescription = parts[0].substring(9).trim();
+        String dateString = parts[1].trim();
+
+        LocalDate date;
+        try {
+            date = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new JasonException("Invalid date format. Please use yyyy-MM-dd format.");
+        }
+
+        // Format the date into the format: "MMM dd yyyy"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedDate = date.format(formatter);
+
+        Deadline newDeadline = new Deadline(taskDescription, formattedDate);
         list.add(newDeadline);
         System.out.println("Got it. I've added this task:");
         System.out.println(newDeadline);
@@ -95,25 +108,40 @@ public class TaskList {
         if (!task.contains("/from") && !task.contains("/to")) {
             throw new JasonException("Invalid task format. Use 'event [description] /from [date/time] /to [date/time] '.");
         }
-        String[] parts = task.split("/from", 2);
-        String taskDescription = parts[0].substring(6).trim();
-        if (parts.length < 2 || taskDescription.isEmpty()) {
-            throw new JasonException("Invalid task. The description of an event cannot be empty.");
+        String[] parts = task.split("/from|/to", 3);
+        if (parts.length < 3) {
+            throw new JasonException("Incomplete event details provided.");
         }
-        String[] timeParts = parts[1].trim().split("/to", 2);
-        String eventStartFrom = timeParts[0].trim();
-        String eventTill = timeParts.length > 1 ? timeParts[1].trim() : "";
 
-        if (eventStartFrom.isEmpty() || eventTill.isEmpty()) {
-            throw new JasonException("Invalid event times. Please type in the format: description /from (date/time) /to (date/time).");
+        String description = parts[0].substring(6).trim();
+        String startDateTimeStr = parts[1].trim();
+        String endDateTimeStr = parts[2].trim();
+
+        // Append the current year to your datetime string to comply with LocalDateTime requirements
+        int currentYear = LocalDateTime.now().getYear();
+        startDateTimeStr = currentYear + "-" + startDateTimeStr;
+        endDateTimeStr = currentYear + "-" + endDateTimeStr;
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd HH:mm");
+
+        try {
+            LocalDateTime startDateTime = LocalDateTime.parse(startDateTimeStr, inputFormatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(endDateTimeStr, inputFormatter);
+
+            String formattedStart = startDateTime.format(outputFormatter);
+            String formattedEnd = endDateTime.format(outputFormatter);
+
+            Events newEvent = new Events(description, formattedStart, formattedEnd);
+            list.add(newEvent);
+
+            System.out.println("Got it. I've added this event:");
+            System.out.println(newEvent);
+            Ui.showTaskNumber(list);
+        } catch (Exception e) {
+            throw new JasonException("Invalid date/time format. Please use 'MM-dd HH:mm' format.");
         }
-        Events newEvent = new Events(taskDescription, eventStartFrom, eventTill);
-        list.add(newEvent);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(newEvent);
-        Ui.showTaskNumber(list);
     }
-
     public void deleteTask(String[] input) throws JasonException {
         try {
             int taskNumber = Integer.parseInt(input[1]) - 1;
@@ -166,6 +194,8 @@ public class TaskList {
             throw new JasonException("Please enter a valid task number.");
         }
     }
+
+
 
     public ArrayList<Task> getTasks() {
         return list;
