@@ -6,11 +6,14 @@ import interactions.Storage;
 import tasks.Task;
 import tasks.TaskList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Command {
     protected static final String INDENT = "      ";
-    protected String firstWord, line, taskDescription;
+    protected String firstWord;
+    protected String line;
+    protected String taskDescription;
 
     public String getTaskDescription() {
         return taskDescription;
@@ -33,10 +36,6 @@ public abstract class Command {
 
     public void setLine(String line) {
         this.line = line;
-    }
-    public void countTasks(ArrayList<Task> list) {
-        int currSize = list.size();
-        System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
     }
 
     protected String extractTaskOrDate(String line, String keyword) throws IncompletePromptException {
@@ -66,7 +65,7 @@ public abstract class Command {
         return line.substring(index).trim();
     }
 
-    public abstract void execute(TaskList list, Storage storage) throws IncompletePromptException, UnknownPromptException;
+    public abstract void execute(TaskList taskList, Storage storage) throws IncompletePromptException, UnknownPromptException;
     public Command(){
 
     }

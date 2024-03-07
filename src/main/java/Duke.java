@@ -1,9 +1,11 @@
 import customexceptions.IncompletePromptException;
 import customexceptions.UnknownPromptException;
+import interactions.Parser;
 import interactions.Storage;
 import interactions.Ui;
-import interactions.TaskList;
-import interactions.Parser;
+import interactions.commands.Command;
+import tasks.TaskList;
+import interactions.commands.AddCommand;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -33,11 +35,17 @@ public class Duke {
                 break;
             }
             if (line.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 list.printList();
             }
+            //ui.interact(ui, list, line);
             try {
                 Parser parser = new Parser(ui, list);
-                parser.handleCommand(line);
+                Command c = parser.parse(line);
+                if (c != null) {
+                    c.execute(list, storageHandler);
+                }
+                //parser.handleCommand(line);
             } catch (IncompletePromptException e) {
                 if (!line.equals("list")) {
                     System.out.println("Sorry, your sentence appears to be incomplete. Could you complete your sentence?");

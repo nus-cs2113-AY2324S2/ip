@@ -117,7 +117,6 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        System.out.println("Noted. I've removed this task:");
         System.out.print(INDENT);
         lastActionTask = list.get(index - 1);
         lastActionTask.print();
@@ -126,7 +125,6 @@ public class TaskList {
     }
 
     public void printList() {
-        System.out.println("Here are the tasks in your list:");
         if (!list.isEmpty()) {
             for (int i = 0; i < list.size(); i++) {
                 System.out.print("      ");
@@ -138,17 +136,4 @@ public class TaskList {
             System.out.println(INDENT + "There's nothing in this list.");
         }
     }
-
-    public void findKeyword(String keyword) {
-        TaskList matchedTasks = new TaskList();
-        for (Task task : list) {
-            String taskDescription = task.getTaskDescription();
-            if (taskDescription.contains(keyword)) {
-                //matchedTasks.addNewTask(task);
-            }
-        }
-        System.out.println("Here are the matching tasks in your list:");
-
-    }
-
 }

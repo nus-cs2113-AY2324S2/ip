@@ -1,6 +1,6 @@
 package interactions;
 
-import interactions.ToDo;
+import tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,28 +9,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
-    protected String writeLine(ToDo todo) {
-        String taskType = todo.getTaskType();
-        String checkbox = todo.isMarked() ? "[/]" : "[ ]";
-        String additionalInfo = "";
-        if (todo.haveDeadline()) {
-            additionalInfo = todo.getDeadline();
+    protected String writeLine(Task task) {
+        String taskType = task.getTaskType();
+        String checkbox = task.isMarked() ? "[/]" : "[ ]";
+        String additionalInfo;
+        if (task.getTaskType().equals("D")) {
+            additionalInfo = ((Deadline)task).getDeadline();
         }
-        else if (todo.isEvent()) {
-            additionalInfo = todo.getEventFrom() + " -> " + todo.getEventTo();
+        else if (task.getTaskType().equals("E")) {
+            additionalInfo = ((Event)task).getEventFrom() + " -> " + ((Event)task).getEventTo();
+        } else {
+            additionalInfo = "";
         }
-        return taskType + " | " + checkbox + " | " + todo.getTask() +
+        return taskType + " | " + checkbox + " | " + task.getTaskDescription() +
                 (taskType.equals("T") ? "" : " | " + additionalInfo);
     }
     public void saveToFile(String filePath, TaskList taskList) throws IOException {
-        ArrayList<ToDo> list = taskList.getList();
+        ArrayList<Task> list = taskList.getList();
         File f = new File(filePath);
         if (!f.exists()) {
             throw new FileNotFoundException();
         }
         FileWriter fw = new FileWriter(filePath);
-        for (ToDo todo : list) {
-            fw.write(writeLine(todo) + System.lineSeparator());
+        for (Task task : list) {
+            fw.write(writeLine(task) + System.lineSeparator());
         }
         fw.close();
     }

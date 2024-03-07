@@ -10,13 +10,6 @@ import interactions.Ui;
 import java.io.IOException;
 
 public class AddCommand extends Command {
-    public void addTask(Task newTask, TaskList taskList) {
-        taskList.addToList(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.print(INDENT);
-        newTask.print();
-        taskList.countTasks();
-    }
 
     public void addNewTask(TaskList taskList)
             throws IncompletePromptException, UnknownPromptException {
@@ -56,11 +49,16 @@ public class AddCommand extends Command {
         default:
             throw new UnknownPromptException();
         }
-        addTask(newTask, taskList);
+        taskList.addToList(newTask);
+        newTask.print();
+        taskList.countTasks();
     }
+
     @Override
     public void execute(TaskList taskList, Storage storage)
             throws IncompletePromptException, UnknownPromptException {
+        System.out.println("Got it. I've added this task:");
+        System.out.print(INDENT);
         addNewTask(taskList);
         try {
             storage.saveToFile("data/list.txt", taskList);

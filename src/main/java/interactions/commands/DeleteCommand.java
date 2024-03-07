@@ -15,8 +15,8 @@ public class DeleteCommand extends Command {
         return Integer.parseInt(line.substring(len + 1));
     }
 
-    @Override
     public void execute(TaskList taskList, Storage storage) {
+        System.out.println("Noted. I've removed this task:");
         taskList.deleteTask(parseIndex(line, firstWord));
         try {
             storage.saveToFile("data/list.txt", taskList);
