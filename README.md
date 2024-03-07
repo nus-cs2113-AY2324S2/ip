@@ -1,24 +1,135 @@
-# Duke project template
+#User Guide for chatbot "Apple"
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Chatbot Apple is an app to manage tasks, optimised for use through a Command Line Interface (CLI).
 
-## Setting up in Intellij
+##Quick Start
+1. Ensure Java 11 or above is installed in your computer
+2. Download `ip.jar` from [here](https://github.com/hongyijie06/ip/releases/tag/A-Jar)
+3. Open a command terminal, `cd` into the folder with the jar file and use the `java -jar ip.jar` command to run the application.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+A CLI similar to the picture below should appear in a few seconds. Note how the app returns the path to which the list of tasks is saved on the local computer.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+[picture](/initialSetup.png)
+
+4. Type the command into the command line and press Enter to execute it. e.g. typing list and pressing Enter will list the current tasks.
+Some example commands you can try:
+
+- `todo tutorial`: Adds task "tutorial" to the list
+- `deadline return book by 4pm`: Adds task "return book" nd deadline "4pm" to the list
+- `list`: Lists all tasks
+- `bye`: Exits the app
+
+5. Refer to the Features below for more details on each command.
+
+##Features
+
+[!NOTE]
+> Words in `UPPER_CASE` are parameters to be supplied by the user. e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 3`
+
+##Listing tasks: `list`
+Lists all tasks in the task list.
+
+Format: `list`
+
+[picture1](/List.png)
+
+##Add tasks
+###Add todo : `todo`
+Adds task of type todo to the list of tasks
+
+Format: `todo DESCRIPTION`
+
+Examples:
+- `todo tutorial` Adds task `tutorial` to the list of tasks
+- `todo watch lecture` Adds task `watch lecture` to the list of tasks
+
+ADD PIC HERE
+
+###Add deadline: `deadline`
+Adds task of type deadline to the list of tasks
+
+Format: `deadline DESCRIPTION by DEADLINE`
+
+Examples:
+- `deadline return book by 4pm` Adds task `return book` with deadline `4pm` to the list of tasks
+- `deadline submit report by 7pm` Adds task `submit report` with deadline `7pm` to the list of tasks
+
+ADD PIC HERE
+
+##Add event: `event`
+Adds task of type event to the list of tasks
+
+Format: `event DESCRIPTION from START to END`
+
+Examples:
+- `event Math exam from 2pm to 4pm` Adds task `Math exam` with timeline `2pm` to `4pm` to the list of tasks
+- `event project group meeting from 11am to 1pm` Adds task `project group meeting` with timeline `11am` to `1pm` to the list of tasks
+
+ADD PIC HERE
+
+##Delete tasks: `delete`
+Deletes task from the list of tasks
+
+Format: `delete INDEX`
+
+- Deletes task at the specified `INDEX`. 
+- The index refers to the index of the task in the list of tasks. 
+- The index must be a positive integer.
+
+Examples:
+- `delete 3` Deletes third task in the list
+- `delete 5` Deletes fifth task in the list
+
+##Mark tasks as done: `mark`
+Marks tasks as completed
+
+Format: `mark INDEX`
+
+- Marks task as done at the specified `INDEX`. 
+- The index refers to the index of the task in the list of tasks. 
+- The index must be a positive integer.
+
+Examples: 
+- `mark 1` Marks first task in the list as done
+- `mark 6` Marks sixth task in the list as done
+
+##Unmark tasks: `unmark`
+Marks tasks as undone
+
+Format: `unmark INDEX`
+
+- Marks task as not done at the specified `INDEX`. 
+- The index refers to the index of the task in the list of tasks. 
+- The index must be a positive integer.
+
+Examples:
+- `unmark 1` Marks first task in the list as notdone
+- `unmark 2` Marks second task in the list as not done
+
+##Find Keywords: `find`
+Filters list of tasks to those containing the keyword the user wants to find
+
+Format: `find KEYWORD`
+
+Examples:
+- `find book` CLI returns a list with all the tasks with the `KEYWORD` `book`.
+- `find tutorial` CLI returns a list with all the tasks with the `KEYWORD` `tutorial`.
+
+##Exit app: `bye`
+Exits the chatbot
+
+Format: `bye`
+
+##Command Summary
+
+| Command | Format,Examples |
+| ------- | --------------- |
+| `list` | `list` |
+| `todo` | `todo DESCRIPTION` e.g. `todo tutorial` |
+| `deadline` | `deadline DESCRIPTION by DEADLINE` e.g. `deadline return book by 4pm` |
+| `event` | `event DESCRIPTION from START to END` e.g. event Math exam from 2pm to 4pm` |
+| `delete` | `delete INDEX` e.g. `delete 3` |
+| `mark` | `mark INDEX` e.g. `mark 2` |
+| `unmark` | `unmark INDEX` e.g. `unmark 1` |
+| `find` | `find KEYWORD` e.g. `find book` |
+| `bye` | `bye` |
