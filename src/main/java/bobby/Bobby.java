@@ -4,6 +4,9 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The main class of the Bobby application, contains the operating logic of the chatbot.
+ */
 public class Bobby {
     private static final String FILE_PATH = "data/tasks.txt";
     private static Ui ui;
@@ -11,6 +14,13 @@ public class Bobby {
     private static Parser parser;
     private static TaskList tasks;
 
+    /**
+     * Constructs a new Bobby instance.
+     * Initializes the user interface, storage, parser, and task list.
+     * Loads tasks from the specified file path.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Bobby(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +34,9 @@ public class Bobby {
         }
     }
 
+    /**
+     * Runs the Bobby application, handling user input and executing commands.
+     */
     public void run() {
         boolean hasExit = false;
         Scanner in = new Scanner(System.in);
@@ -136,6 +149,11 @@ public class Bobby {
         }
     }
 
+    /**
+     * The main method of the Bobby application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Bobby(FILE_PATH).run();
     }
