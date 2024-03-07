@@ -155,6 +155,19 @@ public class TaskList {
             throw new JasonException("Please enter a valid task number.");
         }
     }
+    public void findTasks(String[] parts) throws JasonException {
+        if (parts.length < 2) {
+            throw new JasonException("Please provide a keyword to find.");
+        }
+        String keyword = parts[1];
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        for (Task task : this.list) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchedTasks.add(task);
+            }
+        }
+        Ui.showFoundTasks(matchedTasks);
+    }
 
 
 
