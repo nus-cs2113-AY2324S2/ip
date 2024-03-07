@@ -7,6 +7,7 @@ import anonbot.exception.InvalidMarkArgumentException;
 import java.util.ArrayList;
 
 public class TaskManager {
+    /** Number of tasks created throughout (both currently active and deleted) */
     private static int totalTasksCreated = 0;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
@@ -18,8 +19,8 @@ public class TaskManager {
         return totalTasksCreated;
     }
 
-    public static void setNumberOfActiveTasks(int numActiveTasks) {
-        totalTasksCreated = numActiveTasks;
+    public static void setTotalTasksCreated(int totalTasks) {
+        totalTasksCreated = totalTasks;
     }
 
     public static Task createTask(String taskDescription, Task.TaskType taskType,
@@ -54,7 +55,6 @@ public class TaskManager {
 
         // We currently do not check if the deadline and event tasks has the right format i.e. `/by`, `/to`, `/from`.
         // As long as there is a description, we shall accept the new task
-        // Todo: Add a default clause to catch any new unhandled task types
         totalTasksCreated += 1;
         Task newTask = createTask(taskDescription, taskType, totalTasksCreated, false);
         System.out.println("Alright. I have added this task: ");

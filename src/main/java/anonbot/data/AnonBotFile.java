@@ -6,13 +6,13 @@ import java.io.File;
 
 public class AnonBotFile {
     private static final String DEFAULT_DIRECTORY = "data";
-    private static final String FILE_NAME = "data/tasklist.txt";
+    private static final String DEFAULT_FILE_NAME = "data/tasklist.txt";
 
-    public static String getFileName() {
-        return FILE_NAME;
+    protected static String getDefaultFileName() {
+        return DEFAULT_FILE_NAME;
     }
 
-    public static String getDefaultDirectory() {
+    protected static String getDefaultDirectory() {
         return DEFAULT_DIRECTORY;
     }
 

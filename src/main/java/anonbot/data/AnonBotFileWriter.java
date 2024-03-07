@@ -29,7 +29,7 @@ public class AnonBotFileWriter extends AnonBotFile {
     private static void writeData() {
         FileWriter writer;
         try {
-            writer = new FileWriter(getFileName());
+            writer = new FileWriter(getDefaultFileName());
             String taskNumber = String.valueOf(TaskManager.getNumberOfActiveTasks());
             writer.write(taskNumber);
             writer.write(System.lineSeparator());
@@ -44,7 +44,7 @@ public class AnonBotFileWriter extends AnonBotFile {
     }
 
     public static void saveAnonBotData() {
-        File f = new File(getFileName());
+        File f = new File(getDefaultFileName());
         try {
             f.delete();
             f.createNewFile();

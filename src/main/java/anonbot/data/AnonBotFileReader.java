@@ -31,6 +31,7 @@ public class AnonBotFileReader extends AnonBotFile {
                 boolean isTaskDone = parsedData[1].equals("Y");
                 int taskNumber = Integer.parseInt(parsedData[2]);
                 String taskDescription = parsedData[3];
+
                 switch (taskType) {
                 case "todo":
                     TaskManager.createTask(taskDescription, Task.TaskType.TODO, taskNumber, isTaskDone);
@@ -54,16 +55,14 @@ public class AnonBotFileReader extends AnonBotFile {
     }
 
     public static void loadAnonBotData() {
-        File f = new File(getFileName());
+        File f = new File(getDefaultFileName());
         try {
             Scanner fileReader = new Scanner(f);
             int mostRecentTaskNumber = getMostRecentTaskNumber(fileReader);
             if (fileReader.hasNextLine()) {
-                TaskManager.setNumberOfActiveTasks(mostRecentTaskNumber);
+                TaskManager.setTotalTasksCreated(mostRecentTaskNumber);
                 populateTasks(fileReader);
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("Warning: Unable to find the task list to load.");
             return;
