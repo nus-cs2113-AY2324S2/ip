@@ -6,10 +6,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * Represents Task to be completed
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Assumption: Every field must be present and not NULL
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
