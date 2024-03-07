@@ -138,13 +138,13 @@ Example of usage:
 `find wash`
 Expected outcome:
 - Lists tasks that contains "wash".
+
 ```
 ~------------------------------------------------------------~
      Bala-lalala... Here are the tasks that contains your keyword:
      1. [T] [ ] wash the dishes
 ~------------------------------------------------------------~
 ```
-
 ### Exiting the program: `bye`
 Exits the program.
 Format: `bye`
