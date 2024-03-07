@@ -16,9 +16,9 @@ you through the basic operations to get you started.
 
 Get started with Laika,
 
-1. Download the latest ip.jar from (https://github.com/cirelesna/ip/releases).
+1. Download the latest laika.jar from (https://github.com/cirelesna/ip/releases).
 2. Copy the file into an empty folder to run Laika.
-3. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar ip.jar command to run the application.
+3. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar laika.jar command to run the application.
 
 If the setup is correct, Laika will greet you!
 
