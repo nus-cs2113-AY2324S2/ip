@@ -1,5 +1,7 @@
 package anonbot.exception;
 
+import anonbot.misc.Command;
+
 public class InvalidCommandException extends Exception implements AnonbotExceptionHandler {
     private String invalidCommand;
 
@@ -17,6 +19,9 @@ public class InvalidCommandException extends Exception implements AnonbotExcepti
             System.out.println("[Error] No command entered. Please check that there are no leading spaces.");
         } else {
             System.out.println("[Error] Invalid command entered: " + getInvalidCommand());
+            System.out.print("Valid Commands: ");
+            Command.printListOfAvailableCommand();
+            System.out.println();
         }
     }
 }

@@ -12,17 +12,8 @@ import anonbot.exception.InvalidCommandException;
 public class CommandManager {
     /**
      * Takes user inputs as commands and process them.
-     * If the input is not one of the supported commands below, NO new task will be created.
-     * Tasks are NOT saved when the program exits.
-     * Possible commands:
-     * 1. `bye`, `exit` - Exits the program.
-     * 2. `list` - Lists out all the tasks.
-     * 3. `mark <task_number> - Marks specific task as done.
-     * 4. `unmark` <task_number> - Marks specific task as undone.
-     * 5. `todo` <description> - Creates a new todo task.
-     * 6. `deadline` <description> /by <end_time> - Creates a new deadline task.
-     * 7. `event` <description> /from <start_time> /to <end_time> - Creates a new event task.
-     * 8. `delete` <task_number> - Deletes the specific task.
+     * If the input is not one of the supported commands below, an error will be thrown.
+     * See `Misc.Command` for the list of Possible command types.
      */
     public static Status processCommand(String userInput) throws InvalidCommandException {
         Status executionStatus = Status.STATUS_OK;
@@ -31,44 +22,45 @@ public class CommandManager {
             throw new InvalidCommandException("");
         }
 
-        String command = Parser.getCommand(userInput);
+        String commandString = Parser.getCommand(userInput);
+        Command.CommandType command = Command.getCommandTypeFromString(commandString);
         String rawArgument = Parser.getCommandArgument(userInput);
 
         try {
             switch (command) {
-            case "exit":
+            case EXIT:
                 // fallthrough
-            case "bye":
+            case BYE:
                 AnonBotFileWriter.saveAnonBotData();
                 Ui.printGoodbye();
                 executionStatus = Status.STATUS_EXIT;
                 break;
-            case "list":
+            case LIST:
                 TaskManager.printTaskList();
                 break;
-            case "mark":
+            case MARK:
                 processMarkCommand(rawArgument);
                 break;
-            case "unmark":
+            case UNMARK:
                 processUnmarkCommand(rawArgument);
                 break;
-            case "todo":
+            case TODO:
                 TaskManager.createNewTask(rawArgument, TaskType.TODO);
                 break;
-            case "deadline":
+            case DEADLINE:
                 TaskManager.createNewTask(rawArgument, TaskType.DEADLINE);
                 break;
-            case "event":
+            case EVENT:
                 TaskManager.createNewTask(rawArgument, TaskType.EVENT);
                 break;
-            case "delete":
+            case DELETE:
                 processDeleteCommand(rawArgument);
                 break;
-            case "find":
-                Finder.findTaskUsingKeyphrase(command, rawArgument);
+            case FIND:
+                Finder.findTaskUsingKeyphrase(commandString, rawArgument);
                 break;
             default: // Invalid Command
-                throw new InvalidCommandException(command);
+                throw new InvalidCommandException(commandString);
             }
         } catch (IncompleteCommandException e) {
             e.printErrorMessage();
