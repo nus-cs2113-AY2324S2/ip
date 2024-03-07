@@ -2,8 +2,6 @@ package anonbot.exception;
 
 import anonbot.misc.Command;
 
-import javax.swing.*;
-
 public class InvalidArgumentException extends Exception implements AnonbotExceptionHandler {
     private String command;
     private String argument;

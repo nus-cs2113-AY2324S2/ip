@@ -21,28 +21,6 @@ public class Parser {
     }
 
     /**
-     * Checks if the command argument contains a purely numeric string.
-     *
-     * @param commandArgument The argument portion of the user input.
-     * @return Whether the argument is a number of type String.
-     */
-    public static boolean isValidTaskNumberString(String commandArgument) {
-        // We are only expecting 1 argument since this is only called by the `mark` and `unmark` commands
-        String[] argumentList = commandArgument.split(" ");
-        if (argumentList.length != 1) {
-            return false;
-        }
-
-        try {
-            Integer.parseInt(commandArgument);
-        } catch (NumberFormatException e) {
-            // We reject those with a mix of alphanumeric characters
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Gets the task number by converting the string to integer type.
      * Assumes that the input has been checked and is valid.
      *
