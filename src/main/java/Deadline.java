@@ -27,12 +27,20 @@ public class Deadline extends Task {
         String[] results = new String[Constant.DEADLINE_PARAMETERS];
 
 
+        if (!input.contains("/by")) {
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
+        }
+
         int index = input.indexOf("/by");
 
         String label = input.substring(0, index).trim();
 
 
         String deadline = input.substring(index + Constant.DEADLINE_BY_OFFSET).trim();
+
+        if (deadline.isEmpty()) {
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
+        }
 
         results[0] = label;
         results[1] = deadline;

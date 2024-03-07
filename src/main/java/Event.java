@@ -30,6 +30,10 @@ public class Event extends Task{
         String[] results = new String[Constant.EVENT_PARAMETERS];
 
 
+        if (!input.contains("/from") || !input.contains("/to")) {
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
+        }
+
         int indexFrom = input.indexOf("/from");
         int indexTo = input.indexOf("/to");
 
@@ -38,6 +42,10 @@ public class Event extends Task{
 
         String fromSubstring = input.substring(indexFrom + Constant.EVENT_FROM_OFFSET, indexTo).trim();
         String toSubstring = input.substring(indexTo + Constant.EVENT_TO_OFFSET).trim();
+
+        if (fromSubstring.isEmpty() || toSubstring.isEmpty()) {
+            throw new CustomException(Constant.UNSPECIFIED_PARAMETER);
+        }
 
         results[0] = label;
         results[1] = fromSubstring;
