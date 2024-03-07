@@ -28,12 +28,12 @@ Baymax offers an auto-load and auto-save feature which ensures that the user's t
 > -  `INDEX` refers to the task's number with reference to the list.
 
 ### Adding ToDo task: `todo`
-Adds a Todo task into the task list.
+Adds a Todo task into the task list. 
 Format: `todo DESCRIPTION`
 Example of usage:
 `todo wash the dishes`
 Expected Outcome:
-- Creates the todo task with the description of "wash the dishes".
+Creates the todo task with the description of "wash the dishes".
 ```
 ~------------------------------------------------------------~
     Bala-lalala... I've added this task:
@@ -48,7 +48,7 @@ Format: `deadline DESCRIPTION /by DATELINE`
 Example of usage:
 `deadline submit assignment /by Saturday`
 Expected Outcome:
-- Creates the deadline task with the description of "submit assignment (by: Saturday)".
+Creates the deadline task with the description of "submit assignment (by: Saturday)".
 ```
 ~------------------------------------------------------------~
     Bala-lalala... I've added this task:
@@ -63,7 +63,7 @@ Format: `event DESCRIPTION /from FROM /to TO`
 Example of usage:
 `event John's Party /from 10th March 5pm /to 11th March 12pm`
 Expected Outcome:
-- Creates the event task with the description of "John's Party (from: 10th March 5pm to: 11th March 12pm)".
+Creates the event task with the description of "John's Party (from: 10th March 5pm to: 11th March 12pm)".
 ```
 ~------------------------------------------------------------~
     Bala-lalala... I've added this task:
@@ -78,7 +78,7 @@ Format: `list`
 Example of usage:
 `list`
 Expected outcome:
-- Displays all tasks in the task list.
+Displays all tasks in the task list.
 ```
 ~------------------------------------------------------------~
     Bala-lalala... Displaying your tasks: 
@@ -95,7 +95,7 @@ Format: `mark INDEX`
 Example of usage:
 `mark 2`
 Expected outcome:
-- Marks the second task in the list as done.
+Marks the second task in the list as done.
 ```
 ~------------------------------------------------------------~
      Bala-lalala... I've marked this task:
@@ -109,7 +109,7 @@ Format: `unmark INDEX`
 Example of usage:
 `unmark 2`
 Expected outcome:
-- Unmarks the second task from the task list.
+Unmarks the second task from the task list.
 ```
 ~------------------------------------------------------------~
      Bala-lalala... I've unmarked this task:
@@ -123,7 +123,7 @@ Format: `delete INDEX`
 Example of usage:
 `delete 2`
 Expected outcome:
-- Deletes the second task from the task list.
+Deletes the second task from the task list.
 ```
 ~------------------------------------------------------------~
      Bala-lalala... I've deleted this task:
@@ -137,7 +137,7 @@ Format: `find KEYWORD`
 Example of usage:
 `find wash`
 Expected outcome:
-- Lists tasks that contains "wash".
+Lists tasks that contains "wash".
 ```
 ~------------------------------------------------------------~
      Bala-lalala... Here are the tasks that contains your keyword:
@@ -151,7 +151,7 @@ Format: `bye`
 Example of usage:
 `bye`
 Expected outcome:
-- auto-saves the task list and exits the program.
+Auto-saves the task list and exits the program.
 ```
 ~------------------------------------------------------------~
      I hope you are satisfied with my service! Goodbye. :)
