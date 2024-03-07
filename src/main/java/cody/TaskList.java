@@ -11,9 +11,9 @@ import java.util.ArrayList;
  * The TaskList class manages a list of tasks and provides methods to manipulate and query the list.
  */
 public class TaskList {
-    private static final int TODO_PREFIX_LENGTH = 5;
-    private static final int DEADLINE_PREFIX_LENGTH = 9;
-    private static final int EVENT_PREFIX_LENGTH = 6;
+    public static final int EXPECTED_DETAILS_COUNT_TODO = 1;
+    public static final int EXPECTED_DETAILS_COUNT_DEADLINE = 2;
+    public static final int EXPECTED_DETAILS_COUNT_EVENT = 3;
     private final ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -100,46 +100,100 @@ public class TaskList {
     }
 
     private static Todo createTodoTask(String input) throws CodyException {
-        if (input.length() <= TODO_PREFIX_LENGTH) {
-            throw new CodyException("The description of a todo cannot be empty. Please use 'todo <description>'");
-        }
-
-        String description = input.substring(TODO_PREFIX_LENGTH).trim();
-        return new Todo(description);
+        String[] todoDetails = parseTaskInput(input, "todo", "");
+        return createTodoFromDetails(todoDetails);
     }
 
     private static Deadline createDeadlineTask(String input) throws CodyException {
-        if (input.length() <= DEADLINE_PREFIX_LENGTH) {
-            throw new CodyException("The description of a deadline cannot be empty. "
-                    + "Please use 'deadline <description> /by <deadline>'");
-        }
-
-        String[] deadlineDetails = input.split(" /by ", 2);
-        if (deadlineDetails.length < 2) {
-            throw new CodyException("Invalid deadline format. Please use 'deadline <description> /by <deadline>'");
-        }
-
-        String description = deadlineDetails[0].substring(DEADLINE_PREFIX_LENGTH).trim();
-        String by = deadlineDetails[1];
-        return new Deadline(description, by);
+        String[] deadlineDetails = parseTaskInput(input, "deadline", " /by ");
+        return createDeadlineFromDetails(deadlineDetails);
     }
 
     private static Event createEventTask(String input) throws CodyException {
-        if (input.length() <= EVENT_PREFIX_LENGTH) {
-            throw new CodyException("The description of an event cannot be empty. "
-                    + "Please use 'event <description> /from <start time> /to <end time>'");
-        }
+        String[] eventDetails = parseTaskInput(input, "event", " /from | /to ");
+        return createEventFromDetails(eventDetails);
+    }
 
-        String[] eventDetails = input.split(" /from | /to ", 3);
-        if (eventDetails.length < 3) {
-            throw new CodyException("Invalid event format. "
-                    + "Please use 'event <description> /from <start time> /to <end time>'");
-        }
+    private static Todo createTodoFromDetails(String[] todoDetails) {
+        String description = todoDetails[0].trim();
+        return new Todo(description);
+    }
 
-        String description = eventDetails[0].substring(EVENT_PREFIX_LENGTH).trim();
-        String from = eventDetails[1];
-        String to = eventDetails[2];
+    private static Deadline createDeadlineFromDetails(String[] deadlineDetails) {
+        String description = deadlineDetails[0].trim();
+        String by = deadlineDetails[1].trim();
+        return new Deadline(description, by);
+    }
+
+    private static Event createEventFromDetails(String[] eventDetails) {
+        String description = eventDetails[0].trim();
+        String from = eventDetails[1].trim();
+        String to = eventDetails[2].trim();
         return new Event(description, from, to);
+    }
+
+    private static String[] parseTaskInput(String input, String taskType, String separator) throws CodyException {
+        String taskTypePrefix = taskType + " ";
+        if (!input.startsWith(taskTypePrefix)) {
+            throwTaskException(taskType);
+        }
+
+        input = input.substring(taskTypePrefix.length());
+
+        if (input.isEmpty()) {
+            throwTaskException(taskType);
+        }
+
+        if (taskType.equals("todo")) {
+            return new String[]{input};
+        }
+
+        String[] taskDetails = input.split(separator, getExpectedDetailsCount(taskType));
+        if (taskDetails.length < getExpectedDetailsCount(taskType) || hasEmptyDetails(taskDetails)) {
+            throwTaskException(taskType);
+        }
+
+        return taskDetails;
+    }
+
+    private static void throwTaskException(String taskType) throws CodyException {
+        String taskFormat = getTaskFormat(taskType);
+        throw new CodyException("Invalid task format for '" + taskType + "'. Please use '" + taskFormat + "'");
+    }
+
+    private static String getTaskFormat(String taskType) {
+        switch (taskType) {
+        case "deadline":
+            return "deadline <description> /by <deadline>";
+        case "event":
+            return "event <description> /from <start time> /to <end time>";
+        case "todo":
+            return "todo <description>";
+        default:
+            return "";
+        }
+    }
+
+    private static int getExpectedDetailsCount(String taskType) {
+        switch (taskType) {
+        case "deadline":
+            return EXPECTED_DETAILS_COUNT_DEADLINE;
+        case "event":
+            return EXPECTED_DETAILS_COUNT_EVENT;
+        case "todo":
+            return EXPECTED_DETAILS_COUNT_TODO;
+        default:
+            return 0;
+        }
+    }
+
+    private static boolean hasEmptyDetails(String[] details) {
+        for (String detail : details) {
+            if (detail.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
