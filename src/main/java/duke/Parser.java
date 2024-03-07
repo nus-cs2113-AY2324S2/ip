@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Parser {
     public static final String[] validCommands =
-            {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete"};
+            {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete", "find"};
     protected TaskList taskList;
 
     public Parser(TaskList taskList) {
@@ -30,7 +30,8 @@ public class Parser {
 
         switch (command) {
         case "list":
-            taskList.printList();
+            String message = "";
+            taskList.printList(message);
             break;
         case "mark":
             taskList.markTask(argument, true);
@@ -49,6 +50,9 @@ public class Parser {
             break;
         case "delete":
             taskList.deleteTask(argument);
+            break;
+        case "find":
+            taskList.findTask(argument);
             break;
         }
     }

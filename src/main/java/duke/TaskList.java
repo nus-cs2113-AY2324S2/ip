@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static duke.print.*;
@@ -17,9 +18,17 @@ public class TaskList {
 
     /**
      * Prints list of tasks.
+     * If message is not empty, prints message in front of list.
+     *
+     * @param message Message to be printed before list.
      */
-    public void printList(){
+    public void printList(String message){
         printLine();
+
+        if (!message.isEmpty()) {
+            System.out.println(message);
+        }
+
         for(int i = 0; i < taskList.size(); i++){
             Task task = taskList.get(i);
             System.out.println((i + 1) + "." + task);
@@ -164,6 +173,36 @@ public class TaskList {
                     + "  " + taskToDelete);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException.IntegerOutOfBoundsException();
+        }
+    }
+
+    /**
+     * Finds tasks which descriptions match the target,
+     * before printing out list of matches.
+     *
+     * @param target Target phrase to search for.
+     */
+    public void findTask(String target) throws MissingParamsException {
+        if (target.isEmpty()) {
+            List<TaskParams> missingParams = new ArrayList<>();
+            missingParams.add(TaskParams.TARGET);
+
+            throw new MissingParamsException(missingParams);
+        }
+
+        List<Task> matches = new ArrayList<>();
+
+        for (Task task : taskList){
+            if(task.getDescription().contains(target)){
+                matches.add(task);
+            }
+        }
+
+        if (matches.isEmpty()){
+            printMessage("No matches!!");
+        } else {
+            new TaskList(matches).printList(
+                    "Here are the matching tasks in your list-gari:");
         }
     }
 }
