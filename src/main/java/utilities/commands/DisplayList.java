@@ -7,6 +7,12 @@ import ui.Constants;
 import java.util.ArrayList;
 
 public class DisplayList {
+
+    /**
+     * Displays the inputted array list to show details of task and the number of tasks remaining.
+     *
+     * @param list Array list containing the details of tasks.
+     */
     public static void listCommand(ArrayList<Task> list) {
         if (list.isEmpty()) {
             System.out.println(Constants.EMPTYLIST);

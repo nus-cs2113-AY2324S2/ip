@@ -1,8 +1,11 @@
 package tasks;
 
+/**
+ * Deadline task with details on the description, deadline condition and whether it's complete.
+ */
 public class Deadline extends Task {
 
-    public String deadline;
+    protected String deadline;
 
     public Deadline(String description, boolean isDone, String date) {
         super(description, isDone);
