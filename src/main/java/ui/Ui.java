@@ -35,7 +35,7 @@ public class Ui {
      * @param message The message to print.
      */
     public void printFormattedMessage(String message) {
-        System.out.println("  " + message);
+        System.out.println(message);
         System.out.println(HORIZONTAL_LINES);
     }
 

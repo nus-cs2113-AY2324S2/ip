@@ -38,7 +38,7 @@ public class ChatBot {
             String command = in.nextLine().trim();
 
             if (command.equalsIgnoreCase("bye")) {
-                ui.printFormattedMessage("Bye. Hope to see you again soon!");
+                System.out.println("Bye. Hope to see you again soon!");
                 saveTasksToFile();
                 break;
             }
@@ -47,7 +47,7 @@ public class ChatBot {
     }
 
     private void saveTasksToFile() {
-        storage.saveTasksToFile(tasks);
+        storage.saveTasksToFile(tasks, ui);
     }
 
     /**

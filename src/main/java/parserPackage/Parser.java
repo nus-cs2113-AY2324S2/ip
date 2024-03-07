@@ -31,37 +31,37 @@ public class Parser {
             case "mark":
                 if (parts.length > 1) {
                     tasks.markTaskAsDone(parts[1]);
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks,ui);
                 }
                 break;
             case "unmark":
                 if (parts.length > 1) {
                     tasks.unmarkTaskAsDone(parts[1]);
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks,ui);
                 }
                 break;
             case "todo":
                 if (parts.length > 1) {
                     tasks.addTodo(parts[1]);
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks,ui);
                 }
                 break;
             case "event":
                 if (parts.length > 1) {
                     tasks.addEvent(parts[1]);
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks,ui);
                 }
                 break;
             case "deadline":
                 if (parts.length > 1) {
                     tasks.addDeadline(parts[1]);
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks,ui);
                 }
                 break;
             case "delete":
                 if (parts.length > 1) {
                     tasks.deleteTask(parts[1]);
-                    storage.saveTasksToFile(tasks);
+                    storage.saveTasksToFile(tasks,ui);
                 }
                 break;
             case "find":

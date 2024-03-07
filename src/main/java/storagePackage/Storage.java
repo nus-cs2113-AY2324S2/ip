@@ -5,6 +5,7 @@ import taskPackage.Deadlines;
 import taskPackage.Events;
 import taskPackage.Task;
 import taskPackage.ToDos;
+import ui.Ui;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -97,8 +98,9 @@ public class Storage {
      * Saves tasks to the file.
      *
      * @param tasks The list of tasks to save.
+     * @param ui    The Ui object for displaying messages.
      */
-    public void saveTasksToFile(TaskList tasks) {
+    public void saveTasksToFile(TaskList tasks, Ui ui) {
         String currentDirectory = System.getProperty("user.dir");
         String relativeFilePath = Paths.get(currentDirectory, DIRECTORY, FILENAME).toString();
         Path filePath = Paths.get(relativeFilePath);
@@ -108,7 +110,7 @@ public class Storage {
             for (Task task : tasks.getList()) {
                 Files.write(filePath, (task.toFileString() + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
             }
-            System.out.println("Tasks have been saved to " + filePath);
+            ui.printFormattedMessage("Tasks have been saved");
         } catch (IOException e) {
             System.out.println("An error occurred while saving tasks to " + filePath);
             e.printStackTrace();

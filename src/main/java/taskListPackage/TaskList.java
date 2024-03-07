@@ -56,7 +56,7 @@ public class TaskList {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("   " + removedTask.getStatusIcon() +
                         " " + removedTask.getDescription());
-                ui.printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             } else {
                 ui.printFormattedMessage("Invalid task number. Please enter a valid task number.");
             }
@@ -116,7 +116,7 @@ public class TaskList {
         tasks.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println("   " + newTask.getStatusIcon() + " " + newTask.getDescription());
-        ui.printFormattedMessage(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -131,7 +131,7 @@ public class TaskList {
                 Task task = tasks.get(index);
                 task.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                ui.printFormattedMessage("   " + task.getStatusIcon()
+                System.out.println("   " + task.getStatusIcon()
                         + " " + task.getDescription());
             } else {
                 ui.printFormattedMessage("Invalid task number." +
@@ -155,7 +155,7 @@ public class TaskList {
                 Task task = tasks.get(index);
                 task.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                ui.printFormattedMessage("   " + task.getStatusIcon()
+                System.out.println("   " + task.getStatusIcon()
                         + " " + task.getDescription());
             } else {
                 ui.printFormattedMessage("Invalid task number. " +
@@ -189,7 +189,7 @@ public class TaskList {
                 System.out.println(originalIndex + ". " + task.toString());
             }
             ui.printFormattedMessage("There are "
-                    + numberOfMatchingTasks + " number of tasks found");
+                    + numberOfMatchingTasks + " tasks found");
         }
     }
 }
