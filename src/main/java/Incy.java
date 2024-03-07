@@ -7,6 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Incy {
 
@@ -61,6 +65,8 @@ public class Incy {
                 taskManager.handleMarkCommand(input, false);
             } else if (input.startsWith("delete ")) {
                 taskManager.handleDeleteCommand(input);
+            } else if (input.startsWith("list by ")) {
+                taskManager.handleListByDateCommand(input);
             } else {
                 taskManager.handleAddTask(input);
             }
@@ -132,6 +138,37 @@ class TaskManager {
                 "Now you've got " + tasks.size() + " tasks on your plate.\n" +
                 Constants.LINE_STRING_BOTTOM);
         saveTasksToFile();
+    }
+
+    void handleListByDateCommand(String input) throws IncyException {
+        String dateString = input.substring(9).trim();
+        LocalDate date;
+        try {
+            date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            throw new IncyException("Invalid date format, mate. Use 'yyyy-MM-dd' format.");
+        }
+        System.out.println(Constants.LINE_STRING_BOTTOM);
+        boolean found = false;
+        for (Task task : tasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getBy().toLocalDate().equals(date)) {
+                    System.out.println(Constants.ANSI_CYAN + "- " + deadline);
+                    found = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStart().toLocalDate().equals(date) || event.getEnd().toLocalDate().equals(date)) {
+                    System.out.println(Constants.ANSI_CYAN + "- " + event);
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println(Constants.ANSI_RED + "No tasks found for the specified date, bruv.");
+        }
+        System.out.println(Constants.LINE_STRING_BOTTOM);
     }
 
     private void removeTaskAt(int index) {
@@ -230,20 +267,30 @@ class TaskFactory {
     private static Task createDeadline(String taskInfo) {
         String[] deadlineParts = taskInfo.split(" /by ", 2);
         if (deadlineParts.length < 2) {
-            printFormatError("You've mucked up the deadline format. Do it like 'deadline [task] /by [date/time]', yeah?");
+            printFormatError("You've mucked up the deadline format. Do it like 'deadline [task] /by [yyyy-MM-dd HHmm]', yeah?");
             return null;
         }
-        return new Deadline(deadlineParts[0], deadlineParts[1]);
+        try {
+            return new Deadline(deadlineParts[0], deadlineParts[1]);
+        } catch (DateTimeParseException e) {
+            printFormatError("Invalid date format for deadline. Use 'yyyy-MM-dd HHmm' format, mate.");
+            return null;
+        }
     }
-
+    
     private static Task createEvent(String taskInfo) {
         String[] eventParts = taskInfo.split(" /from ", 2);
         String[] eventTime = eventParts.length > 1 ? eventParts[1].split(" /to ", 2) : new String[0];
         if (eventParts.length < 2 || eventTime.length < 2) {
-            printFormatError("You've bungled the event format. It's gotta be 'event [task] /from [start time] /to [end time]', innit?");
+            printFormatError("You've bungled the event format. It's gotta be 'event [task] /from [yyyy-MM-dd HHmm] /to [yyyy-MM-dd HHmm]', innit?");
             return null;
         }
-        return new Event(eventParts[0], eventTime[0], eventTime[1]);
+        try {
+            return new Event(eventParts[0], eventTime[0], eventTime[1]);
+        } catch (DateTimeParseException e) {
+            printFormatError("Invalid date format for event. Use 'yyyy-MM-dd HHmm' format, mate.");
+            return null;
+        }
     }
 
     private static Deadline createDeadlineFromLine(String line) {
