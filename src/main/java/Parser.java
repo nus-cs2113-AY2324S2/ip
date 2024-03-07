@@ -40,7 +40,7 @@ public class Parser {
 
     private void processCommand(String userCommand) {
         if (userCommand.equalsIgnoreCase("hi")) {
-            System.out.println("Hello! I am ZAP and I am at your service!");
+            System.out.println("Hello! I am Avril the Bot and I am at your service!");
         } else if (userCommand.equalsIgnoreCase("bye")) {
             System.out.println("You should say thank you, then say bye.");
         } else if (userCommand.equalsIgnoreCase("list")) {
@@ -61,7 +61,7 @@ public class Parser {
             String keyword = userCommand.substring(5);
             TaskList.findTask(keyword);
         } else {
-            System.out.println("read instructions. type properly.");
+            System.out.println("bruh. read instructions. type properly.");
         }
     }
 }
