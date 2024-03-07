@@ -10,11 +10,18 @@ import anonbot.misc.Command.CommandType;
 import anonbot.task.Task.TaskType;
 import anonbot.task.TaskManager;
 
+/**
+ * A class that handles the logical flow of the user's input
+ */
 public class CommandManager {
     /**
      * Takes user inputs as commands and process them.
      * If the input is not one of the supported commands below, an error will be thrown.
-     * See `Misc.Command` for the list of Possible command types.
+     * See `misc.Command` for the list of Possible command types.
+     *
+     * @param userInput The raw user input, containing the command and argument (if applicable)
+     * @return The execution status to indicate whether to continue running the program.
+     * @throws InvalidCommandException If an unsupported command is supplied.
      */
     public static CommandStatus processCommand(String userInput) throws InvalidCommandException {
         CommandStatus executionStatus = CommandStatus.STATUS_OK;
@@ -80,6 +87,13 @@ public class CommandManager {
         return executionStatus;
     }
 
+    /**
+     * Processes the mark command by obtaining the task number to mark the corresponding task as done.
+     *
+     * @param rawArgument A valid task number.
+     * @throws InvalidArgumentException If there is no task number provided, or if the task number is not
+     *         numeric, or if there is no task with that particular task number.
+     */
     private static void processMarkCommand(String rawArgument) throws InvalidArgumentException {
         if (rawArgument.isEmpty()) {
             throw new EmptyArgumentException("mark");
@@ -93,6 +107,13 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Processes the unmark command by obtaining the task number to mark the corresponding task as undone.
+     *
+     * @param rawArgument A valid task number.
+     * @throws InvalidArgumentException If there is no task number provided, or if the task number is not
+     *         numeric, or if there is no task with that particular task number.
+     */
     private static void processUnmarkCommand(String rawArgument) throws InvalidArgumentException {
         if (rawArgument.isEmpty()) {
             throw new EmptyArgumentException("unmark");
@@ -106,6 +127,13 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Processes the delete command by obtaining the task number to delete the corresponding task.
+     *
+     * @param rawArgument A valid task number.
+     * @throws InvalidArgumentException If there is no task number provided, or if the task number is not
+     *         numeric, or if there is no task with that particular task number.
+     */
     private static void processDeleteCommand(String rawArgument) throws InvalidArgumentException {
         if (rawArgument.isEmpty()) {
             throw new EmptyArgumentException("delete");
