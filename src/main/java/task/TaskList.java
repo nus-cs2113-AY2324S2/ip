@@ -36,53 +36,34 @@ public class TaskList {
     }
 
     public void addDeadline(String userInput) {
-        int dividerPosition = userInput.indexOf(" ");
         try {
-            if (dividerPosition != -1) {
-                int slashPosition = userInput.indexOf("/by");
-                int descriptionStart = dividerPosition + 1;
-                int descriptionEnd = slashPosition - 1;
-                int byStart = slashPosition + 4;
-                tasks.add(new Deadline(userInput.substring(descriptionStart, descriptionEnd),
-                        userInput.substring(byStart)));
+            tasks.add(Parser.parseDeadline(userInput));
                 System.out.println(UI.TASK_ADDED_MESSAGE);
                 System.out.println(tasks.get(taskCount));
                 taskCount++;
                 UI.showTaskCountMessage(taskCount);
-            }
-            else {
-                throw new EkudException();
-            }
         }
         catch (EkudException error) {
-            System.out.println(UI.EMPTY_DEADLINE_DESCRIPTION_MESSAGE);
+            System.out.println("Unable to add new Deadline.");
+        }
+        catch (IndexOutOfBoundsException error) {
+            System.out.println("Invalid format. Unable to add new Deadline.");
         }
     };
 
     public void addEvent(String userInput) {
-        int dividerPosition = userInput.indexOf(" ");
         try {
-            if (dividerPosition != -1) {
-                int descriptionStart = dividerPosition + 1;
-                int descriptionEnd = userInput.indexOf("/from") - 1;
-                int fromStart = userInput.indexOf("/from") + 6;
-                int fromEnd = userInput.indexOf("/to") - 1;
-                int toStart = userInput.indexOf("/to") + 4;
-
-                tasks.add(new Event(userInput.substring(descriptionStart, descriptionEnd),
-                        userInput.substring(fromStart, fromEnd),
-                        userInput.substring(toStart)));
-                System.out.println(UI.TASK_ADDED_MESSAGE);
-                System.out.println(tasks.get(taskCount));
-                taskCount++;
-                UI.showTaskCountMessage(taskCount);
-            }
-            else {
-                throw new EkudException();
-            }
+            tasks.add(Parser.parseEvent(userInput));
+            System.out.println(UI.TASK_ADDED_MESSAGE);
+            System.out.println(tasks.get(taskCount));
+            taskCount++;
+            UI.showTaskCountMessage(taskCount);
         }
         catch (EkudException error) {
-            System.out.println(UI.EMPTY_EVENT_DESCRIPTION_MESSAGE);
+            System.out.println("Unable to add new Event.");
+        }
+        catch (IndexOutOfBoundsException error) {
+            System.out.println("Invalid format. Unable to add new Event.");
         }
     };
 
