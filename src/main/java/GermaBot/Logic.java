@@ -14,9 +14,14 @@ public class Logic {
 
     public static TaskManager taskManager = new TaskManager();
 
-    public static int getIdx(String input) {
-        return Integer.parseInt(input.substring(input.indexOf(" ") + 1)) - 1;
+    public static int getIdx(String input) throws IllegalArgumentException {
+        int spaceIndex = input.indexOf(" ");
+        if (spaceIndex == -1 || spaceIndex == input.length() - 1) {
+            throw new IllegalArgumentException();
+        }
+        return Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
     }
+
 
     public static void createTodo(ArrayList<Task> toDoList, String input) throws EmptyTaskException, IOException {
         int idxBetweenTodoAndDescription = 5;
@@ -83,13 +88,16 @@ public class Logic {
     }
 
     public static void deleteTask(ArrayList<Task> toDoList, String input) throws TaskNotFoundException {
-        int idxToDelete = getIdx(input);
-        if (idxToDelete >= Task.getNoOfTask()) {
-            throw new TaskNotFoundException();
-        } else {
-            UI.deleteTask(toDoList, idxToDelete);
-            Task.setNoOfTask(Task.getNoOfTask() - 1);
-            ;
+        try {
+            int idxToDelete = getIdx(input);
+            if (idxToDelete >= Task.getNoOfTask()) {
+                throw new TaskNotFoundException();
+            } else {
+                UI.deleteTask(toDoList, idxToDelete);
+                Task.setNoOfTask(Task.getNoOfTask() - 1);
+            }
+        } catch (IllegalArgumentException e) {
+            UI.printIllegalArgumentException();
         }
     }
 
@@ -98,8 +106,12 @@ public class Logic {
             try {
                 deleteTask(toDoList, input);
             } catch (TaskNotFoundException e) {
-                int idx = getIdx(input);
-                UI.printTaskNotFoundException(idx);
+                try {
+                    int idx = getIdx(input);
+                    UI.printTaskNotFoundException(idx);
+                } catch (IllegalArgumentException f) {
+                    UI.printIllegalArgumentException();
+                }
             }
         } else if (input.startsWith("todo")) {
             try {
@@ -134,23 +146,56 @@ public class Logic {
         }
     }
 
+    public static void findTask(ArrayList<Task> toDoList, String input) {
+        int counter = 1;
+        int idxBetweenFindAndDescription = 5;
+        String taskToFind = input.substring(input.indexOf("find ") + idxBetweenFindAndDescription);
+        if (taskToFind.isBlank()) {
+            throw new IllegalArgumentException();
+        }
+        UI.printFindingMessage(taskToFind);
+        for (int i = 0; i < Task.getNoOfTask(); i++) {
+            if (toDoList.get(i).getDescription().contains(taskToFind)) {
+                UI.printTask(toDoList, counter, i);
+                counter++;
+            }
+        }
+        if (counter == 1) {
+            UI.printTaskNotFoundMessage(taskToFind);
+        }
+    }
+
     public static void readCommand(ArrayList<Task> toDoList, String input) throws UnknownInputException {
         if (input.startsWith("delete") || input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             createTask(toDoList, input);
-        } else if (input.equals("list")) {
+        } else if (input.startsWith("list")) {
             if (toDoList.isEmpty()) {
                 UI.printListEmptyMessage();
             } else {
                 UI.printTaskList(toDoList);
             }
-        } else if (input.contains("unmark")) {
-            int idx = getIdx(input);
-            taskManager.markTaskUndone(toDoList, idx);
-            UI.printMarkUndone(idx, toDoList);
-        } else if (input.contains("mark")) {
-            int idx = getIdx(input);
-            taskManager.markTaskDone(toDoList, idx);
-            UI.printMarkDone(idx, toDoList);
+        } else if (input.startsWith("unmark")) {
+            try {
+                int idx = getIdx(input);
+                taskManager.markTaskUndone(toDoList, idx);
+                UI.printMarkUndone(idx, toDoList);
+            } catch (IllegalArgumentException e) {
+                UI.printIllegalArgumentException();
+            }
+        } else if (input.startsWith("mark")) {
+            try {
+                int idx = getIdx(input);
+                taskManager.markTaskDone(toDoList, idx);
+                UI.printMarkDone(idx, toDoList);
+            } catch (IllegalArgumentException e) {
+                UI.printIllegalArgumentException();
+            }
+        } else if (input.startsWith("find")) {
+            try {
+                findTask(toDoList, input);
+            } catch (IllegalArgumentException e) {
+                UI.printIllegalArgumentException();
+            }
         } else {
             throw new UnknownInputException();
         }
