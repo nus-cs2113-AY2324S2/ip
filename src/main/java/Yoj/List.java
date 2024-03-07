@@ -2,11 +2,15 @@ package Yoj;
 
 import Yoj.exception.InvalidCommandException;
 import Yoj.exception.YojException;
+<<<<<<< HEAD
 import Yoj.tasks.Deadline;
 import Yoj.tasks.Event;
 import Yoj.tasks.Task;
 import Yoj.tasks.ToDo;
 import java.util.ArrayList;
+=======
+import Yoj.tasks.*;
+>>>>>>> branch-Level-7
 
 public class List {
     private static ArrayList<Task> tasks = new ArrayList<>();
