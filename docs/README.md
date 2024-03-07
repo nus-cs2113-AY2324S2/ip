@@ -46,7 +46,7 @@ Format: `help`
 Expected outcome:
 ```
 ___________________________________________________________________________
-Need some help? Here's the commands that are available (´⊙ω⊙`)
+Need some help? Here's the commands that are available (^-^)
 
 - help: Shows this help menu
 - bye: Exits from the chatbot
@@ -216,7 +216,7 @@ Format: `bye`
 Expected outcome:
 ```
 ___________________________________________________________________________
-Goodbye, see you next time! (◠‿◠)
+Goodbye, see you next time! (^_^)
 ___________________________________________________________________________
 ```
 
@@ -230,3 +230,10 @@ format of the date and time to be provided must be in the form of
 `d/m/yyyy HHmm` where `d` can be a one or two digit date, `m` can
 be a one or two digit month, `yyyy` is the year, and `HHmm` is the
 time in 24-hour clock.
+
+### Search for tasks
+
+The list of tasks shown after using the `find <keyword>` command is for viewing only.
+When performing operations on the task list (e.g. `mark <task number>`, `unmark <task number>`,
+`delete <task number>`), you will have to use the task number in the original list (task list
+shown when running the `list` command).
