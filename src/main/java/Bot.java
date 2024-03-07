@@ -249,7 +249,33 @@ public class Bot {
             System.out.println("The index is not a number! "); // check the index kind
             printLine();
         }
+    }
 
+    private void handleFind(String input) throws  BotException{
+        printLine();
+        String[] parts = input.split(" ");
+
+        if (parts.length < 2) {
+            throw new BotException("The keyword cannot be empty.");
+        }
+        String keyword = parts[1];
+
+        System.out.println("Here are the matching tasks in your list:");
+
+        int count = 0;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task task = this.taskList.get(i);
+            if (task.getDescription().contains(keyword)) {
+                System.out.println((i + 1) + ". " + task);
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No tasks found with the keyword '" + keyword + "'.");
+        }
+
+        printLine();
 
     }
 
@@ -277,6 +303,9 @@ public class Bot {
                 break;
             case "delete":
                 handleDelete(input);
+                break;
+            case "find":
+                handleFind(input);
                 break;
             default:
                 throw new BotException("I'm sorry, but I don't know what that means :-(");

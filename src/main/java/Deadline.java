@@ -22,7 +22,6 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 
-
     protected String getTaskType()
     {
         return "D";

@@ -36,6 +36,11 @@ public abstract class Task {
         this.isComplete = complete;
     }
 
+    public String getDescription()
+    {
+        return this.task;
+    }
+
     public void markTaskAsDone()
     {
         this.isComplete=true;
