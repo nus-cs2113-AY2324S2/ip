@@ -77,4 +77,12 @@ public class Ui {
     public void showTextFileError() {
         System.out.println("Something went wrong :(");
     }
+
+    public void showNoMatchMessage() {
+        System.out.println("No matching tasks found.");
+    }
+
+    public void showMatchMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 }

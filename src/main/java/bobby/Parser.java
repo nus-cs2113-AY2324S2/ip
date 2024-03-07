@@ -37,4 +37,8 @@ public class Parser {
     public String parseEventFrom(String input) {
         return input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
     }
+
+    public String parseKeyword(String input) {
+        return input.substring(5);
+    }
 }
