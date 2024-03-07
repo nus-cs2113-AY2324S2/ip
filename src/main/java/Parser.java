@@ -28,10 +28,14 @@ class Parser {
 			taskList.addEventTask(line.replace("event", "")); // Execute event command to add an event task
 			break;
 		case "delete":
-			if (words[1].equals("all")) {
-				taskList.deleteAllTasks(); // Execute delete all command to delete all tasks
-			} else {
-				taskList.deleteTask(words[1]); // Execute delete command to delete a specific task
+			try {
+				if (words[1].equals("all")) {
+					taskList.deleteAllTasks(); // Execute delete all command to delete all tasks
+				} else {
+					taskList.deleteTask(words[1]); // Execute delete command to delete a specific task
+				}
+			} catch (IndexOutOfBoundsException e) {
+				throw new SamException("You have to delete an index or delete all.");
 			}
 			break;
 		case "find":
