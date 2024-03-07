@@ -9,7 +9,9 @@ list
 blah
 todo
 event
+event /from /to
 deadline
+deadline /by
 mark one
 mark -1
 mark 0

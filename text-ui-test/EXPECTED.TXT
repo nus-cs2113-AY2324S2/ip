@@ -5,8 +5,8 @@ Tell me your tasks and I will create a task list for you
 ______________________________________________________________
 Here are the commands you can use:
  1. todo <description>: Adds a todo task to the list
- 2. deadline <description> /by <date>: Adds a deadline task to the list
- 3. event <description> /at <date>: Adds an event task to the list
+ 2. deadline <description> /by <deadline>: Adds a deadline task to the list
+ 3. event <description> /from <start time> /to <end time>: Adds an event task to the list
  4. list: Displays the list of tasks
  5. mark <index>: Marks the task at the specified index as done
  6. unmark <index>: Unmarks the task at the specified index
@@ -60,9 +60,11 @@ Here are the tasks in your list:
 
 ______________________________________________________________
 Unknown command: blah. Type 'help' to see the list of commands
-The description of a todo cannot be empty. Please use 'todo <description>'
-The description of an event cannot be empty. Please use 'event <description> /from <start time> /to <end time>'
-The description of a deadline cannot be empty. Please use 'deadline <description> /by <deadline>'
+Invalid task format for 'todo'. Please use 'todo <description>'
+Invalid task format for 'event'. Please use 'event <description> /from <start time> /to <end time>'
+Invalid task format for 'event'. Please use 'event <description> /from <start time> /to <end time>'
+Invalid task format for 'deadline'. Please use 'deadline <description> /by <deadline>'
+Invalid task format for 'deadline'. Please use 'deadline <description> /by <deadline>'
 Invalid task number. Please use a number
 Task number out of bounds. Please choose a number within the list
 Task number out of bounds. Please choose a number within the list
@@ -87,8 +89,8 @@ The 'list' command does not take any arguments
 ______________________________________________________________
 Here are the commands you can use:
  1. todo <description>: Adds a todo task to the list
- 2. deadline <description> /by <date>: Adds a deadline task to the list
- 3. event <description> /at <date>: Adds an event task to the list
+ 2. deadline <description> /by <deadline>: Adds a deadline task to the list
+ 3. event <description> /from <start time> /to <end time>: Adds an event task to the list
  4. list: Displays the list of tasks
  5. mark <index>: Marks the task at the specified index as done
  6. unmark <index>: Unmarks the task at the specified index
