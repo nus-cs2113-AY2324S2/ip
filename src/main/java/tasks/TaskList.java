@@ -1,17 +1,20 @@
-package interactions;
+package tasks;
 import customexceptions.UnknownPromptException;
 import java.util.ArrayList;
 import customexceptions.IncompletePromptException;
 
 public class TaskList {
-    protected ArrayList<ToDo> list;
+    protected ArrayList<Task> list;
     protected static final String INDENT = "      ";
     public TaskList() {
         list = new ArrayList<>();
     }
     protected Task lastActionTask = null; // Allows for 'undo' functionality
-    public ArrayList<ToDo> getList() {
+    public ArrayList<Task> getList() {
         return list;
+    }
+    public void addToList(Task task) {
+        list.add(task);
     }
 
     public Task getLastActionTask() {
@@ -26,7 +29,7 @@ public class TaskList {
         System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
     }
 
-    private String extractToDoOrDate(String line, String keyword) {
+    private String extractTaskOrDate(String line, String keyword) {
         int index = line.indexOf(keyword) + keyword.length();
         String nextWord; // any commands that require a 'next' word
         switch (keyword) {
@@ -52,45 +55,48 @@ public class TaskList {
         return line.substring(index).trim();
     }
 
-    public void addNewTask(String line, String type)
+    public void addNewTask(String line, String firstWord)
             throws IncompletePromptException, UnknownPromptException {
-        String toDoDescription = extractToDoOrDate(line, type);
-        if (toDoDescription.isEmpty()) {
+        String taskDescription = extractTaskOrDate(line, firstWord);
+        if (taskDescription.isEmpty()) {
             throw new IncompletePromptException();
         }
-        ToDo newToDo = new ToDo(toDoDescription);
-        switch (type) {
+        Task newTask;
+        switch (firstWord) {
         case "todo":
-            newToDo.setHaveToDo(true);
-            newToDo.setTaskType("T");
+            newTask = new ToDo(taskDescription);
+            ((ToDo)newTask).setHaveToDo(true);
+            newTask.setTaskType("T");
             break;
         case "deadline":
-            String deadline = extractToDoOrDate(line, "by");
+            newTask = new Deadline(taskDescription);
+            String deadline = extractTaskOrDate(line, "by");
             if (deadline.isEmpty()) {
                 throw new IncompletePromptException();
             }
-            newToDo.setDeadline(deadline);
-            newToDo.setTaskType("D");
+            ((Deadline)newTask).setDeadline(deadline);
+            newTask.setTaskType("D");
             break;
         case "event":
-            String dateFrom = extractToDoOrDate(line, "from");
-            String dateTo = extractToDoOrDate(line, "to");
+            newTask = new Event(taskDescription);
+            String dateFrom = extractTaskOrDate(line, "from");
+            String dateTo = extractTaskOrDate(line, "to");
             if (dateFrom.isEmpty() || dateTo.isEmpty()) {
                 throw new IncompletePromptException();
             } else {
-                newToDo.setEventFrom(dateFrom);
-                newToDo.setEventTo(dateTo);
-                newToDo.setEvent(true);
-                newToDo.setTaskType("E");
+                ((Event)newTask).setEventFrom(dateFrom);
+                ((Event)newTask).setEventTo(dateTo);
+                ((Event)newTask).setEvent(true);
+                newTask.setTaskType("E");
             }
             break;
         default:
             throw new UnknownPromptException();
         }
-        list.add(newToDo);
+        list.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.print(INDENT);
-        newToDo.print();
+        newTask.print();
         countTasks();
     }
     public void mark(String line, boolean isMark) {
@@ -111,7 +117,6 @@ public class TaskList {
     }
 
     public void deleteTask(int index) {
-        //int index = Integer.parseInt((line.substring(6)));
         System.out.println("Noted. I've removed this task:");
         System.out.print(INDENT);
         lastActionTask = list.get(index - 1);
@@ -133,4 +138,17 @@ public class TaskList {
             System.out.println(INDENT + "There's nothing in this list.");
         }
     }
+
+    public void findKeyword(String keyword) {
+        TaskList matchedTasks = new TaskList();
+        for (Task task : list) {
+            String taskDescription = task.getTaskDescription();
+            if (taskDescription.contains(keyword)) {
+                //matchedTasks.addNewTask(task);
+            }
+        }
+        System.out.println("Here are the matching tasks in your list:");
+
+    }
+
 }
