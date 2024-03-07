@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Represents user input parsing and handling
  * before providing feedback to the user.
  */
-public class CommandHandling {
+public class Handler {
 
     /**
      * Processes user input and filters for valid command words from enum {@code Command},

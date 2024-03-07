@@ -93,6 +93,12 @@ public class Persistence {
                 taskCount++;
             }
 
+        } catch (IOException e) {
+            if (!new File(Constant.FILE_NAME).exists()) {
+                Reply.printReply(Constant.MISSING_FILE);
+            } else {
+                throw new CustomException(Constant.LOAD_ERROR + (taskCount + 1));
+            }
         } catch (Exception e) {
             throw new CustomException(Constant.LOAD_ERROR + (taskCount + 1));
         }

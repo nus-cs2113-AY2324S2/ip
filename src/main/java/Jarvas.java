@@ -12,15 +12,15 @@ public class Jarvas {
      * @throws CustomException If an error occurs during the execution of the command.
      */
     public static void main(String[] args) {
-        ArrayList<Task> tasks = CommandHandling.initialiseBot();
+        ArrayList<Task> tasks = Handler.initialiseBot();
         try {
-            CommandHandling.processInput(tasks);
+            Handler.processInput(tasks);
         } catch (IOException e) {
             throw new CustomException(Constant.SAVE_ERROR + e.getMessage());
         } catch (CustomException e) {
             Reply.printException(e);
         } finally {
-            CommandHandling.terminateBot(tasks);
+            Handler.terminateBot(tasks);
         }
     }
 }
