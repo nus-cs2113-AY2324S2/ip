@@ -103,10 +103,11 @@ public class TaskList {
             return;
         }
 
+        // Parse the start and end times of command
         String startTimeString = timeParts[0].trim();
         String endTimeString = timeParts[1].trim();
-
         LocalDateTime startTime, endTime;
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
             startTime = LocalDateTime.parse(startTimeString, formatter);
@@ -116,9 +117,12 @@ public class TaskList {
             return;
         }
 
+        // Format the start and end times for output
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String formattedStartTime = startTime.format(formatter);
         String formattedEndTime = endTime.format(formatter);
+
+        // Adding the new event task to the task list
         tasks.add(new EventTask(description, startTime, endTime));
 
         System.out.println("____________________________________________________________");
