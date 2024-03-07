@@ -46,6 +46,9 @@ public class Parser {
         }
         if (inputString.startsWith(todo)) {
             try {
+                if (rightParam.trim().isEmpty()) {
+                    throw new JxExceptions("no description");
+                }
                 newList = newList.add(new ToDo(rightParam));
                 newStorage = newStorage.updateStorage(newList);
             } catch (IOException e) {
