@@ -87,7 +87,7 @@ public class Task {
      * Read the string command from either user or txt file and add to the taskList.
      * @param taskString The string command from either user or txt file.
      * @return The task object from the string.
-     * @throws RepeatMark If the task is already marked as done or not done.
+     * @throws RepeatMark If the task is already marked as done or not done, repeat command gives a warning message.
      */
     public static Task fromString(String taskString) throws RepeatMark {
         String[] parts = taskString.split("\\|");
