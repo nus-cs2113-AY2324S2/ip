@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
 
+import userInterface.Message;
+
 public class TaskLists implements Serializable{
     /** All the tasks stored */
     private final List<Tasks> tasksList;
@@ -100,6 +102,24 @@ public class TaskLists implements Serializable{
      *
      * @return all the tasks inside the class in an intended format.
      */
+    public void search(String key) {
+        int count = 0;
+        String out = "";
+        for (Tasks command : this.tasksList) {
+            if (command.contain(key)) {
+                count += 1;
+                out += count + ". " + command.toString() + '\n';
+            }
+        }
+        if (count > 0) {
+            System.out.println(Message.FIND_OUTPUT_FRONT);
+            System.out.print(out);
+        } else {
+            System.out.println(Message.NO_RESULT);
+        }
+        System.out.print(Message.DASH);
+    }
+
     public String print() {
         String output = "";
         for (int i = 0; i < this.tasksList.size(); i++) {

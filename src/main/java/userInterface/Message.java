@@ -27,4 +27,10 @@ public class Message {
 
     public static final String ADD_TASK_OUTPUT_FRONT
             = DASH + "Got it. I've added this task:";
+
+    public static final String FIND_OUTPUT_FRONT
+            = DASH + "Here are the matching tasks in your list:";
+
+    public static final String NO_RESULT
+            = DASH + "Nothing found";
 }
