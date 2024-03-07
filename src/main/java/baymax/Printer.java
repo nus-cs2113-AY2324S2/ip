@@ -75,7 +75,7 @@ public class Printer {
 
     public static void printDelete(ArrayList<Task> tasks, int index) {
         System.out.println(LINE);
-        System.out.println(INDENT + TAGLINE + " I've delete this task:");
+        System.out.println(INDENT + TAGLINE + " I've deleted this task:");
         System.out.println(INDENT + tasks.get(index));
         System.out.println(LINE);
 
@@ -83,7 +83,7 @@ public class Printer {
 
     public static void printFindList(ArrayList<Task> findArrayList) {
         System.out.println(LINE);
-        System.out.println(INDENT + "Here are the tasks that contains your keyword:");
+        System.out.println(INDENT + TAGLINE + " Here are the tasks that contains your keyword:");
         for (int i = 0; i < findArrayList.size(); i++) {
             System.out.println(INDENT + (i + 1) + ". " + findArrayList.get(i));
         }
