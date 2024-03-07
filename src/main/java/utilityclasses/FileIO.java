@@ -9,10 +9,16 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.io.File;
 
+/**
+ * Handles file operations for the Dross application, including loading and saving tasks.
+ */
 public class FileIO {
     public static final String TASKS_FILE_PATH = constructTasksFilePath();
 
-    //Method to construct filepath
+    /**
+     * Constructs the file path used for storing tasks data.
+     * @return The complete file path as a String.
+     */
     private static String constructTasksFilePath() {
         String userHome = System.getProperty("user.home");
         String separator = FileSystems.getDefault().getSeparator();
@@ -34,7 +40,10 @@ public class FileIO {
         return filePath;
     }
 
-    // Method to save tasks to file
+    /**
+     * Saves the current list of tasks to the specified file.
+     * @param list The DrossList containing tasks to be saved.
+     */
     public static void saveTasksToFile(DrossList list) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(TASKS_FILE_PATH))) {
             for (int i = 0; i < list.getSize(); i++) {
@@ -46,7 +55,10 @@ public class FileIO {
         }
     }
 
-    // Method to load tasks from file
+    /**
+     * Loads tasks from a file into the DrossList.
+     * @param list The DrossList to be populated with tasks.
+     */
     public static void loadTasksFromFile(DrossList list) {
         File file = new File(TASKS_FILE_PATH);
         // Check if the file exists
