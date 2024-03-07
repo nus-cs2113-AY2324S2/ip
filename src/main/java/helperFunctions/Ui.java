@@ -1,19 +1,42 @@
 package helperFunctions;
 
 import java.util.Random;
+import java.util.Scanner;
 
-public class PrintHelper {
+public class Ui {
 
-    private static String commandsList =
-            "## Possible user commands: \n" +
-            "1. todo <task>                            : Add todo task \n" +
-            "2. deadline <task> /<deadline>            : Add deadline\n" +
-            "3. event <task> /<startTime> /<endTime>   : Add event \n" +
-            "4. list                                   : List all tasks\n" +
-            "5. mark/unmark <taskIndex>                : Mark task <index> as done/ undone\n" +
-            "6. bye                                    : Exit Program";
+    /**
+     * Reads user input
+     */
+    public static void readInput(TaskList tasks, String FILE_PATH) {
+        Scanner in = new Scanner(System.in);
+        boolean isRun = true;
+
+        while (isRun) {
+            printLine();
+            String line = in.nextLine(); // reads input
+            // process input
+            try {
+                boolean isReadMode = false;
+                isRun = Parser.processUserInput(tasks, line, FILE_PATH, isReadMode);
+            } catch (InvalidParamsException e) {
+                showLoadingError(e.getMessage()); // prints out error message
+            }
+        }
+        sayBye();
+    }
+    public static void showLoadingError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
     public static String printCommandsList() {
-        return commandsList;
+        return "## Possible user commands: \n" +
+                "1. todo <task>                            : Add todo task \n" +
+                "2. deadline <task> /<deadline>            : Add deadline\n" +
+                "3. event <task> /<startTime> /<endTime>   : Add event \n" +
+                "4. list                                   : List all tasks\n" +
+                "5. mark/unmark <taskIndex>                : Mark task <index> as done/ undone\n" +
+                "6. bye                                    : Exit Program";
     }
 
     /**
