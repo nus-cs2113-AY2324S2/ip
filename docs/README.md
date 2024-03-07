@@ -48,19 +48,6 @@ Example of usage:
 <br>`find <keyword>`</br>
 `find abc`
 
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
 
 ```
 expected output
