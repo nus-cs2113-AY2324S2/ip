@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+/**
+ * Represents a list of tasks including todos, deadlines, and events.
+ * Allows for adding, deleting, marking, and unmarking tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> list;
 
@@ -21,7 +25,14 @@ public class TaskList {
     public void appendToList(Task task) {
         list.add(task);
     }
-
+    /**
+     * Adds a task based on the specified input.
+     * The input should start with "todo", "deadline", or "event" followed by the task description.
+     * For deadlines and events, the date/time should be specified.
+     *
+     * @param input The command input specifying the task to add.
+     * @throws JasonException if the input format is invalid.
+     */
     public void addTasks(String input) throws JasonException {
         try {
             if (input.startsWith("todo ")) {
@@ -37,6 +48,12 @@ public class TaskList {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Adds a Todo task.
+     *
+     * @param task The todo task description.
+     * @throws JasonException if the description is empty.
+     */
     public void addTodoTask(String task) throws JasonException {
         String taskDescription = task.substring(4).trim(); // trim() removes leading and trailing spaces
         if (taskDescription.isEmpty()) {
@@ -48,7 +65,12 @@ public class TaskList {
         System.out.println(newTodo);
         Ui.showTaskNumber(list);
     }
-
+    /**
+     * Adds a Deadline task.
+     *
+     * @param task The deadline task description including the date/time.
+     * @throws JasonException if the format is invalid or description/date/time is empty.
+     */
     public void addDeadlineTask(String task) throws JasonException {
         String[] parts = task.split("/by", 2);
         if (parts.length < 2) {
@@ -75,6 +97,13 @@ public class TaskList {
         System.out.println(newDeadline);
         Ui.showTaskNumber(list);
     }
+
+    /**
+     * Adds an Event task.
+     *
+     * @param task The event task description including the start and end date/time.
+     * @throws JasonException if the format is invalid or description/start/end date/time is empty.
+     */
     public void addEventTask(String task) throws JasonException {
         if (!task.contains("/from") && !task.contains("/to")) {
             throw new JasonException("Invalid task format. Use 'event [description] /from [date/time] /to [date/time] '.");
@@ -127,7 +156,12 @@ public class TaskList {
             throw new JasonException("Please enter a valid task number.");
         }
     }
-
+    /**
+     * Marks a task as done.
+     *
+     * @param input The command input containing the task number to mark.
+     * @throws JasonException if the task number is invalid.
+     */
     public void markTask(String[] input) throws JasonException {
         try {
             int taskNumber = Integer.parseInt(input[1]) - 1;
@@ -141,7 +175,12 @@ public class TaskList {
             throw new JasonException("Please enter a valid task number.");
         }
     }
-
+    /**
+     * Unmarks a task as not done.
+     *
+     * @param input The command input containing the task number to unmark.
+     * @throws JasonException if the task number is invalid.
+     */
     public void unmarkTask(String[] input) throws JasonException {
         try {
             int taskNumber = Integer.parseInt(input[1]) - 1;

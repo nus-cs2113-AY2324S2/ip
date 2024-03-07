@@ -4,7 +4,10 @@ import jason.tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Handles user interface interactions for the application.
+ * This includes displaying welcome messages, reading commands, showing errors, and listing tasks.
+ */
 public class Ui {
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -33,6 +36,13 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param list The list of tasks to be displayed.
+     * @throws JasonException if an error occurs during display.
+     */
     public static void showList(ArrayList<Task> list) throws JasonException {
         if (list.isEmpty()) {
             System.out.println("The task list is currently empty. Add some tasks!");
@@ -56,6 +66,12 @@ public class Ui {
         }
     }
 
+
+    /**
+     * Displays the number of tasks in the list to the user.
+     *
+     * @param list The list of tasks.
+     */
     public static void showTaskNumber(ArrayList<Task> list) {
         if (list.size() == 1) {
             System.out.println("Now you have 1 task in the list.");
