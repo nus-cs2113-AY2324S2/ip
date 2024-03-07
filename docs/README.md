@@ -1,3 +1,15 @@
+# Pythia
+
+       █████████████   
+      ██           ██ 
+      ██   █████   ██ 
+      ██   █████   ██ 
+      ██           ██ 
+       █████████████ 
+    ██                ██
+    ████████████████████
+This is Pythia an assistant that makes use of the CLI keep track of all your day to day tasks
+
 # User Guide
 
 ## Features
