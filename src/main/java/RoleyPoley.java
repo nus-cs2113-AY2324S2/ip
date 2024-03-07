@@ -21,7 +21,7 @@ public class RoleyPoley {
         TextUi.welComeMessage();
         runCommandLoopUntilExitCommand();
     }
- 
+
     /** Reads the user command and executes it, until the user issues the exit command.  */
     private static void runCommandLoopUntilExitCommand() {
         boolean isExit;
