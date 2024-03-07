@@ -6,7 +6,6 @@ D | 0 | return book | 2-12-2019 1800
 D | 0 | finish chatbot | 08/03/2024
 D | 0 | finish chatbot | 08-03-2024
 D | 0 | finish chatbot | 8-03-2024 2000
-D | 0 | study midterms | 2-12-2003 2000
 D | 0 | do work | 8-3-2024 2000
 D | 0 | do work | 8-3-2024 2000
 D | 0 | do work | 8-02-2023 2359
