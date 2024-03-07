@@ -62,6 +62,8 @@ public class Loopy {
             case "delete":
                 deleteTask(task);
                 break;
+            case "find":
+                findTask(task);
             case "bye":
                 break;
             default:
@@ -204,6 +206,21 @@ public class Loopy {
             tasks.remove(taskIndex);
             saveFile();
             System.out.println("You now have " + tasks.size() + " tasks left");
+        }
+    }
+    public static void findTask(String task){
+        System.out.println("Here are the matching tasks in your list:");
+        String description= task.substring(6, task.length());
+        int count = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            if (currentTask.getDescription().toLowerCase().contains(description.toLowerCase())) {
+                count++;
+                System.out.println(count + ". " + currentTask);
+            }
+        }
+        if (count == 0) {
+            System.out.println("Sorry! I did not find matching tasks.");
         }
     }
 }
