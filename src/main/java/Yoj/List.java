@@ -2,10 +2,7 @@ package Yoj;
 
 import Yoj.exception.InvalidCommandException;
 import Yoj.exception.YojException;
-import Yoj.tasks.Deadline;
-import Yoj.tasks.Event;
-import Yoj.tasks.Task;
-import Yoj.tasks.ToDo;
+import Yoj.tasks.*;
 
 public class List {
     public static Task[] tasks = new Task[100];
