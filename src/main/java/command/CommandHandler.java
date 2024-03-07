@@ -4,6 +4,10 @@ import exceptions.InputException;
 import task.*;
 import userInterface.Message;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class CommandHandler {
     private static final String LIST = "list";
     private static final String TASK_STATUS = "^(mark [0-9]|unmark [0-9])";
@@ -12,6 +16,8 @@ public class CommandHandler {
     private static final String DEADLINES = "deadline(.*)";
     private static final String EVENTS = "event(.*)";
     private static final String EXIT = "bye";
+    private static final String INPUT_DATE_TIME = "dd/MM/yyyy HHmm";
+    private static final String OUTPUT_DATE_TIME = "MMM dd yyyy HH:mm";
 
     private static final String FIND = "find(.*)";
 
@@ -94,7 +100,8 @@ public class CommandHandler {
             if ((command.matches("deadline"))) {
                 throw new InputException("Don't have an empty description for deadline");
             }
-            Tasks record = new Deadlines(deadlines[0].substring(9), deadlines[1]);
+            String deadline = decodeDateTime(deadlines[1]);
+            Tasks record = new Deadlines(deadlines[0].substring(9), deadline);
             listCommands.addTask(record);
             System.out.println(Message.ADD_TASK_OUTPUT_FRONT);
             System.out.println("  " + record);
@@ -114,7 +121,9 @@ public class CommandHandler {
             }
             String[] times = events[1].split(" /to ", 2);
             if (times.length == 2) {
-                Tasks record = new Events(events[0].substring(6), times[0], times[1]);
+                String from = decodeDateTime(times[0]);
+                String to = decodeDateTime(times[1]);
+                Tasks record = new Events(events[0].substring(6), from, to);
                 listCommands.addTask(record);
                 System.out.println(Message.ADD_TASK_OUTPUT_FRONT);
                 System.out.println("  " + record);
@@ -140,10 +149,24 @@ public class CommandHandler {
     }
 
     private static void decodeFind(String command,
-            TaskLists listCommands) throws InputException {
+                                   TaskLists listCommands) throws InputException {
         String[] split = command.split(" ");
         String searchKey = split[1];
-        listCommands.search(searchKey);
+        if (!searchKey.isEmpty()) {
+            listCommands.search(searchKey);
+        } else {
+            throw new InputException("Please do not input empty string inside find");
+        }
+    }
+
+    private static String decodeDateTime(String date) throws InputException {
+        LocalDateTime dateTime;
+        try {
+            dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(INPUT_DATE_TIME));
+        } catch (DateTimeParseException error) {
+            throw new InputException("Please follow the date-time format: dd/MM/yyyy HHmm\n");
+        }
+        return dateTime.format(DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME));
     }
 
 }
