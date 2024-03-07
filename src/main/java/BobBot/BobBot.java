@@ -18,6 +18,9 @@ public class BobBot {
 
     }
 
+    /**
+     * Runs the Task Manager application.
+     */
     public void run() {
         Ui.greet();
         Storage.loadFile();
