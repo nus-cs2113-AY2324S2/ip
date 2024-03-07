@@ -63,6 +63,9 @@ public class Allez {
         case "delete":
             c.deleteTask(line);
             break;
+        case "find":
+            c.findTask(line);
+            break;
         default:
             System.out.println("Invalid command. Please try again.");
             break;

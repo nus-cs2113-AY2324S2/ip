@@ -23,6 +23,10 @@ public class Parser {
         return lineSegment;
     }
 
+    public static String parseFind(String line) {
+        return line.substring(4).trim();
+    }
+
     public String parseCommand(String currentInput) {
         return currentInput.split(" ", 2)[0];
     }
