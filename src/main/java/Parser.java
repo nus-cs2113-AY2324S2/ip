@@ -1,12 +1,21 @@
 import java.util.Scanner;
 
+
+/**
+ * The Parser class is responsible for interpreting user input commands and
+ * executing the corresponding actions within the task management application.
+ */
+
 public class Parser {
     private final Scanner scanner;
-
     public Parser() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Continuously reads and processes user commands until the exit command is received.
+     * Recognizes and executes a range of commands related to task management.
+     */
     public void parseCommands() {
         String userCommand;
 
@@ -15,18 +24,23 @@ public class Parser {
             userCommand = scanner.nextLine().trim();
 
             if (userCommand.equalsIgnoreCase("thank you and bye")) {
-                break; // Exit the loop, signaling to end the program
+                break;
             }
-
             processCommand(userCommand);
         }
-
         scanner.close();
     }
 
+    /**
+     * Processes an individual user command by matching it against known commands
+     * and executing the corresponding actions.
+     *
+     * @param userCommand The user command to be processed.
+     */
+
     private void processCommand(String userCommand) {
         if (userCommand.equalsIgnoreCase("hi")) {
-            System.out.println("Hello! I am ZAP and I am at your service!");
+            System.out.println("Hello! I am Avril the Bot and I am at your service!");
         } else if (userCommand.equalsIgnoreCase("bye")) {
             System.out.println("You should say thank you, then say bye.");
         } else if (userCommand.equalsIgnoreCase("list")) {
@@ -43,8 +57,11 @@ public class Parser {
             TaskList.addEvent(userCommand);
         } else if (userCommand.startsWith("delete")) {
             TaskList.deleteTask(userCommand);
+        } else if (userCommand.startsWith("find ")) {
+            String keyword = userCommand.substring(5);
+            TaskList.findTask(keyword);
         } else {
-            System.out.println("proper english pls. don't waste time already >:(");
+            System.out.println("bruh. read instructions. type properly.");
         }
     }
 }

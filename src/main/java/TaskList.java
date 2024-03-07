@@ -1,27 +1,37 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class TaskList {
 
     private static ArrayList<Task> tasks;
 
     public TaskList() {
-
     }
 
+    /**
+     * Initializes or re-initializes the task list. This method can be used to reset the task list.
+     */
     public void load() {
         TaskList.tasks = new ArrayList<>();
     }
+
+    /**
+     *
+     * @param userCommand The command input by the user, expected to contain a description of the task following the command keyword.
+     */
 
     static void addTodoTask(String userCommand) {
 
         String taskDescription = userCommand.substring(4).trim();
         if (taskDescription.isEmpty()) {
-            System.out.println("Woi. You think I robot then can waste my time. Gimme description >:(");
+            System.out.println("use english pls. type properly.");
         } else {
             tasks.add(new TodoTask(taskDescription));
 
             System.out.println("____________________________________________________________");
-            System.out.println(" Got it. Avril added this task:");
+            System.out.println(" Got it. Avril the Bot added this task:");
             System.out.println("   [T][ ]  " + taskDescription);
             if (tasks.size() == 1) {
                 System.out.println(" Now you have 1 task in the list.");
@@ -32,6 +42,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new Deadline task based on user input.
+     *
+     * @param userCommand The command input by the user, expected to contain a description of the task and a deadline, separated by '/by'.
+     */
     static void addDeadline(String userCommand) {
         String[] descParts = userCommand.split("deadline");
         String[] deadlineParts = descParts[1].split("/by", 2);
@@ -42,12 +57,21 @@ public class TaskList {
         }
 
         String description = deadlineParts[0];
-        String deadline = deadlineParts[1].trim();
+        String deadlineString = deadlineParts[1].trim();
+
+        LocalDateTime deadline;
+        try {
+            deadline = LocalDateTime.parse(deadlineString, DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid deadline date format. Please use the format 'DD-MM-YYYY HHmm'.");
+            return;
+        }
 
         tasks.add(new DeadlineTask(description, deadline));
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril added this task:");
-        System.out.println("   [D][ ] " + description + " (By: " + deadline + ")");
+        System.out.println(" Got it. Avril the Bot added this task:");
+        System.out.println("   [D][ ] " + description + " (By: " + deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + ")");
+
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
         } else {
@@ -56,6 +80,11 @@ public class TaskList {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Adds a new Event task based on user input.
+     *
+     * @param userCommand The command input by the user, expected to contain a description of the task and a deadline, separated by '/from'.
+     */
     static void addEvent(String userCommand) {
 
         String[] descParts = userCommand.split("event");
@@ -74,13 +103,31 @@ public class TaskList {
             return;
         }
 
-        String startTime = timeParts[0].trim();
-        String endTime = timeParts[1].trim();
+        // Parse the start and end times of command
+        String startTimeString = timeParts[0].trim();
+        String endTimeString = timeParts[1].trim();
+        LocalDateTime startTime, endTime;
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+            startTime = LocalDateTime.parse(startTimeString, formatter);
+            endTime = LocalDateTime.parse(endTimeString, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date-time format. Please use the format 'DD-MM-YYYY HHmm'.");
+            return;
+        }
+
+        // Format the start and end times for output
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formattedStartTime = startTime.format(formatter);
+        String formattedEndTime = endTime.format(formatter);
+
+        // Adding the new event task to the task list
         tasks.add(new EventTask(description, startTime, endTime));
 
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril added this task:");
-        System.out.println("   [E][ ] " + description + " (From: " + startTime + " To: " + endTime + ")");
+        System.out.println(" Got it. Avril the Bot added this task:");
+        System.out.println("   [E][ ] " + description + " (From: " + formattedStartTime + " To: " + formattedEndTime + ")");
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
         } else {
@@ -180,6 +227,32 @@ public class TaskList {
         } else {
             System.out.println("Invalid task index. Please enter a valid number.");
         }
+    }
+
+    /**
+     * Searches for and displays tasks that contain the keyword in the user input.
+     * If one or more matches are found, it lists those tasks along with their indices.
+     * If no matches are found, it displays an error message.
+     *
+     * @param keyword The keyword to search for within the tasks
+     */
+    public static void findTask(String keyword) {
+        StringBuilder results = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        boolean isFound = false;
+        for (int i = 0; i < tasks.size(); ++i) {
+            Task task = tasks.get(i);
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                results.append(String.format("%d. %s%n", (i + 1), task));
+                isFound = true;
+            }
+        }
+
+        if (!isFound) {
+            results.append("No matching tasks found.\n");
+        }
+
+        System.out.println(results);
     }
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();

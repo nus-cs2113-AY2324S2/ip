@@ -1,4 +1,10 @@
- public class Ui {
+
+/**
+ * The Ui class handles user interface interactions by displaying messages to the user.
+ * It provides a welcome message upon instantiation and has methods to display instructions and a farewell message.
+ */
+
+public class Ui {
 
      private static final String welcome = "No place to store your to-dos? Avril (not the singer), your personal helper is here to help you!!";
      private static final String instructions =

@@ -1,14 +1,39 @@
-public class EventTask extends Task {
-    private final String startTime;
-    private final String endTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public EventTask(String description, String startTime, String endTime) {
+/**
+ * Represents an event task with a start and end time.
+ * Inherits from the Task class and adds time-specific information
+ * */
+
+public class EventTask extends Task {
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+
+    /**
+     * Constructs an EventTask with the specified description, start time, and end time.
+     *
+     * @param description Description of the event task.
+     * @param startTime Start time of the event.
+     * @param endTime End time of the event.
+     */
+    public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    /**
+     * Returns a string representation of the EventTask, including its type, description,
+     * start time, and end time formatted as "dd-MM-yyyy HH:mm".
+     *
+     * @return Formatted string representing the EventTask.
+     */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formattedStartTime = this.startTime.format(formatter);
+        String formattedEndTime = this.endTime.format(formatter);
+        return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
     }
 }
