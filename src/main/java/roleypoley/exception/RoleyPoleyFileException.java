@@ -13,12 +13,14 @@ public class RoleyPoleyFileException extends Exception {
             System.out.println("""
                     \n\t2. For tasks to be done by a certain time.\s
                     \tD | <markIsDone, 0 for Undone, 1 for Done> | <Task Description> (by: <Due Date>)""");
+            break;
         case "EventFormatError":
             System.out.println("\tFormat for Event tasks in file is incorrect, please edit the file according to the " +
                     "format below");
             System.out.println("""
                     \n\t3. For tasks to be doe within a time frame.\s
                     \tE | <markIsDone, 0 for Undone, 1 for Done> | <Task Description> (from: <Start Time> to: <End Time>)""");
+            break;
         default:
             System.out.println("""
                     \n\tFile is incompatible with ChatBot. Ensure format follows the example below:
@@ -30,6 +32,7 @@ public class RoleyPoleyFileException extends Exception {
             System.out.println("""
                     \n\t3. Tasks to be done within a time frame.\s
                     \tevent <Task Description> /from <Start Time> /to <End Time>""");
+            break;
         }
     }
 }

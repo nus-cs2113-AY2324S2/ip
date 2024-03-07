@@ -58,6 +58,7 @@ public class HandleCommand {
                 return false;
             default:
                 throw new RoleyPoleyParseException("defaultError");
+                //fall through
             }
         } catch (RoleyPoleyParseException e) {
             createLine();

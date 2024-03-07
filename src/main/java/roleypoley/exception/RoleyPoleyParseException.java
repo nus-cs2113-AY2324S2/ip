@@ -35,6 +35,7 @@ public class RoleyPoleyParseException extends Exception {
                     \tevent <Task Description> /from <Start Time> /to <End Time>""");
             System.out.println("\n\t4. List all tasks in current task list. \n\tEnter 'list' in the command prompt");
             System.out.println("\n\t5. Exit from Chatbot. \n\tEnter 'bye' in the command prompt ");
+            break;
         }
     }
 }
