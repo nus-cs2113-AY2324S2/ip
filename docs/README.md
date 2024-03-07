@@ -35,7 +35,8 @@ e.g. in `todo <description>`, `<description>` is a parameter which can be used
 as `todo watch a new movie`.
 - Parameters provided for commands that don't require one (such as `list`, `help`, and `bye`) 
 will be ignored.  
-e.g. `list abc` will be intepreted as `list`.
+e.g. `list abc` will be intepreted as `list`.  
+
 ### Help menu: `help`
 
 Shows a help menu of all the chatbot's available commands.
