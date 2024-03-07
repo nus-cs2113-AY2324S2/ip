@@ -1,9 +1,12 @@
 package anonbot.data;
 
-import anonbot.exception.InitialisationException;
-
 import java.io.File;
 
+import anonbot.exception.InitialisationException;
+
+/**
+ * A static class containing default configuration for reading and writing persistent data.
+ */
 public class AnonBotFile {
     private static final String DEFAULT_DIRECTORY = "data";
     private static final String DEFAULT_FILE_NAME = "data/tasklist.txt";
@@ -16,6 +19,11 @@ public class AnonBotFile {
         return DEFAULT_DIRECTORY;
     }
 
+    /**
+     * Initialises the default directory to hold the save file if the directory doesn't already exist.
+     *
+     * @throws InitialisationException When any exception relating to directory creation occurs.
+     */
     public static void initialiseDefaultDirectory() throws InitialisationException {
         try {
             File f = new File(getDefaultDirectory());
@@ -26,7 +34,7 @@ public class AnonBotFile {
             throw new InitialisationException("[Critical] Filesystem Security Manager Permission error.");
         } catch (Exception e) {
             // This function is critical to ensure data can be written and saved
-            // Hence any potential uncaught exception must be highlighted in one way or another.
+            // Hence any potential uncaught exceptions must be highlighted in one way or another.
             e.printStackTrace();
             throw new InitialisationException("[Critical] Unknown exception caught during initialisation.");
         }

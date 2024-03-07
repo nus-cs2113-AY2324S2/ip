@@ -1,15 +1,23 @@
 package anonbot.data;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import anonbot.exception.ExportDataException;
 import anonbot.misc.ExportParser;
 import anonbot.task.Task;
 import anonbot.task.TaskManager;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
+/**
+ * A static class that save the tasks to a file in the default save location.
+ */
 public class AnonBotFileWriter extends AnonBotFile {
+    /**
+     * Writes individual tasks to the file in the default save location.
+     *
+     * @param writer A valid FileWriter to write the tasks to the file.
+     */
     private static void writeIndividualTasks(FileWriter writer) {
         for (Task task : TaskManager.getTaskList()) {
             try {
@@ -25,6 +33,10 @@ public class AnonBotFileWriter extends AnonBotFile {
         }
     }
 
+    /**
+     * Writes the total number of tasks created to date to the file in the default save location,
+     * and then writes the tasks from the tasklist to the file.
+     */
     private static void writeData() {
         FileWriter writer;
         try {
@@ -40,6 +52,9 @@ public class AnonBotFileWriter extends AnonBotFile {
         }
     }
 
+    /**
+     * Creates a default save file and save all data related to the tasks in the task list.
+     */
     public static void saveAnonBotData() {
         File f = new File(getDefaultFileName());
         try {
