@@ -9,15 +9,14 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-<<<<<<< HEAD
+
 /**
  * Represents a storage to read and write tasks to a file
  */
-=======
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
->>>>>>> master
 public class Storage {
     private static final String FILE_PATH = "data/Alpaca.txt";
     private static final File file = new File(FILE_PATH);
@@ -106,7 +105,6 @@ public class Storage {
 
     /**
      * Save the task list to the file
-     * @param taskList the task list to be saved
      */
     public static TaskList restoreTask() {
         TaskList tasks = new TaskList();
