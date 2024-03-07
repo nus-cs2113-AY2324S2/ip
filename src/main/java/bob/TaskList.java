@@ -31,8 +31,6 @@ public class TaskList {
         displayDeleteTaskMessage(content);
 
         list.remove(Integer.parseInt(content) - 1);
-
-
     }
 
     /**
@@ -43,7 +41,7 @@ public class TaskList {
         ui.displayHorizontalLine();
         System.out.println("Noted. I've removed this task: ");
         System.out.println(list.get(Integer.parseInt(content) - 1).getListItem());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("Now you have " + (list.size() - 1) + " tasks in the list.");
         ui.displayHorizontalLine();
     }
 
