@@ -12,6 +12,13 @@ import taskList.TaskList;
  * @version 1.0
  */
 public class Ui {
+
+    /**
+     * Prints a message to the user when a task is added to the list.
+     * 
+     * @param task The task that was added to the list.
+     * @param operationMessage The message to display to the user.
+     */
     public static void printTaskOperationMessage(Task task, String operationMessage) {
         drawLine(true);
         System.out.println("\tGot it! " + operationMessage);
@@ -19,27 +26,49 @@ public class Ui {
         drawLine(true);
     }
 
+    /**
+     * Prints a message to the user when the task number to be deleted does 
+     * not exist in the list.
+     * 
+     * @param taskNumber The task number to delete from the list.
+     */
     public static void printNonExistentTaskErrorMessage(int taskNumber) {
         drawErrorLine();
         System.out.println("\tOperation failed.");
-        System.out.println("\tTask index " + (taskNumber + 1) + " does not exist! Try another number instead.");
+        System.out.println("\tTask index " + (taskNumber + 1) + " does not exist! " +
+                "Try another number instead.");
         drawErrorLine();
     }
 
-    public static void printCustomExceptionMessage(BobBotExceptions e) {
+    /**
+     * Prints a message to the user whenever there is an exception in creating a task.
+     * 
+     * @param e The exception encountered.
+     */
+    public static void printTaskCreationExceptionMessage(BobBotExceptions e) {
         drawErrorLine();
         e.displayExceptionMessage();
         drawErrorLine();
     }
 
+    /**
+     * Prints a message to the user when they enter a command that is not recognised.
+     */
     public static void handleInvalidCommand() {
         drawErrorLine();
         System.out.println(
-                "\tI did not understand that. Refer to the help manual for information on \n\tkeying in the right commands!");
+                "\tI did not understand that. Refer to the help manual for information on \n\t" + 
+                "keying in the right commands!");
         printHelpMessage();
         drawErrorLine();
     }
 
+    /**
+     * Prints a message to the user when a task is added to the list.
+     * 
+     * @param lineString The command entered by the user.
+     * @param newTask The task that was added to the list.
+     */
     public static void echoCommand(String lineString, Task newTask) {
         drawLine(true);
         System.out.println("\tGot it! I've added this task:\n\t  " + newTask.toString());
@@ -48,10 +77,18 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Prints the error line for formatting purposes.
+     */
     public static void drawErrorLine() {
         System.out.println("\t********************************ERROR*****************************************");
     }
 
+    /**
+     * Prints the line for formatting purposes.
+     * 
+     * @param isIncludeIndentation A boolean to indicate if the line should include indentation.
+     */
     public static void drawLine(Boolean isIncludeIndentation) {
         if (isIncludeIndentation) {
             System.out.print("\t");
@@ -61,6 +98,9 @@ public class Ui {
         System.out.println("______________________________________________________________________________");
     }
 
+    /**
+     * Prints a greeting message to the user.
+     */
     public static void greet() {
         drawLine(false);
         System.out.println("Hello! I'm BobBot, your TODO list creator");
@@ -68,6 +108,9 @@ public class Ui {
         drawLine(false);
     }
 
+    /**
+     * Prints a help message to the user that shows the possible commands.
+     */
     public static void printHelpMessage() {
         drawLine(true);
         System.out.println("\tI see you require some help. Fear not, I shall come to your assistance.\n");
@@ -80,13 +123,21 @@ public class Ui {
         drawLine(true);
     }
 
+    /**
+     * Prints a farewell message to the user.
+     */
     public static void bidFarewell() {
         drawLine(true);
         System.out.println("\tBye. Hope to see you again soon!");
         drawLine(true);
     }
 
-    public static void printStandardExceptionMessage(Exception e) {
+    /**
+     * Prints a message to the user when there is an exception in handling the task.
+     * 
+     * @param e The exception encountered.
+     */
+    public static void printTaskManipulationExceptionMessage(Exception e) {
         drawErrorLine();
 
         if (e instanceof NullPointerException) {
@@ -106,6 +157,9 @@ public class Ui {
         drawErrorLine();
     }
 
+    /**
+     * Prints the task list to the user.
+     */
     public static void printTaskList() {
         
         int numberOfTasks = TaskList.getNumberOfTasks();

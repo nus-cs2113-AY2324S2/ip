@@ -54,7 +54,7 @@ public class Parser {
                     TaskList.addTask(line, isLoad);
                 }
             } catch (NullPointerException | NumberFormatException e) {
-                Ui.printStandardExceptionMessage(e);
+                Ui.printTaskManipulationExceptionMessage(e);
             }
             Storage.saveFile();
             line = in.nextLine();
@@ -81,7 +81,7 @@ public class Parser {
                 return null;
             }
         } catch (InvalidTodoException | InvalidDeadlineException | InvalidEventException e) {
-            Ui.printCustomExceptionMessage(e);
+            Ui.printTaskCreationExceptionMessage(e);
             return null;
         }
 
