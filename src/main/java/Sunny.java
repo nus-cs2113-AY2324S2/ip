@@ -30,7 +30,10 @@ public class Sunny {
                     handleDeadlineCommand(command);
                 } else if (command.startsWith("event")) {
                     handleEventCommand(command);
-                } else {
+                } else if (command.startsWith("delete")) {
+                    deleteTask(command);
+                }
+                else {
                     handleUnknownCommand(command);
                 }
             } catch (Exception e) {
@@ -128,8 +131,6 @@ public class Sunny {
         System.out.println(" ");
     }
 
-
-
     private static void printInvalidTaskIndexMessage() {
         System.out.println("Invalid task index. Please provide a valid task index.");
     }
@@ -156,5 +157,26 @@ public class Sunny {
             e.printStackTrace(); // Print stack trace for debugging purposes
         }
         System.out.println(" ");
+    }
+
+    private static void deleteTask(String command) {
+        int taskIndex = extractTaskIndex(command);
+        if (isValidTaskIndex(taskIndex)) {
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(tasks[taskIndex - 1]);
+            removeTask(taskIndex);
+            printTaskCountMessage();
+        } else {
+            printInvalidTaskIndexMessage();
+        }
+        System.out.println(" ");
+    }
+
+    private static void removeTask(int taskIndex) {
+        for (int i = taskIndex - 1; i < counter - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        tasks[counter - 1] = null;
+        counter--;
     }
 }
