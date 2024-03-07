@@ -66,7 +66,7 @@ public class CommandManager {
             e.printErrorMessage();
         } catch (InvalidTaskException e) {
             e.printErrorMessage();
-        } catch (EmptyArgumentException e) {
+        } catch (InvalidArgumentException e) {
             e.printErrorMessage();
         }
         return executionStatus;
