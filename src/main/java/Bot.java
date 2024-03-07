@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Bot {
@@ -69,16 +71,19 @@ public class Bot {
     {
         System.out.println("____________________________________________________________");
     }
+
     private void addList(Task t)
     {
         this.taskList.add(t);
         saveTasksToFile();
     }
+
     private void sayBye()
     {
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
     }
+
     private void printList()
     {
         System.out.println("Here are the tasks in your list:");
@@ -88,6 +93,7 @@ public class Bot {
         }
         printLine();
     }
+
     private void markAsDone(int index)
     {
         if (index >= 0 && index < this.taskList.size()) {
@@ -139,6 +145,12 @@ public class Bot {
         saveTasksToFile();
     }
 
+    /**
+     *
+     * @param input
+     * @throws BotException
+     *
+     */
     private void handleTodo(String input) throws BotException{
         if (input.trim().equals("todo")) {
             throw new BotException("The description of a todo cannot be empty.");
