@@ -50,6 +50,11 @@ public class Event extends Task {
         }
     }
     
+    /**
+     * Returns the string representation of the event task.
+     * 
+     * @return The string representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] " 

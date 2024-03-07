@@ -30,6 +30,11 @@ public class Todo extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the to-do task.
+     * 
+     * @return The string representation of the to-do task.
+     */
     @Override
     public String toString() {
         return "[T][" + this.getStatusIcon() + "] " + this.toDo;

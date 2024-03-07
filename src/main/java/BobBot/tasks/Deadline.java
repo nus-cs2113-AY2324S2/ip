@@ -43,6 +43,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the deadline task.
+     * 
+     * @return The string representation of the deadline task.
+     */
     @Override
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.task + " (by: " + by + ")";
