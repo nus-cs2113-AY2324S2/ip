@@ -5,22 +5,30 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Bobby {
-    public static final String FILE_PATH = "data/tasks.txt";
+    private static final String FILE_PATH = "data/tasks.txt";
+    private static Ui ui;
+    private static Storage storage;
+    private static Parser parser;
+    private static TaskList tasks;
 
-    public static void main(String[] args) {
-        Ui ui = new Ui();
-        Storage storage = new Storage(FILE_PATH);
-        Parser parser = new Parser();
-        boolean isExit = false;
-        TaskList tasks = new TaskList();
-        Scanner in = new Scanner(System.in);
-        ui.showWelcomeMessage();
+    public Bobby(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        parser = new Parser();
+        tasks = new TaskList();
         storage.createFile();
         try {
-           storage.loadFile(tasks.list);
+            storage.loadFile(tasks.list);
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
         }
+    }
+
+    public static void main(String[] args) {
+        new Bobby(FILE_PATH);
+        boolean isExit = false;
+        Scanner in = new Scanner(System.in);
+        ui.showWelcomeMessage();
 
         while (!isExit) {
             String input = in.nextLine();
