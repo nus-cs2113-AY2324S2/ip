@@ -4,16 +4,27 @@ import utilityclasses.TaskActions;
 import java.util.Scanner;
 
 
+/**
+ * The Parser class is responsible for interpreting and executing user input commands related to task management.
+ */
 public class Parser {
     private static Scanner in = new Scanner(System.in);
     private static TaskActions actions;
 
-    //Method to read in a line of text from standard input
+    /**
+     * Reads a line of text from standard input, trimming any leading or trailing whitespace.
+     * @return The trimmed input line.
+     */
     public static String readLine() {
         return in.nextLine().trim();
     }
 
-    //Method to determine what to do based on the input entered
+    /**
+     * Processes and executes commands entered by the user until the "bye" command is received.
+     * This method supports a variety of tasks such as listing tasks, marking tasks as done or undone,
+     * creating new tasks, deleting tasks, and finding tasks.
+     * @param list The DrossList containing the tasks to be manipulated.
+     */
     public static void readParseExecuteUserInput(DrossList list) {
         actions = new TaskActions();
         String line = readLine();
@@ -24,6 +35,8 @@ public class Parser {
                 actions.toggleMark(line, list);
             } else if (line.startsWith("todo") || line.startsWith("deadline") || line.startsWith("event")) {
                 actions.handleTaskCreation(line, list);
+            } else if (line.startsWith("find")){
+                actions.handleSearchForTask(line.substring(line.indexOf("find ") + "find ".length()), list);
             }
             else if (line.startsWith("delete")) {
                 try {

@@ -1,21 +1,56 @@
 package utilityclasses;
+import drosstasks.Task;
 import myexceptions.InvalidTodoException;
 import drosstasks.DrossList;
 import utilityclasses.Ui;
 import utilityclasses.FileIO;
+import java.util.ArrayList;
 
+/**
+ * Provides utility methods for task management actions including listing, searching,
+ * marking tasks as complete or incomplete, task creation, and deletion.
+ */
 public class TaskActions {
 
     private static Ui ui;
 
-    //Method to list all tasks
+    /**
+     * Displays all tasks in the given list.
+     * @param list The DrossList containing tasks to be displayed.
+     */
     public static void listAllTasks(DrossList list) {
         Ui.printLine();
         list.printAllTasks();
         Ui.printLine();
     }
 
-    //Method to toggle tasks as marked or unmarked
+    /**
+     * Searches for and displays tasks matching a given name.
+     * @param name The name to search for within task descriptions.
+     * @param list The DrossList containing tasks to be searched.
+     */
+    public static void handleSearchForTask(String name, DrossList list){
+        ArrayList<Task> matches = new ArrayList<>();
+        ui = new Ui();
+        for (int i = 0; i < list.getSize(); i++) {
+            Task currentTask = list.getTask(i);
+            if (currentTask.getDescription().contains(name)) {
+                matches.add(currentTask);
+            }
+        }
+        if (matches.isEmpty()){
+            ui.printEmptySearchResult();
+        } else {
+            ui.printSearchResults(matches);
+        }
+    }
+
+
+    /**
+     * Toggles the mark of a task as complete or incomplete based on the given instruction.
+     * @param instruction The command to mark or unmark a task, including the task index.
+     * @param list The DrossList containing the task to be toggled.
+     */
     public static void toggleMark(String instruction, DrossList list) {
         ui = new Ui();
         String[] tokens = instruction.split(" ");
@@ -41,12 +76,21 @@ public class TaskActions {
 
     }
 
-    //Method to handle task deletion
+    /**
+     * Deletes a task from the list at the specified index.
+     * @param index The index of the task to be deleted.
+     * @param list The DrossList from which the task will be removed.
+     */
     public static void handleDeleteTask(int index, DrossList list){
         list.deleteTask(index);
     }
 
-    //Method to handle task creation and parse input to appropriately construct the correct object
+    /**
+     * Handles the creation of tasks based on user input, parsing the input to
+     * construct and add the appropriate task object to the list.
+     * @param line The input line containing the task to be added.
+     * @param list The DrossList to which the new task will be added.
+     */
     public static void handleTaskCreation(String line, DrossList list) {
         if (line.startsWith("todo")) {
             try {
