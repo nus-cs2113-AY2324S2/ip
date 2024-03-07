@@ -43,7 +43,7 @@ public class Events extends Task {
     public static Task parseFromFile(String data) {
         boolean isDone = data.charAt(4) == 'X';
         int fromIndex = data.indexOf("(from: ");
-        if (fromIndex == -1) { //replace this with throw statements
+        if (fromIndex == -1) { 
             return null;
         }
         String description = data.substring(6, fromIndex).trim();
