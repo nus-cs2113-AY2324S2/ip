@@ -1,8 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sunny {
-    private static Task[] tasks = new Task[100];
-    private static int counter = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm Sunny");
@@ -32,8 +32,7 @@ public class Sunny {
                     handleEventCommand(command);
                 } else if (command.startsWith("delete")) {
                     deleteTask(command);
-                }
-                else {
+                } else {
                     handleUnknownCommand(command);
                 }
             } catch (Exception e) {
@@ -44,8 +43,8 @@ public class Sunny {
 
     private static void printTaskList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < counter; i++) {
-            System.out.println(i + 1 + ". " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + ". " + tasks.get(i));
         }
         System.out.println(" ");
     }
@@ -53,9 +52,9 @@ public class Sunny {
     private static void markTaskAsDone(String command) {
         int taskIndex = extractTaskIndex(command);
         if (isValidTaskIndex(taskIndex)) {
-            tasks[taskIndex - 1].markAsDone();
+            tasks.get(taskIndex - 1).markAsDone();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println(tasks[taskIndex - 1]);
+            System.out.println(tasks.get(taskIndex - 1));
         } else {
             printInvalidTaskIndexMessage();
         }
@@ -65,9 +64,9 @@ public class Sunny {
     private static void unmarkTaskAsDone(String command) {
         int taskIndex = extractTaskIndex(command);
         if (isValidTaskIndex(taskIndex)) {
-            tasks[taskIndex - 1].unmarkAsDone();
+            tasks.get(taskIndex - 1).unmarkAsDone();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(tasks[taskIndex - 1]);
+            System.out.println(tasks.get(taskIndex - 1));
         } else {
             printInvalidTaskIndexMessage();
         }
@@ -75,7 +74,7 @@ public class Sunny {
     }
 
     private static boolean isValidTaskIndex(int taskIndex) {
-        return taskIndex > 0 && taskIndex <= counter;
+        return taskIndex > 0 && taskIndex <= tasks.size();
     }
 
     private static void handleTodoCommand(String command) {
@@ -84,9 +83,8 @@ public class Sunny {
                 throw new StringIndexOutOfBoundsException();
             }
 
-            tasks[counter] = new Todo(command.substring(5));
-            System.out.println(tasks[counter]);
-            counter++;
+            tasks.add(new Todo(command.substring(5)));
+            System.out.println(tasks.get(tasks.size() - 1));
             printTaskCountMessage();
         } catch (StringIndexOutOfBoundsException e) {
             handleErrors(e);
@@ -100,9 +98,8 @@ public class Sunny {
                 throw new StringIndexOutOfBoundsException();
             }
 
-            tasks[counter] = new Deadline(command.substring(0, dividerPosition - 1), command.substring(dividerPosition + 4));
-            System.out.println(tasks[counter]);
-            counter++;
+            tasks.add(new Deadline(command.substring(0, dividerPosition - 1), command.substring(dividerPosition + 4)));
+            System.out.println(tasks.get(tasks.size() - 1));
             printTaskCountMessage();
         } catch (StringIndexOutOfBoundsException e) {
             handleErrors(e);
@@ -117,9 +114,8 @@ public class Sunny {
                 throw new StringIndexOutOfBoundsException();
             }
 
-            tasks[counter] = new Event(command.substring(0, from - 1), command.substring(from + 6, to - 1), command.substring(to + 4));
-            System.out.println(tasks[counter]);
-            counter++;
+            tasks.add(new Event(command.substring(0, from - 1), command.substring(from + 6, to - 1), command.substring(to + 4)));
+            System.out.println(tasks.get(tasks.size() - 1));
             printTaskCountMessage();
         } catch (StringIndexOutOfBoundsException e) {
             handleErrors(e);
@@ -136,8 +132,9 @@ public class Sunny {
     }
 
     private static void printTaskCountMessage() {
-        String taskNoun = (counter == 1) ? "task" : "tasks";
-        System.out.println("Now you have " + counter + " " + taskNoun + " in the list." + System.lineSeparator());
+        int taskCount = tasks.size();
+        String taskNoun = (taskCount == 1) ? "task" : "tasks";
+        System.out.println("Now you have " + taskCount + " " + taskNoun + " in the list." + System.lineSeparator());
     }
 
     private static int extractTaskIndex(String command) {
@@ -163,8 +160,8 @@ public class Sunny {
         int taskIndex = extractTaskIndex(command);
         if (isValidTaskIndex(taskIndex)) {
             System.out.println("Noted. I've removed this task:");
-            System.out.println(tasks[taskIndex - 1]);
-            removeTask(taskIndex);
+            System.out.println(tasks.get(taskIndex - 1));
+            tasks.remove(taskIndex - 1);
             printTaskCountMessage();
         } else {
             printInvalidTaskIndexMessage();
@@ -172,11 +169,4 @@ public class Sunny {
         System.out.println(" ");
     }
 
-    private static void removeTask(int taskIndex) {
-        for (int i = taskIndex - 1; i < counter - 1; i++) {
-            tasks[i] = tasks[i + 1];
-        }
-        tasks[counter - 1] = null;
-        counter--;
-    }
 }
