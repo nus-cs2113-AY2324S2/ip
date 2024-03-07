@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileWriter {
+
+    /**
+     * Adds formatted entries separated by "|" to a list which is then written into the text file.
+     */
     public static void writeFile() {
         try {
             List<String> formattedEntries = new ArrayList<>();

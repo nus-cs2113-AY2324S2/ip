@@ -28,7 +28,7 @@ public class MarkTask {
             System.out.println(Constants.INVALIDINDEX);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Constants.INVALIDTASK);
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println(Constants.INVALIDTASK);
         }
     }

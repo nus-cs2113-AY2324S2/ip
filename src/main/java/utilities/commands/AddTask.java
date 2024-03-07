@@ -7,6 +7,9 @@ import tasks.ToDo;
 import ui.Constants;
 import utilities.parser.InputParser;
 
+/**
+ * Methods to add todo, deadline, event task to the list.
+ */
 public class AddTask {
 
     /**

@@ -1,9 +1,11 @@
 package tasks;
 
+/**
+ * General task with details on the description and whether it's complete.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
-
 
 
     public Task(String description, boolean isDone) {
