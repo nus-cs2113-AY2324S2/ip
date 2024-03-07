@@ -124,7 +124,7 @@ Example:
 
 - `delete 1`
 
-Expected Outcome:\ 
+Expected Outcome: \
 ![Delete Command](/docs/assets/delete.png)
 
 ### Marking a task as done: `mark`
