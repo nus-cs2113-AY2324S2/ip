@@ -33,7 +33,7 @@ public class Ui {
         System.out.println("okay bestie, here's what u can throw at me to help ya <3 :");
         System.out.println("  - 'list': Peek at all that you gotta get done");
         System.out.println("  - 'todo [ description ]': Got something new to remember? I gotchu girlie!");
-        System.out.println("  - 'deadline [ description ] /by [ date, time (e.g. 2/12/2019 1800) ]': Racing against the clock? I'll keep ya accountable");
+        System.out.println("  - 'deadline [ description ] /by [ date, time (e.g. YYYY-MM-dd HHmm) ]': Racing against the clock? I'll keep ya accountable");
         System.out.println("  - 'event [ description ] /from [ start time ] /to [ end time ]': Got new plans? Lemme know so u don't miss out any of them");
         System.out.println("  - 'mark [ task number ]': Finshed a task? YAY good job bestie ill help mark it off for ya");
         System.out.println("  - 'unmark [ task number ]': Took a lil step back? No worries, we can get back to it later u got this!");

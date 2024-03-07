@@ -3,3 +3,7 @@ T | 1 | go school
 E | 0 | partyyyy | 10:00pm | 1:00am
 D | 0 | return book | 2-12-2019 1800
 D | 0 | sleep | 1-02-2019 1804
+D | 0 | study for midterm | 4/3/2024
+D | 0 | study for midterm | 4/3/2024 1800
+D | 0 | study for midterm | 2024-3-4 1800
+D | 0 | study for midterm | 4-03-2024 1800
