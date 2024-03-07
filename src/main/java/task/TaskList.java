@@ -162,7 +162,9 @@ public class TaskList {
             int descriptionStart = currentLine.indexOf("[D]") + 7;
             int descriptionEnd = currentLine.indexOf("(by:") - 1;
             int byStart = currentLine.indexOf("(by:") + 5;
-            tasks.add(new Deadline(currentLine.substring(descriptionStart, descriptionEnd), currentLine.substring(byStart)));
+            int byEnd = currentLine.indexOf(')', byStart);
+            tasks.add(new Deadline(currentLine.substring(descriptionStart, descriptionEnd),
+                    currentLine.substring(byStart, byEnd)));
             taskCount++;
         }
         else if (currentLine.contains("[E]")){
@@ -171,7 +173,10 @@ public class TaskList {
             int fromStart = currentLine.indexOf("(from:") + 7;
             int fromEnd = currentLine.indexOf("to:") - 1;
             int toStart = currentLine.indexOf("to:") + 4;
-            tasks.add(new Event(currentLine.substring(descriptionStart, descriptionEnd), currentLine.substring(fromStart, fromEnd), currentLine.substring(toStart)));
+            int toEnd = currentLine.indexOf(')', toStart);
+            tasks.add(new Event(currentLine.substring(descriptionStart, descriptionEnd),
+                    currentLine.substring(fromStart, fromEnd),
+                    currentLine.substring(toStart, toEnd)));
             taskCount++;
         }
     }
