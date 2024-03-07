@@ -1,5 +1,5 @@
 package alpaca.exceptions;
-public class InvalidCommandException extends AlpacaException{
+public class InvalidCommandException extends Exception{
 
     @Override
     public String toString () {

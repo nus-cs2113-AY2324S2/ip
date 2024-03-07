@@ -1,11 +1,6 @@
 package alpaca.exceptions;
-public class EmptyTaskDescriptionException extends AlpacaException{
-    private String message;
+public class EmptyTaskDescriptionException extends Exception{
     public EmptyTaskDescriptionException(String message) {
-        this.message = message;
-    }
-    @Override
-    public String toString () {
-        return getMessage();
+        super(message);
     }
 }
