@@ -13,8 +13,12 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    public int taskCount() {
+    public int getTaskCount() {
         return this.taskCount;
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
     }
 
     public void addTodo(String userInput) {
@@ -30,18 +34,11 @@ public class TaskList {
                 System.out.println(tasks.get(taskCount));
                 taskCount++;
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-                // writeToFile(filePath, tasks);
             }
         }
         catch (EkudException error) {
             System.out.println("The description of a todo cannot be empty.");
         }
-        /*
-        catch (IOException error) {
-            System.out.println("Something went wrong: " + error.getMessage());
-        }
-        */
     }
 
     public void addDeadline(String userInput) {
@@ -60,18 +57,11 @@ public class TaskList {
                 System.out.println(tasks.get(taskCount));
                 taskCount++;
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-                // writeToFile(filePath, tasks);
             }
         }
         catch (EkudException error) {
             System.out.println("The description of a deadline cannot be empty.");
         }
-        /*
-        catch (IOException error) {
-            System.out.println("Something went wrong: " + error.getMessage());
-        }
-        */
     };
 
     public void addEvent(String userInput) {
@@ -92,18 +82,11 @@ public class TaskList {
                 System.out.println(tasks.get(taskCount));
                 taskCount++;
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-                // writeToFile(filePath, tasks);
             }
         }
         catch (EkudException error) {
             System.out.println("The description of an event cannot be empty.");
         }
-        /*
-        catch (IOException error) {
-            System.out.println("Something went wrong: " + error.getMessage());
-        }
-        */
     };
 
     public void list() {
@@ -167,6 +150,34 @@ public class TaskList {
         catch (EkudException error) {
             System.out.println("The task number is not valid or not provided.");
         }
+    }
+
+    public void addTaskFromFile(String currentLine) {
+        if(currentLine.contains("[T]")){
+            int descriptionStart = currentLine.indexOf("[T]") + 7;
+            tasks.add(new Todo(currentLine.substring(descriptionStart)));
+            taskCount++;
+        }
+        else if (currentLine.contains("[D]")){
+            int descriptionStart = currentLine.indexOf("[D]") + 7;
+            int descriptionEnd = currentLine.indexOf("(by:") - 1;
+            int byStart = currentLine.indexOf("(by:") + 5;
+            tasks.add(new Deadline(currentLine.substring(descriptionStart, descriptionEnd), currentLine.substring(byStart)));
+            taskCount++;
+        }
+        else if (currentLine.contains("[E]")){
+            int descriptionStart = currentLine.indexOf("[E]") + 7;
+            int descriptionEnd = currentLine.indexOf("(from:") - 1;
+            int fromStart = currentLine.indexOf("(from:") + 7;
+            int fromEnd = currentLine.indexOf("to:") - 1;
+            int toStart = currentLine.indexOf("to:") + 4;
+            tasks.add(new Event(currentLine.substring(descriptionStart, descriptionEnd), currentLine.substring(fromStart, fromEnd), currentLine.substring(toStart)));
+            taskCount++;
+        }
+    }
+
+    public void increaseTaskCount() {
+        this.taskCount++;
     }
 
 }
