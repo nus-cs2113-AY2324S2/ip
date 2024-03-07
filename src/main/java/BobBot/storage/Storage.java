@@ -11,6 +11,16 @@ import BobBot.tasks.Task;
 import BobBot.ui.Ui;
 import taskList.TaskList;
 
+/**
+ * Implements a storage system that saves task details entered by the user.
+ * 
+ * <p>Details are saved to <code>saveFile.txt</code>, with the format
+ * <code>taskNumber|taskMarkedStatus|taskDescription</code></p>
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class Storage {
 
     private static final String SAVE_DIR_PATH = "src/storage/";

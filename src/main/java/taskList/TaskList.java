@@ -6,6 +6,16 @@ import BobBot.parser.Parser;
 import BobBot.tasks.Task;
 import BobBot.ui.Ui;
 
+/**
+ * Implements a task list that stores all tasks entered by the user.
+ * 
+ * <p>Tasks are stored in an array list, and can be added, marked as done, 
+ * unmarked, or deleted.</p>
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class TaskList {
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static int numberOfTasks = 0;

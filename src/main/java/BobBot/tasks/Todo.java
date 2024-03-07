@@ -2,6 +2,15 @@ package BobBot.tasks;
 
 import BobBot.exceptions.InvalidTodoException;
 
+/**
+ * Implements a to-do task that stores the description of the task.
+ * 
+ * <p> The description is stored in the format <code>[task]</code>.</p>
+ * 
+ * @author NicholasTan
+ * @since January 2024
+ * @version 1.0
+ */
 public class Todo extends Task {
 
     protected String toDo;

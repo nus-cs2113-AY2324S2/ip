@@ -2,6 +2,16 @@ package BobBot.tasks;
 
 import BobBot.exceptions.InvalidDeadlineException;
 
+/**
+ * Implements a deadline task that stores the description of the task and the
+ * deadline of the task.
+ * 
+ * <p> The description is stored in the format <code>[task] /by [deadline]</code>.</p>
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class Deadline extends Task {
 
     protected String task;

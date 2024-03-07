@@ -4,6 +4,14 @@ import BobBot.parser.Parser;
 import BobBot.storage.Storage;
 import BobBot.ui.Ui;
 
+/**
+ * Implements a Task Managing CLI application that takes task information in 
+ * various formats.
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class BobBot {
 
     public BobBot() {

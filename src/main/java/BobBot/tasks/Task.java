@@ -1,4 +1,14 @@
 package BobBot.tasks;
+
+/**
+ * Implements a parent task that stores the details of any type of task.
+ * 
+ * <p>Tasks can be marked as done or undone and have a description.</p>
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
