@@ -82,7 +82,8 @@ Adds a new event task with `/from` and `/to` to your task list..<br>
 Lists all tasks your task list.<br>
 * Format: `list`.<br>
   Example of usage: `list`.<br>
-* Expected outcome:
+* Expected outcome:<br>
+
    ```
     ____________________________________________________
      Here are the tasks in your list:
@@ -92,8 +93,9 @@ Lists all tasks your task list.<br>
     ____________________________________________________
    ```
 
+<br>
 
-[Back to Commands Usage Overview](#commands-usage-overview)
+[Back to Commands Usage Overview](#commands-usage-overview)<br>
 
 ### 5. Mark a task in task list: `mark`
 Marks the selected task shown in the current task list.<br>
@@ -125,7 +127,8 @@ Unmarks the selected task shown in the current task list.<br>
 Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
   Example of usage: `find GDP2021`.<br>
-* Expected outcome:
+* Expected outcome:<br>
+
    ```
     ____________________________________________________
      Here are the matching tasks in your list:
@@ -134,6 +137,7 @@ Displays your tasks containing `WORD` in your task list.<br>
     ____________________________________________________
    ```
 
+<br>
 
 ### 8. Delete a task in task list: `delete`
 Deletes the selected task shown in the current task list.<br>
