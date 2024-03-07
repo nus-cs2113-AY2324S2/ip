@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-
+/**
+ * Represents a storage to read and write tasks to a file
+ */
 public class Storage {
     private static final String FILE_PATH = "data/Alpaca.txt";
     private static final File file = new File(FILE_PATH);
@@ -20,6 +22,11 @@ public class Storage {
         return file.exists();
     }
 
+    /**
+     * Read the contents of the file and add the tasks to the task list
+     * @param tasks
+     * @throws IOException
+     */
     private static void readFileContents(TaskList tasks) throws IOException {
         try (Scanner s = new Scanner(file)) {
             while (s.hasNext()) {
@@ -33,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Convert the text from the file to a task
+     * @param text
+     * @return
+     * @throws InvalidFileException
+     */
     private static Task textToTask(String text) throws InvalidFileException {
         String[] split = text.split("\\|");
         isTaskDone = Integer.parseInt(split[1].strip());//keep track of task status in the file
@@ -52,6 +65,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Create an empty file if the file does not exist
+     */
     public static void createEmptyFile() {
         try {
             if (file.createNewFile()) { // Use the shared File instance
@@ -64,6 +80,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Restore the task list from the file
+     * @return the task list restored from the file
+     */
     public static TaskList startFileReader(TaskList tasks) {
         try {
             readFileContents(tasks);
@@ -74,18 +94,32 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save the task list to the file
+     * @param taskList the task list to be saved
+     */
     public static TaskList restoreTask() {
         TaskList tasks = new TaskList();
         startFileReader(tasks);
         return tasks;
     }
 
+    /**
+     * Write the task list to the file
+     * @param filePath the file path
+     * @param textToAdd the text to be added to the file
+     * @throws IOException
+     */
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Start the file writer
+     * @param taskList the task list to be written to the file
+     */
     public static void startFileWriter(String taskList) {
         String filePath = "data/Alpaca.txt";
         try {
