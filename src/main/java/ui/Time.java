@@ -15,12 +15,12 @@ public class Time {
             "yyyy[-][ ][.][/]MM[-][ ][.][/]dd",  // 1989<?>06<?>04
             "dd[-][ ][.][/]MM[-][ ][.][/]yyyy",  // 04<?>06<?>1989
             "dd[-][ ][.][/]MMM[-][ ][.][/]yyyy", // 04<?>Jun<?>1989
-            "MMM dd[,] yyyy", // Jun 04(,) 1989
+            "MMM dd[,] yyyy",                    // Jun 04(,) 1989
     };
 
     private static final String[] TIME_PATTERNS = {
-            "HH[:]mm",    // 24-hour format with leading zeros (e.g. 13:45, 1345)
-            "hh[:]mma",   // 12-hour format with leading zeros and AM/PM indicator (e.g. 01:45pm, 0145pm)
+            "HH[:]mm",  // 24-hour format with leading zeros (e.g. 13:45, 1345)
+            "hh[:]mma", // 12-hour format with leading zeros and AM/PM indicator (e.g. 01:45pm, 0145pm)
             "H:mm",     // 24-hour format without leading zeros (e.g. 9:45)
             "h:mma",    // 12-hour format without leading zeros, with AM/PM indicator (e.g. 1:45pm)
             "Hmm",      // 24-hour format without separators and leading zeros (e.g. 945)
