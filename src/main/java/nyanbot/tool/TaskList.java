@@ -11,19 +11,37 @@ import nyanbot.task.Event;
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    /***
+     * Add task to current instance of TaskList
+     * invokes UI class method to print success message as feedback to user
+     * @param task task to add to tasklist
+     */
     public void addTask(Task task) {
         this.tasks.add(task);
         UI.printAddTaskSuccess(task);
     }
 
+    /***
+     * Stores arraylist of tasks from input in arraylist of current instance
+     * @param tasks arraylist containing tasks
+     */
     public void importTask(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /***
+     * Returns task list stored in current instance
+     * @return arraylist of tasks stored in current instance
+     */
     public ArrayList<Task> exportTask() {
         return this.tasks;
     }
 
+    /***
+     *searches for task in task list with description matching specified keyword
+     * @param string containing keyword
+     * @return foundTasks arraylist of tasks matching search
+     */
     public ArrayList<Task> findTasks(String input) throws NyanException {
         ArrayList<Task> foundTasks = new ArrayList<>();
         if (input.isBlank()) {
@@ -39,6 +57,11 @@ public class TaskList {
         return foundTasks;
     }
 
+    /***
+     * delete task of specified index in tasklist of current instance
+     * invokes UI method to print feedback for user on success
+     * @param input string containing index of task to delete
+     */
     public void deleteTask(String input) {
         try {
             int index = Integer.parseInt(input) - 1;
@@ -52,6 +75,11 @@ public class TaskList {
         }
     }
 
+    /***
+     * mark specified task in tasklist as done
+     * invokes UI method to print feedback for user on success
+     * @param input string containing index of task to mark in arraylist of current instance
+     */
     public void markTask(String input) {
         try {
             int index = Integer.parseInt(input) - 1;
@@ -64,6 +92,11 @@ public class TaskList {
         }
     }
 
+    /***
+     * mark specified task in tasklist as not done
+     * invokes UI method to print feedback for user on success
+     * @param input string containing index of task to unmark in arraylist of current instance
+     */
     public void unmarkTask(String input) {
         try {
             int index = Integer.parseInt(input) - 1;
@@ -76,6 +109,10 @@ public class TaskList {
         }
     }
 
+    /***
+     * add new todo task to tasklist of current instance
+     * @param description string containing description for task to add
+     */
     public void addTodo(String description) {
         try {
             if (description.isBlank()) {
@@ -91,6 +128,10 @@ public class TaskList {
         }
     }
 
+    /***
+     * add new deadline task to tasklist of current instance
+     * @param input string containing description, start and end time for task
+     */
     public void addDeadline(String input) {
         try {
             String[] splitInputs = input.split("//", 2);
@@ -114,6 +155,10 @@ public class TaskList {
         }
     }
 
+    /***
+     * add new event to tasklist of current instance
+     * @param input string containing description and time for task
+     */
     public void addEvent(String input) {
         try {
             String[] splitInputs = input.split("//", 3);
