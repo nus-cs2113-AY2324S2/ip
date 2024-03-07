@@ -18,12 +18,6 @@ public class TaskList {
         return allTasks;
     }
 
-    public static void displayList() {
-        Ui.drawLine(true);
-        Ui.printTaskList();
-        Ui.drawLine(true);
-    }
-
     public static void addTask(String line, boolean isLoad) {
 
         Task newTask = null;
@@ -66,6 +60,22 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             Ui.printNonExistentTaskErrorMessage(taskNumber);
         }
+    }
+
+    public static ArrayList<Task> findTasksFromKeyword(String line) {
+        ArrayList<Task> tasksOfInterest = new ArrayList<>();
+        String keywordString = line.substring("find".length()).trim();
+
+        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
+            Task task = allTasks.get(taskIndex);
+            String taskDescription = task.getDescription();
+
+            if (taskDescription.contains(keywordString)) {
+                tasksOfInterest.add(task);
+            }
+        }
+
+        return tasksOfInterest;
     }
 
 }
