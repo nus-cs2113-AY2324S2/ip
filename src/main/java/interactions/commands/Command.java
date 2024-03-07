@@ -9,6 +9,11 @@ import tasks.TaskList;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a command that contains the input line, first word and description.
+ * Acts as parent class for other command classes, such as commands to add task,
+ * delete task, rename chatbot etc.
+ */
 public abstract class Command {
     protected static final String INDENT = "      ";
     protected String firstWord;
@@ -19,6 +24,7 @@ public abstract class Command {
         return taskDescription;
     }
 
+    /** Assigns input description to this class's description object. */
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
     }
@@ -27,6 +33,7 @@ public abstract class Command {
         return firstWord;
     }
 
+    /** Assigns input first word to this class's first word object, such as delete, mark and deadline.*/
     public void setFirstWord(String firstWord) {
         this.firstWord = firstWord;
     }

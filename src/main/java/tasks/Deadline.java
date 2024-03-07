@@ -24,6 +24,7 @@ public class Deadline extends Task {
         this.isDeadline = true;
     }
 
+    /** Prints the deadline information such as the description and deadline when presented by UI. */
     @Override
     public void print() {
         String additionalInfo;

@@ -33,6 +33,7 @@ public class Event extends Task {
         this.eventTo = eventTo;
     }
 
+    /** Prints the event information such as the description, start time and end time when presented by UI. */
     @Override
     public void print() {
         String additionalInfo;

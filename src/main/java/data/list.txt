@@ -1,4 +1,4 @@
 T | [ ] | this
 T | [/] | that
-E | [ ] | another contest | 1pm -> 5pm
-D | [ ] | contest submission | friday
+E | [/] | marathon | 1 -> 5
+D | [ ] | assignment | thursday

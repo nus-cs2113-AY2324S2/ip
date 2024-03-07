@@ -9,7 +9,7 @@ public class TaskList {
     public TaskList() {
         list = new ArrayList<>();
     }
-    protected Task lastActionTask = null; // Allows for 'undo' functionality
+    protected Task lastActionTask = null;
     public ArrayList<Task> getList() {
         return list;
     }
@@ -17,13 +17,7 @@ public class TaskList {
         list.add(task);
     }
 
-    public Task getLastActionTask() {
-        return lastActionTask;
-    }
-    public void setLastActionTask(Task lastActionTask) {
-        this.lastActionTask = lastActionTask;
-    }
-
+    /** Prints out how many tasks there are in the task list. */
     public void countTasks() {
         int currSize = list.size();
         System.out.println(INDENT + "Now you have " + currSize + " task" + (currSize > 1 ? "s " : " ") + "in the list");
@@ -116,6 +110,12 @@ public class TaskList {
         markedTask.print();
     }
 
+
+    /**
+     * Deletes a task from the task list based on the integer index inputted.
+     *
+     * @param index Index of task from task list to be deleted.
+     */
     public void deleteTask(int index) {
         System.out.print(INDENT);
         lastActionTask = list.get(index - 1);
@@ -124,6 +124,7 @@ public class TaskList {
         countTasks();
     }
 
+    /** Prints all tasks in the task list. If empty, task list is not printed out. */
     public void printList() {
         if (!list.isEmpty()) {
             for (int i = 0; i < list.size(); i++) {
@@ -135,5 +136,14 @@ public class TaskList {
         } else {
             System.out.println(INDENT + "There's nothing in this list.");
         }
+    }
+    /**
+     * Returns task from task list based on index.
+     *
+     * @param index Index of task.
+     * @return index-th task.
+     */
+    public Task getTask(int index) {
+        return list.get(index);
     }
 }

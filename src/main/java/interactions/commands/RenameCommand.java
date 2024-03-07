@@ -8,6 +8,12 @@ import tasks.TaskList;
 
 public class RenameCommand extends Command {
     Ui ui;
+
+    /**
+     * Sets the UI object to the name of the inputted UI's name.
+     *
+     * @param ui Chatbot UI object with name.
+     */
     public RenameCommand(Ui ui) {
         this.ui = ui;
     }

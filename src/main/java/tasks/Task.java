@@ -25,6 +25,10 @@ public class Task {
         this.taskDescription = taskDescription;
         this.isMarked = false;
     }
+
+    /** Prints information about type and if it's marked, as indicated by X,
+     *  when task is presented by UI.
+     */
     public void print() {
         System.out.print('[' + taskType + ']');
         System.out.print(isMarked() ? "[X] " : "[ ] ");

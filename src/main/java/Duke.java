@@ -5,21 +5,21 @@ import interactions.Storage;
 import interactions.Ui;
 import interactions.commands.Command;
 import tasks.TaskList;
-import interactions.commands.AddCommand;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        /** ASCII art that prints 3D lettering of "MOBY" */
         String logo = " _____ ______   ________  ________      ___    ___\n" +
-        "|\\   _ \\  _   \\|\\   __  \\|\\   __  \\    |\\  \\  /  /|\n" +
-        "\\ \\  \\\\\\__\\ \\  \\ \\  \\ \\  \\ \\  \\_\\ /_   \\ \\  \\/  / /\n" + 
-        " \\ \\  \\\\|__| \\  \\ \\  \\ \\  \\ \\   __  \\   \\ \\    / /\n" + 
-        "  \\ \\  \\    \\ \\  \\ \\  \\_\\  \\ \\  \\_\\  \\   \\/   / /\n" + 
-        "   \\ \\__\\    \\ \\__\\ \\_______\\ \\_______\\__/   / /\n" + 
-        "    \\|__|     \\|__|\\|_______|\\|_______|\\____/ /\n" +
-        "                                      \\|____|/\n";
+                "|\\   _ \\  _   \\|\\   __  \\|\\   __  \\    |\\  \\  /  /|\n" +
+                "\\ \\  \\\\\\__\\ \\  \\ \\  \\ \\  \\ \\  \\_\\ /_   \\ \\  \\/  / /\n" +
+                " \\ \\  \\\\|__| \\  \\ \\  \\ \\  \\ \\   __  \\   \\ \\    / /\n" +
+                "  \\ \\  \\    \\ \\  \\ \\  \\_\\  \\ \\  \\_\\  \\   \\/   / /\n" +
+                "   \\ \\__\\    \\ \\__\\ \\_______\\ \\_______\\__/   / /\n" +
+                "    \\|__|     \\|__|\\|_______|\\|_______|\\____/ /\n" +
+                "                                      \\|____|/\n";
         System.out.print("Hello from\n" + logo);
         Ui ui = new Ui();
         TaskList list = new TaskList();
@@ -38,14 +38,12 @@ public class Duke {
                 System.out.println("Here are the tasks in your list:");
                 list.printList();
             }
-            //ui.interact(ui, list, line);
             try {
                 Parser parser = new Parser(ui, list);
                 Command c = parser.parse(line);
                 if (c != null) {
                     c.execute(list, storageHandler);
                 }
-                //parser.handleCommand(line);
             } catch (IncompletePromptException e) {
                 if (!line.equals("list")) {
                     System.out.println("Sorry, your sentence appears to be incomplete. Could you complete your sentence?");

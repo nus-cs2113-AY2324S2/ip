@@ -12,6 +12,12 @@ public class MarkCommand extends Command {
     public MarkCommand() {
 
     }
+
+    /**
+     * Marks or unmarks a task from the task list given the index given in the input.
+     *
+     * @param tasklist List of tasks containing ToDo's, Events and Deadlines.
+     */
     public void mark(TaskList tasklist) {
         boolean isMark = firstWord.equals("mark");
         int index = Integer.parseInt(line.substring(isMark ? 5 : 7));

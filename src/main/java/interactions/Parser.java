@@ -8,6 +8,9 @@ import tasks.TaskList;
 
 import static interactions.Ui.INSTRUCTIONS;
 
+/**
+ * Parses the inputted prompt which is a String and assigns the appropriate actions and commands.
+ */
 public class Parser {
     Ui ui;
     TaskList list;
@@ -15,6 +18,15 @@ public class Parser {
         this.ui = ui;
         this.list = list;
     }
+
+    /**
+     * Returns {@code Command} after parsing the appropriate first word and description.
+     *
+     * @param line Inputted user prompt to parse.
+     * @return Command corresponding to parsed input line.
+     * @throws IncompletePromptException If there is missing description or information from input.
+     * @throws UnknownPromptException If user command does not match any of the commands, and is not a typo.
+     */
     public Command parse(String line) throws IncompletePromptException, UnknownPromptException {
         Command command;
         String[] words = line.split(" ");

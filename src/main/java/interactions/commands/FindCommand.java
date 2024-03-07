@@ -10,6 +10,13 @@ public class FindCommand extends Command {
     public FindCommand() {
 
     }
+
+    /**
+     * Searches for and prints out all the tasks containing a certain keyword in the task list.
+     *
+     * @param keyword The keyword to be searched for in the task list.
+     * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     */
     public void findKeyword(String keyword, TaskList taskList) {
         TaskList matchedTasks = new TaskList();
         ArrayList<Task> list = taskList.getList();

@@ -15,6 +15,12 @@ public class DeleteCommand extends Command {
         return Integer.parseInt(line.substring(len + 1));
     }
 
+    /**
+     * Executes command of deleting task to task list based on integer index.
+     *
+     * @param taskList List of tasks.
+     * @param storage Storage handler that writes task lists to file.
+     */
     public void execute(TaskList taskList, Storage storage) {
         System.out.println("Noted. I've removed this task:");
         taskList.deleteTask(parseIndex(line, firstWord));
