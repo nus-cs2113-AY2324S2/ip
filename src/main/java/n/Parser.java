@@ -13,8 +13,13 @@ package n;
 import n.exceptions.NoTaskTypeException;
 import n.task.Type;
 public class Parser {
+    public static final int BEGIN_INDEX = 11;
+    public static final int FROM_LENGTH = 6;
+    public static final int TO_LENGTH = 3;
+    public static final int BY_LENGTH = 4;
+
     /**
-     * Determines the type of a task based on the provided task description.
+     * Determines the type of task based on the provided task description.
      *
      * @param taskDescription The description of the task.
      * @return The Type of task (Event, Deadline, ToDo).
@@ -46,7 +51,7 @@ public class Parser {
      * @see Storage#loadTaskList()
      */
     public static Type getTaskType(String taskDescription) {
-        char taskTypeSymbol = taskDescription.charAt(4);
+        char taskTypeSymbol = taskDescription.charAt(BY_LENGTH);
         Type taskType = Type.ToDo;
         switch (taskTypeSymbol) {
             case ('T'):
@@ -76,20 +81,20 @@ public class Parser {
         String task;
         switch (taskType) {
             case ToDo:
-                taskDescription = text.substring(11);
+                taskDescription = text.substring(BEGIN_INDEX);
                 break;
             case Deadline:
                 int deadlineIndex = taskDescription.indexOf("(by");
-                task = taskDescription.substring(11, deadlineIndex);
-                String deadline = taskDescription.substring(deadlineIndex + 4, taskDescription.length() - 1).trim();
+                task = taskDescription.substring(BEGIN_INDEX, deadlineIndex);
+                String deadline = taskDescription.substring(deadlineIndex + BY_LENGTH, taskDescription.length() - 1).trim();
                 taskDescription = task + " /by " + deadline;
                 break;
             case Event:
                 int fromIndex = text.indexOf("(from:");
                 int toIndex = text.indexOf("to:");
-                task = text.substring(11, fromIndex).trim();
-                String fromTime = text.substring(fromIndex + 6, toIndex);
-                String toTime = text.substring(toIndex + 3, text.length() - 1);
+                task = text.substring(BEGIN_INDEX, fromIndex).trim();
+                String fromTime = text.substring(fromIndex + FROM_LENGTH, toIndex);
+                String toTime = text.substring(toIndex + TO_LENGTH, text.length() - 1);
                 taskDescription = task + " /from " + fromTime + " /to " +toTime;
                 break;
         }
