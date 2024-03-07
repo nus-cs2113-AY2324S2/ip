@@ -2,18 +2,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * Handle storing user's task list into computer
+ */
 public class Storage {
     private String path;
 
     private ArrayList<Task> tasksList;
-
-    public Storage(String path) throws FileNotFoundException {
-        tasksList = new ArrayList<Task>();
-        this.path = path;
-    }
 
     public Storage() {
         tasksList = new ArrayList<Task>();
@@ -38,6 +36,9 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Save the current task list into the computer
+     */
     public void save(ArrayList<Task> tasks){
         try {
             saveRaw(tasks);
@@ -69,6 +70,9 @@ public class Storage {
         }
     }
 
+    /**
+     * @return an ArrayList of Task saved in the computer
+     */
     public ArrayList<Task> loadFromDisk(){
         loadFromDiskWithExceptionHandle();
         return tasksList;
