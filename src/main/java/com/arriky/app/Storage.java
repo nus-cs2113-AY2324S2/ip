@@ -15,8 +15,8 @@ import java.util.Scanner;
  * @author Songyue Wang
  */
 public class Storage {
-    private static final String taskListFilePath = "./data/tasklist.txt";
-    private static final String dataDirPath = "./data";
+    private static final String TASK_LIST_FILE_PATH = "./data/tasklist.txt";
+    private static final String DATA_DIR_PATH = "./data";
 
     /**
      * Save tasklist entries to a local file.
@@ -25,12 +25,12 @@ public class Storage {
      */
     public static void writeLinesToFile(ArrayList<String> data) throws ArrikyRuntimeException {
         try {
-            File dataDir = new File(dataDirPath);
+            File dataDir = new File(DATA_DIR_PATH);
             if (!dataDir.exists()){
                 dataDir.mkdirs();
             }
 
-            FileWriter fw = new FileWriter(taskListFilePath);
+            FileWriter fw = new FileWriter(TASK_LIST_FILE_PATH);
             for (String line : data) {
                 fw.write(line);
                 fw.write(System.lineSeparator());
@@ -52,7 +52,7 @@ public class Storage {
         ArrayList<String> savedData = new ArrayList<String>();
 
         try {
-            Scanner s = new Scanner(new File(taskListFilePath));
+            Scanner s = new Scanner(new File(TASK_LIST_FILE_PATH));
             while (s.hasNext()){
                 savedData.add(s.next());
             }

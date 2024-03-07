@@ -17,7 +17,7 @@ public class Arriky {
         UI.greet();
         boolean isRunning = true;
 
-        while(isRunning) {
+        while (isRunning) {
             String rawCommand = UI.getCommand();
             UI.printSeparation();
 
