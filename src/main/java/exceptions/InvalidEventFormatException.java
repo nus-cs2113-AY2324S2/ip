@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * The InvalidEventFormatException class represents an exception that is thrown

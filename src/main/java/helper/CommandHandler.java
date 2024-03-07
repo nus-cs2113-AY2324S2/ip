@@ -1,9 +1,9 @@
-package Helper;
+package helper;
 
-import Exceptions.InvalidDateTimeFormatException;
-import Exceptions.InvalidDeadlineFormatException;
-import Exceptions.InvalidEventFormatException;
-import Exceptions.InvalidTodoFormatException;
+import exceptions.InvalidDateTimeFormatException;
+import exceptions.InvalidDeadlineFormatException;
+import exceptions.InvalidEventFormatException;
+import exceptions.InvalidTodoFormatException;
 
 /**
  * The CommandHandler class is responsible for processing user

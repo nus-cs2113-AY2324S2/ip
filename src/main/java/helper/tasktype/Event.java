@@ -1,6 +1,6 @@
-package Helper.TaskType;
+package helper.tasktype;
 
-import Helper.Task;
+import helper.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

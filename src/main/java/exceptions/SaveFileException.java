@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * The SaveFileException class represents an exception that is thrown

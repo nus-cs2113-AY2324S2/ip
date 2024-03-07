@@ -1,7 +1,7 @@
-package Helper;
+package helper;
 
-import Exceptions.LoadFileException;
-import Exceptions.SaveFileException;
+import exceptions.LoadFileException;
+import exceptions.SaveFileException;
 
 import java.io.File;
 import java.io.FileWriter;

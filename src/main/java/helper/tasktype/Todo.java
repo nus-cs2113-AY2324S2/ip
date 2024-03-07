@@ -1,6 +1,6 @@
-package Helper.TaskType;
+package helper.tasktype;
 
-import Helper.Task;
+import helper.Task;
 
 /**
  * The Todo class represents a task without any timeframe or deadline.

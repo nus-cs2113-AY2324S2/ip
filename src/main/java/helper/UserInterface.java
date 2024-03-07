@@ -1,6 +1,6 @@
-package Helper;
+package helper;
 
-import Exceptions.*;
+import exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;

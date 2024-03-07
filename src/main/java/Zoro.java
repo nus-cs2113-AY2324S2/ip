@@ -1,6 +1,6 @@
-import Helper.CommandHandler;
-import Helper.TaskManager;
-import Helper.UserInterface;
+import helper.CommandHandler;
+import helper.TaskManager;
+import helper.UserInterface;
 
 import java.util.Scanner;
 

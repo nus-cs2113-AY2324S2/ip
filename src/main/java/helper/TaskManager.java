@@ -1,7 +1,7 @@
-package Helper;
+package helper;
 
-import Exceptions.*;
-import Helper.TaskType.*;
+import exceptions.*;
+import helper.tasktype.*;
 
 import java.util.ArrayList;
 import java.io.File;
