@@ -11,6 +11,9 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Handles the storage operations for TaskList, including loading and saving to a file
+ */
 public class Storage {
 
     protected File f;
@@ -19,6 +22,10 @@ public class Storage {
         this.f = new File(filename);
     }
 
+    /**
+     * Loads tasks from file into a TaskList.
+     * @return A TaskList populated with tasks from the file.
+     */
     public TaskList load() {
         TaskList taskList = new TaskList();
         try {
@@ -37,6 +44,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current tasks in the TaskList to a file using the command lines.
+     * @param taskList TaskList to be saved.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     public void save(TaskList taskList) throws IOException {
         FileWriter myWriter = new FileWriter("laika.txt");
         for (int i = 0; i < taskList.getSize(); i++) {
