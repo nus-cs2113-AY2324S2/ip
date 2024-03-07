@@ -48,6 +48,10 @@ public class Deadline extends Task {
         return "D";
     }
 
+    /**
+     * Set deadline task as completed
+     * Prints out reply upon setting status of deadline task
+     */
     @Override
     public void markAsDone() {
         this.isDone = true;
@@ -56,6 +60,10 @@ public class Deadline extends Task {
                 "(by:" + this.by + ")" ) ;
     }
 
+    /**
+     * Set deadline task as not completed
+     * Prints out reply upon setting status of deadline task
+     */
     @Override
     public void markAsUndone() {
         this.isDone = false;
