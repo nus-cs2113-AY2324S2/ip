@@ -17,6 +17,13 @@ public class Deadline extends Task {
     protected String task;
     protected String by;
 
+    /**
+     * Creates a deadline task with the given description.
+     * 
+     * @param description The description of the deadline task.
+     * @throws InvalidDeadlineException If the task description is empty or 
+     * does not contain a deadline.
+     */
     public Deadline(String description) throws InvalidDeadlineException {
         super(description);
 

@@ -18,6 +18,13 @@ public class Event extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Creates an event task with the given description.
+     * 
+     * @param description The description of the event task.
+     * @throws InvalidEventException If the task description is empty or 
+     * does not contain a start or end date/time.
+     */
     public Event(String description) throws InvalidEventException {
         super(description);
 

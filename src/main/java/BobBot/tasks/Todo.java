@@ -15,6 +15,12 @@ public class Todo extends Task {
 
     protected String toDo;
 
+    /**
+     * Creates a to-do task with the given description.
+     * 
+     * @param description The description of the to-do task.
+     * @throws InvalidTodoException If the description is empty.
+     */
     public Todo(String description) throws InvalidTodoException {
         super(description);
         this.toDo = this.description.substring("todo".length()).trim();
