@@ -1,6 +1,6 @@
 # User Guide
 
-Welcome to Avril (not the singer), your personal task management assistant! Avril helps you keep track of your todos, deadlines, and events so you can stay organized and focused.
+Welcome to Avril (not the singer), also known as AVY, your personal task management assistant! Avril helps you keep track of your todos, deadlines, and events so you can stay organized and focused.
 
 
 ## Features 
