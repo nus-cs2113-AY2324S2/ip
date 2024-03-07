@@ -22,9 +22,4 @@ public class Task {
     public String save() {
         return String.format("%s,%s", (this.isDone)? "1":"0", this.taskName);
     }
-
-    public boolean contains(String keyWord) {
-        return taskName.contains(keyWord);
-    }
-
 }

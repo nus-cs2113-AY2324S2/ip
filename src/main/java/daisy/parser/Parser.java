@@ -30,9 +30,6 @@ public class Parser {
         return Integer.parseInt(additionalNotes)-1;
     }
 
-    public String getFindInfo() {
-        return additionalNotes;
-    }
     public String getTodoInfo() {
         return additionalNotes;
     }
