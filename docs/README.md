@@ -1,29 +1,107 @@
-# User Guide
+# <span style="color:Black">Bobby User Guide
 
-## Features 
+Bobby is a command-line application that allows you to manage your tasks in the form of a To-Do list. It allows you to add/delete various types of tasks, update their statuses and even search for specific tasks via a keyword.
+## <span style="color:Orange">Quick Start
 
-### Feature-ABC
+Prerequisites: JDK 11, Intellij.
 
-Description of the feature.
+1. Ensure you have Java installed on your computer.
+2. Download the latest Bobby.jar file from [here](https://github.com/seandooa/ip/releases).
+3. Navigate to the directory you downloaded the file in and open a command prompt.
+   - You can do so on windows by typing 'cmd' in the file explorer address bar
+5. Run the application using the command `java -jar Floda.jar`.
+6. The CLI along with the welcome message should appear.
 
-### Feature-XYZ
+## <span style="color:Orange">Features
+### <span style="color:Orange">Adding a Todo: `todo`
 
-Description of the feature.
+Adds a task with a description.
 
-## Usage
+Format: `todo <description>`
 
-### `Keyword` - Describe action
+Example Input: `todo Go to school`
 
-Describe the action and its outcome.
+Example Output: `Added: [T] [ ] Go to school`
 
-Example of usage: 
+### <span style="color:Orange">Adding a Deadline: `deadline`
 
-`keyword (optional arguments)`
+Adds a task with a description and a deadline.
 
-Expected outcome:
+Format: `deadline <description> /by <deadline>`
 
-Description of the outcome.
+Example Input: `deadline Go to school /by 9am`
 
-```
-expected output
-```
+Example Output: `Added: [D] [ ] Go to school (by: 9am)`
+
+###  <span style="color:Orange">Adding a Event: `event`
+
+Adds a task with a description, a start time and an end time.
+
+Format: `event <description> /from <start time> /to <end time>`
+
+Example Input: `event Go to school /from 9am /to 9pm`
+
+Example Output: `Added: [E] [ ] Go to school (from: 9am to: 9pm)`
+
+###  <span style="color:Orange">Listing all tasks: `list`
+
+Shows a list of all tasks currently added.
+
+###  <span style="color:Orange">Deleting a Task: `delete`
+
+Deletes the specified task.
+
+Format: `delete <task number>`
+
+> Tip: Use the command `list` to find the `<task number>` of the task you wish you delete
+
+###  <span style="color:Orange">Marking a Task as Done: `mark`
+
+Marks a specific task as done.
+
+Format: `mark <task number>`
+
+> Tip: Use the command `list` to find the `<task number>` of the task you wish to mark as done.
+
+Example Input: `mark 1`
+
+###  <span style="color:Orange">Unmarking a Task: `unmark`
+
+Unmarks a task as done.
+
+Format: `unmark <task number>`
+
+Replace `<task number>` with the index of the task you want to unmark.
+> Tip: Use the command `list` to find the `<task number>` of the task you wish to unmark.
+
+Example Input: `unmark 1`
+
+Example Output: `I have marked this task as not done: [T] [ ] Buy Groceries`
+
+
+###  <span style="color:Orange">Finding Tasks: `find`
+
+Searches for tasks containing a specific keyword in their descriptions.
+
+Format: `find <keyword>`
+
+Example Input: `find meeting`
+
+###  <span style="color:Orange">Exiting the Application: `bye`
+
+Exits the chatbot Bobby.
+
+Format: `bye`
+
+## <span style="color:LightBlue">Command Summary
+| Command                  | Description                                             |
+|--------------------------|---------------------------------------------------------|
+| `todo <description>`       | Adds a Todo task with a description                    |
+| `deadline <description> /by <deadline>` | Adds a Deadline task with a description and deadline |
+| `event <description> /from <start time> /to <end time>` | Adds an Event task with a description, start time, and end time |
+| `list`                     | Lists all tasks                                         |
+| `delete <task number>`     | Deletes the specified task                             |
+| `mark <task number>`       | Marks a task as done                                   |
+| `unmark <task number>`     | Unmarks a task as done                                 |
+| `find <keyword>`           | Searches for tasks containing a specific keyword       |
+| `bye`                      | Exits the application                                  |
