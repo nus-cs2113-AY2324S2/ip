@@ -1,3 +1,5 @@
+package baymax;
+
 /**
  * Represents a task containing its description and completion status.
  *

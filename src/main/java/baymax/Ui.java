@@ -1,3 +1,5 @@
+package baymax;
+
 import exceptions.InvalidDeadlineSyntaxException;
 import exceptions.InvalidEventSyntaxException;
 import exceptions.InvalidFindTaskException;
@@ -14,12 +16,12 @@ public class Ui {
 
     /**
      * Scans user's input and prints replies specific to the input.
-     * The taskArrayList argument may be either loaded from existing
+     * The tasks argument may be either loaded from existing
      * baymax.txt file or newly created.
      *
-     * @param taskArrayList a ArrayList of the Task class
+     * @param tasks a ArrayList of the Task class
      */
-    public static void handleUserInput(ArrayList<Task> taskArrayList) {
+    public static void handleUserInput(ArrayList<Task> tasks) {
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
 
@@ -30,27 +32,27 @@ public class Ui {
                 if (userInput.equalsIgnoreCase("bye")) {
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    Printer.printTaskList(taskArrayList);
+                    Printer.printTaskList(tasks);
                 } else if (userInput.startsWith("mark")) {
                     int index = Parser.obtainIndexToMark(userInput);
-                    taskArrayList.get(index).markAsDone();
-                    Printer.printMark(taskArrayList.get(index));
+                    tasks.get(index).markAsDone();
+                    Printer.printMark(tasks.get(index));
                 } else if (userInput.startsWith("unmark")) {
                     int index = Parser.obtainIndexToUnmark(userInput);
-                    taskArrayList.get(index).unmarkDone();
-                    Printer.printUnmark(taskArrayList.get(index));
+                    tasks.get(index).unmarkDone();
+                    Printer.printUnmark(tasks.get(index));
                 } else if (userInput.startsWith("todo")) {
-                    TaskList.addTodo(userInput, taskArrayList);
-                    Printer.printAddedTask(taskArrayList);
+                    TaskList.addTodo(userInput, tasks);
+                    Printer.printAddedTask(tasks);
                 } else if (userInput.startsWith("deadline")) {
-                    TaskList.addDeadline(userInput, taskArrayList);
-                    Printer.printAddedTask(taskArrayList);
+                    TaskList.addDeadline(userInput, tasks);
+                    Printer.printAddedTask(tasks);
                 } else if (userInput.startsWith("event")) {
-                    TaskList.addEvent(userInput, taskArrayList);
-                    Printer.printAddedTask(taskArrayList);
+                    TaskList.addEvent(userInput, tasks);
+                    Printer.printAddedTask(tasks);
                 } else if (userInput.startsWith("delete")) {
-                    Printer.printDelete(taskArrayList, Parser.obtainDeleteIndex(userInput));
-                    TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), taskArrayList);
+                    Printer.printDelete(tasks, Parser.obtainDeleteIndex(userInput));
+                    TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), tasks);
                 } else {
                     Printer.printUnknownInput();
                 }
@@ -65,29 +67,29 @@ public class Ui {
                  if (userInput.equalsIgnoreCase("bye")) {
                      break;
                  } else if (userInput.equalsIgnoreCase("list")) {
-                     Printer.printTaskList(taskArrayList);
+                     Printer.printTaskList(tasks);
                  } else if (userInput.startsWith("mark")) {
                      int index = Parser.obtainIndexToMark(userInput);
-                     taskArrayList.get(index).markAsDone();
-                     Printer.printMark(taskArrayList.get(index));
+                     tasks.get(index).markAsDone();
+                     Printer.printMark(tasks.get(index));
                  } else if (userInput.startsWith("unmark")) {
                      int index = Parser.obtainIndexToUnmark(userInput);
-                     taskArrayList.get(index).unmarkDone();
-                     Printer.printUnmark(taskArrayList.get(index));
+                     tasks.get(index).unmarkDone();
+                     Printer.printUnmark(tasks.get(index));
                  } else if (userInput.startsWith("todo")) {
-                     TaskList.addTodo(userInput, taskArrayList);
-                     Printer.printAddedTask(taskArrayList);
+                     TaskList.addTodo(userInput, tasks);
+                     Printer.printAddedTask(tasks);
                  } else if (userInput.startsWith("deadline")) {
-                     TaskList.addDeadline(userInput, taskArrayList);
-                     Printer.printAddedTask(taskArrayList);
+                     TaskList.addDeadline(userInput, tasks);
+                     Printer.printAddedTask(tasks);
                  } else if (userInput.startsWith("event")) {
-                     TaskList.addEvent(userInput, taskArrayList);
-                     Printer.printAddedTask(taskArrayList);
+                     TaskList.addEvent(userInput, tasks);
+                     Printer.printAddedTask(tasks);
                  } else if (userInput.startsWith("delete")) {
-                     Printer.printDelete(taskArrayList, Parser.obtainDeleteIndex(userInput));
-                     TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), taskArrayList);
+                     Printer.printDelete(tasks, Parser.obtainDeleteIndex(userInput));
+                     TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), tasks);
                  } else if (userInput.startsWith("find")) {
-                     ArrayList<Task> findTaskList = TaskList.findTask(taskArrayList, Parser.obtainFindKeyword(userInput));
+                     ArrayList<Task> findTaskList = TaskList.findTask(tasks, Parser.obtainFindKeyword(userInput));
                      Printer.printFindList(findTaskList);
                  } else {
                      Printer.printUnknownInput();

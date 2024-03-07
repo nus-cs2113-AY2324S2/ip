@@ -1,3 +1,5 @@
+package baymax;
+
 import exceptions.InvalidDeadlineSyntaxException;
 import exceptions.InvalidEventSyntaxException;
 import exceptions.InvalidFindTaskException;
@@ -12,14 +14,13 @@ import java.util.ArrayList;
 
 public class Printer {
 
-    private static final String BOT_NAME = "Baymax";
+    private static final String BOT_NAME = "baymax";
     private static final String INDENT = "     ";
     private static final String LINE = "~------------------------------------------------------------~";
     private static final String TAGLINE = "Bala-lala...";
     private static final String ERROR_TAGLINE = "Ohh noo...";
     private static final int LAST_INDEX = 1;
     public static final String ERROR_MSG = "ERROR: ";
-    public static final String SUGGESTION_MSG = "SUGGESTION: ";
 
 
     public static void printWelcomeMessage() {
@@ -35,28 +36,28 @@ public class Printer {
         System.out.println(LINE);
     }
 
-    public static void printTaskCount(ArrayList<Task> taskArrayList) {
-        System.out.println(INDENT + "You have a total of " + taskArrayList.size() + " tasks now. :)");
+    public static void printTaskCount(ArrayList<Task> tasks) {
+        System.out.println(INDENT + "You have a total of " + tasks.size() + " tasks now. :)");
     }
 
-    public static void printAddedTask(ArrayList<Task> taskArrayList) {
+    public static void printAddedTask(ArrayList<Task> tasks) {
         System.out.println(LINE);
         System.out.println(INDENT + TAGLINE + " I've added this task:");
-        System.out.println(INDENT + taskArrayList.get(taskArrayList.size() - LAST_INDEX).toAddString());
-        printTaskCount(taskArrayList);
+        System.out.println(INDENT + tasks.get(tasks.size() - LAST_INDEX).toAddString());
+        printTaskCount(tasks);
         System.out.println(LINE);
     }
 
-    public static void printTaskList(ArrayList<Task> taskArrayList) {
+    public static void printTaskList(ArrayList<Task> tasks) {
         System.out.println(LINE);
-        if (taskArrayList.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println(INDENT + ERROR_TAGLINE + " You have no tasks yet. Try adding some!");
         } else {
             System.out.println(INDENT + TAGLINE + " Displaying your tasks: ");
-            for (int i = 0; i < taskArrayList.size(); i++) {
-                System.out.println(INDENT + (i + 1) + ". " + taskArrayList.get(i));
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(INDENT + (i + 1) + ". " + tasks.get(i));
             }
-            System.out.println(INDENT + "You have a total of " + taskArrayList.size() + " tasks now. :)");
+            System.out.println(INDENT + "You have a total of " + tasks.size() + " tasks now. :)");
         }
     }
 
@@ -72,10 +73,10 @@ public class Printer {
         System.out.println(task);
     }
 
-    public static void printDelete(ArrayList<Task> taskArrayList, int index) {
+    public static void printDelete(ArrayList<Task> tasks, int index) {
         System.out.println(LINE);
         System.out.println(INDENT + TAGLINE + " I've delete this task:");
-        System.out.println(INDENT + taskArrayList.get(index));
+        System.out.println(INDENT + tasks.get(index));
 
     }
 

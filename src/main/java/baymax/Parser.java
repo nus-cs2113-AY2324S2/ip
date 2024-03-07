@@ -1,3 +1,5 @@
+package baymax;
+
 /**
  * Parses user inputs to obtain meaningful data for other functions
  * in order to generate replies to the user.
@@ -50,7 +52,7 @@ public class Parser {
     }
 
     /**
-     * Returns the index, respective to the taskArrayList, of the task to be marked as done.
+     * Returns the index, respective to the tasks, of the task to be marked as done.
      *
      * @param userInput the String of the user's input.
      * @return an integer representing the index of the task to be marked as done.
@@ -60,7 +62,7 @@ public class Parser {
     }
 
     /**
-     * Returns the index, respective to the taskArrayList, of the task to be unmarked.
+     * Returns the index, respective to the tasks, of the task to be unmarked.
      *
      * @param userInput the String of the user's input.
      * @return an integer representing the index of the task to be unmarked.
@@ -70,7 +72,7 @@ public class Parser {
     }
 
     /**
-     * Returns the index, respective to the taskArrayList, of the task to be deleted.
+     * Returns the index, respective to the tasks, of the task to be deleted.
      *
      * @param userInput the String of the user's input.
      * @return an integer representing the index of the task to be deleted.
@@ -79,6 +81,12 @@ public class Parser {
         return Integer.parseInt(userInput.substring(DELETE_START_INDEX)) - INDEX_OFFSET;
     }
 
+    /**
+     * Returns the keyword that the user intends to find.
+     *
+     * @param userInput the String of the user's input.
+     * @return a String of the keyword to be found.
+     */
     public static String obtainFindKeyword(String userInput) {
         if (userInput.length() < FIND_START_INDEX) {
             return null;

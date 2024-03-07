@@ -1,3 +1,8 @@
+package baymax;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
 import exceptions.InvalidDeadlineSyntaxException;
 import exceptions.InvalidEventSyntaxException;
 import exceptions.InvalidFindTaskException;
@@ -6,7 +11,7 @@ import exceptions.InvalidTodoSyntaxException;
 import java.util.ArrayList;
 
 /**
- * Handles the manipulation of the taskArrayList, such as adding and deleting tasks.
+ * Handles the manipulation of the tasks, such as adding and deleting tasks.
  */
 
 public class TaskList {
@@ -18,76 +23,76 @@ public class TaskList {
     private static final String NO_DESC = "No description provided.";
 
     /**
-     * Adds a new ToDo object into the taskArrayList.
+     * Adds a new ToDo object into the tasks.
      *
      * @param userInput the String of the user's input.
-     * @param taskArrayList the ArrayList containing the Task objects.
+     * @param tasks the ArrayList containing the Task objects.
      * @throws InvalidTodoSyntaxException If no description provided from the user's input.
      */
-    public static void addTodo(String userInput, ArrayList<Task> taskArrayList) throws InvalidTodoSyntaxException {
+    public static void addTodo(String userInput, ArrayList<Task> tasks) throws InvalidTodoSyntaxException {
         if (userInput.length() < TODO_LENGTH + MIN_LENGTH) {
             throw new InvalidTodoSyntaxException(NO_DESC);
         } else {
             String todoDescription = Parser.obtainTodoDescription(userInput);
-            taskArrayList.add(new ToDo(todoDescription));
+            tasks.add(new ToDo(todoDescription));
         }
     }
 
     /**
-     * Adds a new Deadline object into the taskArrayList.
+     * Adds a new Deadline object into the tasks.
      *
      * @param userInput the String of the user's input.
-     * @param taskArrayList the ArrayList containing the Task objects
+     * @param tasks the ArrayList containing the Task objects
      * @throws InvalidDeadlineSyntaxException If no description or syntax error provided from the user's input.
      */
-    public static void addDeadline(String userInput, ArrayList<Task> taskArrayList) throws InvalidDeadlineSyntaxException {
+    public static void addDeadline(String userInput, ArrayList<Task> tasks) throws InvalidDeadlineSyntaxException {
         if (userInput.length() < DEADLINE_LENGTH + MIN_LENGTH) {
             throw new InvalidDeadlineSyntaxException(NO_DESC);
         } else if (!userInput.contains("/by")) {
             throw new InvalidDeadlineSyntaxException("Invalid Deadline syntax provided.");
         } else {
             String deadlineDescription = Parser.obtainDeadlineDescription(userInput);
-            taskArrayList.add(new Deadline(deadlineDescription));
+            tasks.add(new Deadline(deadlineDescription));
         }
     }
 
     /**
-     * Adds a new Event object into the taskArrayList.
+     * Adds a new Event object into the tasks.
      *
      * @param userInput the String of the user's input.
-     * @param taskArrayList the ArrayList containing the Task objects
+     * @param tasks the ArrayList containing the Task objects
      * @throws InvalidEventSyntaxException If no description or syntax error provided from the user's input.
      */
 
-    public static void addEvent(String userInput, ArrayList<Task> taskArrayList) throws InvalidEventSyntaxException {
+    public static void addEvent(String userInput, ArrayList<Task> tasks) throws InvalidEventSyntaxException {
         if (userInput.length() < EVENT_LENGTH + MIN_LENGTH) {
             throw new InvalidEventSyntaxException(NO_DESC);
         } else if (!(userInput.contains("/from ") && userInput.contains("/to "))) {
             throw new InvalidEventSyntaxException("Invalid Event syntax provided.");
         } else {
             String eventDescription = Parser.obtainEventDescription(userInput);
-            taskArrayList.add(new Event(eventDescription));
+            tasks.add(new Event(eventDescription));
         }
     }
 
     /**
-     * Delete a task from the taskArrayList.
+     * Delete a task from the tasks.
      *
      * @param index the position of the deleted task.
-     * @param taskArrayList the ArrayList containing the Task objects
+     * @param tasks the ArrayList containing the Task objects
      */
-    public static void deleteTask(int index, ArrayList<Task> taskArrayList) {
-        taskArrayList.remove(index);
+    public static void deleteTask(int index, ArrayList<Task> tasks) {
+        tasks.remove(index);
     }
 
-    public static ArrayList<Task> findTask(ArrayList<Task> taskArrayList, String keyword) throws InvalidFindTaskException {
+    public static ArrayList<Task> findTask(ArrayList<Task> tasks, String keyword) throws InvalidFindTaskException {
         if (keyword == null) {
             throw new InvalidFindTaskException("No keyword provided. Please enter a keyword.");
-        } else if (taskArrayList.isEmpty()) {
+        } else if (tasks.isEmpty()) {
             throw new InvalidFindTaskException("Your tasks list is empty. Try adding some first!");
         } else {
             ArrayList<Task> findTaskList = new ArrayList<>();
-            for (Task task : taskArrayList) {
+            for (Task task : tasks) {
                 if (task.description.contains(keyword)) {
                     findTaskList.add(task);
                 }

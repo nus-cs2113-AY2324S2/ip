@@ -1,13 +1,17 @@
-public class ToDo extends Task {
+package tasks;
 
-    public ToDo(String description) {
+import baymax.Task;
+
+public class Event extends Task {
+
+    public Event(String description) {
         super(description);
-        this.type = "T";
+        this.type = "E";
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[E]" + super.toString();
     }
 
     @Override
@@ -17,8 +21,6 @@ public class ToDo extends Task {
 
     @Override
     public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
+        return "E | " + (isDone ? "1" : "0") + " | " + description;
     }
-
 }
-

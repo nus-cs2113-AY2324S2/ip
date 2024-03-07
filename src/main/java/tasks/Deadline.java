@@ -1,3 +1,7 @@
+package tasks;
+
+import baymax.Task;
+
 public class Deadline extends Task {
 
     public Deadline(String description) {
