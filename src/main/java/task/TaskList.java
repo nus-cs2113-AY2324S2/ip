@@ -3,6 +3,7 @@ package task;
 import java.util.ArrayList;
 import exception.EkudException;
 import ui.UI;
+import ui.Parser;
 
 public class TaskList {
 
@@ -22,19 +23,12 @@ public class TaskList {
     }
 
     public void addTodo(String userInput) {
-        int dividerPosition = userInput.indexOf(" ");
         try {
-            if (dividerPosition != -1) {
-                int descriptionStart = dividerPosition + 1;
-                tasks.add(new Todo(userInput.substring(descriptionStart)));
-                System.out.println(UI.TASK_ADDED_MESSAGE);
-                System.out.println(tasks.get(taskCount));
-                taskCount++;
-                UI.showTaskCountMessage(taskCount);
-            }
-            else {
-                throw new EkudException();
-            }
+            tasks.add(Parser.parseTodo(userInput));
+            System.out.println(UI.TASK_ADDED_MESSAGE);
+            System.out.println(tasks.get(taskCount));
+            taskCount++;
+            UI.showTaskCountMessage(taskCount);
         }
         catch (EkudException error) {
             System.out.println(UI.EMPTY_TODO_DESCRIPTION_MESSAGE);
