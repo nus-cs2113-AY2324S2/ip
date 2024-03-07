@@ -13,6 +13,14 @@ public class CommandHandler {
     private static final String EVENTS = "event(.*)";
     private static final String EXIT = "bye";
 
+    /**
+     * Handles the command inputted by the user.
+     *
+     * @param command User input detail about a command.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @return Indication on whether the program should continue running.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
     public static boolean handle(String command,
                               TaskLists listCommands) throws InputException {
         if (command.equals(EXIT)) {
@@ -41,6 +49,13 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Decodes the todo command and adds the task to the list of commands.
+     *
+     * @param command User input detail about a task to do.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
     private static void decodeTodo(String command,
                                        TaskLists listCommands) throws InputException {
         if ((command.matches("todo"))) {
@@ -54,6 +69,13 @@ public class CommandHandler {
         System.out.print(Message.DASH);
     }
 
+    /**
+     * Decodes the delete command and removes the task from the list of commands.
+     *
+     * @param command User input about deletion of a task.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
     private static void decodeDelete(String command,
                                      TaskLists listCommands) throws InputException {
         String[] split = command.split(" ");
@@ -66,6 +88,13 @@ public class CommandHandler {
 
     }
 
+    /**
+     * Decodes the mark command and marks the task as done.
+     *
+     * @param command User input detail about marking or unmarking a task.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
     private static void decodeMark(String command,
                                    TaskLists listCommands) throws InputException {
         String[] split = command.split(" ");
@@ -82,6 +111,13 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Decodes the deadline command and adds the task to the list of commands.
+     *
+     * @param command User input detail about the deadline.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
     private static void decodeDeadline(String command,
                                        TaskLists listCommands) throws InputException {
         String[] deadlines = command.split(" /by ", 2);
@@ -100,6 +136,13 @@ public class CommandHandler {
         }
     }
 
+    /**
+     * Decodes the event command and adds the task to the list of commands.
+     *
+     * @param command User input detail about the event.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
     private static void decodeEvent(String command,
                                     TaskLists listCommands) throws InputException {
         String[] events = command.split(" /from ", 2);
@@ -123,12 +166,22 @@ public class CommandHandler {
         }
     }
 
-    public static void decodeList(TaskLists listCommands) throws InputException {
+    /**
+     * Decodes the list command and prints the list of tasks.
+     *
+     * @param listCommands List of tasks stored inside the ChatBot.
+     */
+    public static void decodeList(TaskLists listCommands) {
         System.out.println(Message.LIST_OUTPUT_FRONT);
         listCommands.printTasks();
         System.out.print(Message.DASH);
     }
 
+    /**
+     * Decodes the exit command and saves the list of tasks to a text file.
+     *
+     * @param listCommands List of tasks stored inside the ChatBot.
+     */
     public static void decodeExit(TaskLists listCommands) {
         DataManage.saveText(listCommands);
         System.out.println(Message.FAREWELL);

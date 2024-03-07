@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The Event class represents a task that starts at a specific time and ends at a specific time.
+ */
 public class Events extends Tasks{
     private String start;
     private String end;
