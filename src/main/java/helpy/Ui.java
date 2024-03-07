@@ -10,7 +10,8 @@ import java.util.Scanner;
  * Provides methods to interact with the user through the command line.
  */
 public class Ui {
-    public static final String HORIZONTAL_LINE = "______________________\n";
+    public static final String HORIZONTAL_LINE =
+            "___________________________________________________________________________\n";
     public static final String name =
             "░▒█░▒█░▒█▀▀▀░▒█░░░░▒█▀▀█░▒█░░▒█\n" +
             "░▒█▀▀█░▒█▀▀▀░▒█░░░░▒█▄▄█░▒▀▄▄▄▀\n" +
@@ -42,6 +43,25 @@ public class Ui {
     public String readCommand() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
+    }
+
+    public void showHelp() {
+        String helpInfo = "- help: Shows this help menu\n";
+        String byeInfo = "- bye: Exits from the chatbot\n";
+        String todoInfo = "- todo <description>: Adds a new todo task with the provided description\n";
+        String deadlineInfo = "- deadline <description> /by <d/m/yyyy HHmm>: Adds a " +
+                "new task with the\n  specified description and deadline\n";
+        String eventInfo = "- event <description> /from <d/m/yyyy HHmm> /to <d/m/yyyy HHmm>: " +
+                "Adds a\n  new event with the given description and time period\n";
+        String listInfo = "- list: Displays all the tasks in the task list with a task number\n";
+        String markInfo = "- mark <task number>: Marks a task as completed\n";
+        String unmarkInfo = "- unmark <task number>: Marks a task as not completed\n";
+        String deleteInfo = "- delete <task number>: Removes the task from the task list\n";
+        String findInfo = "- find <keyword>: Search for tasks containing the provided keyword";
+
+        printMessage("Need some help? Here's the commands that are available (´⊙ω⊙`)\n\n" +
+                helpInfo + byeInfo + todoInfo + deadlineInfo + eventInfo + listInfo +
+                markInfo + unmarkInfo + deleteInfo + findInfo);
     }
 
     /**
@@ -161,7 +181,7 @@ public class Ui {
      * Displays an error message when an invalid format is provided for a deadline task.
      */
     public void showDeadlineDescErr() {
-        printMessage("Invalid format for deadline! Make sure it follows: " +
+        printMessage("Invalid format for deadline! Make sure it's in this format:\n" +
                 "deadline <description> /by <d/m/yyyy HHmm>\n" +
                 "e.g. deadline read book /by 5/2/2024 1500");
     }

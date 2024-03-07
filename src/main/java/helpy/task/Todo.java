@@ -16,12 +16,11 @@ public class Todo extends Task{
      * @throws IllegalDescriptionException If the description of the Todo task is empty.
      */
     public Todo(String command) throws IllegalDescriptionException {
-        super();
-        String description = command.replace("todo", "").trim();
-        if (description.isEmpty()) {
+        super();;
+        if (command.isEmpty()) {
             throw new IllegalDescriptionException();
         }
-        taskName = description;
+        taskName = command;
     }
 
     /**

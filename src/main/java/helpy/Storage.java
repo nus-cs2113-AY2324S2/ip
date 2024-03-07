@@ -53,7 +53,7 @@ public class Storage {
         String[] details = taskInfo.split(" \\| ");
         if (details[0].equals("T")) {
             try {
-                Todo newTodo = new Todo("todo " + details[2]);
+                Todo newTodo = new Todo(details[2]);
                 if (details[1].equals("1")) {
                     newTodo.setDone(true);
                 }

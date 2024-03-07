@@ -16,11 +16,14 @@ public class Parser {
      * @return The Command object corresponding to the parsed command.
      */
     public Command parse(String fullCommand) {
-        if (fullCommand.trim().equals("bye")) {
+        if (fullCommand.trim().startsWith("bye")) {
             return new ExitCommand();
         }
-        if (fullCommand.trim().equals("list")) {
+        if (fullCommand.trim().startsWith("list")) {
             return new ListCommand();
+        }
+        if (fullCommand.trim().startsWith("help")) {
+            return new HelpCommand();
         }
         if (fullCommand.startsWith("todo")) {
             String commandBody = fullCommand.replace("todo", "").trim();
