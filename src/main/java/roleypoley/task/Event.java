@@ -23,6 +23,13 @@ public class Event extends Task {
         return split[0];
     }
 
+    /**
+     * Get start time of event task
+     *
+     * @param description task description
+     * @return start time of event
+     * @throws RoleyPoleyParseException if from: or /from does not exist
+     */
     private static String getFrom(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(from: |to: |/from |/to ");
         if (split.length == 1) {
@@ -31,6 +38,12 @@ public class Event extends Task {
         return split[1];
     }
 
+    /**
+     * Get end time of event task
+     * @param description task description
+     * @return end time of event
+     * @throws RoleyPoleyParseException if to: or /to does not exist
+     */
     private static String getTo(String description) throws RoleyPoleyParseException {
         String[] split = description.split("\\(from: |to: |/from |/to ");
         if (split.length == 2) {
