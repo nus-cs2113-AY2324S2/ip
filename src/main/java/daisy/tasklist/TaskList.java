@@ -83,4 +83,14 @@ public class TaskList {
         addTask(newEvent, printOut);
     }
 
+    public void findTasks(String keyWord) {
+        int count = 1;
+        for (Task task : tasks) {
+            if (task.contains(keyWord)) {
+                System.out.println(count + "." + task);
+                count++;
+            }
+        }
+    }
+
 }
