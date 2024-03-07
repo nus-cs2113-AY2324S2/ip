@@ -1,8 +1,15 @@
 # User Guide for Laika
 
-Welcome to Laika, your friendly task management assistant! 
+```
+  ^..^      /
+  /_/\_____/
+     /\    /\
+    /  \  /  \
+```
+
+Welcome to Laika, your personal task management assistant! 
 Laika helps you keep track of your todos, deadlines, and events,
-ensuring you stay organized and productive. This guide will 
+ensuring you stay organized and productive. This guide will bring
 you through the basic operations to get you started.
 
 ## Installation
@@ -114,7 +121,7 @@ Task List:
 3) [E][ ] lecture quiz  (from: Friday 2pm to: Friday 4pm)
 ```
 
-### 'mark' - Mark a task as done
+### `mark` - Mark a task as done
 
 mark/unmark TASK_NUMBER
 
@@ -129,7 +136,7 @@ Laika: Good job! Task has been marked as done.
 [D][X] submit homework  (by: 2023-03-21)
 ```
 
-### 'unmark' - Mark a task as undone
+### `unmark` - Mark a task as undone
 
 unmark TASK_NUMBER
 
