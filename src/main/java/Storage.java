@@ -11,7 +11,14 @@ import java.io.IOException;
  * Storage class deals with loading tasks from file and saving tasks to file.
  */
 public class Storage {
+    /**
+     * The directory path where data files are stored.
+     */
     public static final String DIRECTORYPATH = "./data/";
+
+    /**
+     * The file path for storing data inputted by user with the file name being "MsChatty:).txt".
+     */
     public static final String FILEPATH = DIRECTORYPATH + "MsChatty:).txt";
 
     /**
