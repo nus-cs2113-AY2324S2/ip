@@ -4,7 +4,7 @@ import doraemonexceptions.IsEmptyException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -60,11 +60,13 @@ public class Main {
         list.add(taskNum, new Event(description, start, end)) ;
     }
 
-    public static int loadData(ArrayList<Todo> list) throws FileNotFoundException {
+    public static int loadData(ArrayList<Todo> list) throws IOException {
         File storedFile = new File(PATHNAME);
         int taskNum = 0;
         if (!storedFile.exists()) {
-            throw new FileNotFoundException();
+            new File(storedFile.getParent()).mkdirs();
+            System.out.println("No previous data was found, a new file is created.");
+            printLine();
         } else {
             Scanner dataInput = new Scanner(storedFile);
             while (dataInput.hasNext()) {
@@ -104,7 +106,7 @@ public class Main {
         printGreetings();
         try {
             taskNum = loadData(list);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("Something went wrong, please try again!");
             printLine();
         }
