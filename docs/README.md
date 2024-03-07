@@ -1,4 +1,4 @@
-# User Guide
+# Jason: Personal Task Manager User Guide
 
 ## Features 
 
