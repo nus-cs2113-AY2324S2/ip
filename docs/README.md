@@ -20,7 +20,6 @@ Running Byte
 - You are required to install Java 11 onto your computer
 - Download the [latest release](https://github.com/V4Vern/ip/releases) from the releases page
 - Run the program in your preferred terminal using the command: java -jar Byte.jar
-- You should be greeted with a prompt on the first start-up asking for your name
 
 ### ToDos
 ToDos are simple tasks that you wish to complete, without a deadline or a time frame to meet.
