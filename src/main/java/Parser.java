@@ -1,6 +1,18 @@
 import java.util.ArrayList;
 
+/**
+ * The Parser class is responsible for parsing user commands and executing corresponding actions
+ * on the TaskList and Ui classes. It handles various commands such as adding tasks, marking tasks
+ * as done, deleting tasks, listing tasks, and searching for tasks.
+ */
 public class Parser {
+    /**
+     * Parses the user command and executes the corresponding action.
+     *
+     * @param userCommand The user-entered command.
+     * @param taskList    The TaskList object containing the list of tasks.
+     * @param ui          The Ui object for displaying messages.
+     */
     public static void parseUserCommand(String userCommand, TaskList taskList, Ui ui) {
         String[] parts = userCommand.split(" ", 2);
         String commandWord = parts[0].toLowerCase();
@@ -42,6 +54,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the "todo" command and adds a Todo task to the taskList.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the description for the todo task is empty.
+     */
     private static void parseTodoCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided a description for the todo task
         if (parts.length < 2) {
@@ -56,7 +76,14 @@ public class Parser {
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
 
-
+    /**
+     * Parses the "deadline" command and adds a Deadline task to the taskList.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the user does not provide enough information for the deadline task.
+     */
     private static void parseDeadlineCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided enough information for the deadline task
         if (parts.length < 2) {
@@ -82,9 +109,14 @@ public class Parser {
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
 
-
-
-
+    /**
+     * Parses the "event" command and adds an Event task to the taskList.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the user does not provide enough information for the event task.
+     */
     private static void parseEventCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided enough information for the event task
         if (parts.length < 2) {
@@ -121,7 +153,14 @@ public class Parser {
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
 
-
+    /**
+     * Parses the "mark" command and marks a task as done in the taskList.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the user does not provide a valid task number to mark as done.
+     */
     private static void parseMarkCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided a valid task number to mark as done
         if (parts.length < 2) {
@@ -144,6 +183,14 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the "unmark" command and marks a task as not done in the taskList.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the user does not provide a valid task number to mark as not done.
+     */
     private static void parseUnmarkCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided a valid task number to mark as not done
         if (parts.length < 2) {
@@ -166,6 +213,14 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the "delete" command and removes a task from the taskList.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the user does not provide a valid task number to delete.
+     */
     private static void parseDeleteCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided a valid task number to delete
         if (parts.length < 2) {
@@ -187,7 +242,14 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Parses the "find" command and searches for tasks containing a specified keyword.
+     *
+     * @param parts    The parts of the user command.
+     * @param taskList The TaskList object containing the list of tasks.
+     * @param ui       The Ui object for displaying messages.
+     * @throws JoeyException If the user does not provide a keyword to search for.
+     */
     private static void parseFindCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
         // Check if the user provided a keyword to search for
         if (parts.length < 2) {
