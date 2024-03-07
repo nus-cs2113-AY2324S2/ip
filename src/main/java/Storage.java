@@ -29,9 +29,11 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             String line;
             while ((line = reader.readLine()) != null){
-                Task task = Task.parseTask(line);
+                Task task = Parser.parseTask(line);
                 tasks.add(task);
             }
+        } catch (AliceException e) {
+            throw new RuntimeException(e);
         }
 
         return tasks;

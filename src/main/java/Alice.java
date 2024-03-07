@@ -99,6 +99,7 @@ public class Alice {
         storage.saveTasks(tasks.getTasks());
     }
 
+
     private void handleEvent(String input) throws AliceException, IOException {
         Parser.EventData eventData = parser.parseEvent(input);
         Event newEvent = new Event(eventData.description, eventData.start, eventData.end);
