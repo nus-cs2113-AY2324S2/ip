@@ -1,4 +1,9 @@
-package Bobble.task;
+package Bobble;
+
+import Bobble.task.Deadline;
+import Bobble.task.Event;
+import Bobble.task.Task;
+import Bobble.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,38 +13,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/bobble.txt";
+    public String filePath;
     private static final String DIRECTORY_PATH = "./data";
     private static final String DIVIDER = "\\|";
-    private ArrayList<Task> savedTaskList;
+    private ArrayList<Task> savedTaskList = new ArrayList<>();
 
-    public Storage() {
-        savedTaskList = new ArrayList<>();
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadSavedList() throws IOException {
+    public ArrayList<Task> load() throws IOException {
         File directory = new File(DIRECTORY_PATH);
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
-                // Failed to create the directory
                 throw new IOException("Failed to create directory: " + directory.getAbsolutePath());
             }
         }
 
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            // If the file does not exist, create a new file and return an empty ArrayList
-            try {
-                file.createNewFile();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return savedTaskList;
-        }
+        File file = new File(this.filePath);
 
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            try {
                 // Parse each line by splitting it with "|"
                 String savedTask = scanner.nextLine();
                 String[] parts = savedTask.split(DIVIDER);
@@ -50,25 +45,23 @@ public class Storage {
                     checkIfDone(parts[1]);
                     break;
                 case "D":
-                    String[] descAndBy = parts[2].split("/by");
-                    Deadline newDeadline = new Deadline(descAndBy[0], descAndBy[1]);
+                    Deadline newDeadline = Parser.getNewDeadline(parts[2]);
                     savedTaskList.add(newDeadline);
                     checkIfDone(parts[1]);
                     break;
                 case "E":
-                    String[] descAndTime = parts[2].split("/from");
-                    String[] duration = descAndTime[1].split("/to");
-                    Event newEvent = new Event(descAndTime[0], duration[0], duration[1]);
+                    Event newEvent = Parser.getNewEvent(parts[2]);
                     savedTaskList.add(newEvent);
                     checkIfDone(parts[1]);
                     break;
                 default:
+                    throw new BobbleExceptionCommand();
                 }
+            } catch (BobbleExceptionCommand e) {
+                throw new IOException("Failed to read task.");
             }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("error");
         }
+        scanner.close();
         return savedTaskList;
     }
 
@@ -79,11 +72,11 @@ public class Storage {
         }
     }
 
-    public static void saveAddedTask(ArrayList<Task> taskList) {
+    public void saveAddedTask(ArrayList<Task> taskList) {
         saveList(taskList.get(taskList.size() - 1).toString()); // Save tasks to file whenever the task list changes
     }
 
-    public static void saveWholeList(ArrayList<Task> TaskList) {
+    public void saveWholeList(ArrayList<Task> TaskList) {
         try {
             writeToFile("");
         } catch (IOException e) {
@@ -94,7 +87,7 @@ public class Storage {
         }
     }
 
-    private static void saveList(String taskToString) {
+    private void saveList(String taskToString) {
         //for each task in ArrayList savedTaskList, get Class + isDone + Desc of each based on type.
         String taskType = taskToString.substring(1, 2);
         String taskStatus = taskToString.substring(4, 5);
@@ -128,14 +121,14 @@ public class Storage {
         return formattedDescription;
     }
 
-    private static void writeToFile(String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(FILE_PATH);
+    private void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(this.filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
-    private static void appendToFile(String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(Storage.FILE_PATH, true); // create a FileWriter in append mode
+    private void appendToFile(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(this.filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend + "\n");
         fw.close();
     }

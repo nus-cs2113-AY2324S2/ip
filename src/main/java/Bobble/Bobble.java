@@ -1,141 +1,92 @@
 package Bobble;
 
-import Bobble.task.*;
+import Bobble.task.Deadline;
+import Bobble.task.Event;
+import Bobble.task.ToDo;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Bobble {
-    private static final String FILE_NAME = "./data/bobble.txt";
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    public static final String LINE_WRAP = "____________________________________________________________\n";
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-
-
-    public static void main(String[] args) {
+    public Bobble(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            taskList = new FileManager().loadSavedList();
+            tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
+    }
 
-        start();
+    public void run() {
+        ui.printWelcomeMessage();
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
 
         while (!userInput.equals("bye")) {
-            String[] UserInputs = getCommandAndDesc(userInput);
+            String[] UserInputs = Parser.getCommandAndDesc(userInput);
             String command = UserInputs[0];
             try {
-                switch (command) {
+                switch (command.toLowerCase()) {
                 case "list":
-                    listResponse();
+                    ui.listResponse(tasks.taskList);
                     break;
                 case "todo":
                     ToDo newToDo = new ToDo(UserInputs[1]);
-                    taskList.add(newToDo);
-                    addTaskResponse(newToDo);
+                    tasks.addNewTask(newToDo);
+                    ui.addTaskResponse(tasks.taskList, newToDo);
+                    storage.saveAddedTask(tasks.taskList);
                     break;
                 case "deadline":
-                    String[] parts = UserInputs[1].split("/by");
-                    Deadline newDeadline = new Deadline(parts[0], parts[1]);
-                    taskList.add(newDeadline);
-                    addTaskResponse(newDeadline);
+                    Deadline newDeadline = Parser.getNewDeadline(UserInputs[1]);
+                    tasks.addNewTask(newDeadline);
+                    ui.addTaskResponse(tasks.taskList, newDeadline);
+                    storage.saveAddedTask(tasks.taskList);
                     break;
                 case "event":
-                    parts = UserInputs[1].split("/from");
-                    String[] duration = parts[1].split("/to");
-                    Event newEvent = new Event(parts[0], duration[0], duration[1]);
-                    taskList.add(newEvent);
-                    addTaskResponse(newEvent);
+                    Event newEvent = Parser.getNewEvent(UserInputs[1]);
+                    tasks.addNewTask(newEvent);
+                    ui.addTaskResponse(tasks.taskList, newEvent);
+                    storage.saveAddedTask(tasks.taskList);
                     break;
                 case "mark":
-                    int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-                    markResponse(taskList.get(taskNumber), taskNumber);
+                    int taskNumber = Parser.getTaskNumber(userInput, "mark");
+                    tasks.markTask(taskNumber);
+                    storage.saveWholeList(tasks.taskList);
+                    ui.printMarkResponse(tasks.taskList.get(taskNumber).toString());
                     break;
                 case "unmark":
-                    taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-                    unmarkResponse(taskList.get(taskNumber), taskNumber);
+                    taskNumber = Parser.getTaskNumber(userInput, "unmark");
+                    tasks.unmarkTask(taskNumber);
+                    storage.saveWholeList(tasks.taskList);
+                    ui.printUnmarkResponse(tasks.taskList.get(taskNumber));
                     break;
                 case "delete":
-                    taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-                    deleteResponse(taskList.get(taskNumber), taskNumber);
+                    taskNumber = Parser.getTaskNumber(userInput, "delete");
+                    ui.printDeleteResponse(tasks.taskList, tasks.taskList.get(taskNumber));
+                    tasks.deleteTask(taskNumber);
+                    storage.saveWholeList(tasks.taskList);
                     break;
                 default:
                     throw new BobbleExceptionCommand();
                 }
             } catch (BobbleExceptionCommand e) {
-                System.out.println(LINE_WRAP +
-                        "OOPS!! I'm sorry, but I don't know what that means :-(\n" +
-                        LINE_WRAP);
+                ui.printErrorMessage();
             } catch (IndexOutOfBoundsException e) {
-                System.out.println(LINE_WRAP +
-                        "OOPS!! One or more fields of a(n) " + command + " cannot be empty.\n" +
-                        LINE_WRAP);
+                ui.printEmptyFieldErrorMessage(command);
             }
             userInput = input.nextLine();
         }
-        goodbye();
+        ui.printGoodbyeMessage();
     }
 
-    private static void deleteResponse(Task task, int taskNumber) {
-        System.out.println(LINE_WRAP + "Noted. I've removed this task:\n" +
-                task.toString() + "\nNow you have " + (taskList.size() - 1) +
-                " task(s) in the list.\n" + LINE_WRAP);
-        taskList.remove(taskNumber);
-        FileManager.saveWholeList(taskList);
+    public static void main(String[] args) {
+        new Bobble("data/Bobble.txt").run();
     }
-
-    private static void listResponse() {
-        System.out.println(LINE_WRAP + "Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + "." + taskList.get(i).toString());
-        }
-        System.out.println(LINE_WRAP);
-    }
-
-    private static void markResponse(Task task, int taskNumber) {
-        taskList.get(taskNumber).setDone(true);
-        System.out.println("Nice! I've marked this task as done:\n" +
-                task.toString() + "\n" + LINE_WRAP);
-        FileManager.saveWholeList(taskList);
-    }
-
-    private static void unmarkResponse(Task task, int taskNumber) {
-        taskList.get(taskNumber).setDone(false);
-        System.out.println("OK, I've marked this task as not done yet:\n" +
-                task.toString() + "\n" + LINE_WRAP);
-        FileManager.saveWholeList(taskList);
-    }
-
-    public static String[] getCommandAndDesc(String input) {
-        return input.split(" ", 2);
-    }
-
-    public static void addTaskResponse(Task task) {
-        System.out.println(LINE_WRAP +
-                "Got it. I've added this task: \n  " +
-                task.toString() +
-                "\nNow you have " + taskList.size() + " task(s) in the list.\n" +
-                LINE_WRAP);
-        FileManager.saveAddedTask(taskList);
-    }
-
-    //Greets user
-    public static void start() {
-        System.out.println(LINE_WRAP +
-                "Hello! I'm Bobble\n" +
-                "What can I do for you?\n" +
-                LINE_WRAP);
-    }
-
-    //Exits
-    public static void goodbye() {
-        System.out.println(LINE_WRAP +
-                "Bye. Hope to see you again soon!\n" + LINE_WRAP);
-    }
-
 }
