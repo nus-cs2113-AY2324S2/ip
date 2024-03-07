@@ -1,3 +1,2 @@
-E,0,Jingyu attend CS2113 lecture Friday 23 Feb 2024,4,6pm
-D,0,Jingyu Submit UG draft,today 2359
-T,0,Do homework
+D,0,submit 2113 assignment,2024-03-08 2359
+E,0,eat snacks,2024-03-08 2200,2359
