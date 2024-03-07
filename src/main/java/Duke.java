@@ -29,26 +29,27 @@ public class Duke {
 
         while(!userInput.equals("bye")){
             String[] userInputWords = userInput.split(" ");
+            String userCommand = userInputWords[0].toLowerCase();
 
-            if(userInput.equals("list")){
+            if(userCommand.equals("list")){
                 tasks.list();
             }
-            else if(userInputWords[0].equals("mark")){
+            else if(userCommand.equals("mark")){
                 tasks.mark(userInput);
             }
-            else if(userInputWords[0].equals("unmark")){
+            else if(userCommand.equals("unmark")){
                 tasks.unmark(userInput);
             }
-            else if(userInputWords[0].equals("todo")){
+            else if(userCommand.equals("todo")){
                 tasks.addTodo(userInput);
             }
-            else if(userInputWords[0].equals("deadline")){
+            else if(userCommand.equals("deadline")){
                 tasks.addDeadline(userInput);
             }
-            else if(userInputWords[0].equals("event")){
+            else if(userCommand.equals("event")){
                 tasks.addEvent(userInput);
             }
-            else if(userInputWords[0].equals("delete")){
+            else if(userCommand.equals("delete")){
                 tasks.delete(userInput);
             }
             else{
