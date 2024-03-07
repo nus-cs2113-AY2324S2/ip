@@ -6,10 +6,11 @@ import Yoj.tasks.Deadline;
 import Yoj.tasks.Event;
 import Yoj.tasks.Task;
 import Yoj.tasks.ToDo;
+import java.util.ArrayList;
 
 public class List {
-    public static Task[] tasks = new Task[100];
-    public static int taskNumber = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
     public static void printLine() {
         System.out.println("________________________________________");
     }
@@ -26,18 +27,33 @@ public class List {
         }
         printShortLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println(tasks[taskNumber]);
-        taskNumber++;
-        System.out.println("Now you have " + taskNumber + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printLine();
     }
 
+    public static void deleteTask(String userInput) {
+        String taskNum = userInput.substring("delete ".length()).trim();
+        int num = Integer.parseInt(taskNum);
+        Task deletedTask = tasks.get(num - 1);
+        tasks.remove(num - 1);
+        if (tasks.size() == 0) {
+            System.out.println("okie task removed!!");
+            System.out.println(deletedTask);
+            System.out.println("there's no more tasks in the list.. please add new tasks below :)");
+        } else {
+            System.out.println("okie task removed!!");
+            System.out.println(deletedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        }
+
+    }
     public static void manageToDo(String userInput) throws YojException{
         String description = userInput.substring("todo".length()).trim();
         if (description.isEmpty()) {
             throw new YojException("The description of todo cannot be empty...");
         } else {
-            tasks[taskNumber] = new ToDo(userInput.substring(5));
+            tasks.add(new ToDo(userInput.substring(5)));
         }
     }
     public static void manageDeadline(String userInput) throws YojException{
@@ -46,7 +62,7 @@ public class List {
             throw new YojException("The description of deadline cannot be empty...");
         } else {
             String[] parts = userInput.substring(9).split(" /by ");
-            tasks[taskNumber] = new Deadline(parts[0].trim(), parts[1].trim());
+            tasks.add(new Deadline(parts[0].trim(), parts[1].trim()));
         }
     }
     public static void manageEvent(String userInput) throws YojException{
@@ -56,7 +72,7 @@ public class List {
         } else {
             String[] parts = userInput.substring(6).split(" /from ");
             String[] times = parts[1].split(" /to ");
-            tasks[taskNumber] = new Event(parts[0].trim(), times[0].trim(), times[1].trim());
+            tasks.add(new Event(parts[0].trim(), times[0].trim(), times[1].trim()));
         }
     }
     public static void manageUserInput(String userInput) throws YojException, InvalidCommandException {
@@ -65,25 +81,32 @@ public class List {
         } else if(userInput.matches("mark \\d+")) {
             String[] taskIndex = userInput.split(" ");
             int index = Integer.parseInt(taskIndex[1] );
-            tasks[index - 1].markDone(index - 1);
+            tasks.get(index - 1).markDone(index - 1);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  [X] " + tasks[index-1].getDescription());
+            System.out.println("  [X] " + tasks.get(index - 1).getDescription());
         } else if(userInput.matches("unmark \\d+")) {
             String[] taskIndex = userInput.split(" ");
             int index = Integer.parseInt(taskIndex[1]);
-            tasks[index - 1].markUndone(index - 1);
+            tasks.get(index - 1).markUndone(index - 1);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  [ ] " + tasks[index - 1].getDescription());
+            System.out.println("  [ ] " + tasks.get(index - 1).getDescription());
         } else if(userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
             addTask(userInput);
-        } else if (userInput.equals("bye")){
+        } else if(userInput.startsWith("delete")) {
+            deleteTask(userInput);
+        } else if(userInput.equals("bye")){
             System.out.println("bye bye!! hope to see u soon :)");
         } else throw new InvalidCommandException("command not recognised :<");
     }
 
     public static void printList() {
-        for(int i = 0; i < taskNumber; i++) {
-            System.out.println(i+1 + ". " + tasks[i].toString());
+        if (tasks.size() == 0) {
+            System.out.println("the list is currently empty...");
+            System.out.println("add your tasks below :)");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + ". " + tasks.get(i).toString());
+            }
         }
     }
 }
