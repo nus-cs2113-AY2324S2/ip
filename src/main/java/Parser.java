@@ -43,111 +43,172 @@ public class Parser {
     }
 
     private static void parseTodoCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided a description for the todo task
         if (parts.length < 2) {
-            throw new JoeyException("The description of a todo cannot be empty.");
+            throw new JoeyException("Hey girlie, The description of a todo cannot be empty.");
         }
+
+        // Extract the description from the user's input
         String description = parts[1].trim();
         taskList.addTask(new Todo(description, false));
+
+        // Display a confirmation message using the Ui class
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
+
 
     private static void parseDeadlineCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided enough information for the deadline task
         if (parts.length < 2) {
-            throw new JoeyException("Please provide both description and deadline for the deadline task.");
+            throw new JoeyException("Hey girlie, Please provide both description and deadline for the deadline task.");
         }
 
+        // Split the user's input to extract deadline details
         String[] deadlineParts = parts[1].split("/by", 2);
+
+        // Check if both description and deadline are provided
         if (deadlineParts.length < 2) {
-            throw new JoeyException("Invalid deadline format.");
+            throw new JoeyException("Hey girlie, Please provide both description and deadline for the deadline task.");
         }
 
+        // Extract description
         String description = deadlineParts[0].trim();
-        String by = deadlineParts[1].trim(); // No change needed here, as Deadline constructor will handle the parsing.
+        String by = deadlineParts[1].trim();
+
+        // Add the deadline task to the taskList
         taskList.addTask(new Deadline(description, by, false));
+
+        // Display a confirmation message using the Ui class
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
+
+
 
 
     private static void parseEventCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided enough information for the event task
         if (parts.length < 2) {
-            throw new JoeyException("Please provide both description, start time, and end time for the event task.");
+            throw new JoeyException("Hey girlie, Please provide both description, start time, and end time for the event task.");
         }
 
+        // Split the user's input to extract event details
         String[] eventParts = parts[1].split("/from", 2);
+
+        // Check if the event description and start time are provided
         if (eventParts.length < 2) {
-            throw new JoeyException("Invalid event format.");
+            throw new JoeyException("Hey girlie, Please provide both description, start time, and end time for the event task.");
         }
 
+        // Extract event description
         String description = eventParts[0].trim();
+
+        // Split the remaining input to get start and end times
         String[] timingParts = eventParts[1].split("/to", 2);
 
+        // Check if both start and end times are provided
         if (timingParts.length < 2) {
-            throw new JoeyException("Invalid event format.");
+            throw new JoeyException("Hey girlie, Please provide both description, start time, and end time for the event task.");
         }
 
+        // Extract start and end times
         String from = timingParts[0].trim();
         String to = timingParts[1].trim();
+
+        // Add the event task to the taskList
         taskList.addTask(new Event(description, from, to, false));
+
+        // Display a confirmation message using the Ui class
         ui.showTaskAdded(taskList.getTasks().get(taskList.getTasks().size() - 1), taskList.getTasks().size());
     }
 
+
     private static void parseMarkCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided a valid task number to mark as done
         if (parts.length < 2) {
-            throw new JoeyException("Please provide a valid task number to mark as done.");
+            throw new JoeyException("Hey girlie, Please provide a valid task number to mark as done.");
         }
 
         try {
+            // Parse the task number provided by the user
             int taskIndex = Integer.parseInt(parts[1]) - 1;
+
+            // Mark the task at the specified index as done in the taskList
             taskList.markTaskDone(taskIndex);
+
+            // Display the updated task list using the Ui class
             ui.showTaskList(taskList.getTasks());
         } catch (NumberFormatException e) {
-            throw new JoeyException("Please enter a valid task number to mark as done.");
+            // Handle the case where the user entered a non-numeric task number
+            throw new JoeyException("Hey girlie, Please enter a valid task number to mark as done.");
         }
     }
+
 
     private static void parseUnmarkCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided a valid task number to mark as not done
         if (parts.length < 2) {
-            throw new JoeyException("Please provide a valid task number to mark as not done.");
+            throw new JoeyException("Hey girlie, Please provide a valid task number to mark as not done.");
         }
+
         try {
+            // Parse the task number provided by the user
             int taskIndex = Integer.parseInt(parts[1]) - 1;
+
+            // Mark the task at the specified index as not done in the taskList
             taskList.markTaskNotDone(taskIndex);
+
+            // Display the updated task list using the Ui class
             ui.showTaskList(taskList.getTasks());
         } catch (NumberFormatException e) {
-            throw new JoeyException("Please enter a valid task number to mark as not done.");
+            // Handle the case where the user entered a non-numeric task number
+            throw new JoeyException("Hey girlie, Please enter a valid task number to mark as not done.");
         }
     }
+
 
     private static void parseDeleteCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided a valid task number to delete
         if (parts.length < 2) {
-            throw new JoeyException("Please provide a valid task number to delete.");
+            throw new JoeyException("Hey girlie, Please provide a valid task number to delete.");
         }
 
         try {
+            // Parse the task number provided by the user
             int taskIndex = Integer.parseInt(parts[1]) - 1;
+
+            // Remove the task at the specified index from the taskList
             taskList.removeTask(taskIndex);
+
+            // Display the updated task list using the Ui class
             ui.showTaskList(taskList.getTasks());
         } catch (NumberFormatException e) {
-            throw new JoeyException("Please enter a valid task number to delete.");
+            // Handle the case where the user entered a non-numeric task number
+            throw new JoeyException("Hey girlie, Please enter a valid task number to delete.");
         }
     }
 
+
     private static void parseFindCommand(String[] parts, TaskList taskList, Ui ui) throws JoeyException {
+        // Check if the user provided a keyword to search for
         if (parts.length < 2) {
-            throw new JoeyException("Please provide a keyword to search for.");
+            throw new JoeyException("Hey girlie, Please provide a keyword to search for.");
         }
 
+        // Extract the keyword from the user's command
         String keyword = parts[1].toLowerCase();
+        // Create a list to store matching tasks
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
+        // Iterate through the existing tasks in the taskList
         for (Task task : taskList.getTasks()) {
+            // Check if the task's description contains the provided keyword (case-insensitive)
             if (task.getDescription().toLowerCase().contains(keyword)) {
+                // Add the matching task to the list
                 matchingTasks.add(task);
             }
         }
 
+        // Display the matching tasks using the Ui class
         ui.showMatchingTasks(matchingTasks);
     }
-
-
 }
