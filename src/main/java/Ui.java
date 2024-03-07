@@ -5,31 +5,24 @@
  */
 public class Ui {
 
-    private static final String asciiArt = """
-         
-         ___     ________   __
-        / \\ \\   / /  _ \\ \\ / /
-       / _ \\ \\ / /| |_) \\ V /
-      / ___ \\ V / |  _ < | |
-     /_/   \\_\\_/  |_| \\_\\|_|
-    """;
+    private static final String asciiArt =
+            "     ___     ________   __\n"
+                    + "    / \\ \\   / /  _ \\ \\ / /\n"
+                    + "   / _ \\ \\ / /| |_) \\ V / \n"
+                    + "  / ___ \\ V / |  _ < | |  \n"
+                    + " /_/   \\_\\_/  |_| \\_\\|_|  ";
 
-    private static final String welcome = asciiArt +
-            """
-            
-            HEY HEY YOU YOU! I COULD BE YOUR... personal task manager.
-            """;
+    private static final String welcome = asciiArt
+            + "\n\nHEY HEY YOU YOU! I COULD BE YOUR... personal task manager.";
 
     private static final String instructions =
-            """
-                    ---------Follow the syntax below:---------------
-                    - Todos: todo <taskDescription>
-                    - Deadlines: deadline <taskDescription> /by <date> <time>
-                    - Events: event <taskDescription> /from <date> /to <date>
-                    - Plus point if you can spell my name right.
-                    - End the program by saying 'thank you and bye'
-                    --------------------------------------------------
-            """;
+            "---------Follow the syntax below:---------------\n"
+                    + "- Todos: todo <taskDescription>\n"
+                    + "- Deadlines: deadline <taskDescription> /by <date> <time>\n"
+                    + "- Events: event <taskDescription> /from <date> /to <date>\n"
+                    + "- Plus point if you can spell my name right.\n"
+                    + "- End the program by saying 'thank you and bye'\n"
+                    + "--------------------------------------------------";
     private static final String farewell = "Byeeeeee! Hope to see you again!";
 
     Ui() {
