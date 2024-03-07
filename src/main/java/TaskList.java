@@ -31,7 +31,7 @@ public class TaskList {
             tasks.add(new TodoTask(taskDescription));
 
             System.out.println("____________________________________________________________");
-            System.out.println(" Got it. Avril the Bot added this task:");
+            System.out.println(" Got it. AVY added this task:");
             System.out.println("   [T][ ]  " + taskDescription);
             if (tasks.size() == 1) {
                 System.out.println(" Now you have 1 task in the list.");
@@ -69,7 +69,7 @@ public class TaskList {
 
         tasks.add(new DeadlineTask(description, deadline));
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril the Bot added this task:");
+        System.out.println(" Got it. AVRY added this task:");
         System.out.println("   [D][ ] " + description + " (By: " + deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + ")");
 
         if (tasks.size() == 1) {
@@ -126,7 +126,7 @@ public class TaskList {
         tasks.add(new EventTask(description, startTime, endTime));
 
         System.out.println("____________________________________________________________");
-        System.out.println(" Got it. Avril the Bot added this task:");
+        System.out.println(" Got it. AVRY added this task:");
         System.out.println("   [E][ ] " + description + " (From: " + formattedStartTime + " To: " + formattedEndTime + ")");
         if (tasks.size() == 1) {
             System.out.println(" Now you have 1 task in the list.");
