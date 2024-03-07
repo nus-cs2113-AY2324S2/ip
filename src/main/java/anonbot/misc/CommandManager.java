@@ -4,10 +4,11 @@ import anonbot.Ui;
 import anonbot.data.AnonBotFileWriter;
 import anonbot.exception.EmptyArgumentException;
 import anonbot.exception.InvalidArgumentException;
-import anonbot.task.Task.TaskType;
-import anonbot.task.TaskManager;
 import anonbot.exception.InvalidCommandException;
 import anonbot.misc.Command.CommandStatus;
+import anonbot.misc.Command.CommandType;
+import anonbot.task.Task.TaskType;
+import anonbot.task.TaskManager;
 
 public class CommandManager {
     /**
@@ -23,7 +24,7 @@ public class CommandManager {
         }
 
         String commandString = Parser.getCommand(userInput);
-        Command.CommandType command = Command.getCommandTypeFromString(commandString);
+        CommandType command = Command.getCommandTypeFromCommandString(commandString);
         String rawArgument = Parser.getCommandArgument(userInput);
 
         try {

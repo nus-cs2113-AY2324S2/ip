@@ -36,7 +36,7 @@ public final class Command {
         return commandType.name().toLowerCase();
     }
 
-    public static CommandType getCommandTypeFromString (String commandString) {
+    public static CommandType getCommandTypeFromCommandString(String commandString) {
         try {
             return CommandType.valueOf(commandString.toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -44,6 +44,9 @@ public final class Command {
         }
     }
 
+    /**
+     * Prints a Comma-separated list of supported commands.
+     */
     public static void printListOfAvailableCommand() {
         for (CommandType commandEnum : CommandType.values()) {
             if (commandEnum != CommandType.UNKNOWN) {
@@ -53,7 +56,7 @@ public final class Command {
     }
 
     public static String getAssociatedCommandArgumentSyntax(String command) {
-        Command.CommandType commandType = Command.getCommandTypeFromString(command);
+        Command.CommandType commandType = Command.getCommandTypeFromCommandString(command);
         switch (commandType) {
         case MARK:
             return "mark <task_number>";
