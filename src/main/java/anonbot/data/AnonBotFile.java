@@ -5,12 +5,20 @@ import anonbot.exception.InitialisationException;
 import java.io.File;
 
 public class AnonBotFile {
-    public static final String DEFAULT_DIRECTORY = "data";
-    public static final String FILE_NAME = "data/tasklist.txt";
+    private static final String DEFAULT_DIRECTORY = "data";
+    private static final String FILE_NAME = "data/tasklist.txt";
+
+    public static String getFileName() {
+        return FILE_NAME;
+    }
+
+    public static String getDefaultDirectory() {
+        return DEFAULT_DIRECTORY;
+    }
 
     public static void initialiseDefaultDirectory() throws InitialisationException {
         try {
-            File f = new File(DEFAULT_DIRECTORY);
+            File f = new File(getDefaultDirectory());
             f.mkdirs();
         } catch (NullPointerException e) {
             throw new InitialisationException("[Critical] Pathname Argument is null");

@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class AnonBotFileWriter {
+public class AnonBotFileWriter extends AnonBotFile {
     private static void writeIndividualTask(FileWriter writer) {
         for (Task task : TaskManager.getTaskList()) {
             try {
@@ -29,7 +29,7 @@ public class AnonBotFileWriter {
     private static void writeData() {
         FileWriter writer;
         try {
-            writer = new FileWriter(AnonBotFile.FILE_NAME);
+            writer = new FileWriter(getFileName());
             String taskNumber = String.valueOf(TaskManager.getNumberOfActiveTasks());
             writer.write(taskNumber);
             writer.write(System.lineSeparator());
@@ -44,7 +44,7 @@ public class AnonBotFileWriter {
     }
 
     public static void saveAnonBotData() {
-        File f = new File(AnonBotFile.FILE_NAME);
+        File f = new File(getFileName());
         try {
             f.delete();
             f.createNewFile();

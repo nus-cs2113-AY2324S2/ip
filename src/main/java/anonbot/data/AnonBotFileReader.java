@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class AnonBotFileReader {
+public class AnonBotFileReader extends AnonBotFile {
     private static int getMostRecentTaskNumber(Scanner fileReader) throws ImportDataException {
         if (!fileReader.hasNextLine()) {
             throw new ImportDataException("File is empty");
@@ -54,7 +54,7 @@ public class AnonBotFileReader {
     }
 
     public static void loadAnonBotData() {
-        File f = new File(AnonBotFile.FILE_NAME);
+        File f = new File(getFileName());
         try {
             Scanner fileReader = new Scanner(f);
             int mostRecentTaskNumber = getMostRecentTaskNumber(fileReader);
