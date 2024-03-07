@@ -2,18 +2,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * Handle the storage of users' data
+ * on their local devices.
+ */
 public class Storage {
     private String path;
 
     private ArrayList<Task> tasksList;
-
-    public Storage(String path) throws FileNotFoundException {
-        tasksList = new ArrayList<Task>();
-        this.path = path;
-    }
 
     public Storage() {
         tasksList = new ArrayList<Task>();

@@ -12,7 +12,12 @@ public class Task {
 
     }
 
+    public String getName(){
+        return name;
+    }
+
     //Methods
+
     public TaskType getTaskType () {
         return taskType;
     }

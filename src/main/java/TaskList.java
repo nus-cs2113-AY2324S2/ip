@@ -1,21 +1,28 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Storing tasks that the user input into the program. A <code>TaskList</code> object
+ * corresponds to a list of tasks input by the user.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     Storage storage;
+
     public TaskList(ArrayList<Task> tasks){
         this.tasks = tasks;
         storage = new Storage();
     }
 
-    public int size(){
-        return tasks.size();
-    }
-
-    public Task get(int i){
-        return tasks.get(i);
+    public void find(String keyword){
+        System.out.println(UI.LINE_SEPARATOR);
+        System.out.println("Here are the matching tasks in your list: ");
+        int count = 1;
+        for (int i = 0; i < tasks.size(); i++){
+            if (tasks.get(i).getName().contains(keyword)){
+                System.out.println((count++) + ". " + tasks.get(i));
+            }
+        }
+        System.out.println(UI.LINE_SEPARATOR);
     }
 
     public void addTask (Task task) {
@@ -50,7 +57,7 @@ public class TaskList {
             isValidIndex = false;
             UI.printMessage("Invalid index!");
         }
-        if (isValidIndex){
+        if (isValidIndex) {
             System.out.println(UI.LINE_SEPARATOR);
             System.out.println("Deleted task " + deletedTask + ".");
             System.out.println("Now you have " + tasks.size() + " task(s) left.");
@@ -68,7 +75,12 @@ public class TaskList {
     }
 
     public void mark (int index) {
-        tasks.get(index - 1).isDone = true;
+        try {
+            tasks.get(index - 1).isDone = true;
+        } catch (IndexOutOfBoundsException iobe) {
+            UI.printMessage("Index out of bound");
+            return;
+        }
         storage.save(tasks);
         System.out.println(UI.LINE_SEPARATOR);
         System.out.println("Nice! I've marked this task as done:");
@@ -77,7 +89,12 @@ public class TaskList {
     }
 
     public void unmark (int index) {
-        tasks.get(index - 1).isDone = false;
+        try {
+            tasks.get(index - 1).isDone = false;
+        } catch (IndexOutOfBoundsException iobe) {
+            UI.printMessage("Index out of bound");
+            return;
+        }
         storage.save(tasks);
         System.out.println(UI.LINE_SEPARATOR);
         System.out.println("OK, I've marked this task as not done yet:");
