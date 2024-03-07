@@ -1,11 +1,15 @@
 package BobBot.tasks;
 
+import java.time.format.DateTimeFormatter;
+
 import BobBot.exceptions.InvalidDeadlineException;
+import BobBot.parser.DateParser;
 
 public class Deadline extends Task {
 
     protected String task;
     protected String by;
+    protected String parsedDateString;
 
     public Deadline(String description) throws InvalidDeadlineException {
         super(description);
@@ -13,15 +17,21 @@ public class Deadline extends Task {
         if (!description.contains("/by")) {
             throw new InvalidDeadlineException();
         }
-        
+
         this.task = this.description.substring(
-                "Deadline".length(), 
-                this.description.indexOf("/by")
-                ).trim();
+                "Deadline".length(),
+                this.description.indexOf("/by")).trim();
         this.by = this.description.substring(
                 this.description.indexOf("/by") + "/by".length()).trim();
 
-        if (this.task.length() == 0 || this.by.length() == 0) { 
+        if (DateParser.containsValidDateString(this.by)) {
+            String dateString = DateParser.detectDateFromByString(this.by);
+            this.parsedDateString = DateParser.parseDateFromDateString(dateString)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            this.by = this.by.replace(dateString, this.parsedDateString);
+        }
+
+        if (this.task.length() == 0 || this.by.length() == 0) {
             throw new InvalidDeadlineException();
         }
     }
@@ -30,4 +40,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[D][" + this.getStatusIcon() + "] " + this.task + " (by: " + by + ")";
     }
+
 }
