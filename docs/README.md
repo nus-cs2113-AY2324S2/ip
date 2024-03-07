@@ -35,7 +35,9 @@ This command allows you to add a new task to the list.
 
 Example of usage: 
 `todo borrow book` - Add a Todo task "borrow book"
+
 `event project meeting /from 2pm /to 4pm` - Add an Event task "project meeting", start at "2pm" and end at "4pm"
+
 `deadline return book /by Sunday` - Add a Deadline task "return book" by "Sunday"
 
 ### `delete` - Delete a task
