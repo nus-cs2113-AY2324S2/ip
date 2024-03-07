@@ -59,14 +59,4 @@ public class TaskList {
         }
         return taskList;
     }
-
-    public String listMatchingTasks(String keyword) {
-        String taskList = "";
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keyword)) {
-                taskList += "     " + (i + 1) + "." + tasks.get(i) + "\n";
-            }
-        }
-        return taskList;
-    }
 }
