@@ -1,5 +1,8 @@
 package vibes.common;
 
+/**
+ Container for user-visible messages related to tasks.
+ */
 public class Messages {
     public static final String BYE_MESSAGE = "\t Bye. Hope to see you again soon!";
     public static final String TASK_ADDED_MESSAGE = "\t Got it. I've added this task:";

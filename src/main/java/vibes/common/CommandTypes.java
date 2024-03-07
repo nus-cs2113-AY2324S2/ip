@@ -1,5 +1,8 @@
 package vibes.common;
 
+/**
+ * Container for command types.
+ */
 public class CommandTypes {
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";

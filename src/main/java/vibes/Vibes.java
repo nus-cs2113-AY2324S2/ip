@@ -10,6 +10,10 @@ import vibes.task.TaskList;
 import vibes.ui.TextUi;
 import java.io.FileNotFoundException;
 
+/**
+ * Entry point of the Vibes application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Vibes {
 
     private final Storage storage;
@@ -17,6 +21,9 @@ public class Vibes {
     private final TextUi ui;
     private boolean isExit;
 
+    /**
+     * Constructs a Vibes object.
+     */
     public Vibes(){
         this.ui = new TextUi();
         this.storage = new Storage();
@@ -29,6 +36,9 @@ public class Vibes {
         }
     }
 
+    /**
+     * Runs the program until termination.
+     */
     private void run() {
         ui.showWelcomeMessage();
         while (!isExit){
@@ -47,6 +57,14 @@ public class Vibes {
         }
     }
 
+    /**
+     * Executes a command.
+     *
+     * @param commandToExecute the command to execute
+     * @param userInput the full user input
+     * @throws CommandNotFoundException if the command is not found
+     * @throws InvalidArgumentException if an invalid argument is provided
+     */
     public void executeCommand(String commandToExecute, String userInput) throws CommandNotFoundException, InvalidArgumentException {
         switch (commandToExecute) {
         case CommandTypes.COMMAND_BYE:

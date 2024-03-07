@@ -1,5 +1,8 @@
 package vibes.common;
 
+/**
+ * Container for error messages used in the application.
+ */
 public class ErrorMessages {
     public static final String INVALID_COMMAND = "\t Invalid Command. Please choose between: todo, " +
             "deadline, event, mark, unmark, delete, and bye";
