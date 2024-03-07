@@ -1,4 +1,8 @@
 package alpaca.exceptions;
+
+/**
+ * Represents an exception when the command is invalid
+ */
 public class InvalidCommandException extends Exception{
 
     @Override

@@ -7,14 +7,30 @@ import alpaca.exceptions.EmptyTaskDescriptionException;
 import alpaca.exceptions.InvalidCommandException;
 import alpaca.tasks.*;
 
+/**
+ * Parses user input to execute corresponding commands.
+ */
 public class Parser {
 
     private final TaskList tasks;
 
+    /**
+     * Initializes a parser with the given task list.
+     *
+     * @param tasks The task list to be manipulated based on user commands.
+     */
     public Parser(TaskList tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Parses and executes a command based on the user input.
+     *
+     * Splits the input into a command and its details, handling various task types and actions.
+     * Errors during parsing lead to appropriate error messages.
+     *
+     * @param receivedMessage The complete user input string.
+     */
     public void parseCommand(String receivedMessage) {
         try {
             String[] commandParts = receivedMessage.split(" ", 2);
@@ -63,6 +79,16 @@ public class Parser {
         Storage.startFileWriter(tasks.saveTask());
     }
 
+    /**
+     * Executes a simple or parameterized command after parsing.
+     *
+     * Handles basic operations like listing, marking, unmarking, deleting tasks, and exiting.
+     * Throws InvalidCommandException for unrecognized commands.
+     *
+     * @param command The command to execute.
+     * @param details Additional details or parameters for the command, if any.
+     * @throws InvalidCommandException if the command is not recognized.
+     */
     public void executeCommand (String command, String details) throws InvalidCommandException{
         switch (command) {
         case "list":
