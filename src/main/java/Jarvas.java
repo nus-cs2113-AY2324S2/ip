@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,8 +14,6 @@ public class Jarvas {
         ArrayList<Task> tasks = Handler.initialiseBot();
         try {
             Handler.processInput(tasks);
-        } catch (IOException e) {
-            throw new CustomException(Constant.SAVE_ERROR + e.getMessage());
         } catch (CustomException e) {
             Reply.printException(e);
         } finally {

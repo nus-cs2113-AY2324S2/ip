@@ -27,7 +27,7 @@ public class Persistence {
             writer.close();
 
         } catch (IOException e) {
-            throw new CustomException(Constant.SAVE_ERROR);
+            throw new CustomException(Constant.SAVE_ERROR + e.getMessage());
         }
     }
 
