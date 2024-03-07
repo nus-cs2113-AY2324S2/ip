@@ -5,10 +5,10 @@ import chris.customexceptions.*;
 import chris.tasktypes.taskList;
 
 public class Chris {
-    protected static Storage storage;
-    protected static taskList tasks;
-    protected static UI ui;
-    protected static Parser parser;
+    private static Storage storage;
+    private static taskList tasks;
+    private static UI ui;
+    private static Parser parser;
 
     public Chris(String filePath) {
         storage = new Storage(filePath);

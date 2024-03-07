@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    protected String filePath;
+    private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;

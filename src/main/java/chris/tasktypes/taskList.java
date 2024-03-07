@@ -2,8 +2,8 @@ package chris.tasktypes;
 
 import java.util.ArrayList;
 public class taskList {
-    protected ArrayList<Task> tasks;
-    protected int taskCount = 0;
+    private final ArrayList<Task> tasks;
+    private int taskCount = 0;
     public taskList() {
         tasks = new ArrayList<>();
     }

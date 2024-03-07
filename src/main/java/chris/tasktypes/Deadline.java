@@ -4,9 +4,8 @@ public class Deadline extends Task {
     protected String by;
 
     public Deadline(String[] deadlineInfo, boolean isDone){
-        super(deadlineInfo[0]);
+        super(deadlineInfo[0], isDone);
         this.by = deadlineInfo[1].trim();
-        this.isDone = isDone;
     }
 
     public String toString() {

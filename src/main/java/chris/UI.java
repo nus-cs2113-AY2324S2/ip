@@ -3,8 +3,8 @@ package chris;
 import java.util.Scanner;
 
 public class UI {
-    protected static Scanner s = new Scanner(System.in);
-    protected static String line = "---------------------------------------";
+    private final Scanner s = new Scanner(System.in);
+    private final String line = "---------------------------------------";
 
     public UI() {}
     public void printWelcome() {

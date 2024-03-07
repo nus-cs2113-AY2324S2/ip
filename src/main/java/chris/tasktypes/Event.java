@@ -5,10 +5,9 @@ public class Event extends Task {
     protected String from;
 
     public Event(String[] eventInfo, boolean isDone){
-        super(eventInfo[0]);
+        super(eventInfo[0], isDone);
         this.from = eventInfo[1].trim();
         this.to = eventInfo[2].trim();
-        this.isDone = isDone;
     }
     public String toString() {
         return "[E] " + super.toString() + " (from: " + from + ")" + " (to: " + to + ")";
