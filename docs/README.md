@@ -23,7 +23,7 @@ Type the following commands and press `Enter` to run it:
 e.g `list` and press `Enter` will list all the tasks.<br>
 
 * [`todo DESCRIPTION`](#1-add-to-do-to-task-list-todo) : Adds a new to do task with `DESCRIPTION` to the task list.
-* [`deadline DESCRIPTION /by BY_DATE_TIME`](#2-add-deadline-to-task-list-deadline) : Adds a new deadline task with `DESCRIPTION` and `BY_DATE_TIME` to the task list.  
+* [`deadline DESCRIPTION /by BY_DATE_TIME`](#2-add-deadline-to-task-list-deadline) : Adds a new deadline task with `DESCRIPTION` and `BY_DATE_TIME` to the task list.
 * [`event DESCRIPTION /from FROM_DATE_TIME /to BY_DATE_TIME`](#3-add-event-to-task-list-event) : Adds a new event task with `DESCRIPTION`, `FROM_DATE_TIME`, and `BY_DATE_TIME` to the task list.
 * [`list`](#4-list-all-tasks-list) : Lists all your automatically saved tasks.
 * [`mark NUMBER`](#5-mark-a-task-in-task-list-mark) :  Marks the selected task shown in the current task list.
@@ -34,11 +34,11 @@ e.g `list` and press `Enter` will list all the tasks.<br>
 
 **Things to take note about program:**
 * Words in UPPER_CASE are the parameters to be supplied by the user.<br>
-e.g For `todo DESCRIPTION`, `DESCRIPTION` can be used as `todo Merida: Answer GDP2021 questions`.
+  e.g For `todo DESCRIPTION`, `DESCRIPTION` can be used as `todo Merida: Answer GDP2021 questions`.
 * Parameters must be in order such that `/by` comes before `/to`.<br>
-e.g `event GDP2021 OJT Baiting Challenge /from Friday 1pm /to 6pm`.
+  e.g `event GDP2021 OJT Baiting Challenge /from Friday 1pm /to 6pm`.
 * Additional parameters for commands that are not requires will be ignored.<br>
-e.g `list 123`, `bye abc`,`exit xyz`.
+  e.g `list 123`, `bye abc`,`exit xyz`.
 * Lotes automatically saves your tasks to a local storage `/data/storage.txt` and reads from it on the next run.
 
 ## Features and Usage
@@ -46,25 +46,25 @@ e.g `list 123`, `bye abc`,`exit xyz`.
 ### 1. Add To do to task list: `todo`
 Adds a new task to do to your task list.<br>
 * Format: `todo DESCRIPTION`.<br>
-Example of usage: `todo Merida: Answer GDP2021 questions`.<br>
+  Example of usage: `todo Merida: Answer GDP2021 questions`.<br>
 * Expected outcome:
    ```
      Got it. I've added this task: 
        [T][ ] Merida: Answer GDP2021 questions
      Now you have 5 tasks in the list
    ```
-  
+
 ### 2. Add deadline to task list: `deadline`
 Adds a new deadline task with `/by` to your task list..<br>
 * Format: `deadline DESCRIPTION /by BY_DATE_TIME`.<br>
-Example of usage: `deadline Weekly GDP2021 Routine Dog Bath /by Monday 11:59pm`.<br>
+  Example of usage: `deadline Weekly GDP2021 Routine Dog Bath /by Monday 11:59pm`.<br>
 * Expected outcome:
    ```
      Got it. I've added this task: 
        [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
      Now you have 6 tasks in the list
    ```
-  
+
 [Back to Commands Usage Overview](#commands-usage-overview)
 
 ### 3. Add event to task list: `event`
@@ -117,7 +117,7 @@ Unmarks the selected task shown in the current task list.<br>
      [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
     ____________________________________________________
    ```
-  
+
 [Back to Commands Usage Overview](#commands-usage-overview)
 
 ### 7. Find a task in task list: `find`
@@ -144,7 +144,7 @@ Deletes the selected task shown in the current task list.<br>
      [T][ ] Merida: Answer GDP2021 questions
     ____________________________________________________
    ```
-  
+
 [Back to Commands Usage Overview](#commands-usage-overview)
 
 ### 9. Exit program: `bye` or `exit`
