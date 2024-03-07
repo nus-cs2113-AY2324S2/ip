@@ -12,12 +12,18 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a storage system for tasks.
+ */
 public class Storage {
     protected String filePath;
     protected File savedTasks;
 
     /**
-     * Represents a storage system for tasks.
+     * Constructs a new Storage object with the given file path and task list.
+     *
+     * @param filePath The file path where the tasks should be stored.
+     * @param taskList The task list for tasks to be loaded into from the storage file.
      */
     public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
@@ -44,7 +50,7 @@ public class Storage {
     }
 
     /**
-     * Loads a task from a string representation and adds it to the task list.
+     * Loads a task from a line of save data information and adds it to the task list.
      *
      * @param taskInfo The string representation of the task.
      * @param taskList The task list object to add the loaded task to.
@@ -80,7 +86,7 @@ public class Storage {
     }
 
     /**
-     * Updates the storage file with the current state of the task list.
+     * Updates the storage file to the current state of the task list.
      *
      * @param taskList The task list to be written to the storage file.
      * @throws IOException If an error occurs while writing to the file.

@@ -8,11 +8,26 @@ import helpy.task.TaskList;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command{
+    /**
+     * Constructs a new DeleteCommand object with the given command body.
+     *
+     * @param body The body or content of the command.
+     */
     public DeleteCommand(String body) {
         super(body);
     }
 
+    /**
+     * Executes the DeleteCommand by removing the specified task from the task list.
+     *
+     * @param taskList The task list from which the task should be removed.
+     * @param ui       The user interface for displaying output and messages.
+     * @param storage  The storage system for managing task data.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

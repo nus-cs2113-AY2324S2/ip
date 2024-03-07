@@ -45,6 +45,9 @@ public class Ui {
         return input.nextLine();
     }
 
+    /**
+     * Displays a help menu containing all the available commands and their description.
+     */
     public void showHelp() {
         String helpInfo = "- help: Shows this help menu\n";
         String byeInfo = "- bye: Exits from the chatbot\n";
@@ -121,7 +124,13 @@ public class Ui {
         printMessage("Got it, I've removed this task from the list:\n" +
                 "\t" + removedTask + "\n" + remainingTasks);
     }
-    
+
+    /**
+     * Displays the search results for tasks matching a given query.
+     *
+     * @param taskList The task list to search.
+     * @param query    The keyword to search for.
+     */
     public void showFindResult(TaskList taskList, String query) {
         System.out.print(HORIZONTAL_LINE);
         if (taskList.getListLength() >= 1) {

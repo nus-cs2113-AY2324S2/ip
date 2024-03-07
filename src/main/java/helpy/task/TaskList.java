@@ -36,6 +36,9 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    /**
+     * Displays all the tasks in the task list
+     */
     public void printTasks() {
         int label = 1;
         for (Task task : taskList) {

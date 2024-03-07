@@ -7,12 +7,21 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a start and end date & time.
+ */
 public class Event extends Task{
     protected String fromStr;
     protected String toStr;
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs a new Event task object from the given command string.
+     *
+     * @param command The command string used to create the Event.
+     * @throws EventDateSequenceException If the start time is not before the end time.
+     */
     public Event(String command) throws EventDateSequenceException{
         super();
         String[] details = command.split("/from");
@@ -28,6 +37,11 @@ public class Event extends Task{
         }
     }
 
+    /**
+     * Returns a string representation of the Event.
+     *
+     * @return A string representation of the Event, including its status icon, name, start time, and end time.
+     */
     @Override
     public String toString() {
         String fromDate = from.format(DateTimeFormatter.ofPattern("d MMM yyyy, hh:mm a"));
@@ -36,6 +50,12 @@ public class Event extends Task{
                 + " (from: " + fromDate + " to: " + toDate + ")";
     }
 
+    /**
+     * Saves the Event to the specified file.
+     *
+     * @param filePath The path of the file to save the Event to.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     @Override
     public void saveToFile(String filePath) throws IOException {
         FileWriter helpyWriter = new FileWriter(filePath, true);
