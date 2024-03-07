@@ -1,10 +1,8 @@
-1. [T][0] item2
-2. [T][0] item5
-3. [T][0] item2
-4. [T][1] item6
-5. [D][0] item7 (by: efs)
-6. [D][0] kjdfl (by: sdf)
-7. [D][0] sdf(by:  sdf sd /fds)
-8. [D][0] something (by: by 2/12/2019)
-9. [T][0] fdsjfk
-10. [E][0] sjk (from: sd fsto  )
+1. [T][1] item2
+2. [D][0] item7 (by: efs)
+3. [D][0] sdf(by:  sdf sd /fds)
+4. [D][0] something (by: by 2/12/2019)
+5. [T][1] item10
+6. [D][0] item11 (by: Aug 20 1999)
+7. [D][1] item9 (by: start /nd)
+8. [E][1] event1 / 201 (from: 8to 20)
