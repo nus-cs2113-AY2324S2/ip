@@ -1,5 +1,6 @@
 package soot.task;
 
+import soot.exceptions.MissingTaskDetailException;
 import soot.ui.UserUi;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class TaskList {
      * @param userInput details of the task as given by the user.
      * @param taskType task type of the task to be added.
      */
-    public static void addTask(String userInput, TaskType taskType) {
+    public static void addTask(String userInput, TaskType taskType) throws MissingTaskDetailException {
         switch (taskType) {
         case TODO:
             addTodoTask(userInput);
@@ -79,10 +80,13 @@ public class TaskList {
      *
      * @param userInput details of the deadline task as given by the user.
      */
-    public static void addDeadlineTask(String userInput) {
+    public static void addDeadlineTask(String userInput) throws MissingTaskDetailException {
         String inputTaskDetails = userInput.substring(9);
 
         int slashIndex = inputTaskDetails.indexOf('/'); //slash splits the taskName and dueDate
+        if (slashIndex == -1) {
+            throw new MissingTaskDetailException();
+        }
         String taskName = inputTaskDetails.substring(0, slashIndex - 1);
         String dueDate = inputTaskDetails.substring(slashIndex + 4);
 
@@ -99,14 +103,21 @@ public class TaskList {
      *
      * @param userInput details of the event task as given by the user.
      */
-    public static void addEventTask(String userInput) {
+    public static void addEventTask(String userInput) throws MissingTaskDetailException {
         String inputTaskDetails = userInput.substring(6);
 
         int firstSlashIndex = inputTaskDetails.indexOf('/');
+        if (firstSlashIndex == -1) {
+            throw new MissingTaskDetailException();
+        }
         String taskName = inputTaskDetails.substring(0, firstSlashIndex - 1);
-        String eventTimelineDetails = inputTaskDetails.substring(firstSlashIndex + 6);
 
+        String eventTimelineDetails = inputTaskDetails.substring(firstSlashIndex + 6);
         int secondSlashIndex = eventTimelineDetails.indexOf('/');
+        if (secondSlashIndex == -1) {
+            throw new MissingTaskDetailException();
+        }
+
         String startDate = eventTimelineDetails.substring(0, secondSlashIndex - 1);
         String endDate = eventTimelineDetails.substring(secondSlashIndex + 4);
 

@@ -3,6 +3,7 @@ package soot.parser;
 import soot.Soot;
 
 import soot.exceptions.EmptyTaskException;
+import soot.exceptions.MissingTaskDetailException;
 import soot.exceptions.UnknownCommandException;
 
 import soot.storage.Storage;
@@ -64,6 +65,8 @@ public class Parser {
         } catch (UnknownCommandException e) {
             UserUi.printMessageWithDivider("  !! this isn't a command i recognise...\n"
                     + "sorry, pls try again");
+        } catch (MissingTaskDetailException e) {
+            UserUi.printMessageWithDivider("i need more details about the task from you.");
         }
     }
 
