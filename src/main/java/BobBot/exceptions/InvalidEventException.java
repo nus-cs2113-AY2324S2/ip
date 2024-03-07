@@ -1,4 +1,13 @@
 package BobBot.exceptions;
+
+/**
+ * Implements a custom exception that is thrown when the user does not enter
+ * the event information correctly.
+ * 
+ * @author NicholasTanYY
+ * @since January 2024
+ * @version 1.0
+ */
 public class InvalidEventException extends BobBotExceptions {
 
     @Override
