@@ -2,14 +2,19 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import java.io.FileWriter;
-import java.io.IOException;
+public class Storage {
+    private final String filePath;
 
-public class load {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     /**
      * Parses an array of tokens from the database,
      * and creates the corresponding class object,
@@ -18,7 +23,7 @@ public class load {
      * @param taskList List of tasks to be updated.
      * @param tokens Array of information of class object to be added.
      */
-    public static void addTask(List<Task> taskList, String[] tokens){
+    public void addTask(List<Task> taskList, String[] tokens){
         String description, by, start, end;
         boolean done;
         Task newTask;
@@ -62,10 +67,9 @@ public class load {
      * Parses the database and extracts saved Tasks from it,
      * before returning a List representation of the database.
      *
-     * @param filePath Path to database file.
      * @return An array of Task objects from the database.
      */
-    public static List<Task> loadTasks (String filePath)
+    public List<Task> loadTasks ()
             throws DukeException.DatabaseLoadException {
         List<Task> taskList = new ArrayList<>();
         File databaseFile = new File(filePath);
@@ -99,7 +103,7 @@ public class load {
      * @param filePath Path to database file.
      * @param taskList List of tasks to be saved.
      */
-    public static void saveTasks (String filePath, List<Task> taskList)
+    public void saveTasks (List<Task> taskList)
             throws IOException {
         StringBuilder database = new StringBuilder();
         String entry = null;

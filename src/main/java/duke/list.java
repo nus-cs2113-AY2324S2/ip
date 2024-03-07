@@ -10,18 +10,10 @@ import java.util.Scanner;
 import static duke.print.printMessage;
 import static duke.command.*;
 
-import static duke.load.*;
-
 public class list {
     public static final String chatbotName = "Noriaki";
     public static final String[] validCommands =
             {"list", "mark", "unmark", "todo", "deadline", "event", "bye", "delete"};
-    public static List<Task> taskList;
-
-    public static void createTaskList()
-        throws DukeException.DatabaseLoadException {
-        taskList = loadTasks("src/main/java/db/tasks.txt");
-    }
 
     /**
      * Prints greeting.
@@ -49,7 +41,7 @@ public class list {
         printMessage(goodbyeMessage);
     }
 
-    public static void executeCommand(String command, String argument)
+    public static void executeCommand(List<Task> taskList, String command, String argument)
             throws MissingParamsException, DukeException.EndListException,
             DukeException.InvalidCommandException, DukeException.InvalidIntegerException,
             DukeException.IntegerOutOfBoundsException {
@@ -90,14 +82,18 @@ public class list {
      * Creates a list that users can add tasks to, read, and mark tasks as done or undone.
      */
     public static void startList(){
-        String line;
-        Scanner in = new Scanner(System.in);
+        Storage storage = new Storage("src/main/java/db/tasks.txt");
+        List<Task> taskList;
 
         try {
-            createTaskList();
-        } catch (DukeException.DatabaseLoadException e) {
+            taskList = storage.loadTasks();
+        } catch (DukeException.DatabaseLoadException e) { // DatabaseLoadException is a terminal error
             e.printErrorMessage();
+            throw new RuntimeException();
         }
+
+        String line;
+        Scanner in = new Scanner(System.in);
 
         while(true){
             line = in.nextLine();
@@ -113,7 +109,7 @@ public class list {
             }
 
             try {
-                executeCommand(command,argument);
+                executeCommand(taskList, command, argument);
             } catch (DukeException.EndListException e) {
                 break;
             } catch (DukeException.InvalidCommandException e) {
@@ -131,7 +127,7 @@ public class list {
         }
 
         try {
-            saveTasks("src/main/java/db/tasks.txt", taskList);
+            storage.saveTasks(taskList);
         } catch (IOException e) {
             String errorMessage = "Failed to save existing tasks to database!!\n"
                     + "GO!! GO!!";
