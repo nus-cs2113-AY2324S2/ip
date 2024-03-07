@@ -23,8 +23,8 @@ public class Event extends Task{
      * an array of strings containing the information.
      *
      * @param input A string containing the Event information in the format "label /from start /to end".
-     * @throws CustomException If the Event time range is invalid or unspecified.
      * @return An array of strings containing the extracted label, start time and end time.
+     * @throws CustomException If the Event time range is invalid or unspecified.
      */
     public static String[] getInterval(String input) {
 

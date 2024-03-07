@@ -20,8 +20,8 @@ public class Deadline extends Task {
      * an array of strings containing the information.
      *
      * @param input A string containing the Deadline information in the format "label /by deadline".
-     * @throws CustomException If the Deadline due is invalid or unspecified.
      * @return An array of strings containing the extracted label and due date.
+     * @throws CustomException If the Deadline due is invalid or unspecified.
      */
     public static String[] getDeadline(String input) {
 
