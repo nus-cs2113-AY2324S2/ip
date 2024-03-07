@@ -16,3 +16,7 @@
 4. Run the chatbot by typing ```java -jar JigaChatIP.jar```
 5. Type "help" to open the help menu and learn how to use the various functions of the chatbot
 6. Type bye to exit and close the chatbot
+
+## Known Issues
+> [!WARNING]
+> Any use of "/" in the description of your tasks will lead to unintended behaviour, please avoid using "/" in your task descriptions, bys, froms and tos
