@@ -7,6 +7,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toString() {
+        return this.description + " | " + (isDone ? "1" : "0");
+    }
+
     public String getDescription() {
         return description;
     }

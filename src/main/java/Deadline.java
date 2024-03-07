@@ -5,13 +5,13 @@ public class Deadline extends Task {
 
         @Override
         public String getDescription() {
-            String realDescription = description.split("(?i)/by ")[0].split("(?i)deadline")[1];
+            String realDescription = description.split("(?i)/by ")[0].split("(?i)deadline")[1].trim();
             return realDescription;
         }
 
         @Override
         public String getTimespan() {
-            String date = "(by: " + description.split("(?i)/by ")[1] + ")";
+            String date = " (by: " + description.split("(?i)/by ")[1] + ")";
             return date;
         }
 
