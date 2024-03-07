@@ -39,8 +39,6 @@ public class Storage {
      * Loads the saved file if it exists, else creates a new save file.
      * <p>It handles FileNotFoundException by creating a new save 
      * file if the saved file is not found.</p>
-     * 
-     * @see FileNotFoundException for details on the exception
      */
     public static void loadFile() {
         try {
@@ -72,7 +70,6 @@ public class Storage {
      * Creates a new save file if it does not exist.
      * 
      * @param saveFilePath the relative path to the save file
-     * @see IOException for details on the exception
      */
     public static void createNewSaveFile(String saveFilePath) {
         try {
@@ -95,8 +92,6 @@ public class Storage {
      * 
      * <p>It writes the task details to the save file in the format
      * <code>taskNumber|taskMarkedStatus|taskDescription</code></p>
-     * 
-     * @see IOException for details on the exception
      */
     public static void saveFile() {
         StringBuilder fileContents = new StringBuilder();
