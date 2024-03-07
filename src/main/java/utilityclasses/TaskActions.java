@@ -1,8 +1,12 @@
 package utilityclasses;
+import drosstasks.Task;
 import myexceptions.InvalidTodoException;
 import drosstasks.DrossList;
 import utilityclasses.Ui;
 import utilityclasses.FileIO;
+import java.util.ArrayList;
+
+import java.util.ArrayList;
 
 public class TaskActions {
 
@@ -14,6 +18,24 @@ public class TaskActions {
         list.printAllTasks();
         Ui.printLine();
     }
+
+    //Method to find a task based on its name
+    public static void handleSearchForTask(String name, DrossList list){
+        ArrayList<Task> matches = new ArrayList<>();
+        ui = new Ui();
+        for (int i = 0; i < list.getSize(); i++) {
+            Task currentTask = list.getTask(i);
+            if (currentTask.getDescription().contains(name)) {
+                matches.add(currentTask);
+            }
+        }
+        if (matches.isEmpty()){
+            ui.printEmptySearchResult();
+        } else {
+            ui.printSearchResults(matches);
+        }
+    }
+
 
     //Method to toggle tasks as marked or unmarked
     public static void toggleMark(String instruction, DrossList list) {
