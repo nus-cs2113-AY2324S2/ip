@@ -24,13 +24,12 @@ public class Bobby {
         }
     }
 
-    public static void main(String[] args) {
-        new Bobby(FILE_PATH);
-        boolean isExit = false;
+    public void run() {
+        boolean hasExit = false;
         Scanner in = new Scanner(System.in);
         ui.showWelcomeMessage();
 
-        while (!isExit) {
+        while (!hasExit) {
             String input = in.nextLine();
             String command;
             String description;
@@ -41,7 +40,7 @@ public class Bobby {
             switch (command) {
             case "bye":
                 ui.showByeMessage();
-                isExit = true;
+                hasExit = true;
                 break;
             case "mark":
                 entry = Integer.parseInt(input.substring(5));
@@ -115,7 +114,7 @@ public class Bobby {
                 try {
                     storage.writeToFile(tasks.list);
                 } catch (IOException e) {
-                   ui.showSavingError();
+                    ui.showSavingError();
                 }
                 break;
             case "delete":
@@ -135,5 +134,9 @@ public class Bobby {
                 break;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Bobby(FILE_PATH).run();
     }
 }
