@@ -26,15 +26,6 @@ public class TaskList {
     }
 
     /**
-     * Displays the task list.
-     */
-    public static void displayList() {
-        Ui.drawLine(true);
-        Ui.printTaskList();
-        Ui.drawLine(true);
-    }
-
-    /**
      * Adds a task to the list.
      * 
      * @param line The command entered by the user.
@@ -88,6 +79,22 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             Ui.printNonExistentTaskErrorMessage(taskNumber);
         }
+    }
+
+    public static ArrayList<Task> findTasksFromKeyword(String line) {
+        ArrayList<Task> tasksOfInterest = new ArrayList<>();
+        String keywordString = line.substring("find".length()).trim();
+
+        for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
+            Task task = allTasks.get(taskIndex);
+            String taskDescription = task.getDescription();
+
+            if (taskDescription.contains(keywordString)) {
+                tasksOfInterest.add(task);
+            }
+        }
+
+        return tasksOfInterest;
     }
 
 }

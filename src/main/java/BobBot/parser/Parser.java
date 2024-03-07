@@ -1,5 +1,6 @@
 package BobBot.parser;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import BobBot.exceptions.InvalidDeadlineException;
@@ -42,13 +43,16 @@ public class Parser {
                 if (line.equalsIgnoreCase("help")) {
                     Ui.printHelpMessage();
                 } else if (line.equalsIgnoreCase("list")) {
-                    TaskList.displayList();
+                    Ui.displayList();
                 } else if (line.startsWith("mark")) {
                     TaskList.performTaskOperation(line, TaskList.TaskStatus.MARK);
                 } else if (line.startsWith("unmark")) {
                     TaskList.performTaskOperation(line, TaskList.TaskStatus.UNMARK);
                 } else if (line.startsWith("delete")) {
                     TaskList.performTaskOperation(line, TaskList.TaskStatus.DELETE);
+                } else if (line.startsWith("find")) {
+                    ArrayList<Task> tasksFound = TaskList.findTasksFromKeyword(line);
+                    Ui.displayTasksFound(tasksFound);
                 } else {
                     boolean isLoad = false;
                     TaskList.addTask(line, isLoad);

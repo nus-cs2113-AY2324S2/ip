@@ -1,5 +1,7 @@
 package BobBot.ui;
 
+import java.util.ArrayList;
+
 import BobBot.exceptions.BobBotExceptions;
 import BobBot.tasks.Task;
 import taskList.TaskList;
@@ -165,10 +167,38 @@ public class Ui {
         int numberOfTasks = TaskList.getNumberOfTasks();
         System.out.printf("\tYour task list currently has %d items!\n\n", numberOfTasks);
         int taskNumberToDisplay;
-
+        
         for (int taskIndex = 0; taskIndex < numberOfTasks; taskIndex += 1) {
             taskNumberToDisplay = taskIndex + 1;
-            System.out.printf("\t%d. %s\n", taskNumberToDisplay, TaskList.getTaskList().get(taskIndex).toString());
+            Task taskToDisplay = TaskList.getTaskList().get(taskIndex);
+            System.out.printf("\t%d. %s\n", taskNumberToDisplay, taskToDisplay.toString());
         }
+    }
+    
+    /**
+     * Displays the task list.
+     */
+    public static void displayList() {
+        drawLine(true);
+        printTaskList();
+        drawLine(true);
+    }
+    
+    public static void printFilteredTaskList(ArrayList<Task> tasksFound) {
+        
+        System.out.println("\tHere are the matching tasks in your list:");
+        int taskNumberToDisplay;
+
+        for (int taskIndex = 0; taskIndex < tasksFound.size(); taskIndex += 1) {
+            taskNumberToDisplay = taskIndex + 1;
+            Task taskToDisplay = tasksFound.get(taskIndex);
+            System.out.printf("\t%d. %s\n", taskNumberToDisplay, taskToDisplay.toString());
+        }
+    }
+
+    public static void displayTasksFound(ArrayList<Task> tasksFound) {
+        drawLine(true);
+        printFilteredTaskList(tasksFound);
+        drawLine(true);
     }
 }
