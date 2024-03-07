@@ -21,6 +21,9 @@ public class Chris {
         new Chris("data.txt").run();
     }
 
+    /**
+     * Core logic of the chatbot Chris
+     */
     public void run() {
         ui.printWelcome();
         boolean done = false;

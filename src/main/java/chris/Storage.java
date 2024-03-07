@@ -19,6 +19,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads the file at filePath and returns a taskList object of tasks that were stored.
+     * @return taskList object of tasks
+     */
     public taskList loadTasks() {
         taskList tasks = new taskList();
         File f = new File(filePath);
@@ -46,6 +50,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves all tasks from the taskList into the file at filePath
+     * @param tasks taskList of tasks after Chris has been run.
+     */
     public void saveTasks(taskList tasks){
         try {
             FileWriter f = new FileWriter(filePath);
