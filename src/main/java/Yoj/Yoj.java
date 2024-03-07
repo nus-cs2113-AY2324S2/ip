@@ -1,6 +1,8 @@
 package Yoj;
 
 import Yoj.exception.*;
+import Yoj.storage.Storage;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -32,7 +34,7 @@ public class Yoj {
         printHello();
         // get user input
         Scanner in = new Scanner(System.in);
-        tasks = YojFile.loadTasks();
+        tasks = Storage.loadTasks();
         String userInput;
         do {
             userInput = in.nextLine();

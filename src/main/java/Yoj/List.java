@@ -1,12 +1,15 @@
 package Yoj;
-import Yoj.tasks.*;
-import Yoj.tasks.Task;
+
 import Yoj.exception.InvalidCommandException;
 import Yoj.exception.YojException;
+import Yoj.storage.Storage;
+import Yoj.tasks.Deadline;
+import Yoj.tasks.Event;
+import Yoj.tasks.Task;
+import Yoj.tasks.ToDo;
+
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static Yoj.YojFile.save;
 
 public class List {
     protected static ArrayList<Task> tasks = new ArrayList<>();
@@ -95,7 +98,7 @@ public class List {
             deleteTask(userInput);
         } else if(userInput.equals("bye")){
             System.out.println("bye bye!! hope to see u soon :)");
-            YojFile.save(tasks);
+            Storage.save(tasks);
         } else throw new InvalidCommandException("command not recognised :<");
     }
 

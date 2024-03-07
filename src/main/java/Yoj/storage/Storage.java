@@ -1,4 +1,4 @@
-package Yoj;
+package Yoj.storage;
 import Yoj.tasks.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class YojFile {
+public class Storage {
     private static final String FILE_PATH = "src/data/Yojdata.txt";
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> loadedTasks = new ArrayList<>();
