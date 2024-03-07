@@ -1,2 +1,0 @@
-D | 0 | return book | 2019-10-20 1800
-T | 0 | book borrow
