@@ -51,7 +51,9 @@ public final class Command {
         Command.CommandType commandType = Command.getCommandTypeFromString(command);
         switch (commandType) {
         case MARK:
+            return "mark <task_number>";
         case UNMARK:
+            return "unmark <task_number>";
         case TODO:
             return "todo <description>";
         case DEADLINE:

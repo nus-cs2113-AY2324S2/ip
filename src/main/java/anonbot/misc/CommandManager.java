@@ -3,8 +3,6 @@ package anonbot.misc;
 import anonbot.Ui;
 import anonbot.data.AnonBotFileWriter;
 import anonbot.exception.EmptyArgumentException;
-import anonbot.exception.IncompleteCommandException;
-import anonbot.exception.InvalidTaskException;
 import anonbot.exception.InvalidArgumentException;
 import anonbot.task.Task.TaskType;
 import anonbot.task.TaskManager;
@@ -63,29 +61,35 @@ public class CommandManager {
             default: // Invalid Command
                 throw new InvalidCommandException(commandString);
             }
-        } catch (IncompleteCommandException e) {
-            e.printErrorMessage();
         } catch (InvalidArgumentException e) {
             e.printErrorMessage();
         }
         return executionStatus;
     }
 
-    private static void processMarkCommand(String rawArgument) throws IncompleteCommandException {
+    private static void processMarkCommand(String rawArgument) throws InvalidArgumentException {
+        if (rawArgument.isEmpty()) {
+            throw new EmptyArgumentException("mark");
+        }
+
         try {
             int taskNumber = Parser.getTaskNumberFromString(rawArgument);
             TaskManager.markTaskAsDone(taskNumber);
         } catch (NumberFormatException e) {
-            throw new IncompleteCommandException("mark", rawArgument);
+            throw new InvalidArgumentException("mark", rawArgument);
         }
     }
 
-    private static void processUnmarkCommand(String rawArgument) throws IncompleteCommandException {
+    private static void processUnmarkCommand(String rawArgument) throws InvalidArgumentException {
+        if (rawArgument.isEmpty()){
+            throw new EmptyArgumentException("unmark");
+        }
+
         try {
             int taskNumber = Parser.getTaskNumberFromString(rawArgument);
             TaskManager.markTaskAsUndone(taskNumber);
         } catch (NumberFormatException e) {
-            throw new IncompleteCommandException("unmark", rawArgument);
+            throw new InvalidArgumentException("unmark", rawArgument);
         }
     }
 

@@ -2,7 +2,7 @@ package anonbot.task;
 
 import anonbot.exception.InvalidArgumentException;
 import anonbot.exception.EmptyTaskArgumentException;
-import anonbot.exception.InvalidMarkCommandException;
+import anonbot.exception.InvalidMarkArgumentException;
 
 import java.util.ArrayList;
 
@@ -103,21 +103,21 @@ public class TaskManager {
         return null;
     }
 
-    public static void markTaskAsDone(int taskNumber) throws InvalidMarkCommandException {
+    public static void markTaskAsDone(int taskNumber) throws InvalidMarkArgumentException {
         Task taskToMark = retrieveTask(taskNumber);
 
         if (taskToMark == null) {
-            throw new InvalidMarkCommandException("mark", Integer.toString(taskNumber));
+            throw new InvalidMarkArgumentException("mark", Integer.toString(taskNumber));
         }
 
         taskToMark.markAsDone();
     }
 
-    public static void markTaskAsUndone(int taskNumber) throws InvalidMarkCommandException {
+    public static void markTaskAsUndone(int taskNumber) throws InvalidMarkArgumentException {
         Task taskToMark = retrieveTask(taskNumber);
 
         if (taskToMark == null) {
-            throw new InvalidMarkCommandException("unmark", Integer.toString(taskNumber));
+            throw new InvalidMarkArgumentException("unmark", Integer.toString(taskNumber));
         }
 
         taskToMark.markAsUndone();
