@@ -1,6 +1,7 @@
-# Hiko project template
+# Hiko
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Hiko is a chatbot that has many functionalities.
+Join and discover more uses of Hiko !!!
 
 # User Guide
 Don't ask me anything. I am just a noob. 
