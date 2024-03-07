@@ -187,6 +187,13 @@ public class Ui {
     }
 
     /**
+     * Prints an error message if the deadline command is blank
+     */
+    public static void blankFind(){
+        System.out.println("Please input the keyword of what you want to find.");
+    }
+
+    /**
      * Prints an error message if the inputted index is not a number
      */
     public static void notProperIndex(){

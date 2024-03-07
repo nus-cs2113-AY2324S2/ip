@@ -137,7 +137,7 @@ public class Parser {
                 Ui.printFindTask();
                 TaskList.findKeyword(newItem);
             } catch (MikuException e) {
-                Ui.noMatchingFind();
+                Ui.blankFind();
             } catch (voidNumberOfItems e) {
                 Ui.emptyList();
             }
