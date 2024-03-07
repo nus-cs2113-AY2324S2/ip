@@ -65,6 +65,7 @@ public class Joey {
 
 
     public static void main(String[] args) {
+        //Used Java Collection class.ArrayList<Task>
         ArrayList<Task> tasks = loadTasksFromFile();
         Ui ui = new Ui();
         TaskList taskList = new TaskList(tasks);
