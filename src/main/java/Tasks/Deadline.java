@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Represents a class for deadline tasks.
+ */
 public class Deadline extends Task {
 
     protected String by;

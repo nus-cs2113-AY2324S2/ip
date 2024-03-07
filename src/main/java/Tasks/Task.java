@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Represents a Task object that can be used as a parent class for deadline, event and todo type classes.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

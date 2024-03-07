@@ -2,6 +2,9 @@ package Tasks;
 
 import Tasks.Task;
 
+/**
+ * Represents a class for event tasks.
+ */
 public class Event extends Task {
 
     protected String from;
