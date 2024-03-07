@@ -1,0 +1,7 @@
+T | 1 | read book
+D | 0 | return book | June 6th
+T | 1 | join sports club
+D | 0 | push code | now
+T | 1 | assignment
+T | 1 | Level-8
+T | 0 | example
