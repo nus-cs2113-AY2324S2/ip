@@ -1,15 +1,11 @@
 package daisy.parser;
 
-import daisy.error.IllegalDeadlineFormatException;
-import daisy.error.IllegalEventFormatException;
-import daisy.error.IllegalTodoFormatException;
-import daisy.error.MissingInformationException;
+import daisy.error.*;
 
 /**
  * The Parser class handles all user input. It classifies information within the user input into suitable segments such
  * that it is understandable by the other classes.
  */
-
 public class Parser {
     private static String action;
     private static String additionalNotes;
@@ -64,6 +60,20 @@ public class Parser {
         throws IllegalTodoFormatException {
         if (additionalNotes == null) {
             throw new IllegalTodoFormatException();
+        }
+        return additionalNotes;
+    }
+
+    /**
+     * Attempts to extract a String from the user input's additional information. Is called when the main program confirms
+     * that the user wish to find a task by task title with his provided keywords.
+     * @return the user provided keywords
+     * @throws IllegalFindFormatException if there are no additional information indicating user keywords are empty.
+     */
+    public String getFindInfo()
+        throws IllegalFindFormatException {
+        if (additionalNotes == null) {
+            throw new IllegalFindFormatException();
         }
         return additionalNotes;
     }

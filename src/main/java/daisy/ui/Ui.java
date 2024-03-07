@@ -79,6 +79,13 @@ public class Ui {
     }
 
     /**
+     * Alerts the user on the IllegalFindFormatException
+     */
+    public void printFindMissingError() {
+        System.out.println("Error! No keyword detected for find. Try again!");
+    }
+
+    /**
      * Alerts the user on the IllegalTodoFormatException
      * @see daisy.error.IllegalTodoFormatException
      */

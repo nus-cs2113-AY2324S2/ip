@@ -39,6 +39,14 @@ public class Daisy {
                 case "list":
                     tasks.listTasks();
                     break;
+                case "find":
+                    try {
+                        String keyWord = userInput.getFindInfo();
+                        tasks.findTasks(keyWord);
+                    } catch (MissingInformationException e) {
+                        ui.printTodoMissingError();
+                    }
+                    break;
                 case "mark":
                     try {
                         int taskNo = userInput.getIndexFromCommand();

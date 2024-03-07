@@ -1,11 +1,15 @@
 package daisy.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 /**
  * The deadline class handles the creation and saving formatting of deadline tasks.
  */
 public class Deadline extends Task {
 
-    protected String dueDate;
+    protected LocalDateTime dueDate;
 
     /**
      * Creates a deadline instance.
@@ -14,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, String dueDate) {
         super(taskName);
-        this.dueDate = dueDate;
+        this.dueDate = LocalDateTime.parse(dueDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
@@ -22,7 +26,7 @@ public class Deadline extends Task {
      * @return a String representation of the deadline suitable for printing
      */
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", (this.isDone)? "X":" ", this.taskName, this.dueDate);
+        return String.format("[D][%s] %s (by: %s)", (this.isDone)? "X":" ", this.taskName, this.dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")));
     }
 
     /**
@@ -30,7 +34,7 @@ public class Deadline extends Task {
      * @return a String representation of the deadline suitable for loading and saving
      */
     public String save() {
-        return String.format("D,%s,%s,%s", (this.isDone)? "1":"0", this.taskName, this.dueDate);
+        return String.format("D,%s,%s,%s", (this.isDone)? "1":"0", this.taskName, this.dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 
 }
