@@ -7,7 +7,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * Store the given task name, deadline and marking status.
+     * Stores the given task name, deadline and marking status.
      *
      * @param taskName Name of the task.
      * @param by Deadline of the task.

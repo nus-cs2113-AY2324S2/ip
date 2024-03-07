@@ -1,7 +1,7 @@
 package kurobot;
 
 /**
- * Represent a task with name, task type and whether it is marked.
+ * Represents a task with name, task type and whether it is marked.
  * A [T][X] run object correspond to a marked todo task named "run".
  */
 public class Task {
@@ -12,7 +12,7 @@ public class Task {
     protected String lineBreak = "-".repeat(lineLen);
 
     /**
-     * Store the name of the task, the type of the task, and the marking status.
+     * Stores the name of the task, the type of the task, and the marking status.
      *
      * @param taskType Type of the task, eg todo or event.
      * @param taskName Name of the task.
@@ -25,7 +25,7 @@ public class Task {
     }
 
     /**
-     * Set the task to be marked and print out the current task.
+     * Sets the task to be marked and print out the current task.
      */
     public void mark() {
         this.isMarked = true;
@@ -36,7 +36,7 @@ public class Task {
     }
 
     /**
-     * Set the task to be unmarked and print out the current task.
+     * Sets the task to be unmarked and print out the current task.
      */
     public void unmark() {
         this.isMarked = false;
@@ -47,7 +47,7 @@ public class Task {
     }
 
     /**
-     * Set the marking status of the task.
+     * Sets the marking status of the task.
      * X indicates that the task is marked, white space means unmark.
      *
      * @return Symbol that represents the task is marked or unmark.

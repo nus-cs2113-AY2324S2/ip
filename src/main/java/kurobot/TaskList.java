@@ -6,7 +6,7 @@ import kurobot.exceptions.InvalidTimeException;
 import java.util.ArrayList;
 
 /**
- * Make amendments to the current task lists or find tasks
+ * Makes amendments to the current task lists or find tasks
  * according to the user's command.
  * and display any errors that occurred during amendments.
  */
@@ -21,7 +21,7 @@ public class TaskList {
     private Parser parserInput;
 
     /**
-     * Store the given list of tasks, total number of tasks and the input entered.
+     * Stores the given list of tasks, total number of tasks and the input entered.
      *
      * @param prevTasks Original list of tasks.
      * @param taskNum total number of tasks.
@@ -34,7 +34,7 @@ public class TaskList {
     }
 
     /**
-     * Add new task of type [todo] to the current task list
+     * Adds new task of type [todo] to the current task list
      * and print the newly added task.
      *
      * @return Updated task list.
@@ -55,7 +55,7 @@ public class TaskList {
     }
 
     /**
-     * Display the task that was added.
+     * Displays the task that was added.
      *
      * @param task Added task.
      */
@@ -64,7 +64,7 @@ public class TaskList {
     }
 
     /**
-     * Display the task that was deleted.
+     * Displays the task that was deleted.
      *
      * @param task Deleted task.
      */
@@ -77,7 +77,7 @@ public class TaskList {
     }
 
     /**
-     * Add new task of type [deadline] to the current task list
+     * Adds new task of type [deadline] to the current task list
      * and print the newly added task.
      *
      * @return Updated task list.
@@ -100,7 +100,7 @@ public class TaskList {
     }
 
     /**
-     * Add new task of type [event] to the current task list
+     * Adds new task of type [event] to the current task list
      * and print the newly added task.
      *
      * @return Updated task list.
@@ -124,7 +124,7 @@ public class TaskList {
     }
 
     /**
-     * Mark or unmark the task at a given index, depending on the status value.
+     * Marks or unmarks the task at a given index, depending on the status value.
      *
      * @param isMark Mark the task if status is true, unmark if it is false.
      * @return Updated task list.
@@ -149,7 +149,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a task at a given index from the task list.
+     * Deletes a task at a given index from the task list.
      *
      * @return Updated task list with the given task deleted.
      */
@@ -172,7 +172,7 @@ public class TaskList {
     }
 
     /**
-     * Show the tasks with name related to the given task name.
+     * Shows the tasks with name related to the given task name.
      */
     public void findTask() {
         try{

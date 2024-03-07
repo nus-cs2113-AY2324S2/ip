@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Load previous tasks from the file and save any changes to the tasks in the file.
+ * Loads previous tasks from the file and save any changes to the tasks in the file.
  */
 public class Storage {
 
@@ -23,7 +23,7 @@ public class Storage {
     }
 
     /**
-     * Read contents from the file and store the previous tasks into a task list.
+     * Reads contents from the file and store the previous tasks into a task list.
      *
      * @return A task list that contains all previous tasks.
      * @throws FileNotFoundException If the file could not be found.
@@ -67,7 +67,7 @@ public class Storage {
     }
 
     /**
-     * Create a todo task with the given task name and marking.
+     * Creates a todo task with the given task name and marking.
      *
      * @param details Task name.
      * @param mark X for marked data and white space for unmarked.
@@ -84,8 +84,8 @@ public class Storage {
     }
 
     /**
-     * Extract the task name and deadline.
-     * Create a task type of deadline with the name, deadline and marking.
+     * Extracts the task name and deadline.
+     * Creates a task type of deadline with the name, deadline and marking.
      *
      * @param details Strings containing task name and deadline.
      * @param mark X for marked data and white space for unmarked.
@@ -106,8 +106,8 @@ public class Storage {
     }
 
     /**
-     * Extract the task name and start and end timings.
-     * Create a task type of deadline with the name, timings and marking.
+     * Extracts the task name and start and end timings.
+     * Creates a task type of deadline with the name, timings and marking.
      *
      * @param details Strings containing task name, start and end timings.
      * @param mark X for marked data and white space for unmarked.
@@ -129,7 +129,7 @@ public class Storage {
     }
 
     /**
-     * Overwrite the file with tasks in the given task list.
+     * Overwrites the file with tasks in the given task list.
      *
      * @param newTasks Updated task list.
      * @throws IOException If failed to write to the file.

@@ -4,7 +4,7 @@ import kurobot.exceptions.InvalidDescriptionException;
 import kurobot.exceptions.InvalidTimeException;
 
 /**
- * Parser the user input to get data such as
+ * Parsers the user input to get data such as
  * task name, deadline and task number.
  */
 public class Parser {
@@ -21,7 +21,7 @@ public class Parser {
     }
 
     /**
-     * Extract the command type from the given input, such as "todo" or "mark".
+     * Extracts the command type from the given input, such as "todo" or "mark".
      *
      * @return Command type.
      */
@@ -32,7 +32,7 @@ public class Parser {
     }
 
     /**
-     * Extract the name of the task from input and set the task name.
+     * Extracts the name of the task from input and set the task name.
      *
      * @throws InvalidDescriptionException If nothing was given after command keyword.
      */
@@ -45,8 +45,8 @@ public class Parser {
     }
 
     /**
-     * Extract the name of the task from input and set the task name.
-     * Extract the deadline of the task and set the deadline.
+     * Extracts the name of the task from input and set the task name.
+     * Extracts the deadline of the task and set the deadline.
      *
      * @throws InvalidDescriptionException If nothing was after command keyword.
      * @throws InvalidTimeException If nothing was after "/by" or no "/by".
@@ -70,8 +70,8 @@ public class Parser {
     }
 
     /**
-     * Extract the name of the task from input and set the task name.
-     * Extract the start time and end time of the task and store it.
+     * Extracts the name of the task from input and set the task name.
+     * Extracts the start time and end time of the task and store it.
      *
      * @throws InvalidDescriptionException If nothing was after command keyword.
      * @throws InvalidTimeException If nothing was after "/from" or "/to", or those don't exist.
@@ -101,8 +101,8 @@ public class Parser {
     }
 
     /**
-     * Extract the index of the task that should be operated.
-     * Use when command keyword is mark, unmark or delete.
+     * Extracts the index of the task that should be operated,
+     * use when command keyword is mark, unmark or delete.
      *
      * @throws InvalidDescriptionException If nothing was after command keyword.
      */

@@ -8,7 +8,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Store the given task name, start and end timings, and marking status.
+     * Stores the given task name, start and end timings, and marking status.
      *
      * @param taskName Name of the task.
      * @param from Start time.

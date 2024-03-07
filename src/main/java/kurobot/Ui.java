@@ -3,7 +3,7 @@ package kurobot;
 import java.util.ArrayList;
 
 /**
- * Display contents to the user, such as welcome
+ * Displays contents to the user, such as welcome
  * and goodbye messages, errors and current tasks.
  */
 public class Ui {
@@ -20,7 +20,7 @@ public class Ui {
     private final String LINE =  "-".repeat(LINE_LEN);
 
     /**
-     * Display a welcome message to greet the user.
+     * Displays a welcome message to greet the user.
      */
     public void showWelcomeMessage() {
         System.out.println(LINE);
@@ -30,7 +30,7 @@ public class Ui {
     }
 
     /**
-     * Display goodbye message to end the session.
+     * Displays goodbye message to end the session.
      */
     public void showGoodByeMessage() {
         System.out.println(LINE);
@@ -40,7 +40,7 @@ public class Ui {
     }
 
     /**
-     * Indicate that the command entered is invalid
+     * Indicates that the command entered is invalid
      * to prompt for a new valid command.
      */
     public void showInvalidCommand() {
@@ -50,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Print out all the tasks in the list.
+     * Prints out all the tasks in the list.
      *
      * @param tasks Current tasks.
      */
@@ -64,7 +64,7 @@ public class Ui {
     }
 
     /**
-     * Show that the details regarding the task was omitted.
+     * Shows that the details regarding the task was omitted.
      */
     public void showNoTaskGiven() {
         System.out.println(LINE);
@@ -73,7 +73,7 @@ public class Ui {
     }
 
     /**
-     * Show that the deadline or start and end time of the task was omitted.
+     * Shows that the deadline or start and end time of the task was omitted.
      */
     public void showNoTimingGiven() {
         System.out.println(LINE);
@@ -82,7 +82,7 @@ public class Ui {
     }
 
     /**
-     * Show that the entered task does not exist.
+     * Shows that the entered task does not exist.
      */
     public void showNoSuchTask() {
         System.out.println(LINE);
@@ -91,7 +91,7 @@ public class Ui {
     }
 
     /**
-     * Show that the index of the task is omitted.
+     * Shows that the index of the task is omitted.
      */
     public void showNoIndexGiven() {
         System.out.println(LINE);
@@ -100,7 +100,7 @@ public class Ui {
     }
 
     /**
-     * Display the task when it is added or been removed.
+     * Displays the task when it is added or been removed.
      *
      * @param task Task to be added or removed.
      * @param taskNum Total number of tasks in the list.

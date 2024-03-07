@@ -6,7 +6,7 @@ package kurobot;
 public class Todo extends Task {
 
     /**
-     * Store the name and marking status of the task.
+     * Stores the name and marking status of the task.
      *
      * @param taskName Name of the task
      * @param isMarked Marked or unmarked

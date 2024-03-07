@@ -36,7 +36,7 @@ public class KuroBot {
     }
 
     /**
-     * Get the command keyword and perform operations corresponding
+     * Extracts the command keyword and perform operations corresponding
      * to the command keyword.
      *
      * @param input Input entered by the user.
