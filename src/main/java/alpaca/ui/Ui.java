@@ -58,16 +58,17 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void printMatchingTaskList(String keyword, TaskList taskList) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.print(taskList.listMatchingTasks(keyword));
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public static void printAddTask(Task task, int listCount) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Got it. I've added this task: " + System.lineSeparator() + task);
         System.out.println("Now you have " + listCount + " tasks in the list.");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    public void printInvalidIndex() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Invalid index");
         System.out.println(HORIZONTAL_LINE);
     }
 
