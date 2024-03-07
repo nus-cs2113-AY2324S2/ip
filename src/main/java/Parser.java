@@ -2,6 +2,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Parser {
+
+    /**
+     * Parses the command given by the user to run the respective function
+     * @param command the command given by the user
+     * @param isRestore to toggle between restoring a saved file or new addition
+     * @return true if (command == bye)
+     * @throws IOException when there is an error writing to the save file.
+     */
     public static boolean parseCommand(String command, boolean isRestore) throws IOException {
         String[] splitCommand = command.split(" ", 2);
         String commandWord =  splitCommand[0];
