@@ -1,4 +1,4 @@
-# Alice Chatbot User Guide
+# Alice Chatbot User guide
 
 Hello! Feel free to use this bot to track your tasks :D
 
