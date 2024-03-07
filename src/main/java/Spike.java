@@ -33,7 +33,9 @@ public class Spike {
             } catch (IncorrectFormatException e) {
                 System.out.println("Incorrect Format! Please Try Again");
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Something went wrong with the storage!");
+                ui.displayByeMsg();
+                break;
             }
         }
     }
