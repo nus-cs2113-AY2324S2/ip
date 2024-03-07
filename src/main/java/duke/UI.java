@@ -1,22 +1,21 @@
 package duke;
 import java.util.Scanner;
 
+/**
+ * A class that acts as the User Interface (UI) to take in inputs from the user
+ */
 public class UI {
     private Parser parser = new Parser();
 
-    public void tryParseInput(String input)  {
-        try {
-            parser.parseInput(input);
-        } catch (PythiaException pe) {
-            System.out.println("Not a valid command\n" + MoodSprite.getLineBreak());
-        }
-    }
+    /**
+     * the main loop of the programme which keeps running until the user inputs 'bye'
+     */
     public void mainLoop() {
         String input = "Start";
         Scanner in = new Scanner(System.in);
         while (!input.equals("bye")) {
             input  = in.nextLine();
-            tryParseInput(input);
+            parser.tryParseInput(input);
         }
     }
 }
