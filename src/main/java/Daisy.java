@@ -1,7 +1,4 @@
-import daisy.error.IllegalEntryException;
-import daisy.error.IllegalEventFormatException;
-import daisy.error.IllegalDeadlineFormatException;
-import daisy.error.MissingInformationException;
+import daisy.error.*;
 import daisy.parser.Parser;
 import daisy.storage.Storage;
 import daisy.tasklist.TaskList;
@@ -9,10 +6,19 @@ import daisy.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * The Daisy program implements check list application for the user to keep track of a list of tasks. The program works with
+ * 3 kind of tasks in total: todo, deadline and event. For the list of commands and input format, please check the user guide.
+ */
+
 public class Daisy {
 
     protected static String defaultFileLocation = System.getProperty("user.dir") + "\\src\\main\\java\\daisy\\data\\Daisy.txt";
 
+    /**
+     * Main running process for the Daisy application
+     * @param args
+     */
     public static void main(String[] args) {
 
         Ui ui = new Ui();
@@ -36,9 +42,6 @@ public class Daisy {
                 case "find":
                     try {
                         String keyWord = userInput.getFindInfo();
-                        if (keyWord == null) {
-                            throw new MissingInformationException();
-                        }
                         tasks.findTasks(keyWord);
                     } catch (MissingInformationException e) {
                         ui.printTodoMissingError();
@@ -47,9 +50,6 @@ public class Daisy {
                 case "mark":
                     try {
                         int taskNo = userInput.getIndexFromCommand();
-                        if (taskNo == -1) {
-                            throw new MissingInformationException();
-                        }
                         tasks.markDone(taskNo, ui);
                     } catch (MissingInformationException e) {
                         ui.printIndexMissingError();
@@ -58,9 +58,6 @@ public class Daisy {
                 case "unmark":
                     try {
                         int taskNo = userInput.getIndexFromCommand();
-                        if (taskNo == -1) {
-                            throw new MissingInformationException();
-                        }
                         tasks.markUndone(userInput.getIndexFromCommand(), ui);
                     } catch (MissingInformationException e) {
                         ui.printIndexMissingError();
@@ -69,9 +66,6 @@ public class Daisy {
                 case "delete":
                     try {
                         int taskNo = userInput.getIndexFromCommand();
-                        if (taskNo == -1) {
-                            throw new MissingInformationException();
-                        }
                     tasks.deleteTask(userInput.getIndexFromCommand());
                     } catch (MissingInformationException e) {
                         ui.printIndexMissingError();
@@ -79,21 +73,14 @@ public class Daisy {
                     break;
                 case "todo":
                     try {
-                        String taskTitle = userInput.getTodoInfo();
-                        if (taskTitle == null) {
-                            throw new MissingInformationException();
-                        }
                         tasks.createTodo(userInput.getTodoInfo(),true, false);
-                    } catch (MissingInformationException e) {
+                    } catch (IllegalTodoFormatException e) {
                         ui.printTodoMissingError();
                     }
                     break;
                 case "deadline":
                     try {
                         String[] separate_deadlines = userInput.getDeadlineInfo();
-                        if (separate_deadlines.length < 2) {
-                            throw new IllegalDeadlineFormatException();
-                        }
                         tasks.createDeadline(separate_deadlines[0],separate_deadlines[1], true, false);
                     } catch (IllegalDeadlineFormatException e) {
                         ui.printDeadlineInputError();
@@ -102,9 +89,6 @@ public class Daisy {
                 case "event":
                     try {
                         String[] separate_events = userInput.getEventInfo();
-                        if (separate_events.length < 3) {
-                            throw new IllegalEventFormatException();
-                        }
                         tasks.createEvent(separate_events[0],separate_events[1], separate_events[2], true, false);
                     } catch (IllegalEventFormatException e){
                         ui.printEventInputError();
