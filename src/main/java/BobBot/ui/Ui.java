@@ -118,6 +118,17 @@ public class Ui {
         System.out.println("\tI see you require some help. Fear not, I shall come to your assistance.\n");
         System.out.println("\tHere are the options available to you:");
         System.out.println("\t\thelp - Display this help menu");
+
+        System.out.println("\n\t\tTask Operations:");
+        System.out.println("\t\tmark ... - Mark a task as done");
+        System.out.println("\t\tunmark ... - Mark a task as undone");
+        System.out.println("\t\tdelete ... - Delete a task from the list");
+
+        System.out.println("\n\t\tTask Viewing:");
+        System.out.println("\t\tlist - Display the list of tasks");
+        System.out.println("\t\tfind ... - Search for tasks with a keyword");
+        
+        System.out.println("\n\t\tTask Creation:");
         System.out.println("\t\ttodo ... - State something you want to add to the TODO list");
         System.out.println("\t\tdeadline ... - Tell me about an important deadline you need to meet");
         System.out.println("\t\tevent ... - Let me know what event you have coming up");
