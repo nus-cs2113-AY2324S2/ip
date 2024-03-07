@@ -9,6 +9,9 @@ import interactions.Ui;
 
 import java.io.IOException;
 
+/**
+ * Adds a task to the task list.
+ */
 public class AddCommand extends Command {
 
     /**
@@ -64,7 +67,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes command of adding task to task list.
+     * Executes command of adding task to task list. Saves to file by writing the task to file.
      *
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
      * @param storage Storage handler that saves to file.

@@ -1,34 +1,33 @@
 package tasks;
 
+/** Type of task with a single date */
 public class Deadline extends Task {
+    /**
+     * Constructs a deadline object, initially does not have a deadline yet.
+     *
+     * @param task The deadline task
+     */
     public Deadline(String task) {
         super(task);
-        this.isDeadline = false;
+        this.haveDeadline = false;
         setTaskType("D");
     }
-    protected boolean isDeadline;
+    protected boolean haveDeadline;
     protected String deadline;
-
-    public boolean isDeadline() {
-        return isDeadline;
-    }
-    public void setDeadline(boolean isDeadline) {
-        this.isDeadline = isDeadline;
-    }
 
     public String getDeadline() {
         return deadline;
     }
     public void setDeadline(String deadline) {
         this.deadline = deadline;
-        this.isDeadline = true;
+        this.haveDeadline = true;
     }
 
     /** Prints the deadline information such as the description and deadline when presented by UI. */
     @Override
     public void print() {
         String additionalInfo;
-        if (isDeadline) {
+        if (haveDeadline) {
             additionalInfo = " (by: " + deadline + ")";
         } else {
             additionalInfo = "";

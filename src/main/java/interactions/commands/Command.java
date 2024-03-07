@@ -29,22 +29,24 @@ public abstract class Command {
         this.taskDescription = taskDescription;
     }
 
-    public String getFirstWord() {
-        return firstWord;
-    }
-
     /** Assigns input first word to this class's first word object, such as delete, mark and deadline.*/
     public void setFirstWord(String firstWord) {
         this.firstWord = firstWord;
     }
-    public String getLine() {
-        return line;
-    }
-
+    /** Assign entire input prompt line by user, which is a combination of description and first word */
     public void setLine(String line) {
         this.line = line;
     }
 
+    /**
+     * Returns the task description or dates from specific keywords after separating them. Used to further
+     * separates the dates from deadline and event from the task description itself.
+     *
+     * @param line Initial input prompt line by user.
+     * @param keyword Word used to search and separate itself from the description or date.
+     * @return Task description or date.
+     * @throws IncompletePromptException If an expected "next" word for the keyword does not show up.
+     */
     protected String extractTaskOrDate(String line, String keyword) throws IncompletePromptException {
         int index = line.indexOf(keyword) + keyword.length();
         String nextWord; // Used for any commands that require a 'next' word
@@ -72,6 +74,14 @@ public abstract class Command {
         return line.substring(index).trim();
     }
 
+    /**
+     * Executes the command, such as adding or deleting, given the task list and storage handler.
+     *
+     * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param storage Storage handler that saves to file.
+     * @throws IncompletePromptException If the information given from the line is incomplete.
+     * @throws UnknownPromptException If the prompt line inputted does not match the commands.
+     */
     public abstract void execute(TaskList taskList, Storage storage) throws IncompletePromptException, UnknownPromptException;
     public Command(){
 

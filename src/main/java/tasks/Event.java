@@ -1,16 +1,19 @@
 package tasks;
 
+/** Most complex type of task with a timeframe between two dates. */
 public class Event extends Task {
+
+    /**
+     * Constructs a event object, initially does not have event dates yet.
+     *
+     * @param task The event task
+     */
     public Event(String task) {
         super(task);
         this.isEvent = false;
         setTaskType("E");
     }
     private boolean isEvent;
-
-    public boolean isEvent() {
-        return isEvent;
-    }
 
     public void setEvent(boolean event) {
         isEvent = event;

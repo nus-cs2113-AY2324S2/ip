@@ -18,6 +18,12 @@ public class RenameCommand extends Command {
         this.ui = ui;
     }
 
+    /**
+     * Changes the name of the chatbot UI to a new name.
+     *
+     * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param storage Storage handler that saves to file.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) {
         String oldName = ui.getName().toUpperCase();

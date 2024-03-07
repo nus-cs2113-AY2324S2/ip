@@ -9,6 +9,9 @@ import tasks.TaskList;
 import java.io.IOException;
 import java.util.Scanner;
 
+/** Chatbot with a UI that helps with management of tasks, such as todo, deadline and event.
+ * Current commands include adding task, deleting task, showing task list and more.
+ */
 public class Duke {
     public static void main(String[] args) {
         /** ASCII art that prints 3D lettering of "MOBY" */

@@ -8,6 +8,7 @@ import tasks.TaskList;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/** Sets whether a task is marked or unmarked, indicating whether it is done or not. */
 public class MarkCommand extends Command {
     public MarkCommand() {
 
@@ -36,6 +37,14 @@ public class MarkCommand extends Command {
         markedTask.setMarked(isMark);
         markedTask.print();
     }
+
+    /**
+     * Marks or unmarks a task in the task list to show if it is done or not.
+     * Updates and saves any changes to file.
+     *
+     * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param storage Storage handler that saves to file.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) {
         mark(taskList);
