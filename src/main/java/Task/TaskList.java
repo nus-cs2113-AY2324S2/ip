@@ -5,24 +5,39 @@ import ui.Ui;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList{
 
     private final List<Task> tasks;
     private final Ui ui;
 
+    /**
+     * Creates a new TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
         ui = new Ui("aoliba");
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         ui.showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
+        ui.showTaskAdded(task.getDescription());
         ui.showSize(tasks.size());
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param taskNumber The index of the task to be deleted.
+     */
     public void deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             ui.invalidIndex();
@@ -32,6 +47,9 @@ public class TaskList{
         tasks.remove(taskNumber - 1);
     }
 
+    /**
+     * Displays all tasks in the task list.
+     */
     public void listTasks() {
         ui.showLine();
         if (tasks.isEmpty()) {
@@ -42,45 +60,56 @@ public class TaskList{
                 System.out.println((i + 1) + "." + tasks.get(i));
             }
         }
+        ui.showSize(tasks.size());
         ui.showLine();
     }
 
+    /**
+     * Marks a task as done or not done.
+     *
+     * @param taskNumber The index of the task to be marked.
+     * @param markDone   A boolean value indicating whether to mark the task as done or not done.
+     */
     public void markTaskAsDone(int taskNumber, boolean markDone) {
-        // boolean found = false;
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             ui.invalidIndex();
             return;
         }
         Task task = tasks.get(taskNumber - 1);
-        // task is UNmarked, and we want to mark it
         if (!task.isDone() && markDone) {
             task.markAsDone();
-        } else if (task.isDone() && !markDone) { // task is marked, and we want to UNmark it
+        } else if (task.isDone() && !markDone) {
             task.markAsNotDone();
-        }
-        else {
+        } else {
             System.out.println("Task already marked as " + (markDone ? "done": "not done yet"));
             return;
         }
         System.out.println("Nice! I've marked this task as " + (markDone ? "done": "not done yet"));
-
     }
 
+    /**
+     * Retrieves the tasks in the task list.
+     *
+     * @return The list of tasks.
+     */
     public List<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Finds tasks that match the given keywords.
+     *
+     * @param keywords The keywords to search for.
+     */
     public void findTasks(String keywords) {
-        // TaskList results = new TaskList();
         int matches = 0;
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(keywords)) {
-                // results.addTask(tasks.get(i));
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keywords)) {
                 if (matches == 0) {
                     ui.showLine();
                     System.out.println("Here are the matching tasks in your list:");
                 }
-                System.out.println((matches + 1) + "." + tasks.get(i));
+                System.out.println((matches + 1) + "." + task);
                 matches++;
             }
         }
@@ -88,11 +117,5 @@ public class TaskList{
             System.out.println("No matching tasks found.");
         }
         ui.showLine();
-        // if (results.tasks.isEmpty()) {
-        //     System.out.println("No matching tasks found.");
-            // return;
-        // }
-        // results.listTasks();
     }
-
 }

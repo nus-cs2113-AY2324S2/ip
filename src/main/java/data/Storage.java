@@ -19,12 +19,23 @@ public class Storage {
     private final String filePath;
     private final Ui ui;
 
+    /**
+     * Creates a new instance of Storage.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.ui = new Ui("aoliba");
     }
 
-    public TaskList loadTasksFromFile() throws DukeException{
+    /**
+     * Loads tasks from the file and returns a TaskList.
+     *
+     * @return The loaded TaskList.
+     * @throws DukeException If an error occurs while loading tasks.
+     */
+    public TaskList loadTasksFromFile() throws DukeException {
         TaskList tasks = new TaskList();
 
         try {
@@ -34,7 +45,7 @@ public class Storage {
 
             while ((line = bufferedReader.readLine()) != null) {
                 Task task = createTaskFromString(line);
-                if (task != null){
+                if (task != null) {
                     tasks.addTask(task);
                 }
             }
@@ -76,13 +87,18 @@ public class Storage {
                 break;
         }
 
-        if (isDone && task != null){
+        if (isDone && task != null) {
             task.markAsDone();
         }
 
         return task;
     }
 
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasksToFile(List<Task> tasks) {
         try {
             File folder = new File("./data");
@@ -98,7 +114,7 @@ public class Storage {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             for (Task task : tasks) {
-                bufferedWriter.write(task.saveString()); // saveString!
+                bufferedWriter.write(task.saveString());
                 bufferedWriter.newLine();
             }
 

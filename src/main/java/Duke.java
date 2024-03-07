@@ -1,7 +1,7 @@
 import data.Storage;
 import parser.Parser;
 import ui.Ui;
-import task.*; // Import the missing TaskList class
+import task.TaskList;
 
 import exception.DukeException;
 
@@ -10,6 +10,11 @@ public class Duke {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Creates a new instance of Duke.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Duke(String filePath) {
         ui = new Ui("aoliba");
         storage = new Storage(filePath);
@@ -23,6 +28,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the Duke application.
+     */
     public void run() {
         ui.greet();
 
@@ -36,6 +44,11 @@ public class Duke {
         ui.exit();
     }
 
+    /**
+     * The main entry point of the Duke application.
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }

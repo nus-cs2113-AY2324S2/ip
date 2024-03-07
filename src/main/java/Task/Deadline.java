@@ -3,14 +3,21 @@ package task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
 
     private final String deadline;
 
+    /**
+     * Creates a new Deadline task with the given description and deadline.
+     *
+     * @param description The description of the task.
+     * @param by The deadline of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
-//        System.out.println("description: " + description);
-//        System.out.println("by: " + by);
         // if by is not in format YYYY-MM-DD, do not parse
         if (!by.matches("\\d{4}-\\d{2}-\\d{2}")) {
             this.deadline = by;
@@ -18,10 +25,6 @@ public class Deadline extends Task {
         }
         LocalDate byDate = LocalDate.parse(by.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.deadline = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
-
-    public String getDeadline() {
-        return deadline;
     }
 
     @Override
