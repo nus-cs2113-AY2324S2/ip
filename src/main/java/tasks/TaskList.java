@@ -70,6 +70,7 @@ public class TaskList {
      * @param index Index of task from task list to be deleted.
      */
     public void deleteTask(int index) {
+        System.out.println("Noted. I've removed this task:");
         System.out.print(INDENT);
         lastActionTask = list.get(index - 1);
         lastActionTask.print();

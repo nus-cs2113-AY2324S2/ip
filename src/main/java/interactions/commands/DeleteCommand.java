@@ -35,8 +35,12 @@ public class DeleteCommand extends Command {
      * @param storage Storage handler that writes task lists to file.
      */
     public void execute(TaskList taskList, Storage storage) {
-        System.out.println("Noted. I've removed this task:");
-        taskList.deleteTask(parseIndex(line, firstWord));
+        try {
+            taskList.deleteTask(parseIndex(line, firstWord));
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry, please input an integer instead.");
+        }
+
         try {
             storage.saveToFile("data/list.txt", taskList);
         } catch (IOException e) {

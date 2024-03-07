@@ -47,7 +47,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Storage storage) {
-        mark(taskList);
+        try {
+            mark(taskList);
+        } catch (NumberFormatException e) {
+            System.out.println("Sorry, please input an integer instead.");
+        }
         try {
             storage.saveToFile("data/list.txt", taskList);
         } catch (IOException e) {
