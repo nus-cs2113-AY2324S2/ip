@@ -1,1 +1,2 @@
-T | 0 |  kill mihir
+todo say hi | 0
+event say hi /from hi /to hi | 0
