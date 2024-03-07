@@ -7,9 +7,11 @@ import anonbot.exception.InvalidMarkArgumentException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    /** Number of tasks created throughout (both currently active and deleted) */
+    /**
+     * Number of tasks created throughout (both currently active and deleted)
+     */
     private static int totalTasksCreated = 0;
-    private static ArrayList<Task> taskList = new ArrayList<Task>();
+    private static final ArrayList<Task> taskList = new ArrayList<Task>();
 
     public static ArrayList<Task> getTaskList() {
         return taskList;
@@ -87,7 +89,7 @@ public class TaskManager {
      */
     public static void printTasksUsingKeyphrase(String keyphrase) {
         System.out.println("Here are the available tasks found using the keyword:");
-        for (Task t:taskList) {
+        for (Task t : taskList) {
             String taskDescription = t.getTaskDescription();
             if (taskDescription.toLowerCase().contains(keyphrase.toLowerCase())) {
                 t.printTask();
