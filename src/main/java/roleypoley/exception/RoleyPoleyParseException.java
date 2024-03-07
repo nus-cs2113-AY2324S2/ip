@@ -1,4 +1,9 @@
 package roleypoley.exception;
+
+/**
+ * Handles exception regarding the user input
+ * Displays the appropriate format if there is an error
+ */
 public class RoleyPoleyParseException extends Exception {
     public RoleyPoleyParseException(String errorMessage) {
         switch (errorMessage) {
@@ -19,7 +24,7 @@ public class RoleyPoleyParseException extends Exception {
             break;
         default:
             System.out.println("""
-                    \n\tInvalid entry. Please enter input according to the commands below:
+                    \tInvalid entry. Please enter input according to the commands below:
                     \t1. Tasks to be done with no time restriction.\s
                     \ttodo <Task Description>\s""");
             System.out.println("""

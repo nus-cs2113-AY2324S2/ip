@@ -10,6 +10,9 @@ public class Deadline extends Task {
         this.by = getDueDate(description);
     }
 
+    /**
+     * Assumption: Every field must be present and not NULL
+     */
     private static String getTask(String description) {
         String[] split = description.split("\\(by:|/by");
         return split[0];
