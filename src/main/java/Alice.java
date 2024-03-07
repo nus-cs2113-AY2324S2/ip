@@ -45,6 +45,8 @@ public class Alice {
                     handleMarkUnmark(input);
                 } else if (input.equals("help")){
                     ui.showHelp();
+                } else if(input.startsWith("find ")){
+                    handleFind(input);
                 }
                 else {
                     ui.showInvalidInputMessage();
@@ -106,6 +108,12 @@ public class Alice {
         tasks.addTask(newEvent);
         ui.showTaskAdded(newEvent, tasks.size());
         storage.saveTasks(tasks.getTasks());
+    }
+
+    private void handleFind(String input) throws AliceException {
+        String keyword = input.substring(5); // assuming 'find ' is 5 characters
+        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+        ui.showFoundTasks(foundTasks);
     }
     public static void main(String[] args) {
         new Alice("data/alice.txt").run();

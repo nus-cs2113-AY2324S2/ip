@@ -23,12 +23,13 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("okay bestie, here's what u can throw at me to help ya <3 :");
         System.out.println("  - 'list': Peek at all that you gotta get done");
-        System.out.println("  - 'todo [description]': Got something new to remember? I gotchu girlie!");
-        System.out.println("  - 'deadline [description] /by [date]': Racing against the clock? I'll keep ya accountable");
-        System.out.println("  - 'event [description] /from [start time] /to [end time]': Got new plans? Lemme know so u don't miss out any of them");
-        System.out.println("  - 'mark [task number]': Finshed a task? YAY good job bestie ill help mark it off for ya");
-        System.out.println("  - 'unmark [task number]': Took a lil step back? No worries, we can get back to it later u got this!");
-        System.out.println("  - 'delete [task number]': Changed your mind about a task? Not to worry, ill make the task go poof!");
+        System.out.println("  - 'todo [ description ]': Got something new to remember? I gotchu girlie!");
+        System.out.println("  - 'deadline [ description ] /by [ date, time (e.g. 2/12/2019 1800) ]': Racing against the clock? I'll keep ya accountable");
+        System.out.println("  - 'event [ description ] /from [ start time ] /to [ end time ]': Got new plans? Lemme know so u don't miss out any of them");
+        System.out.println("  - 'mark [ task number ]': Finshed a task? YAY good job bestie ill help mark it off for ya");
+        System.out.println("  - 'unmark [ task number ]': Took a lil step back? No worries, we can get back to it later u got this!");
+        System.out.println("  - 'delete [ task number ]': Changed your mind about a task? Not to worry, ill make the task go poof!");
+        System.out.println("  - 'find [ keyword ]': Want to find a particular task but forgot the full name? No worries, lemme know the keyword and ill find it for u!");
         System.out.println("  - 'bye': Need to head off somewhere? I'll catch ya later! Rememeber that ur amazing bestie :)");
         System.out.println(HELP_MESSAGE);
         System.out.println(LINE);
@@ -86,6 +87,21 @@ public class Ui {
         System.out.println("aight, took a lil step back, unmarked this one:");
         System.out.println("  " + task);
         System.out.println(LINE);
+    }
+
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println(LINE);
+            System.out.println("There are no matching tasks in your list.");
+            System.out.println(LINE);
+        } else {
+            System.out.println(LINE);
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+            System.out.println(LINE);
+        }
     }
 
     public void showLoadingError() {
