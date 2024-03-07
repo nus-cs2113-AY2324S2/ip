@@ -1,24 +1,46 @@
-# Duke project template
+# Mario User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Introduction
+Mario is an interactive, Java-based task management application. It allows users to add, modify, and organize their tasks efficiently. With support for different types of tasks such as todos, deadlines, and events, Mario is designed to help users keep track of their daily activities in a simple and effective manner.
 
-## Setting up in Intellij
+## Features
+- **Task Management**: Add, delete, and list tasks with ease.
+- **Task Types**: Supports todos, deadlines, and events.
+- **Task Status**: Mark tasks as done or not done.
+- **Search**: Find tasks by keywords or dates.
+- **Persistence**: Saves tasks to a file and loads them on startup, ensuring your list persists between sessions.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Getting Started
+### Prerequisites
+Ensure Java is installed on your system. You can check by running `java -version` in your terminal. If Java is not installed, please install the latest version from the official [Java website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Installation
+1. Download the Mario application files to your local machine.
+2. Navigate to the download directory in your terminal.
+3. Compile the Java files using the Java compiler:  
+4. Run the compiled application using Java:  
+
+
+## Usage Instructions
+### Adding Tasks
+- **To-dos**: `todo [task description]`
+- **Deadlines**: `deadline [task description] /by [YYYY-MM-DD]`
+- **Events**: `event [task description] /at [YYYY-MM-DD] to [YYYY-MM-DD]`
+
+### Managing Tasks
+- **Mark as Done**: `mark [task number]`
+- **Unmark as Not Done**: `unmark [task number]`
+- **Delete Task**: `delete [task number]`
+
+### Finding Tasks
+- **By Keyword**: `find [keyword]`
+- **By Date**: `find-date [YYYY-MM-DD]`
+
+### Listing and Exiting
+- **List All Tasks**: `list`
+- **Exit Application**: `bye`
+
+## Support
+If you encounter any issues or have questions about using Mario, please refer to the official documentation or contact support.
+
+Thank you for using Mario!
