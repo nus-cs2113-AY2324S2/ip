@@ -1,4 +1,4 @@
-# <span style="color:Black">Bobby User Guide
+# <span style="color:LightBlue">Bobby User Guide
 
 Bobby is a command-line application that allows you to manage your tasks in the form of a To-Do list. It allows you to add/delete various types of tasks, update their statuses and even search for specific tasks via a keyword.
 ## <span style="color:Orange">Quick Start
@@ -9,8 +9,8 @@ Prerequisites: JDK 11, Intellij.
 2. Download the latest Bobby.jar file from [here](https://github.com/seandooa/ip/releases).
 3. Navigate to the directory you downloaded the file in and open a command prompt.
    - You can do so on windows by typing 'cmd' in the file explorer address bar
-5. Run the application using the command `java -jar Floda.jar`.
-6. The CLI along with the welcome message should appear.
+4. Run the application using the command `java -jar Floda.jar`.
+5. The CLI along with the welcome message should appear.
 
 ## <span style="color:Orange">Features
 ### <span style="color:Orange">Adding a Todo: `todo`
@@ -85,23 +85,10 @@ Searches for tasks containing a specific keyword in their descriptions.
 
 Format: `find <keyword>`
 
-Example Input: `find meeting`
+Example Input: `find school`
 
 ###  <span style="color:Orange">Exiting the Application: `bye`
 
 Exits the chatbot Bobby.
 
 Format: `bye`
-
-## <span style="color:LightBlue">Command Summary
-| Command                                                 | Description                                                     |
-|---------------------------------------------------------|-----------------------------------------------------------------|
-| `todo <description>`                                    | Adds a Todo task with a description                             |
-| `deadline <description> /by <deadline>`                 | Adds a Deadline task with a description and deadline            |
-| `event <description> /from <start time> /to <end time>` | Adds an Event task with a description, start time, and end time |
-| `list`                                                  | Lists all tasks                                                 |
-| `delete <task number>`                                  | Deletes the specified task                                      |
-| `mark <task number>`                                    | Marks a task as done                                            |
-| `unmark <task number>`                                  | Unmarks a task as done                                          |
-| `find <keyword>`                                        | Searches for tasks containing a specific keyword                |
-| `bye`                                                   | Exits the application                                           |

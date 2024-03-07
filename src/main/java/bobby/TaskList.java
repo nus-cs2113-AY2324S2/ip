@@ -72,6 +72,7 @@ public class TaskList {
      */
     public void unmarkTask(int entry) {
         list.get(entry - 1).setDone(false);
+    }
 
     public void findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
