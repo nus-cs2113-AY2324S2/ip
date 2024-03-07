@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static String FILE_PATH = "./data/miku.txt";
+    public static String FILE_PATH = "./miku.txt";
 
 
     public Storage() {
