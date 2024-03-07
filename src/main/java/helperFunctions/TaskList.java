@@ -10,12 +10,17 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Initializes ArrayList of Task objects
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Prints each Task in Task array
+     * Prints all task in Tasks
+     *
+     * @return string of all tasks
      */
     protected String displayList() {
         if (tasks.isEmpty()) {
@@ -34,7 +39,7 @@ public class TaskList {
     /**
      * Returns a task in String format
      *
-     * @param index index of specific task
+     * @param index index of specific task (zero-indexed)
      */
     private String displayListItem(int index) {
         return ((index + 1) + ". [" + tasks.get(index).getType() + "]["
@@ -43,11 +48,20 @@ public class TaskList {
                 + System.lineSeparator());
     }
 
-    protected void addEventTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
-        final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(event)
+    /**
+     * Adds Event task to Tasks
+     *
+     * @param userInputInParts separates each word in userInput
+     * @param userInput is the original CLI user input
+     * @param FILE_NAME to store tasks in
+     * @param isReadMode specifies if reading from FILE_NAME or writing to it
+     * @throws InvalidParamsException if invalid/ missing event arguments
+     */
+    protected void addEventTask(String[] userInputInParts, String userInput, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
+        final int startIndexOfDescription = userInputInParts[0].length() + 1; // userInputInParts[0].equals(event)
 
-        int indexTo = line.lastIndexOf('/');
-        int indexFrom = line.lastIndexOf('/', indexTo - 1); // counts from back
+        int indexTo = userInput.lastIndexOf('/');
+        int indexFrom = userInput.lastIndexOf('/', indexTo - 1); // counts from back
         // checks for invalid input
         if (indexFrom == -1 || indexTo == -1) {
             throw new InvalidParamsException("No event arguments: Add a '/', then the startTime, followed by a '/' and the endTime");
@@ -56,25 +70,34 @@ public class TaskList {
             throw new InvalidParamsException(("no event description"));
         }
         // process input as Event object
-        String description = line.substring(startIndexOfDescription, indexFrom - 1);
-        String timeRange = " (from: " + line.substring(indexFrom + 1, indexTo) +
-                "to " + line.substring(indexTo + 1) + ")";
+        String description = userInput.substring(startIndexOfDescription, indexFrom - 1);
+        String timeRange = " (from: " + userInput.substring(indexFrom + 1, indexTo) +
+                "to " + userInput.substring(indexTo + 1) + ")";
         // add to tasks
         Task newTask = new Event(description, timeRange, tasks.size() + 1);
         tasks.add(newTask);
         if (isReadMode) {
             return; // no need execute code below (for writing only)
         }
-        Storage.appendToFile(FILE_PATH, displayListItem(tasks.indexOf(newTask)));
+        Storage.appendToFile(FILE_NAME, displayListItem(tasks.indexOf(newTask)));
         System.out.println("Event added!");
         System.out.println(displayListItem(tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
-    protected void addDeadlineTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
-        final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(deadline);
+    /**
+     * Adds Deadline to Tasks
+     *
+     * @param userInputInParts separates each word in userInput
+     * @param userInput is the original CLI user input
+     * @param FILE_NAME to store tasks in
+     * @param isReadMode specifies if reading from FILE_NAME or writing to it
+     * @throws InvalidParamsException if invalid/ missing deadline arguments
+     */
+    protected void addDeadlineTask(String[] userInputInParts, String userInput, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
+        final int startIndexOfDescription = userInputInParts[0].length() + 1; // userInputInParts[0].equals(deadline);
 
-        int indexDeadline = line.indexOf('/');
+        int indexDeadline = userInput.indexOf('/');
         // checks for invalid input
         if (indexDeadline == -1) {
             throw new InvalidParamsException("No deadline argument: Add a parameter '/' followed by the deadline");
@@ -84,13 +107,13 @@ public class TaskList {
         }
         // process input as Deadline object
         String deadline = "(by: ";
-        if (Parser.isValidDeadline(line.substring(indexDeadline + 1))) {
-            deadline += Parser.formatDeadline(line.substring(indexDeadline + 1));
+        if (Parser.isValidDeadline(userInput.substring(indexDeadline + 1))) {
+            deadline += Parser.formatDeadline(userInput.substring(indexDeadline + 1));
         } else {
-            deadline += line.substring(indexDeadline + 1);
+            deadline += userInput.substring(indexDeadline + 1);
         }
         deadline += ")";
-        String description = line.substring(startIndexOfDescription, indexDeadline);
+        String description = userInput.substring(startIndexOfDescription, indexDeadline);
         // add to tasks
         Task newTask = new Deadline(description, deadline, tasks.size() + 1);
         tasks.add(newTask);
@@ -98,21 +121,29 @@ public class TaskList {
         if (isReadMode) {
             return; // no need execute code below (for writing only)
         }
-        Storage.appendToFile(FILE_PATH, displayListItem(tasks.indexOf(newTask)));
+        Storage.appendToFile(FILE_NAME, displayListItem(tasks.indexOf(newTask)));
         System.out.println("Deadline added!");
         System.out.println(displayListItem(tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
-    protected void addTodoTask(String[] req, String line, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
-        final int startIndexOfDescription = req[0].length() + 1; // req[0].equals(TODO);
+    /**
+     *
+     * @param userInputInParts separates each word in userInput
+     * @param userInput is the original CLI user input
+     * @param FILE_NAME to store tasks in
+     * @param isReadMode specifies if reading from FILE_NAME or writing to it
+     * @throws InvalidParamsException if invalid/ missing t0do arguments
+     */
+    protected void addTodoTask(String[] userInputInParts, String userInput, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
+        final int startIndexOfDescription = userInputInParts[0].length() + 1; // userInputInParts[0].equals(TODO);
 
         // checks for invalid input
-        if (startIndexOfDescription > line.length() - 1) {
+        if (startIndexOfDescription > userInput.length() - 1) {
             throw new InvalidParamsException("No task description");
         }
         // process input
-        String description = line.substring(startIndexOfDescription);
+        String description = userInput.substring(startIndexOfDescription);
         // add to tasks
         Task newTask = new Todo(description, tasks.size() + 1);
         tasks.add(newTask);
@@ -120,22 +151,29 @@ public class TaskList {
             // no need execute code below (for writing only)
             return;
         }
-        Storage.appendToFile(FILE_PATH, displayListItem(tasks.indexOf(newTask)));
+        Storage.appendToFile(FILE_NAME, displayListItem(tasks.indexOf(newTask)));
 
         System.out.println("Todo added!");
         System.out.println(displayListItem(tasks.size() - 1));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
-    protected void deleteOperation(String[] req, String FILE_PATH) throws InvalidParamsException {
+    /**
+     * Deletes a specific task by index
+     *
+     * @param userInputInParts separates each word in userInput
+     * @param FILE_NAME to store tasks in
+     * @throws InvalidParamsException if invalid/ missing delete arguments
+     */
+    protected void deleteOperation(String[] userInputInParts, String FILE_NAME) throws InvalidParamsException {
         // check for input validity
-        if (req.length < 2) {
+        if (userInputInParts.length < 2) {
             throw new InvalidParamsException("Invalid delete operation");
         }
         // process input
         int taskIndex;
         try {
-            taskIndex = Integer.parseInt(req[1]);
+            taskIndex = Integer.parseInt(userInputInParts[1]);
         } catch (NumberFormatException e) {
             throw new InvalidParamsException("Invalid non-integer delete index");
         }
@@ -146,25 +184,28 @@ public class TaskList {
         System.out.println("Good riddance, task deleted!");
         System.out.println(displayListItem(taskIndex - 1));
         tasks.remove(taskIndex - 1);
-        Storage.writeToFile(FILE_PATH, displayList());
+        Storage.writeToFile(FILE_NAME, displayList());
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
 
     /**
-     * Marks Task as done or not done
+     * Marks a Task or unmarks a task
      *
-     * @param req    String[] input from user
-     * @param isMark type of operation: mark or unmark
+     * @param userInputInParts separates each word in userInput
+     * @param isMark if true, marks task, else unmarks it
+     * @param FILE_NAME to store tasks in
+     * @param isReadMode specifies if reading from FILE_NAME or writing to it
+     * @throws InvalidParamsException if invalid/ missing mark arguments
      */
-    protected void markOperation(String[] req, boolean isMark, String FILE_PATH, boolean isReadMode) throws InvalidParamsException {
+    protected void markOperation(String[] userInputInParts, boolean isMark, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
         // check for input validity
-        if (req.length < 2) {
+        if (userInputInParts.length < 2) {
             throw new InvalidParamsException("invalid mark/ unmark operation");
         }
         int taskNum;
         try {
-            taskNum = Integer.parseInt(req[1]);
+            taskNum = Integer.parseInt(userInputInParts[1]);
             if (tasks.size() < taskNum || taskNum < 1) {
                 throw new InvalidParamsException("No such taskNum");
             }
@@ -183,18 +224,24 @@ public class TaskList {
             return;
         }
         // mark tasks
-        Storage.writeToFile(FILE_PATH, displayList());
+        Storage.writeToFile(FILE_NAME, displayList());
         String mark = isMark ? "marked" : "unmarked";
         System.out.println("Has " + mark + " task" + taskNum + ":");
         System.out.print(displayListItem(taskNum - 1));
     }
 
-    public void findOperation(String[] req, String filePath) throws InvalidParamsException {
+    /**
+     * Prints tasks containing a keyword
+     *
+     * @param userInputInParts separates each word in userInput
+     * @throws InvalidParamsException if invalid/ missing find arguments
+     */
+    public void findOperation(String[] userInputInParts) throws InvalidParamsException {
         // check for input validity
-        if (req.length < 2) {
+        if (userInputInParts.length < 2) {
             throw new InvalidParamsException("invalid find operation");
         }
-        String findKeyword = req[1];
+        String findKeyword = userInputInParts[1];
         String tasksToPrint = "";
         for (Task task : tasks) {
             if (task.getDescription().contains(findKeyword)) {
