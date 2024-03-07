@@ -13,7 +13,7 @@ public class Ui {
                     + " /_/   \\_\\_/  |_| \\_\\|_|  ";
 
     private static final String welcome = asciiArt
-            + "\n\nHEY HEY YOU YOU! I COULD BE YOUR... personal task manager.";
+            + "\n\nHEY HEY YOU YOU! I COULD BE YOUR...task manager bot.";
 
     private static final String instructions =
             "---------Follow the syntax below:---------------\n"
