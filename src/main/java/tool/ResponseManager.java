@@ -49,7 +49,9 @@ public class ResponseManager {
     public static final String FIND_MESSAGE =
             "Here are the matching tasks in your list:\n";
     public static final String DATE_FORMAT_ERROR =
-            "Please follow the date format: dd/MM/yyyy HHmm\n";
+            "Please follow the format for date & time:\n" +
+            "For date: dd/MM/yyyy\n" +
+            "For time: HHmm\n";
     public static final String HELP_MESSAGE =
             "\n======================ZUKE   MANUAL====================\n" +
             "ADD TODO TASK:                         todo <task name>\n" +
@@ -69,21 +71,37 @@ public class ResponseManager {
     public static final String MARKED_TASK_MSG = "This task is already marked\n";
     public static final String UNMARKED_TASK_MSG = "This task is already unmarked\n";
 
+    /**
+     * Prints the response to the user with indentation line.
+     * 
+     * @param response the response to be printed.
+     */
     public static void indentPrint(String response) {
         System.out.println(INDENTATION_LINE);
         System.out.println(response + INDENTATION_LINE);
     }
     
+    /**
+     * Prints the greeting message to the user.
+     */
     public static void greet() {
         System.out.println("Hello from\n" + LOGO);
         indentPrint("Hello! I'm Zuke\n" +
                 "What can I do for you?\n");
     }
 
+    /**
+     * Prints the goodbye message to the user.
+     */
     public static void sayGoodbye() {
         indentPrint(BYE_MESSAGE);
     }
 
+    /**
+     * Prints the list of tasks to the user.
+     * 
+     * @param taskList the list of tasks created by user to be printed.
+     */
     public static void listTaskToUser(String taskList) {
         indentPrint(LIST_TASK_MESSAGE + taskList);
     }
@@ -93,6 +111,9 @@ public class ResponseManager {
                 messageToPrint + END_LINE);
     }
 
+    /**
+     * Prints the help message containing the chatbot's manual.
+     */
     public static void sendHelpMessage() {
         indentPrint(HELP_MESSAGE);
     }
@@ -102,9 +123,10 @@ public class ResponseManager {
     }
 
     /**
-     * Prints the action on done by the Zuke chatbot to the user bases on the action
-     * @param action the action that has performed on the tasks
-     * @param msgTobePrinted the message to be printed
+     * Prints the action on done by the Zuke chatbot to the user bases on the action.
+     * 
+     * @param action the action that has performed on the tasks.
+     * @param msgTobePrinted the message to be printed.
      */
     public static void printActionOnTasks(CommandType action, String msgTobePrinted) {
         switch(action) {

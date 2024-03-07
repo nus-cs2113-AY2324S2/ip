@@ -16,9 +16,12 @@ public class MarkUnmarkCommand implements Command {
     /**
      * {@inheritDoc}
      * 
-     * Marks or unmarks a task in the task list and prints the mark or unmark action to the user
-     * @param tasks the task list
-     * @throws InputException if the index is out of range
+     * Marks or unmarks a task with specific index in the task list.
+     * If task type is mark, it will mark the task.
+     * If task type is unmark, it will unmark the task.
+     *
+     * @param tasks the task list.
+     * @throws InputException if the index is out of range.
      */
     @Override
     public void run(TaskList tasks) throws InputException {

@@ -5,10 +5,11 @@ import tool.MessageDecoder;
 
 public class CommandFactory {
     /**
-     * Generates the command based on the user input
-     * @param input the user input
-     * @return the command to be executed
-     * @throws InputException if the input is invalid
+     * Generates the command of different type based on the decoded user input.
+     *
+     * @param input the user input.
+     * @return the command to be executed.
+     * @throws InputException if the input is invalid.
      */
     public static Command generate(String input) throws InputException {
         String[] processedMessage = MessageDecoder.separateCommand(input);

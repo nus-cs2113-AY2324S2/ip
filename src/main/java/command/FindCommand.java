@@ -25,8 +25,9 @@ public class FindCommand implements Command {
     /**
      * {@inheritDoc}
      * 
-     * Finds tasks in the task list based on the keyword and prints the tasks to the user
-     * @param tasks the task list
+     * Finds tasks in the task list based on the keyword and prints the tasks to the user.
+     *
+     * @param tasks the task list.
      */
     public void run(TaskList tasks) {
         if (tasks.getSize() == 0) {

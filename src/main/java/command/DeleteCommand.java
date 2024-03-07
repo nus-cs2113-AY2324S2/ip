@@ -15,14 +15,18 @@ public class DeleteCommand implements Command {
     /**
      * {@inheritDoc}
      * 
-     * Deletes a task from the task list and prints the delete action to the user
-     * @param tasks the task list
-     * @throws InputException if the index is out of range
+     * Deletes a task from the task list and prints the delete action to the user.
+     *
+     * @param tasks the task list.
+     * @throws InputException if the index is out of range.
      */
     @Override
     public void run(TaskList tasks) throws InputException {
         if (tasks.getSize() == 0) {
             throw new InputException(ResponseManager.DELETE_EMPTY_LIST_MSG);
+        }
+        if (taskIndex > tasks.getSize() || taskIndex <= 0) {
+            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
         String response = tasks.getPosAt(taskIndex).toString();
         tasks.deleteTaskAt(taskIndex);

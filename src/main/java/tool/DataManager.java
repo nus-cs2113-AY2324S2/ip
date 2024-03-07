@@ -17,8 +17,7 @@ public class DataManager {
     public static final String DEADLINE = "D";
 
     /**
-     * Creates a folder to store the saved data.
-     * If the folder already exists, it will not create a new one.
+     * Creates a folder to store the saved data if it does not exist.
      */
     public static void createFolder() {
         File parentDir = new File(FOLDER_PATH);
@@ -28,8 +27,8 @@ public class DataManager {
     }
 
     /**
-     * Creates a file to store the saved data.
-     * If the file already exists, it will not create a new one.
+     * Creates a file to store the saved data if it does not exist. However,
+     * if the file already exists, it will not create a new one.
      */
     public static void createFile() {
         File textFile = new File(FILE_PATH);
@@ -46,6 +45,7 @@ public class DataManager {
 
     /**
      * Reads the saved data from the file to recover previous task list.
+     * 
      * @return TaskList object containing the saved data.
      * @throws InputException if the file does not exist.
      */
@@ -64,6 +64,7 @@ public class DataManager {
     /**
      * Decodes the read data to create the respective task objects,
      * and adds them to the task list.
+     * 
      * @param taskList TaskList object to store the saved data.
      * @param input String containing the saved data.
      * @throws InputException if the file is corrupted.
@@ -93,6 +94,7 @@ public class DataManager {
 
     /**
      * Saves the current task list to the file in a simplified format.
+     * 
      * @param data TaskList object containing the current task list.
      */
     public static void saveData(TaskList data) {

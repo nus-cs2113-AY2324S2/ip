@@ -19,17 +19,19 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Adds a task to the task list
-     * @param task the task to be added
+     * Adds a task to the bottom of task list.
+     * 
+     * @param task the task to be added.
      */
     public void add(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Deletes a task from the task list
-     * @param index the index of the task to be deleted
-     * @throws InputException if the index is out of range
+     * Deletes a task from the task list at the labeled index.
+     * 
+     * @param index the index of the task to be deleted.
+     * @throws InputException if the index is out of range.
      */
     public void deleteTaskAt(int index) throws InputException {
         if (index > this.getSize()) {
@@ -43,47 +45,52 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Outputs the task at the specified index in the task list
-     * @param index the index of the task to be returned
-     * @return the task at the specified index
+     * Outputs the task at the specified index in the task list.
+     * 
+     * @param index the index of the task to be returned.
+     * @return the task at the specified index.
      */
     public Task getPosAt(int index) {
         return tasks.get(index - 1);
     }
 
     /**
-     * Marks a task as done
-     * @param taskNum the index of the task to be marked
-     * @throws InputException if the index is out of range
+     * Marks a task at specified index as done.
+     * 
+     * @param index the index of the task to be marked.
+     * @throws InputException if the index is out of range.
      */
-    public void markTask(int taskNum) throws InputException {
-        if (taskNum > this.getSize()) {
+    public void markTask(int index) throws InputException {
+        if (index > this.getSize()) {
             throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
-        Task task = tasks.get(taskNum - 1);
+        Task task = tasks.get(index - 1);
         int position = tasks.indexOf(task);
         task.mark();
         tasks.set(position, task);
     }
 
     /**
-     * Unmarks a task as not done
-     * @param taskNum the index of the task to be unmarked
-     * @throws InputException if the index is out of range
+     * Unmarks a task at specified index as not done.
+     * 
+     * @param index the index of the task to be unmarked.
+     * @throws InputException if the index is out of range.
      */
-    public void unmarkTask(int taskNum) throws InputException {
-        if (taskNum > this.getSize()) {
+    public void unmarkTask(int index) throws InputException {
+        if (index > this.getSize()) {
             throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
-        Task task = tasks.get(taskNum - 1);
+        Task task = tasks.get(index - 1);
         int position = tasks.indexOf(task);
         task.unmark();
         tasks.set(position, task);
     }
 
     /**
-     * Lists all the tasks in the task list
-     * @return a string containing all the tasks in the task list
+     * Lists all the tasks in the task list and
+     * numbers tasks based their positions in the task list.
+     * 
+     * @return a string containing all the tasks in the task list.
      */
     public String listTasks() {
         String tasksToBeListed = "";
@@ -93,6 +100,12 @@ public class TaskList implements Serializable {
         return tasksToBeListed;
     }
 
+    /**
+     * Lists all the tasks in the task list for saving current data in a file.
+     * 
+     * @return a string containing all the tasks in the task list 
+     * which is formatted for saving.
+     */
     public String listTasksForSave() {
         String tasksToBeListed = "";
         for (int i = 1; i <= tasks.size(); i++) {
@@ -102,17 +115,19 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Shows the task that was most recently added to the task list
-     * @return the task that was most recently added to the task list
+     * Shows the task that was most recently added to the task list.
+     * 
+     * @return the task that was most recently added to the task list.
      */
     public Task showNewlyAddedTask() {
         return this.getPosAt(tasks.size());
     }
 
     /**
-     * Finds a task contains the stated keyword in the task list
-     * @param keyword the keyword to be searched for
-     * @return a string containing the tasks that contain the keyword
+     * Finds a task contains the stated keyword in the task list.
+     * 
+     * @param keyword the keyword to be searched for.
+     * @return a string containing the tasks that contain the keyword.
      */
     public String findTask(String keyword) {
         List<Task> eligibleList =
@@ -122,9 +137,10 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Finds a task contains the stated time in the task list
-     * @param time the date or time to be searched for
-     * @return a string containing the tasks that contain the date
+     * Finds a task contains the stated time in the task list.
+     * 
+     * @param time the date or time to be searched for.
+     * @return a string containing the tasks that contain the date.
      */
     public String findTime(String time) {
         List<Task> eligibleList =

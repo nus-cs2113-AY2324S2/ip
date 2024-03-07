@@ -21,8 +21,6 @@ public class ZukeLogic {
 
     public void chattingStart() {
         Scanner userInput = new Scanner(System.in);
-        DataManager.createFolder();
-        DataManager.createFile();
         loadData();
         boolean exitFlag = false;
 
@@ -40,6 +38,8 @@ public class ZukeLogic {
     }
 
     private void loadData() {
+        DataManager.createFolder();
+        DataManager.createFile();
         try {
             this.taskList = DataManager.readSavedData();
         } catch (InputException error) {

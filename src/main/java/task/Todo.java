@@ -11,6 +11,7 @@ public class Todo extends Task {
         super(description);
         this.isDone = isDone;
     }
+    
     @Override
     public String toSave() {
         return "T / " + (isDone ? "1" : "0") + " / " + description;

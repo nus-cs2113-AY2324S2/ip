@@ -19,20 +19,13 @@ public enum CommandType {
     CommandType(String type) {
         this.type = type;
     }
-
-    /**
-     * Outputs the type of the command as a string
-     * @return String containing the type of the command
-     */
-    public String getType() {
-        return type;
-    }
     
     /**
-     * Analyzes the type of the command
-     * @param input the user input
-     * @return the type of the command
-     * @throws InputException if the command is not recognized
+     * Analyzes the type of the command based on the input string.
+     *
+     * @param input the user input.
+     * @return the type of the command.
+     * @throws InputException if the command is not recognized.
      */
     public static CommandType analyseType(String input) throws InputException {
         for (CommandType commandType : CommandType.values()) {
@@ -41,5 +34,10 @@ public enum CommandType {
             }
         }
         throw new InputException(ResponseManager.COMMAND_ERROR);
+    }
+
+    @Override
+    public String toString() {
+        return type;
     }
 }

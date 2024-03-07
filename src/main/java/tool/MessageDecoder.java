@@ -3,7 +3,9 @@ package tool;
 import command.CommandType;
 import exception.InputException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -24,18 +26,32 @@ public class MessageDecoder {
     private static final int END_DATE_INDEX = 2;
     private static final String NUMERIC = "\\d+";
     private static final String FIND_REGEX = "\\s*(/w|/t)\\s*.+";
-    public static final String TIME_INPUT_PATTERN = "dd/MM/yyyy HHmm";
-    public static final String TIME_OUTPUT_PATTERN = "MMM dd yyyy HH:mm";
+    private static final String DATE_REGEX = "\\d{2}/\\d{2}/\\d{4}";
+    private static final String TIME_REGEX = "\\d{4}";
     private static final DateTimeFormatter INPUT_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern(TIME_INPUT_PATTERN);
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern(TIME_OUTPUT_PATTERN);
+            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     public static final String TIME_PREFIX = "/t";
+    public static final String FIND_FORMAT = "\nfind /w <keyword> or find /t <time>\n";
+    public static final String EVENT_FORMAT = "\nevent <task name> /from <start time> /to <end time>\n";
+    public static final String DEADLINE_FORMAT = "\ndeadline /by <due date>\n";
+    public static final String TODO_FORMAT = "\ntodo <task name>\n";
+    public static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    public static final DateTimeFormatter OUT_DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy");
+    public static final DateTimeFormatter TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("HHmm");
+    public static final DateTimeFormatter OUT_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("HH:mm");
 
     /**
-     * Separates the command from the user input message
-     * @param message typed message from the user input
+     * Separates the command from the user input message.
+     * 
+     * @param message typed message from the user input.
      * @return String[] containing the command and the message
+     * where index 0 is the command and index 1 is the information.
      */
     public static String[] separateCommand(String message) {
         int splitLimit = 2;
@@ -48,11 +64,12 @@ public class MessageDecoder {
     }
 
     /**
-     * Decodes the user input message and returns the decoded message
-     * @param type type of command received
-     * @param message user input information about the command
-     * @return String[] containing the decoded message
-     * @throws InputException exception thrown when the user input does not match the format
+     * Decodes the user input message and returns the decoded message.
+     * 
+     * @param type type of command received.
+     * @param message user input information about the command.
+     * @return String[] containing the decoded details regarding the command.
+     * @throws InputException exception thrown when the user input does not match the format.
      */
     public static String[] decodeInput(CommandType type, String message) throws InputException {
         switch (type) {
@@ -80,10 +97,11 @@ public class MessageDecoder {
     }
 
     /**
-     * Decodes the user input information for the todo command
-     * @param message user input information about the todo command
-     * @return String[] containing the decoded message for the todo command
-     * @throws InputException exception thrown when the user input is blank or does not match the format
+     * Decodes the user input information for the todo command.
+     * 
+     * @param message user input information about the todo command.
+     * @return String[] containing the decoded details for the todo command.
+     * @throws InputException exception thrown when the user input is blank or does not match the format.
      */
     private static String[] decodeTodo(String message) throws InputException {
         if (message.matches(BLANK)) {
@@ -91,22 +109,25 @@ public class MessageDecoder {
         }
         if (!message.matches(TODO_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
-                    ResponseManager.TODO);
+                    ResponseManager.TODO +
+                    TODO_FORMAT);
         }
 
         return new String[] {message};
     }
 
     /**
-     * Decodes the user input information for the deadline command
-     * @param message user input information about the deadline command
-     * @return String[] containing the decoded message for the deadline command
-     * @throws InputException exception thrown when the user input does not match the format
+     * Decodes the user input information for the deadline command.
+     * 
+     * @param message user input information about the deadline command.
+     * @return String[] containing the decoded details for the deadline command.
+     * @throws InputException exception thrown when the user input does not match the format.
      */
     private static String[] decodeDeadline(String message) throws InputException {
         if (!message.matches(DEADLINE_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
-                    ResponseManager.DEADLINE);
+                    ResponseManager.DEADLINE +
+                    DEADLINE_FORMAT);
         }
         int indexOfDeadlinePrefix = message.indexOf(DEADLINE_PREFIX);
         String[] decoded = new String[DEADLINE_INFO_COUNT];
@@ -120,37 +141,40 @@ public class MessageDecoder {
                 throw new InputException(ResponseManager.BLANK_MSG_ERROR);
             }
         }
-        decoded[DUE_DATE_INDEX] = parseDate(decoded[DUE_DATE_INDEX]);
+        decoded[DUE_DATE_INDEX] = decodeDateNTime(decoded[DUE_DATE_INDEX]);
         return decoded;
     }
 
     /**
-     * Decodes the user input information for the event command
-     * @param message user input information about the event command
-     * @return String[] containing the decoded message for the event command
-     * @throws InputException exception thrown when the user input does not match the format
+     * Decodes the user input information for the event command.
+     * 
+     * @param message user input information about the event command.
+     * @return String[] containing the decoded details for the event command.
+     * @throws InputException exception thrown when the user input does not match the format.
      */
     private static String[] decodeEvent(String message) throws InputException {
         if (!message.matches(EVENT_REGEX)) {
             throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
-                    ResponseManager.EVENT);
+                    ResponseManager.EVENT +
+                    EVENT_FORMAT);
         }
         int indexOfFrom = message.indexOf(EVENT_START_PREFIX);
         int indexOfTo = message.indexOf(EVENT_END_PREFIX);
 
         String[] decoded = getFromNTo(message, indexOfFrom, indexOfTo);
-        decoded[START_DATE_INDEX] = parseDate(decoded[START_DATE_INDEX]);
-        decoded[END_DATE_INDEX] = parseDate(decoded[END_DATE_INDEX]);
+        decoded[START_DATE_INDEX] = decodeDateNTime(decoded[START_DATE_INDEX]);
+        decoded[END_DATE_INDEX] = decodeDateNTime(decoded[END_DATE_INDEX]);
         return decoded;
     }
     
     /**
-     * Decodes the user input information for start time and end time of the event
-     * @param message user input information about the event command
-     * @param indexOfFrom index of the start time prefix
-     * @param indexOfTo index of the end time prefix
-     * @return String[] containing the decoded start time and end time for the event command
-     * @throws InputException exception thrown when the user input does not match the format
+     * Decodes the user input information for start time and end time of the event.
+     * 
+     * @param message user input information about the event command.
+     * @param indexOfFrom index of the start time prefix.
+     * @param indexOfTo index of the end time prefix.
+     * @return String[] containing the decoded start time and end time for the event command.
+     * @throws InputException exception thrown when the user input does not match the format.
      */
     private static String[] getFromNTo(String message,
             int indexOfFrom, int indexOfTo) throws InputException {
@@ -178,10 +202,11 @@ public class MessageDecoder {
     }
 
     /**
-     * Decodes the user input command for the index of the target task
-     * @param message user input information about the index of the target task
-     * @return String[] containing the decoded index of the target task
-     * @throws InputException exception thrown when the user input is blank or does not match the format
+     * Decodes the user input for the index of the target task.
+     * 
+     * @param message user input information about the index of the target task.
+     * @return String[] containing the decoded index of the target task.
+     * @throws InputException exception thrown when the user input is blank or does not match the format.
      */
     private static String[] decodeIndex(String message) throws InputException {
         if (message.matches(BLANK)) {
@@ -194,65 +219,96 @@ public class MessageDecoder {
     }
 
     /**
-     * Removes the prefix mark from the user input message
-     * @param rawText user input message
-     * @param sign prefix mark to be removed
-     * @return String containing the user input message without the prefix mark
+     * Removes the prefix mark from the user input message.
+     * 
+     * @param rawText user input message.
+     * @param sign prefix mark to be removed.
+     * @return String containing the user input message without the prefix mark.
      */
     private static String removePrefixMark(String rawText, String sign) {
         return rawText.replace(sign, "");
     }
 
     /**
-     * Decodes the user input message for the find command
-     * @param message user input information about the find command
-     * @return String[] containing the decoded message for the find command
-     * @throws InputException exception thrown when the user input does not match the format
+     * Decodes the user input message for the find command.
+     * 
+     * @param message user input information about the find command.
+     * @return String[] containing the decoded details for the find command.
+     * @throws InputException exception thrown when the user input does not match the format.
      */
     private static String[] decodeFind(String message) throws InputException {
         if (!message.matches(FIND_REGEX)) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE);
+            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE + CommandType.FIND +
+                    FIND_FORMAT);
         }
 
         int splitLimit = 2;
         String[] typeAndKeyword = message.trim().split("\\s+", splitLimit);
         if (typeAndKeyword.length != splitLimit) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE);
+            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE + CommandType.FIND +
+                    FIND_FORMAT);
         }
 
         if (typeAndKeyword[0].equals(TIME_PREFIX)) {
-            typeAndKeyword[1] = parseDate(typeAndKeyword[1]);
+            typeAndKeyword[1] = decodeDateNTime(typeAndKeyword[1]);
         }
         return typeAndKeyword;
     }
 
     /**
-     * Parses the date and time from the user input message and converts it to a readable format
-     * @param input user input message containing the date and time
-     * @return String containing the parsed date and time
-     * @throws InputException exception thrown when the user input does not match the format
+     * Parses the date and time from the user input message and 
+     * converts it to a readable format.
+     * 
+     * @param input user input message containing the date and time.
+     * @return String containing the parsed date and time.
+     * @throws InputException exception thrown when the user input does not match the format.
      */    
-    private static String parseDate (String input) throws InputException {
+    private static String decodeDateNTime(String input) throws InputException {
         int splitLimit = 2;
         String[] inputTime = input.split("\\s+", splitLimit);
         if (inputTime.length != splitLimit) {
-            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+            return decodeDateOrTime(inputTime[0]);
         }
-        String formattedTime = inputTime[0] + " " + inputTime[1];
-        LocalDateTime dateTime;
 
+        String formattedTime = inputTime[0] + " " + inputTime[1];
         try {
-            dateTime = LocalDateTime.parse(formattedTime, INPUT_TIME_FORMATTER);
+            return LocalDateTime.parse(formattedTime, INPUT_TIME_FORMATTER)
+                    .format(OUTPUT_TIME_FORMATTER);
         } catch (DateTimeParseException error) {
             throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
         }
-        return dateTime.format(OUTPUT_TIME_FORMATTER);
     }
 
     /**
-     * Decodes the saved data from the file
-     * @param data saved data from the file
-     * @return String[] containing the decoded saved data
+     * Decodes the date or time from the user input message 
+     * and converts it to a readable format when user only inputs date or time.
+     * 
+     * @param input user input message containing the date or time.
+     * @return String containing the decoded and formatted date or time.
+     * @throws InputException exception thrown when the user input does not match the format.
+     */
+    private static String decodeDateOrTime(String input) throws InputException {
+        if (!input.matches(DATE_REGEX) && !input.matches(TIME_REGEX)) {
+            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+        }
+
+        try {
+            if (input.matches(DATE_REGEX)) {
+                return LocalDate.parse(input, DATE_FORMATTER)
+                        .format(OUT_DATE_FORMATTER);
+            }
+            return LocalTime.parse(input, TIME_FORMATTER)
+                    .format(OUT_TIME_FORMATTER);
+        } catch (DateTimeParseException error) {
+            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+        }
+    }
+
+    /**
+     * Decodes the saved data from a text file.
+     * 
+     * @param data saved data from the file.
+     * @return String[] containing the decoded saved data.
      */
     public static String[] decodeSavedData(String data) {
         return data.split(" / ");
