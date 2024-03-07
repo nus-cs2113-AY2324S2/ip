@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class FileReader {
+
+    /**
+     * Stores the reformatted entries read from the file into main Array list.
+     *
+     * @throws IOException When I/O error occurs.
+     */
     public static void readFile() throws IOException {
         try {
             List<String> entries = FileHandler.readFile();
@@ -32,6 +38,13 @@ public class FileReader {
         }
     }
 
+    /**
+     * Splits the unformatted entry at the "|" characters to obtain
+     * formatted task details and stores them in a String Array.
+     *
+     * @param entry Unformatted entry read in from the file.
+     * @return Array containing the formatted task entry.
+     */
     private static Task formatEntry(String entry) {
         Task newTask;
         try {

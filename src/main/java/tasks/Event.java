@@ -1,9 +1,12 @@
 package tasks;
 
+/**
+ * Event task with details on the description, start and end conditions and whether it's complete.
+ */
 public class Event extends Task {
 
-    public String start;
-    public String end;
+    protected String start;
+    protected String end;
 
 
     public Event(String description, boolean isDone, String startTime, String endTime) {

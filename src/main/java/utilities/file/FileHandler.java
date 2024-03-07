@@ -10,6 +10,13 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 
 public class FileHandler {
+
+    /**
+     * Reads existing file or creates new one when absent.
+     *
+     * @return lines read from file
+     * @throws IOException When I/O error occurs.
+     */
     protected static List<String> readFile() throws IOException {
         Path textFile = Paths.get(Constants.FILEPATH);
         createDirectories(textFile.getParent());
@@ -19,6 +26,12 @@ public class FileHandler {
         return Files.readAllLines(textFile);
     }
 
+    /**
+     * Writes tasks details to an existing file.
+     *
+     * @param entries Lines containing task details that will be written to the file.
+     * @throws IOException When I/O error occurs.
+     */
     protected static void writeFile(List<String> entries) throws IOException {
         Path textFile = Paths.get(Constants.FILEPATH);
         createDirectories(textFile.getParent());

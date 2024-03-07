@@ -10,7 +10,9 @@ import utilities.file.FileReader;
 import utilities.file.FileWriter;
 import tasks.Task;
 import java.util.Scanner;
-
+/**
+ * A task tracker that allows users to add, delete, find, list, nark, and saves the list.
+ */
 public class Aragorn {
 
     private static final ArrayList<Task> list = new ArrayList<>();

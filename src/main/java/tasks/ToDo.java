@@ -1,7 +1,9 @@
 package tasks;
 
+/**
+ * Todo task with details on the description and whether it's complete.
+ */
 public class ToDo extends Task {
-
 
     public ToDo(String userInput, boolean isDone) {
         super(userInput, isDone);

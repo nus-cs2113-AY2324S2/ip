@@ -2,6 +2,9 @@ package ui;
 
 import tasks.Task;
 
+/**
+ * Class containing all print statements to avoid using magic string literals.
+ */
 public final class Constants {
     public static final String LINE =  "    __________________________________________________________\n";
 
