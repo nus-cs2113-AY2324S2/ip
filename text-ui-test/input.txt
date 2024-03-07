@@ -1,0 +1,9 @@
+list
+todo read book
+mark 1
+deadline return book /by May 4th
+event project meeting /from Feb 17th 2pm /to 4pm
+deadline do cs2113 ip /by Friday
+mark 4
+list
+bye
