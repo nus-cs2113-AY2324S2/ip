@@ -38,7 +38,7 @@ public class TextUi {
      */
     public static void displayList(ArrayList<Task> taskList, boolean isFind) {
         if (taskList.isEmpty()) {
-            System.out.println("\tLooks like you need to find more work to do! Task list is empty!");
+            System.out.println("\tLooks like there is no task available! You should stop slacking and add it in!");
         } else if (isFind) {
             System.out.println("\tHere are the matching tasks in your list:");
         } else {
