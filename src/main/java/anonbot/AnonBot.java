@@ -5,12 +5,12 @@ import anonbot.data.AnonBotFileReader;
 import anonbot.exception.InitialisationException;
 import anonbot.exception.InvalidCommandException;
 import anonbot.misc.CommandManager;
-import anonbot.misc.Status;
+import anonbot.misc.Command.CommandStatus;
 
 public class AnonBot {
     private static void runMainLoop() {
-        Status commandStatus = Status.STATUS_OK;
-        while (commandStatus != Status.STATUS_EXIT) {
+        CommandStatus commandStatus = CommandStatus.STATUS_OK;
+        while (commandStatus != CommandStatus.STATUS_EXIT) {
             String userInput = Ui.getUserInput();
             Ui.printSectionBar(false);
             try {

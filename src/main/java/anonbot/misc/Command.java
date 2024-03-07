@@ -28,6 +28,10 @@ public final class Command {
         UNKNOWN // Catch-all Type, Not a valid command
     }
 
+    public enum CommandStatus {
+        STATUS_OK, STATUS_EXIT
+    }
+
     private static String getCommandStringFromCommandType(CommandType commandType) {
         return commandType.name().toLowerCase();
     }
