@@ -1,8 +1,8 @@
 package anonbot.task;
 
-import anonbot.exception.InvalidDeleteCommandException;
-import anonbot.exception.InvalidMarkCommandException;
-import anonbot.exception.InvalidTaskException;
+import anonbot.exception.InvalidArgumentException;
+import anonbot.exception.EmptyTaskArgumentException;
+import anonbot.exception.InvalidMarkArgumentException;
 
 import java.util.ArrayList;
 
@@ -43,9 +43,9 @@ public class TaskManager {
     }
 
     public static void createNewTask(String taskDescription, Task.TaskType taskType)
-            throws InvalidTaskException {
+            throws EmptyTaskArgumentException {
         if (taskDescription.isEmpty()) {
-            throw new InvalidTaskException("Invalid Task: Task Description is empty");
+            throw new EmptyTaskArgumentException(taskType.name().toLowerCase());
         }
         if (taskType == Task.TaskType.INVALID) {
             System.out.println("Invalid Task Type");
@@ -103,27 +103,27 @@ public class TaskManager {
         return null;
     }
 
-    public static void markTaskAsDone(int taskNumber) throws InvalidMarkCommandException {
+    public static void markTaskAsDone(int taskNumber) throws InvalidMarkArgumentException {
         Task taskToMark = retrieveTask(taskNumber);
 
         if (taskToMark == null) {
-            throw new InvalidMarkCommandException("mark", Integer.toString(taskNumber));
+            throw new InvalidMarkArgumentException("mark", Integer.toString(taskNumber));
         }
 
         taskToMark.markAsDone();
     }
 
-    public static void markTaskAsUndone(int taskNumber) throws InvalidMarkCommandException {
+    public static void markTaskAsUndone(int taskNumber) throws InvalidMarkArgumentException {
         Task taskToMark = retrieveTask(taskNumber);
 
         if (taskToMark == null) {
-            throw new InvalidMarkCommandException("unmark", Integer.toString(taskNumber));
+            throw new InvalidMarkArgumentException("unmark", Integer.toString(taskNumber));
         }
 
         taskToMark.markAsUndone();
     }
 
-    public static void deleteTask(int taskNumber) throws InvalidDeleteCommandException {
+    public static void deleteTask(int taskNumber) throws InvalidArgumentException {
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             if (task.getTaskNumber() == taskNumber) {
@@ -134,6 +134,6 @@ public class TaskManager {
                 return;
             }
         }
-        throw new InvalidDeleteCommandException("delete", Integer.toString(taskNumber));
+        throw new InvalidArgumentException("delete", Integer.toString(taskNumber));
     }
 }
