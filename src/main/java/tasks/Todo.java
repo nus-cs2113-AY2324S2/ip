@@ -1,15 +1,13 @@
 package tasks;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
-    public Todo(String description){
-        super(description);
+    public Todo(String description, int taskNum) {
+        super(description, taskNum);
         this.type = 'T';
     }
-
+    @Override
     public char getType(){
-        return this.type;
+        return type;
     }
-
-
 }
