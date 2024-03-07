@@ -14,7 +14,7 @@ public class Ui {
     /**
      * Prints a welcome message to greet the user.
      */
-    public static void printWelcomeMessage(){
+    public static void printWelcomeMessage() {
         String name = "Suv";
         System.out.println(LINE +
                 " Hello! I'm " + name + "\n" +
@@ -29,7 +29,7 @@ public class Ui {
      * @param newTask The task that was added.
      * @param size The current size of the task list.
      */
-    public static void printAddTodoMessage(Task newTask, int size){
+    public static void printAddTodoMessage(Task newTask, int size) {
         System.out.println(LINE +
                 " Got it. I've added this task:\n" + "  " + newTask +
                 "\n Now you have " + Integer.toString(size) +" tasks " + "in the list.\n" + LINE
@@ -42,7 +42,7 @@ public class Ui {
      * @param newTask The event that was added.
      * @param size The current size of the task list.
      */
-    public static void printAddEventMessage(Task newTask, int size){
+    public static void printAddEventMessage(Task newTask, int size) {
         System.out.println(LINE +
                 " Got it. I've added this task:\n" + "  " + newTask +
                 "\n Now you have " + Integer.toString(size) +" tasks " + "in the list.\n" + LINE
@@ -55,7 +55,7 @@ public class Ui {
      * @param newTask The deadline that was added.
      * @param size The current size of the task list.
      */
-    public static void printAddDeadlineMessage(Task newTask, int size){
+    public static void printAddDeadlineMessage(Task newTask, int size) {
         System.out.println(LINE +
                 " Got it. I've added this task:\n" + "  " + newTask +
                 "\n Now you have " + Integer.toString(size) +" tasks " + "in the list.\n" + LINE
@@ -67,7 +67,7 @@ public class Ui {
      *
      * @param task The task that was marked.
      */
-    public static void printMarkMessage(Task task){
+    public static void printMarkMessage(Task task) {
         System.out.println(LINE + " Nice! I've marked this task as done:\n " + task + "\n" + LINE);
     }
 
@@ -76,7 +76,7 @@ public class Ui {
      *
      * @param task The task that was unmarked.
      */
-    public static void printUnmarkMessage(Task task){
+    public static void printUnmarkMessage(Task task) {
         System.out.println(LINE + " OK, I've marked this task as not done yet:\n " + task + "\n" + LINE);
     }
 
@@ -86,7 +86,7 @@ public class Ui {
      * @param currentTask The task that was deleted.
      * @param size The current size of the task list.
      */
-    public static void printDeleteTodoMessage(Task currentTask, int size){
+    public static void printDeleteTodoMessage(Task currentTask, int size) {
         System.out.println(LINE + " Noted. I've removed this task:\n" + " " + currentTask + "\n Now you have " + Integer.toString(size) +" tasks " + "in the list.\n" + LINE);
 
     }
@@ -101,7 +101,7 @@ public class Ui {
     /**
      * Prints the list of tasks.
      */
-    public static void printList(){
+    public static void printList() {
         System.out.println(LINE + " Here are the tasks in your list:");
         for(int i = 0; i < tasksList.size(); i++){
             int index = i + 1;
@@ -110,7 +110,7 @@ public class Ui {
         System.out.println(LINE);
     }
 
-    public static void printMatchingTasks(String word){
+    public static void printMatchingTasks(String word) {
         System.out.println(LINE + " Here are the matching tasks in your list:");
         int matchingTasksIndex = 1;
         for(int i = 0; i < tasksList.size(); i++){

@@ -17,7 +17,7 @@ public class DeleteTaskCommand {
      * @param input The input string containing the index of the task to be deleted.
      * @throws SuvException If there is an error while executing the delete task command.
      */
-    public DeleteTaskCommand(String input) throws SuvException{
+    public DeleteTaskCommand(String input) throws SuvException {
         int n = Integer.parseInt(input.split(" ")[1]);
         Task currentTask = tasksList.get(n - 1);
         tasksList.remove(n - 1);

@@ -21,7 +21,7 @@ public class AddEventCommand {
      * @param input The input string containing the description and time frame details of the event.
      * @throws SuvException If there is an error while executing the add event command.
      */
-    public AddEventCommand(String input) throws SuvException{
+    public AddEventCommand(String input) throws SuvException {
         if(input.trim().length() > 5 && input.contains("/from") &&  input.contains("/to")){
             String from = input.split("/")[1].trim().substring(FROM_KEYWORD_END_INDEX).trim();
             String to = input.split("/")[2].trim().substring(TO_KEYWORD_END_INDEX).trim();

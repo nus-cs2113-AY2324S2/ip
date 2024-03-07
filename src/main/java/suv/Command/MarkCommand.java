@@ -17,7 +17,7 @@ public class MarkCommand {
      * @param input The input string containing the index of the task to be marked.
      * @throws SuvException If there is an error while executing the mark command.
      */
-    public MarkCommand(String input) throws SuvException{
+    public MarkCommand(String input) throws SuvException {
         int n = Integer.parseInt(input.split(" ")[1]);
         Task currentTask = tasksList.get(n - 1);
         currentTask.mark();

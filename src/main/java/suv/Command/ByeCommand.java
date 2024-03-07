@@ -13,7 +13,7 @@ public class ByeCommand {
      *
      * @throws SuvException If there is an error while executing the bye command.
      */
-    public ByeCommand() throws SuvException{
+    public ByeCommand() throws SuvException {
         Ui.printByeMessage();
     }
 }

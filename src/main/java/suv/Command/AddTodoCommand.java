@@ -19,7 +19,7 @@ public class AddTodoCommand {
      * @param input The input string containing the description of the todo task.
      * @throws SuvException If there is an error while executing the add todo command.
      */
-    public AddTodoCommand(String input) throws SuvException{
+    public AddTodoCommand(String input) throws SuvException {
         if(input.trim().length() > 4){
             Todo newTask = new Todo(input.substring(TODO_KEYWORD_END_INDEX).trim());
 

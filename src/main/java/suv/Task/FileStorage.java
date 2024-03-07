@@ -66,7 +66,7 @@ public class FileStorage {
      *
      * @throws FileNotFoundException If the file containing tasks data is not found.
      */
-    public static void fetchData()  {
+    public static void fetchData() {
         String filePath = Paths.get(System.getProperty("user.dir"), "data", "data.txt").toString();
         java.io.File file = new java.io.File(filePath);
         if (!file.exists()) {

@@ -19,7 +19,7 @@ public class AddDeadlineCommand {
      * @param input The input string containing the description and deadline details of the task.
      * @throws SuvException If there is an error while executing the add deadline command.
      */
-    public AddDeadlineCommand(String input) throws SuvException{
+    public AddDeadlineCommand(String input) throws SuvException {
         if(input.trim().length() > 8 && input.contains("/by")){
             String by = input.split("/by")[1].trim();
             String description = input.split("/by")[0].substring(DEADLINE_KEYWORD_END_INDEX).trim();

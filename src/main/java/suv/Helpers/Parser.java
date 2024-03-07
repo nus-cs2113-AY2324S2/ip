@@ -16,7 +16,7 @@ public class Parser {
      * @param input The user input to be processed.
      * @throws SuvException If there is an error processing the input.
      */
-    public void handleInput(String input) throws SuvException{
+    public void handleInput(String input) throws SuvException {
         try {
             if(input.equals("bye")){
                 new ByeCommand();

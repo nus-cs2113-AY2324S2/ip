@@ -16,7 +16,7 @@ public class UnMarkCommand {
      * @param input The input string containing the index of the task to be unmarked.
      * @throws SuvException If there is an error while executing the unmark command.
      */
-    public UnMarkCommand(String input) throws SuvException{
+    public UnMarkCommand(String input) throws SuvException {
         int n = Integer.parseInt(input.split(" ")[1]);
         tasksList.get(n - 1).unMark();
         Ui.printUnmarkMessage(tasksList.get(n - 1));
