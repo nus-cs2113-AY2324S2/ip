@@ -20,7 +20,8 @@ Mona is a Command Line Interface (CLI) chatbot application designed to streamlin
   - [Marking a Task as Not Done: `unmark`](#marking-a-task-as-not-done-unmark)
   - [Exiting the program: `bye`](#exiting-the-program-bye)
   - [Saving the data](#saving-the-data)
-  - [Editing the data file] (#editing-the-data-file)
+  - [Editing the data file](#editing-the-data-file)
+- [Possible issues during startup](#possible-issues-during-startup)
 - [Command summary](#command-summary)
 
 &nbsp;
@@ -28,9 +29,9 @@ Mona is a Command Line Interface (CLI) chatbot application designed to streamlin
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed on your computer.
-2. Download the latest version of Mona from [GitHub](https://github.com/nur-haziq/ip).
+2. Download the latest version of Mona from [GitHub](https://github.com/nur-haziq/ip/releases).
 3. Open a terminal and navigate to the folder where you downloaded Mona.
-4. Run the application by entering `java -jar Mona.jar` in the terminal.
+4. Run the application by entering `java -jar ip.jar` in the terminal.
 5. Type `help` to see a list of available commands.
 
 &nbsp;
@@ -221,6 +222,21 @@ Should you wish to edit the data file directly, please follow the format below:
     - The second component, `0`, represents whether the task is done (`0` for not done, `1` for done).
     - The third component is the description and further parameters of the task. This should be formatted in the same way as how you would add a new task.
   
+&nbsp;
+
+## Possible Issues During Startup
+
+Some users might face issues when starting Mona. Here's how to troubleshoot common problems:
+
+1. **File is Corrupted Error**
+   If you encounter an error that says the file is corrupted, you should first take a look at your `data.txt` file. It's possible that the content of the file has become invalid. Here's what you can do:
+  - **Delete and Recreate**: If you're unsure about the formatting, simply delete the `data.txt` file. Mona will create a new one when you restart the application.
+  - **Rectify the Content**: If you have important data you can't lose, open the `data.txt` file and fix any formatting issues. Make sure each task follows the correct structure Mona expects.
+
+2. **Issues with Data Directory or File**
+   If you encounter an error about not being able to create or read/write from the data directory or file, this usually means there's a permissions issue on your system. Here's how to handle it:
+  - **Check Permissions**: Ensure that Mona has the right permissions to access the folders it needs. Right-click on the directory and check its properties to make sure reading and writing are allowed.
+
 &nbsp;
 
 ## Command Summary
