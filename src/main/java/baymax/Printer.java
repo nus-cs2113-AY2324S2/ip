@@ -1,9 +1,6 @@
 package baymax;
 
-import exceptions.InvalidDeadlineSyntaxException;
-import exceptions.InvalidEventSyntaxException;
-import exceptions.InvalidFindTaskException;
-import exceptions.InvalidTodoSyntaxException;
+import exceptions.*;
 
 import java.util.ArrayList;
 
@@ -17,7 +14,7 @@ public class Printer {
     private static final String BOT_NAME = "helper";
     private static final String INDENT = "     ";
     private static final String LINE = "~------------------------------------------------------------~";
-    private static final String TAGLINE = "Bala-lala...";
+    private static final String TAGLINE = "Bala-lalala...";
     private static final String ERROR_TAGLINE = "Ohh noo...";
     private static final int LAST_INDEX = 1;
     public static final String ERROR_MSG = "ERROR: ";
@@ -59,24 +56,28 @@ public class Printer {
             }
             System.out.println(INDENT + "You have a total of " + tasks.size() + " tasks now. :)");
         }
+        System.out.println(LINE);
     }
 
     public static void printMark(Task task) {
         System.out.println(LINE);
         System.out.println(INDENT + TAGLINE + " I've marked this task:");
-        System.out.println(task);
+        System.out.println(INDENT + task);
+        System.out.println(LINE);
     }
 
     public static void printUnmark(Task task) {
         System.out.println(LINE);
         System.out.println(INDENT + TAGLINE + " I've unmarked this task:");
         System.out.println(INDENT + task);
+        System.out.println(LINE);
     }
 
     public static void printDelete(ArrayList<Task> tasks, int index) {
         System.out.println(LINE);
         System.out.println(INDENT + TAGLINE + " I've delete this task:");
         System.out.println(INDENT + tasks.get(index));
+        System.out.println(LINE);
 
     }
 
@@ -86,30 +87,43 @@ public class Printer {
         for (int i = 0; i < findArrayList.size(); i++) {
             System.out.println(INDENT + (i + 1) + ". " + findArrayList.get(i));
         }
+        System.out.println(LINE);
     }
 
     public static void printUnknownInput() {
-        System.out.println(ERROR_TAGLINE + "I don't know what that means.");
+        System.out.println(LINE);
+        System.out.println(INDENT + ERROR_TAGLINE + "I don't know what that means. :(");
+        System.out.println(LINE);
     }
 
     public static void handleInvalidTodoSyntaxException (InvalidTodoSyntaxException e) {
         System.out.println(LINE);
         System.out.println(ERROR_MSG + e.getMessage());
+        System.out.println(LINE);
     }
 
     public static void handleInvalidDeadlineSyntaxException (InvalidDeadlineSyntaxException e) {
         System.out.println(LINE);
         System.out.println(ERROR_MSG + e.getMessage());
+        System.out.println(LINE);
     }
 
     public static void handleInvalidEventSyntaxException (InvalidEventSyntaxException e) {
         System.out.println(LINE);
         System.out.println(ERROR_MSG + e.getMessage());
+        System.out.println(LINE);
     }
 
     public static void handleInvalidFindTaskException (InvalidFindTaskException e) {
         System.out.println(LINE);
         System.out.println(ERROR_MSG + e.getMessage());
+        System.out.println(LINE);
+    }
+
+    public static void handleInvalidLoadTaskException (InvalidLoadTaskException e) {
+        System.out.println(LINE);
+        System.out.println(ERROR_MSG + e.getMessage());
+        System.out.println(LINE);
     }
 
 }

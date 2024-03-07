@@ -1,5 +1,6 @@
 package baymax;
 
+import exceptions.InvalidLoadTaskException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
@@ -41,9 +42,13 @@ public class Storage {
 
         while (s.hasNextLine()) {
             String line = s.nextLine();
-            Task task = getTask(line);
-            if (task != null) {
-                tasks.add(task);
+            try {
+                Task task = getTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            } catch (InvalidLoadTaskException e) {
+                Printer.handleInvalidLoadTaskException(e);
             }
         }
     }
@@ -59,7 +64,6 @@ public class Storage {
         FileWriter fileWriter = new FileWriter(FILE_PATH);
         for (Task task : tasks) {
             fileWriter.write(task.toFileString() + System.lineSeparator());
-
         }
         fileWriter.close();
     }
@@ -70,8 +74,10 @@ public class Storage {
      * @param line the String of the data in the baymax.txt file.
      * @return a Task object.
      */
-    public static Task getTask(String line) {
-        Task task = null;
+    public static Task getTask(String line) throws InvalidLoadTaskException {
+        Task task;
+
+        // Splits the text into the 3 components: taskType, isDone, description
         String[] details = line.split(" \\| ");
         String taskType = details[0];
         String taskDescription = details[2];
@@ -87,9 +93,8 @@ public class Storage {
             case "E":
                 task = new Event(taskDescription);
                 break;
-            // Not a Task type (NEED TO FIX)
             default:
-                System.out.println("TASK TYPE ERROR!");
+                throw new InvalidLoadTaskException("ERROR LOADING SOME TASK...");
         }
 
         if (task != null) {
@@ -97,8 +102,23 @@ public class Storage {
                 task.markAsDone();
             }
         }
-
         return task;
+    }
+
+    public static void handleLoadTasks(ArrayList<Task> tasks) {
+        try {
+            loadTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("ERROR OCCURRED WHILE LOADING FILE.");
+        }
+    }
+
+    public static void handleSaveTasks(ArrayList<Task> tasks) {
+        try {
+            saveTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("ERROR OCCURRED WHILE SAVING FILE.");
+        }
     }
 
 }

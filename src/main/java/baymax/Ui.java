@@ -53,6 +53,9 @@ public class Ui {
                 } else if (userInput.startsWith("delete")) {
                     Printer.printDelete(tasks, Parser.obtainDeleteIndex(userInput));
                     TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), tasks);
+                } else if (userInput.startsWith("find")) {
+                    ArrayList<Task> foundTasks = TaskList.findTask(tasks, Parser.obtainFindKeyword(userInput));
+                    Printer.printFindList(foundTasks);
                 } else {
                     Printer.printUnknownInput();
                 }
@@ -62,6 +65,8 @@ public class Ui {
                 Printer.handleInvalidDeadlineSyntaxException(e);
             } catch (InvalidEventSyntaxException e) {
                 Printer.handleInvalidEventSyntaxException(e);
+            } catch (InvalidFindTaskException e) {
+                Printer.handleInvalidFindTaskException(e);
             }
 
 

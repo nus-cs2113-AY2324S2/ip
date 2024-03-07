@@ -1,6 +1,5 @@
 package baymax;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Baymax {
@@ -10,20 +9,13 @@ public class Baymax {
         ArrayList<Task> tasks = new ArrayList<>();
 
         // Load Tasks from File
-        try {
-            Storage.loadTasks(tasks);
-        } catch (IOException e) {
-            System.out.println("ERROR OCCURRED.");
-        }
+        Storage.handleLoadTasks(tasks);
 
+        // Handles user's input and replies accordingly
         Ui.handleUserInput(tasks);
 
-        // SAVE THE FILE
-        try {
-            Storage.saveTasks(tasks);
-        } catch (IOException e) {
-            System.out.println("ERROR SAVING FILE.");
-        }
+        // Saves existing tasks into baymax.txt
+        Storage.handleSaveTasks(tasks);
 
         Printer.printGoodbyeMessage();
     }
