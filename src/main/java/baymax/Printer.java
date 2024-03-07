@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Printer {
 
-    private static final String BOT_NAME = "baymax";
+    private static final String BOT_NAME = "helper";
     private static final String INDENT = "     ";
     private static final String LINE = "~------------------------------------------------------------~";
     private static final String TAGLINE = "Bala-lala...";
@@ -70,7 +70,7 @@ public class Printer {
     public static void printUnmark(Task task) {
         System.out.println(LINE);
         System.out.println(INDENT + TAGLINE + " I've unmarked this task:");
-        System.out.println(task);
+        System.out.println(INDENT + task);
     }
 
     public static void printDelete(ArrayList<Task> tasks, int index) {

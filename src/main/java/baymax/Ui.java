@@ -63,46 +63,6 @@ public class Ui {
             } catch (InvalidEventSyntaxException e) {
                 Printer.handleInvalidEventSyntaxException(e);
             }
-             try {
-                 if (userInput.equalsIgnoreCase("bye")) {
-                     break;
-                 } else if (userInput.equalsIgnoreCase("list")) {
-                     Printer.printTaskList(tasks);
-                 } else if (userInput.startsWith("mark")) {
-                     int index = Parser.obtainIndexToMark(userInput);
-                     tasks.get(index).markAsDone();
-                     Printer.printMark(tasks.get(index));
-                 } else if (userInput.startsWith("unmark")) {
-                     int index = Parser.obtainIndexToUnmark(userInput);
-                     tasks.get(index).unmarkDone();
-                     Printer.printUnmark(tasks.get(index));
-                 } else if (userInput.startsWith("todo")) {
-                     TaskList.addTodo(userInput, tasks);
-                     Printer.printAddedTask(tasks);
-                 } else if (userInput.startsWith("deadline")) {
-                     TaskList.addDeadline(userInput, tasks);
-                     Printer.printAddedTask(tasks);
-                 } else if (userInput.startsWith("event")) {
-                     TaskList.addEvent(userInput, tasks);
-                     Printer.printAddedTask(tasks);
-                 } else if (userInput.startsWith("delete")) {
-                     Printer.printDelete(tasks, Parser.obtainDeleteIndex(userInput));
-                     TaskList.deleteTask(Parser.obtainDeleteIndex(userInput), tasks);
-                 } else if (userInput.startsWith("find")) {
-                     ArrayList<Task> findTaskList = TaskList.findTask(tasks, Parser.obtainFindKeyword(userInput));
-                     Printer.printFindList(findTaskList);
-                 } else {
-                     Printer.printUnknownInput();
-                 }
-             } catch (InvalidTodoSyntaxException e) {
-                 Printer.handleInvalidTodoSyntaxException(e);
-             } catch (InvalidDeadlineSyntaxException e) {
-                 Printer.handleInvalidDeadlineSyntaxException(e);
-             } catch (InvalidEventSyntaxException e) {
-                 Printer.handleInvalidEventSyntaxException(e);
-             } catch (InvalidFindTaskException e) {
-                 Printer.handleInvalidFindTaskException(e);
-             }
 
 
         }
