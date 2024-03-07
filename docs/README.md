@@ -22,7 +22,7 @@ The task list is automatically saved on your computer, which is then loaded up t
 
 ### `todo` - Creates a Todo
 
-Adds a Todo into the task list.
+Adds a Todo into the task list. The description of the Todo must be provided.
 
 Example of usage: 
 
@@ -40,7 +40,7 @@ You now have 1 task in the list.
 
 ### `deadline` - Creates a Deadline
 
-Adds a Deadline into the task list.
+Adds a Deadline into the task list. The description and /by date of the Deadline must be provided.
 
 Example of usage:
 
@@ -58,7 +58,7 @@ You now have 2 tasks in the list.
 
 ### `event` - Creates an Event
 
-Adds an Event into the task list.
+Adds an Event into the task list. The description, /from and /to dates of the Event must be provided.
 
 Example of usage:
 
@@ -84,7 +84,7 @@ Example of usage:
 
 Expected outcome:
 
-FredBot will echo the Todo that is being marked.
+FredBot will echo the task that is being marked.
 
 ```
 Ok and do you want a medal for that? I've marked this as done:
@@ -101,7 +101,7 @@ Example of usage:
 
 Expected outcome:
 
-FredBot will echo the Todo that is being cleared of its mark.
+FredBot will echo the task that is being cleared of its mark.
 ```
 Why am I not surprised... I've marked this task as not done yet:
 [D][ ] DESCRIPTION_2 (by: Mar 06 2024)
