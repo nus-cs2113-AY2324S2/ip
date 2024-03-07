@@ -1,7 +1,197 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+______________________________________________________________________________________
+Hello! I'm BobBot, your TODO list creator
+Simply type in any task and I will store them for you!
+______________________________________________________________________________________
+	Loading from saved file ...
+	______________________________________________________________________________
+	Your task list currently has 0 items!
 
+	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Operation failed.
+	Task index 12 does not exist! Try another number instead.
+	********************************ERROR*****************************************
+	______________________________________________________________________________
+	Got it! I've added this task:
+	  [T][ ] make bread
+	Now you have 1 tasks in the list
+	______________________________________________________________________________
+
+	______________________________________________________________________________
+	Got it! I've added this task:
+	  [D][ ] try this (by: monday 2pm)
+	Now you have 2 tasks in the list
+	______________________________________________________________________________
+
+	______________________________________________________________________________
+	Got it! I've added this task:
+	  [D][ ] try this (by: Dec 22 2023 1800)
+	Now you have 3 tasks in the list
+	______________________________________________________________________________
+
+	______________________________________________________________________________
+	Your task list currently has 3 items!
+
+	1. [T][ ] make bread
+	2. [D][ ] try this (by: monday 2pm)
+	3. [D][ ] try this (by: Dec 22 2023 1800)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Marking this task as done:
+	  [D][X] try this (by: monday 2pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Marking this task as done:
+	  [T][X] make bread
+	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 3 items!
+
+	Usage: mark {task number}
+	Usage: unmark {task number}
+	Usage: delete {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 3 items!
+
+	Usage: mark {task number}
+	Usage: unmark {task number}
+	Usage: delete {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
+	______________________________________________________________________________
+	Got it! I've added this task:
+	  [E][ ] join meeting (from: monday 2pm to: friday 6pm)
+	Now you have 4 tasks in the list
+	______________________________________________________________________________
+
+	______________________________________________________________________________
+	Got it! Unmarking this task:
+	  [D][ ] try this (by: monday 2pm)
+	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Operation failed.
+	Task index 88 does not exist! Try another number instead.
+	********************************ERROR*****************************************
+	______________________________________________________________________________
+	Got it! Marking this task as done:
+	  [D][X] try this (by: Dec 22 2023 1800)
+	______________________________________________________________________________
+	********************************ERROR*****************************************
+	Missing task number!
+	Your task list currently has 4 items!
+
+	Usage: mark {task number}
+	Usage: unmark {task number}
+	Usage: delete {task number}
+	Please enter a valid number within the range of your list.
+	********************************ERROR*****************************************
+	______________________________________________________________________________
+	Your task list currently has 4 items!
+
+	1. [T][X] make bread
+	2. [D][ ] try this (by: monday 2pm)
+	3. [D][X] try this (by: Dec 22 2023 1800)
+	4. [E][ ] join meeting (from: monday 2pm to: friday 6pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! I've added this task:
+	  [D][ ] make potato (by: 5pm)
+	Now you have 5 tasks in the list
+	______________________________________________________________________________
+
+	______________________________________________________________________________
+	Here are the matching tasks in your list:
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Here are the matching tasks in your list:
+	1. [T][X] make bread
+	2. [D][ ] try this (by: monday 2pm)
+	3. [D][X] try this (by: Dec 22 2023 1800)
+	4. [E][ ] join meeting (from: monday 2pm to: friday 6pm)
+	5. [D][ ] make potato (by: 5pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Here are the matching tasks in your list:
+	1. [D][ ] try this (by: monday 2pm)
+	2. [D][X] try this (by: Dec 22 2023 1800)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Your task list currently has 5 items!
+
+	1. [T][X] make bread
+	2. [D][ ] try this (by: monday 2pm)
+	3. [D][X] try this (by: Dec 22 2023 1800)
+	4. [E][ ] join meeting (from: monday 2pm to: friday 6pm)
+	5. [D][ ] make potato (by: 5pm)
+	______________________________________________________________________________
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for deadline. 
+	Usage: deadline {description of task} /by {due date}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for deadline. 
+	Usage: deadline {description of task} /by {due date}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for deadline. 
+	Usage: deadline {description of task} /by {due date}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have not entered the task information. 
+	Usage: todo {description of task}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	********************************ERROR*****************************************
+	It seems that you have missed out on certain fields for event. 
+	Usage: event {description of task} /from {start date/time} /to {end date/time}
+	Please try again, or enter /help if you need it
+	********************************ERROR*****************************************
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [D][X] try this (by: Dec 22 2023 1800)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [T][X] make bread
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [D][ ] try this (by: monday 2pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [E][ ] join meeting (from: monday 2pm to: friday 6pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Got it! Deleting this task:
+	  [D][ ] make potato (by: 5pm)
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Your task list currently has 0 items!
+
+	______________________________________________________________________________
+	______________________________________________________________________________
+	Bye. Hope to see you again soon!
+	______________________________________________________________________________
