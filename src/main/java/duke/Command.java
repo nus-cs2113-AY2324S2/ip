@@ -89,7 +89,7 @@ public class Command {
     public static void unmark(String input) {
         String[] splitInput = input.split(" ");
         taskList.get(Integer.parseInt(splitInput[1])-1).doneIsFalse();
-        System.out.println("Unmarked "+ Integer.parseInt(splitInput[1]));
+        System.out.println("Unmarked "+ taskList.get(Integer.parseInt(splitInput[1])-1).getDescription());
     }
 
     /**
@@ -100,7 +100,7 @@ public class Command {
     public static void mark(String input) {
         String[] splitInput = input.split(" ");
         taskList.get(Integer.parseInt(splitInput[1])-1).doneIsTrue();
-        System.out.println("Marked "+ Integer.parseInt(splitInput[1]));
+        System.out.println("Marked "+ taskList.get(Integer.parseInt(splitInput[1])-1).getDescription());
     }
 
     /**
