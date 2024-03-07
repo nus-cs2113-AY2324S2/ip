@@ -237,23 +237,27 @@ public class TaskList {
      * @param keyword The keyword to search for within the tasks
      */
     public static void findTask(String keyword) {
-        StringBuilder results = new StringBuilder("Here are the matching tasks in your list:\n");
-
+        StringBuilder results = new StringBuilder();
         boolean isFound = false;
+
         for (int i = 0; i < tasks.size(); ++i) {
             Task task = tasks.get(i);
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                if (!isFound) {
+                    results.append("Here are the matching tasks in your list:\n");
+                    isFound = true;
+                }
                 results.append(String.format("%d. %s%n", (i + 1), task));
-                isFound = true;
             }
         }
 
         if (!isFound) {
-            results.append("No matching tasks found.\n");
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println(results);
         }
-
-        System.out.println(results);
     }
+
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
     }

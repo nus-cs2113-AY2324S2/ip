@@ -41,10 +41,8 @@ public class Storage {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found. Will create a new file: " + filePath);
+        } catch (FileNotFoundException ignored) {
         }
-
         return loadedTasks;
     }
 
