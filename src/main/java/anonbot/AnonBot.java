@@ -2,6 +2,7 @@ package anonbot;
 
 import anonbot.data.AnonBotFile;
 import anonbot.data.AnonBotFileReader;
+import anonbot.exception.InitialisationException;
 import anonbot.exception.InvalidCommandException;
 import anonbot.misc.CommandManager;
 import anonbot.misc.Status;
@@ -23,7 +24,13 @@ public class AnonBot {
     }
 
     public static void main(String[] args) {
-        AnonBotFile.initialiseDefaultDirectory();
+        try {
+            AnonBotFile.initialiseDefaultDirectory();
+        } catch (InitialisationException e) {
+            e.printErrorMessage();
+            return;
+        }
+
         AnonBotFileReader.loadAnonBotData();
         Ui.printGreetings();
         runMainLoop();
