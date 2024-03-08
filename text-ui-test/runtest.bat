@@ -7,7 +7,16 @@ REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
+javac -cp ..\src\main\java ^
+-Xlint:none ^
+-d ..\bin ^
+..\src\main\java\alpaca\*.java ^
+..\src\main\java\alpaca\commands\*.java ^
+..\src\main\java\alpaca\exceptions\*.java ^
+..\src\main\java\alpaca\parser\*.java ^
+..\src\main\java\alpaca\storage\*.java ^
+..\src\main\java\alpaca\tasks\*.java ^
+..\src\main\java\alpaca\ui\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

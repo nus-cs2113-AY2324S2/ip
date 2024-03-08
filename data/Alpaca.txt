@@ -1,5 +1,0 @@
-D | 1 | buy book | 15 Oct 2024 18:00
-T | 0 | fix
-T | 0 | read book
-D | 0 | charge phone | 30 Mar 2025 18:00
-E | 0 | project meeting | 10 Feb 2025 12:00| 10 Mar 2025 11:00
