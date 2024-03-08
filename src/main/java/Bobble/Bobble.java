@@ -75,7 +75,7 @@ public class Bobble {
                     break;
                 case "find":
                     String keyword = userInputs[1];
-                    tasks.findTask(keyword);
+                    tasks.findTask(keyword.trim());
                     break;
                 default:
                     throw new BobbleExceptionCommand();
