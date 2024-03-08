@@ -152,8 +152,52 @@ ____________________________________________________________
 
 
 ## Showing all active tasks: `list`
+Lists out all active tasks that are not deleted.
+
+Format: `list`
+```
+list
+____________________________________________________________
+Here are the tasks at hand:
+1.[T][ ] Test out the document
+2.[D][ ] anonbot deployment (by: )
+3.[D][ ] anonbot deployment v2 (by: today ASAP)
+4.[E][ ] Celebrate 2024 (from:  to: )
+5.[E][ ] Move House (from: Jan to: )
+6.[E][ ] Midterms (from: 1 Mar 24 2pm to: 4pm)
+____________________________________________________________
+```
+
 
 ## Finding tasks matching keyword: `find`
+Finds all the tasks that matches the keyword or keyphrase provided
+
+Format: `find <keyphrase>`
+- An empty keyword or keyphrase will show an error, along with the correct syntax.
+
+Examples:
+- `find`: Errors out and provides the correct syntax.
+- `find a phrase that does not exist`: Returns empty entries (if no matches)
+- `find anon`: Returns matching tasks
+```
+find
+____________________________________________________________
+[Error] Argument expected for the command: find
+Syntax: find <keyphrase>
+____________________________________________________________
+
+find a phrase that does not exist
+____________________________________________________________
+Here are the available tasks found using the keyword:
+____________________________________________________________
+
+find anon
+____________________________________________________________
+Here are the available tasks found using the keyword:
+2.[D][ ] anonbot deployment (by: )
+3.[D][ ] anonbot deployment v2 (by: today ASAP)
+____________________________________________________________
+```
 
 ## Marking a task as completed: `mark`
 
@@ -162,6 +206,16 @@ ____________________________________________________________
 ## Deleting a task: `delete`
 
 ## Exiting the program: `bye`, `exit`
+Exits the program
+
+Format: `bye`, `exit`
+```
+exit
+____________________________________________________________
+See ya!
+____________________________________________________________
+
+```
 
 ## Saving the data file
 Anonbot data are saved to the hard disk automatically when a new entry, modification or deletion is made 
