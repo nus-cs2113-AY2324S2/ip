@@ -110,7 +110,7 @@ public class TaskList {
         String search = userInput.substring(5);
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task: tasks){
-            if (task.getDescription().equals(search)) {
+            if (task.getDescription().contains(search)) {
                 matchingTasks.add(task);
             }
         }
