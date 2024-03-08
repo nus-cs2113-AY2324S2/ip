@@ -5,6 +5,9 @@ import nyanbot.task.Task;
 
 import java.util.ArrayList;
 
+/***
+ * Stores collection of tasks and methods for manipulation of task list.
+ */
 public class Parser {
     private static final String LIST_COMMAND = "LIST";
     private static final String DELETE_COMMAND = "DELETE";
@@ -15,18 +18,35 @@ public class Parser {
     private static final String EVENT_COMMAND = "EVENT";
     private static final String BYE_COMMAND = "BYE";
     private static final String HELP_COMMAND = "HELP";
+    private static final String FIND_COMMAND = "FIND";
     private static boolean isRunning = true;
 
+    /***
+     * Parses user input into 2 tokens for further computation in processCommand method.
+     * First token corresponds to task type and is capitalised for processCommand
+     * Second token stores other information ie task status, description, date etc
+     * @param input string containing user input
+     * @return string array containing tokens from user input
+     */
     public static String[] parseCommand(String input) {
         String[] splitInputs = input.split(" ", 2);
         splitInputs[0] = splitInputs[0].toUpperCase();
         return splitInputs;
     }
 
+    /***
+     *Returns boolean which determine whether programme should continue running or quit
+     * @return boolean of programme status
+     */
     public static boolean getStatus() {
         return isRunning;
     }
 
+    /***
+     *Processes user input then executes required commands within provided instance of TaskList
+     * @param input string containing user input
+     * @param tasks tasklist instance where tasks are stored and commands are executed on
+     */
     public static void executeCommand(String input, TaskList tasks) {
         try {
             String[] commands = Parser.parseCommand(input);
@@ -66,6 +86,10 @@ public class Parser {
                     break;
                 case EVENT_COMMAND:
                     tasks.addEvent(commands[1]);
+                    break;
+                case FIND_COMMAND:
+                    ArrayList<Task> foundTasks = tasks.findTasks(commands[1]);
+                    UI.printTasks(foundTasks);
                     break;
                 default:
                     UI.printInvalidInput();
