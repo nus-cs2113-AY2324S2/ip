@@ -60,6 +60,10 @@ public class Task {
     public String getType() {
         return type;
     }
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Returns a string representing a task object in the list
      *
