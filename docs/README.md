@@ -105,8 +105,8 @@ and when the chatbot is exited.
 > - When supplying the parameters in the command, do not include the `<angle brackets>`.
 > - The commands are **NOT case-sensitive**, meaning `todo`, `Todo`, and `TODO` are all valid commands.
 > - Inputs associated with `time` need to be in the format of any one the three listed:<br>
->  - `dd/MM/yyyy` (**Date only**)
->  - `HHmm` (**Time only**)
+>  - `dd/MM/yyyy` (**Date only**, This would add **current time** to the date.)<br>
+>  - `HHmm` (**Time only**, This would add **today's** date to the time.)<br>
 >  - `dd/MM/yyyy HHmm` (**Time & date together**)
 
 ## Usage
