@@ -5,9 +5,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles loading and saving tasks to a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";
 
+    /**
+     * Loads the tasks saved in the storage file.
+     * @return The tasks loaded from the file
+     */
     public static List<Task> loadTasksFromFile() {
         List<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -21,21 +28,21 @@ public class Storage {
                 switch (taskType) {
                     case "T":
                         task = new TodoTask(description);
-                        if (isDone){
+                        if (isDone) {
                             task.markAsDone();
                         }
                         tasks.add(task);
                         break;
                     case "D":
                         task = new DeadlineTask(description, parts[3].trim());
-                        if (isDone){
+                        if (isDone) {
                             task.markAsDone();
                         }
                         tasks.add(task);
                         break;
                     case "E":
                         task = new EventTask(description, parts[3].trim(), parts[4].trim());
-                        if (isDone){
+                        if (isDone) {
                             task.markAsDone();
                         }
                         tasks.add(task);
@@ -50,6 +57,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks into the storage file.
+     * @param tasks The tasks to be saved
+     */
     public static void saveTasksToFile(List<Task> tasks) {
         try {
             // Create directory if it doesn't exist

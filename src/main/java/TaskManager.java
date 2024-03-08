@@ -1,14 +1,26 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The TaskManager class manages tasks including adding, marking, unmarking, deleting, listing, and finding tasks.
+ */
 public class TaskManager {
     private List<Task> tasks;
 
+    /**
+     * Constructs a TaskManager object and initializes a list of tasks.
+     * Loads tasks from a file if needed.
+     */
     public TaskManager() {
         this.tasks = new ArrayList<>();
         loadTasksFromFile(); // Load tasks from file if needed
     }
 
+    /**
+     * Marks the task based on the serial number of the task provided by the user.
+     * @param taskNumberStr The serial number of the task entered by the user
+     */
     public void markTask(String taskNumberStr) {
         int taskNumber = Integer.parseInt(taskNumberStr) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -22,6 +34,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Unmarks the task based on the serial number of the task provided by the user.
+     * @param taskNumberStr The serial number of the task entered by the user
+     */
     public void unmarkTask(String taskNumberStr) {
         int taskNumber = Integer.parseInt(taskNumberStr) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -35,6 +51,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a todo task with the provided description and saves the task.
+     * @param description The description of the todo task
+     */
     public void addTodoTask(String description) {
         Task task = new TodoTask(description);
         tasks.add(task);
@@ -44,6 +64,10 @@ public class TaskManager {
         saveTasksToFile(); // Call saveTasksToFile after adding a new task
     }
 
+    /**
+     * Adds a deadline task with the provided description and deadline, then saves the task.
+     * @param descriptionAndBy The description and deadline of the deadline task
+     */
     public void addDeadlineTask(String descriptionAndBy) {
         String[] parts = descriptionAndBy.split(" /by ");
         if (parts.length != 2) {
@@ -58,6 +82,10 @@ public class TaskManager {
         saveTasksToFile(); // Call saveTasksToFile after adding a new task
     }
 
+    /**
+     * Adds an event task with the provided description and timings, then saves the task.
+     * @param descriptionAndTime The description and timings of the event task
+     */
     public void addEventTask(String descriptionAndTime) {
         String[] parts = descriptionAndTime.split(" /from ");
         if (parts.length != 2) {
@@ -77,6 +105,10 @@ public class TaskManager {
         saveTasksToFile(); // Call saveTasksToFile after adding a new task
     }
 
+    /**
+     * Deletes the task based on its serial number in the list.
+     * @param taskNumberStr The serial number of the task to be deleted
+     */
     public void deleteTask(String taskNumberStr) {
         int taskNumber = Integer.parseInt(taskNumberStr) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -110,6 +142,10 @@ public class TaskManager {
     private void saveTasksToFile() {
         Storage.saveTasksToFile(tasks);
     }
+    /**
+     * Searches relevant tasks based on the keyword provided.
+     * @param keyword The keyword for searching tasks
+     */
     public void findTaskByKeyword(String keyword) {
         System.out.println("Here are the matching tasks in your list:");
         int count = 0;

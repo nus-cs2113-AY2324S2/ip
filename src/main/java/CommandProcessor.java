@@ -1,10 +1,21 @@
+/**
+ * The CommandProcessor class handles the processing and execution of user commands.
+ */
 public class CommandProcessor {
     private TaskManager taskManager;
 
+    /**
+     * Constructs a CommandProcessor object and initializes a TaskManager.
+     */
     public CommandProcessor() {
         this.taskManager = new TaskManager();
     }
 
+    /**
+     * Processes and executes the command entered by the user.
+     *
+     * @param userInput The command entered by the user
+     */
     public void processUserInput(String userInput) {
         String[] parts = userInput.split(" ", 2); // Split command and argument
         String command = parts[0].trim().toLowerCase();
