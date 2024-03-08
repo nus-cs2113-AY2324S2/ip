@@ -1,3 +1,7 @@
+/**
+ * The Storage class is responsible for loading tasks from a file and saving tasks to a file.
+ * It provides methods to load tasks from a file into a TaskList object and save tasks from a TaskList object to a file.
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
