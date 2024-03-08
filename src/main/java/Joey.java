@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class Joey {
     private static final String DASHED_LINE = "____________________________________________________________";
-    private static Storage storage;
+
 
 
     /**
@@ -103,6 +103,7 @@ public class Joey {
         Ui ui = new Ui();
         TaskList taskList = new TaskList(tasks);
 
+        //followed the Coding Standard to simplify the main class
         ui.showWelcomeMessage();
         ui.showTaskList(taskList.getTasks());
 
