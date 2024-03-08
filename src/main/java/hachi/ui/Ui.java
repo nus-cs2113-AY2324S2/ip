@@ -52,6 +52,7 @@ public class Ui {
         spacerInsert();
         System.out.println("You can use the following commands:");
         System.out.println("\t'list' to retrieve your current list of tasks,");
+        System.out.println("\t'find <substring> to find tasks in your list that have the specified substring,");
         System.out.println("\t'mark <#>' to mark task number # as complete,");
         System.out.println("\t'unmark <#>' to mark task number # as incomplete,");
         System.out.println("\t'todo <task name>' to create a to-do,");
