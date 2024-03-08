@@ -89,7 +89,7 @@ public class Parser {
             UI.printMessage("OOPS! Wrong command format");
             return false;
         } catch (MissingEntries me) {
-            UI.printMessage("Missing from/to dat");
+            UI.printMessage("Missing from/to argument(s)");
             return false;
         } catch (MissingTaskName mtn) {
             UI.printMessage("Missing task name");
@@ -154,6 +154,10 @@ public class Parser {
                 || command.equals("save") || command.equals("find") || isValidTask(command) || isValidFind(command);
     }
 
+    private static boolean isValidDelete (String[] commandWords) {
+        return commandWords.length > 1;
+    }
+
     private static void responseToCommand (String command, TaskList tasks) {
         String[] commandWords = command.split(" ");
         if (!isValidCommand(commandWords[0])) {
@@ -167,7 +171,11 @@ public class Parser {
         } else if (commandWords[0].equals("unmark")) {
             tasks.unmark(Integer.parseInt(commandWords[1]));
         } else if (commandWords[0].equals("delete")) {
-            tasks.delete(Integer.parseInt(commandWords[1]));
+            if (isValidDelete(commandWords)) {
+                tasks.delete(Integer.parseInt(commandWords[1]));
+            } else {
+                UI.printMessage("Missing task index");
+            }
         } else if (commandWords[0].equals("find")) {
             if (isValidFind(command)) {
                 tasks.find(commandWords[1]);

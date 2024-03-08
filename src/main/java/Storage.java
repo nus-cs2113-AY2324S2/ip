@@ -18,7 +18,7 @@ public class Storage {
         try {
             File file = new File("./data.txt");
             if (file.createNewFile()) {
-                UI.printMessage("New task profile created");
+                UI.printMessage("New task profile created.");
             }
             this.path = "./data.txt";
         } catch (IOException ioe) {
