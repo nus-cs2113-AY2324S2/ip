@@ -1,0 +1,16 @@
+[T][0] hike
+[T][0] run
+[D][0] tut (by:  5)
+[E][0] he (from: 5 to: 6)
+[T][0] jump
+[T][0] go
+[D][0] hop (by:  4)
+[E][0] he (from: 4 to:  5)
+[D][0] b (by:  4)
+[E][0] go (from: 4 to:  454)
+[T][0] ds
+[D][0] kj (by:  4)
+[T][0] he
+[E][0] f (from: 4 to:  5)
+[D][0] sd (by:  5)
+[D][0] hsd (by:  343354535)
