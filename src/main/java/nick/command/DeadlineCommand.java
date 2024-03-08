@@ -6,6 +6,8 @@ import nick.ui.Ui;
 import nick.task.Deadline;
 import nick.task.Task;
 
+import java.io.IOException;
+
 /**
  * Represents the Deadline command which inherits from the Command class.
  * It includes the execute method which adds a Deadline task to the ArrayList tasks.
@@ -28,7 +30,7 @@ public class DeadlineCommand extends Command {
      * @param storage Storage object.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NullPointerException, StringIndexOutOfBoundsException {
         setTaskName();
         setDeadline();
         Task task = new Deadline(taskName, deadline);

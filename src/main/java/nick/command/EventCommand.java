@@ -27,7 +27,7 @@ public class EventCommand extends Command {
      * @param storage Storage object.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NullPointerException, StringIndexOutOfBoundsException {
         int fromIndex = arguments.indexOf("/from");
         int toIndex = arguments.indexOf("/to");
         int taskDescriptionEndIndex = arguments.indexOf("/") - 1;

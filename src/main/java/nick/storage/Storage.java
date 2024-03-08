@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import nick.Nick;
 import nick.NickException;
 import nick.task.Task;
 import nick.task.Todo;
@@ -42,7 +43,7 @@ public class Storage {
      * @return ArrayList tasks.
      * @throws NickException Exception object.
      */
-    public ArrayList<Task> load() throws NickException {
+    public ArrayList<Task> load() throws IOException {
         try {
             f = new File(filePath);
             s = new Scanner(f);
@@ -52,7 +53,11 @@ public class Storage {
                 loadData(lineData, taskType, tasks);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("I am unable to load any data as data/nick.txt does not exist!");
+            System.out.println("Unable to load any data as data/nick.txt does not exist.\nCreating one for you now!");
+            File directory = new File("./data");
+            directory.mkdirs();
+            File file = new File(filePath);
+            file.createNewFile();
         }
         return tasks;
     }

@@ -1,5 +1,6 @@
 package nick.command;
 
+import nick.NickException;
 import nick.task.TaskList;
 import nick.ui.Ui;
 import nick.storage.Storage;
@@ -18,7 +19,7 @@ public abstract class Command {
      * @param ui Ui object.
      * @param storage Storage object.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NickException;
 
     /**
      * Returns the boolean to exiting the program.

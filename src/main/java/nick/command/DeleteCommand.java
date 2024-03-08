@@ -34,5 +34,7 @@ public class DeleteCommand extends Command {
         System.out.println("\t" + taskToDelete);
         System.out.println("Now you have " + tasks.tasks.size() + " tasks in the list.");
         ui.showLine();
+
+        Storage.saveData(tasks.tasks);
     }
 }

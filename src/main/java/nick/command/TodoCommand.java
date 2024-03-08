@@ -1,5 +1,7 @@
 package nick.command;
 
+import nick.Nick;
+import nick.NickException;
 import nick.storage.Storage;
 import nick.task.TaskList;
 import nick.ui.Ui;
@@ -26,7 +28,10 @@ public class TodoCommand extends Command {
      * @param storage Storage object.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NullPointerException, NickException {
+        if (this.arguments == null) {
+            throw new NickException();
+        }
         Task task = new Todo(arguments);
         tasks.tasks.add(task);
         ui.printAddTaskMsg(task.toString(), tasks.tasks.size());

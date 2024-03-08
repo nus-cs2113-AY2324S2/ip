@@ -22,7 +22,7 @@ public class Nick {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (NickException e) {
+        } catch (IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -31,7 +31,7 @@ public class Nick {
     /**
      * Runs the Nick chatbot.
      */
-    public void run() {
+    public void run() throws NickException {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -41,7 +41,7 @@ public class Nick {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (NickException e) {
+            } catch (NickException | NullPointerException | StringIndexOutOfBoundsException exception) {
                 ui.showError();
             } finally {
                 ui.showLine();
