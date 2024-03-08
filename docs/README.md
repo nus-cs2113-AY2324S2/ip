@@ -63,7 +63,7 @@ Soot will add a new task of type Event to your task list.
 
 ### Modifying your Task List
 Using Soot, you can do the following to your list:
-> 1. List all your tasks out: `list`
+> 1) List all your tasks out: `list`
 
 Soot will look at the tasks you have added and lets you view it as a list.  
 **Command Format**: `list`
@@ -72,7 +72,7 @@ Soot will look at the tasks you have added and lets you view it as a list.
 |---------|---------------------------------------|
 | list    | tasks to be done: <br> 1. [T][ ] math |
 
-> 2. Mark a task as completed: `done`
+> 2) Mark a task as completed: `done`
 
 Soot will find the task you are specifying and will mark it done.  
 **Command Format**: `done TASK_INDEX_IN_LIST`
@@ -81,7 +81,7 @@ Soot will find the task you are specifying and will mark it done.
 |---------|---------------------------------------------------------|
 | done 1  | good job! this task is marked as done now: <br> >> math |
 
-> 3. Mark a task as uncompleted: `unmark`
+> 3) Mark a task as uncompleted: `unmark`
 
 Soot will find the task you are specifying and will mark it undone.  
 **Command Format**: `unmark TASK_INDEX_IN_LIST`
@@ -89,7 +89,7 @@ Soot will find the task you are specifying and will mark it undone.
 | _Input_ | _Output_                                                |
 |---------|---------------------------------------------------------|
 | unmark 1  | This task is now marked undone:  <br> >> math |
-> 4. Delete a task: `delete`
+> 4) Delete a task: `delete`
 
 Soot will find the task you are specifying and will delete it from your list.  
 **Command Format**: `delete TASK_INDEX_IN_LIST`
@@ -98,7 +98,7 @@ Soot will find the task you are specifying and will delete it from your list.
 |----------|-----------------------------------------------------------------------------------------------------------------------------|
 | delete 1 | okay, i will remove this task from your list: <br> >> [T][ ] math <br>you currently have a total of 2 tasks in your list :) |
 
-> 5. Find a keyword in your tasks: `find`
+> 5) Find a keyword in your tasks: `find`
 
 Soot will find the keyword you are specifying within the task names of your list and will list these tasks to you.  
 **Command Format**: `find KEYWORD_TO_FIND`
@@ -107,7 +107,7 @@ Soot will find the keyword you are specifying within the task names of your list
 |-----------|-----------------------------------------------------------------------------------------------|
 | find math | i found your word in these tasks: <br> 1. [T][ ] math assignment <br> 2. [T][ ] math problems |
 
-> 6. View all valid commands: `help`
+> 6) View all valid commands: `help`
 
 Soot will let you know all commands I recognise!   
 **Command Format**: `help`
