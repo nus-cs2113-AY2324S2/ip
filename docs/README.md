@@ -13,7 +13,7 @@ If you can type fast, Adam can get your tasks managed faster than some GUI apps.
   - [Finding a task by keyword](#finding-a-task-by-keyword)
   - [Exiting the program](#exiting-the-program)
   - [Viewing help](#viewing-help)
-- [Appendix](#Date-and-Time-Format)
+- [Appendix](#Appendix)
 
 ## Introduction
 Adam the Chat Bot is a versatile task management application designed to simplify your daily workflow.<br>
