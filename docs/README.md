@@ -261,8 +261,8 @@ Exits from Zoro program.
 ### Command tips:
 
  Format | Exception | Taken as |
-|--|--|-  |
- todo [name] | nil | nil |
+|--|--|--|
+| todo [name] | nil | nil |
 | deadline [name] /by [DD/MM/YYYY **HH:MM**]  | deadline [name] /by [DD/MM/YYYY] | deadline [name] /by [DD/MM/YYYY **00:00**]|
 | event [name] /from [DD/MM/YYYY **HH:MM**] /to [DD/MM/YYYY **HH:MM**]  | event [name] /from [DD/MM/YYYY] /to [DD/MM/YYYY] | event [name] /from [DD/MM/YYYY **00:00**] /to [DD/MM/YYYY **00:00**]|
 
