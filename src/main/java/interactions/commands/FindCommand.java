@@ -21,14 +21,17 @@ public class FindCommand extends Command {
      */
     public void findKeyword(String keyword, TaskList taskList) {
         TaskList matchedTasks = new TaskList();
+        int tasksFound = 0;
         ArrayList<Task> list = taskList.getList();
         for (Task task : list) {
             String taskDescription = task.getTaskDescription();
             if (taskDescription.contains(keyword)) {
                 matchedTasks.addToList(task);
+                tasksFound++;
             }
         }
         matchedTasks.printList();
+        System.out.println("There are " + tasksFound + " tasks corresponding to your search term " + keyword + ".");
     }
 
     /**
