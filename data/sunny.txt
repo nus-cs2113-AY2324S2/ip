@@ -1,0 +1,3 @@
+T | 0 | read book
+D | 0 | essay | mon
+E | 0 | party | 1pm | 11pm
