@@ -56,13 +56,100 @@ Format: `todo <description>`
 - An empty description for the todo command will show an error, along with the correct syntax.
 
 Examples: 
-- `todo`: Error out and provides syntax.
+- `todo`: Error out and provides correct syntax.
 - `todo Test out the document`: Create a todo task with the description "Test out the document".
+```
+todo
+____________________________________________________________
+[Error] todo task has an empty task Description
+Syntax: todo <description>
+____________________________________________________________
 
+todo Test out the document
+____________________________________________________________
+Alright. I have added this task:
+1.[T][ ] Test out the document
+Now you have 1 tasks in the list.
+____________________________________________________________
+```
 
 ## Creating a new deadline task: `deadline`
+Creates a new deadline task.
+
+Format: `deadline <description> [/by <end_time>]`
+- An empty description for the deadline command will show an error, along with the correct syntax.
+- The `/by` field is optional.
+  - The `end_time` field prefers an end time, but any descriptive information is accepted.
+
+Examples:
+- `deadline`: Errors out and provides the correct syntax. 
+- `deadline anonbot deployment`: Creates a deadline task without additional information.
+- `deadline anonbot deployment v2 /by today ASAP`: Creates a deadline task with `/by` information.
+```
+deadline
+____________________________________________________________
+[Error] deadline task has an empty task Description
+Syntax: deadline <description> [/by <end_time>]
+____________________________________________________________
+
+deadline anonbot deployment
+____________________________________________________________
+Alright. I have added this task:
+2.[D][ ] anonbot deployment (by: )
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+deadline anonbot deployment v2 /by today ASAP
+____________________________________________________________
+Alright. I have added this task:
+3.[D][ ] anonbot deployment v2 (by: today ASAP)
+Now you have 3 tasks in the list.
+____________________________________________________________
+```
 
 ## Creating a new event task: `event`
+Creates a new event task.
+
+Format: `event <description> [/from <start_time> [/to <end_time>]]`
+- An empty description for the deadline command will show an error, along with the correct syntax.
+- The `/from` and `/to` fields are optional. 
+  - However, if you want to use the `/to` field, you must include the `/from` field as well.
+  - The `start_time` and `end_time` fields prefers a time, but any descriptive information is accepted.
+
+Examples:
+- `event`: Errors out and provides the correct syntax.
+- `event Celebrate 2024`: Adds the event without additional information.
+- `event Move House /from Jan`: Adds the event with additional `/from` field information.
+- `event Midterms /from 1 Mar 24 2pm /to 4pm` Adds the event with `/from` and `/to` information
+```
+event
+____________________________________________________________
+[Error] event task has an empty task Description
+Syntax: event <description> [/from <start_time> [/to <end_time>]]
+____________________________________________________________
+
+event Celebrate 2024
+____________________________________________________________
+Alright. I have added this task:
+4.[E][ ] Celebrate 2024 (from:  to: )
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+event Move House /from Jan
+____________________________________________________________
+Alright. I have added this task:
+5.[E][ ] Move House (from: Jan to: )
+Now you have 5 tasks in the list.
+____________________________________________________________
+
+event Midterms /from 1 Mar 24 2pm /to 4pm
+____________________________________________________________
+Alright. I have added this task:
+6.[E][ ] Midterms (from: 1 Mar 24 2pm to: 4pm)
+Now you have 6 tasks in the list.
+____________________________________________________________
+```
+
 
 ## Showing all active tasks: `list`
 
