@@ -2,12 +2,19 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * TaskList controls list
+ */
 
 public class TaskList {
     private ArrayList<Task> list;
     private Storage storage;
     private Parser parser;
 
+    /**
+     * TaskList takes in the list of items and stores them in storage as well as reads command
+     * @param list item
+     */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
         this.storage = new Storage();
@@ -16,6 +23,10 @@ public class TaskList {
         list.clear();
         processUserInput();
     }
+
+    /**
+     * processUserInput to take in commadn
+     */
 
     public void processUserInput() {
 
@@ -76,16 +87,34 @@ public class TaskList {
             in.close();
         }
 
-
+    /**
+     * as X
+     * @param array the command split by space
+     * @param list list of items
+     */
     private void commandMark(String[] array, ArrayList<Task> list) {
         list.get(Integer.parseInt(array[1]) - 1).setDone();
         System.out.print(list.get(Integer.parseInt(array[1]) - 1).taskDescription());
     }
 
+    /**
+     * undo x
+     * @param array the command split by spacce
+     * @param list list
+     */
+
     private void commandUnmark(String[] array, ArrayList<Task> list) {
         list.get(Integer.parseInt(array[1]) - 1).setNotDone();
         System.out.print(list.get(Integer.parseInt(array[1]) - 1).taskDescription());
     }
+
+    /**
+     * commandTodo an item as todo
+     * @param list list of item
+     * @param i where the item is in the array
+     * @param line command
+     * @throws DukeException when todo description not provoded
+     */
 
     private void commandTodo(ArrayList<Task> list, int i, String line) throws DukeException {
         try {
@@ -97,11 +126,24 @@ public class TaskList {
         }
     }
 
+    /**
+     * Line due
+     * @param list lsit of items
+     * @param i where the item is
+     * @param line command
+     */
     private void commandLine(ArrayList<Task> list, int i, String line) {
         Line newline = new Line(line.substring(9, line.indexOf("/")), line.substring(line.indexOf("/") + 1));
         list.add(newline);
         System.out.println(newline);
     }
+
+    /**
+     * Event an event with a period
+     * @param list list of items
+     * @param i where the item is
+     * @param line command
+     */
 
     private void commandEvent(ArrayList<Task> list, int i, String line) {
         String lengthy = line.substring(0, line.indexOf("/") + 1);
@@ -113,11 +155,23 @@ public class TaskList {
         System.out.println(newevent);
     }
 
+    /**
+     * list all items including their status in the list
+     * @param list list
+     * @param n numberof item
+     */
+
     private void commandList(ArrayList<Task> list, int n) {
         for (int i = 0; i < n; i++) {
             System.out.println((i + 1) + "." + list.get(i).taskDescription());
         }
     }
+
+    /**
+     * delete an item
+     * @param array command split
+     * @param list command
+     */
 
     private void commandDelete(String[] array, ArrayList<Task> list) {
         int commandIndex = Integer.parseInt(array[1]) - 1;
@@ -125,6 +179,12 @@ public class TaskList {
         System.out.println(" " + list.get(commandIndex).taskDescription());
         list.remove(commandIndex);
     }
+
+    /**
+     * finds all items with the corresponding description
+     * @param array commands
+     * @param list cpmmand
+     */
     private void commandFind(String [] array,  ArrayList<Task> list) {
         String find = array[1];
         int number = 0;

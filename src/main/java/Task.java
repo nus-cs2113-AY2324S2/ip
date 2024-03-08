@@ -1,7 +1,14 @@
+/**
+ * Task is a class to return description, whether is done
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Task returns status
+     * @param description of task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -4,8 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Storage a class to store items in disk
+ */
 public class Storage {
-public static void newFile(ArrayList<Task> tasks) {
+    /**
+     * newFile creates a file to store items
+     * @param tasks items
+     */
+    public static void newFile(ArrayList<Task> tasks) {
     File f = new File("./data/avocado.txt");
     if (!f.exists()) {
         return;
@@ -41,7 +49,11 @@ public static void newFile(ArrayList<Task> tasks) {
     }
 }
 
-public static void saveTasks(ArrayList<Task> tasks) {
+    /**
+     * saveTasks saves task to file
+     * @param tasks task
+     */
+    public static void saveTasks(ArrayList<Task> tasks) {
     File f = new File("./data/avocado.txt");
     if (!f.exists()) {
         f.getParentFile().mkdirs();
@@ -57,7 +69,12 @@ public static void saveTasks(ArrayList<Task> tasks) {
     }
 }
 
-private static String format(Task task) {
+    /**
+     * format returns task in specific formate in file
+     * @param task task
+     * @return task type and description
+     */
+    private static String format(Task task) {
     if (task instanceof ToDo) {
         return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
     } else if (task instanceof Line) {
