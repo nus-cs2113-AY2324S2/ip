@@ -2,6 +2,7 @@ package parser;
 import doraemonexceptions.EmptyListException;
 import doraemonexceptions.InValidCommandException;
 import doraemonexceptions.IsEmptyException;
+import tasklist.TaskList;
 import tasklist.todo.Todo;
 import ui.Ui;
 import storage.Storage;
@@ -24,16 +25,6 @@ public class Parser {
 
     }
 
-<<<<<<< HEAD
-    /**
-     * Runs the process of interacting with user. Reads in user input and respond accordingly.
-     *
-     * @param pathName Path of file where data is saved in.
-     * @param tasklist Tasklist initiated in Main, containing task number and array list.
-     * @throws IOException If runParser runs into problems.
-     */
-    public void runParser(String pathName, TaskList tasklist) throws IOException {
-=======
     protected boolean hasFoundItem (String temp) {
         for (Todo task : list) {
             if (task.getDescription().contains(temp)) {
@@ -43,9 +34,14 @@ public class Parser {
         return false;
     }
 
-
-    public void runParser(String pathName) throws IOException {
->>>>>>> master
+    /**
+     * Runs the process of interacting with user. Reads in user input and respond accordingly.
+     *
+     * @param pathName Path of file where data is saved in.
+     * @param tasklist Tasklist initiated in Main, containing task number and array list.
+     * @throws IOException If runParser runs into problems.
+     */
+    public void runParser(String pathName, TaskList tasklist) throws IOException {
         Storage storage = new Storage(pathName);
         Ui ui = new Ui();
         String temp = in.nextLine();
