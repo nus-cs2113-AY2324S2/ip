@@ -38,7 +38,7 @@ public abstract class Task {
     }
 
     /**
-     * Parses a string representing a date in "dd-MM-yyyy" into formatted string with "d MMM yyyy" format.
+     * Parses a string representing a date in into formatted string with "d MMM yyyy" format.
      * Special words such as "today", "tomorrow", "tmr", "next week" and "next month" are supported.
      *
      * param dateStr String representing day to be parsed.

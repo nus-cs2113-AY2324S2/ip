@@ -13,6 +13,8 @@ Hello from
                                       \|____|/
 ```
 
+Get the latest release [here](https://github.com/ChongXern/ip/releases).
+
 ## Features  
 - Adding new task: ```todo```, ```deadline``` or ```event```
 - Deleting task: ```delete```
@@ -82,7 +84,7 @@ Adds a new task to the list of tasks. There are three types of tasks available: 
    
    Task with two dates, the event start date and the event end date. The dates should also be in ```dd-MM-yyyy``` format, but the aforementioned date formats are supported as well.
    
-   **Format**: ```event TASK_DESCRIPTION from START_DATE to END_DATE"
+   **Format**: ```event TASK_DESCRIPTION from START_DATE to END_DATE```
       > If this format is not followed, the chatbot will print out a confused message asking to finish the sentence
 
    Examples:

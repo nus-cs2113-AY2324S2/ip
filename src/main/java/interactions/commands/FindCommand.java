@@ -31,7 +31,8 @@ public class FindCommand extends Command {
             }
         }
         matchedTasks.printList();
-        System.out.println("There are " + tasksFound + " tasks corresponding to your search term " + keyword + ".");
+        System.out.println(INDENT + "There are " + tasksFound +
+                " tasks corresponding to your search term " + keyword + ".");
     }
 
     /**
