@@ -5,10 +5,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading from and saving tasks to a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/Loopy.txt"; // File path
-
-    public static TaskList loadFile(){
+/**
+ * Loads tasks from the file.
+ *      * @return TaskList loaded from the file. If file does not exist, returns an empty TaskList.
+ */
+ public static TaskList loadFile(){
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
@@ -41,6 +47,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current list of tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public static void saveFile(ArrayList<Task> tasks ) {
         try {
             File directory = new File("./data");

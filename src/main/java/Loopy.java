@@ -22,7 +22,12 @@ public class Loopy {
             }
         }
     }
-
+    /**
+     * Processes the input command from the user.
+     * Add, delete, mark, display and find tasks based on the command.
+     *
+     * @param task The user input command to process.
+     */
     private static void processTask(String task) {
         String[] command = task.split(" ");
 
@@ -69,5 +74,3 @@ public class Loopy {
         }
     }
 }
-
-
