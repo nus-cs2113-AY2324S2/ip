@@ -3,3 +3,4 @@ deadline deadline /by deadline | 0
 todo todo todo | 1
 event event event /from event /to event | 0
 todo read book | 1
+todo hello | 0

@@ -4,8 +4,12 @@ package lovie.task;
  * Represents a task.
  */
 public class Task {
+    public static final String PLACEHOLDER = "";
+    public static final String COMPLETED_MARK = "✓";
+    public static final String UNCOMPLETED_MARK = " ";
     protected String description;
     protected boolean isDone;
+
 
     /**
      * Constructor for Task.
@@ -41,14 +45,13 @@ public class Task {
      * @return The status icon of the task.
      */
     public String getStatusIcon() {
-        return (isDone ? "✓" : " ");
+        return (isDone ? COMPLETED_MARK : UNCOMPLETED_MARK);
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-
         this.isDone = true;
     }
 
@@ -65,7 +68,7 @@ public class Task {
      * @return The icon of the task.
      */
     public String getTaskIcon() {
-        return "";
+        return PLACEHOLDER;
     }
 
     /**
@@ -74,6 +77,6 @@ public class Task {
      * @return The timespan of the task.
      */
     public String getTimespan() {
-        return "";
+        return PLACEHOLDER;
     }
 }

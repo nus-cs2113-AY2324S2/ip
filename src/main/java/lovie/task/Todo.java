@@ -4,6 +4,8 @@ package lovie.task;
  * Represents a todo task.
  */
 public class Todo extends Task {
+    public static final String TODO_SYMBOL = "T";
+
     /**
      * Constructor for ToDo.
      *
@@ -19,8 +21,8 @@ public class Todo extends Task {
      * @return The description of the todo.
      */
     public String getDescription() {
-        String[] splitUpDescription = description.trim().split("(?i)todo");
-        return splitUpDescription[1].trim();
+        String[] descriptionParts = description.trim().split("(?i)todo");
+        return descriptionParts[1].trim();
     }
 
     /**
@@ -30,6 +32,6 @@ public class Todo extends Task {
      */
     @Override
     public String getTaskIcon() {
-        return "T";
+        return TODO_SYMBOL;
     }
 }

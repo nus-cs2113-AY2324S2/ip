@@ -4,6 +4,9 @@ package lovie.task;
  * Represents a deadline task.
  */
 public class Deadline extends Task {
+
+    public static final String DEADLINE_SYMBOL = "D";
+
     /**
      * Constructor for Deadline.
      *
@@ -40,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getTaskIcon() {
-        return "D";
+        return DEADLINE_SYMBOL;
     }
 
 }

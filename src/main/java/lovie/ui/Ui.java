@@ -5,16 +5,45 @@ import lovie.task.TaskList;
 import java.util.ArrayList;
 
 public class Ui {
-    /**
-     * Constructor for Ui.
-     */
-    public Ui() {}
+
+    public static final String DASHED_LINE = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    public static final String INTRODUCTION_MESSAGE = "Hey hey! My name is Lovie! How can I help you today?\n" +
+            "Just a heads up: you can type 'command' for a list of everything you can ask me!";
+    public static final String GOODBYE_MESSAGE = "Thanks for using me! See you next time ♡〜٩( ˃▿˂ )۶〜♡";
     private static final String LOGO = "██╗░░░░░░█████╗░██╗░░░██╗██╗███████╗ \n" +
             "██║░░░░░██╔══██╗██║░░░██║██║██╔════╝ \n" +
             "██║░░░░░██║░░██║╚██╗░██╔╝██║█████╗░░ \n" +
             "██║░░░░░██║░░██║░╚████╔╝░██║██╔══╝░░ \n" +
             "███████╗╚█████╔╝░░╚██╔╝░░██║███████╗ \n" +
             "╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚══════╝ \n";
+    public static final String FURTHER_HELP_MESSAGE = "\nCan I help you with anything else?";
+    public static final String NO_TASK_NUMBER_MESSAGE = "Sorry, there is no record of a task number ";
+    public static final String SPACE = " ";
+    public static final String NEED_A_KEYWORD_MESSAGE = "Oopsies. Please make sure to include a keyword while " +
+            "using the find command!";
+    public static final String ALL_COMMANDS_MESSAGE = "Here are all the possible commands you can ask me:\n\n" +
+            "(1) To add a todo: todo **description** \n(2) To add an event: event **description** /from **start**" +
+            "/to **end**\n(3) To add a deadline: deadline **description** /by **end**\n(4) To list all tasks: list\n"
+            + "(5) To mark a task as done: mark **task number**\n(6) To unmark a task as not done: unmark " +
+            "**task number**\n(7) To delete a task: delete **task number**\n" +
+            "(8) To find tasks with a keyword: find **keyword**\n" +
+            "(9) To ask for a list of all commands: command\n" +
+            "(10) To leave our session: bye";
+    public static final String ADD_TASK_MESSAGE = "How cutesie! Of course I'll add that task for you.\nAdded:";
+    public static final String EMPTY_LIST_MESSAGE = "Your list is empty right now. \nTry adding a task using one of the following " +
+            "command formats: \n\n" + "(1) todo **description** \n" + "(2) event **description** " +
+            "/from **start** /to **end**\n" + "(3) deadline **description** /by **end**";
+    public static final String MATCHING_TASKS_MESSAGE = "Here are your matching tasks!\n";
+    public static final String NO_MATCHING_TASKS_MESSAGE = "Aw, I'm sorry. There were no tasks that contained that keyword.\nTry searching for another.";
+    public static final String LIST_NUMBER_BRACKET = ". [";
+    public static final String OPEN_CLOSE_BRACKETS = "] [";
+    public static final String CLOSE_BRACKET = "] ";
+    public static final String NEW_LINE = "\n";
+
+    /**
+     * Constructor for Ui (empty).
+     */
+    public Ui() {}
 
     /**
      * Prints the line.
@@ -22,24 +51,23 @@ public class Ui {
      * @param line The line to be printed.
      */
     public void print(String line) {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(DASHED_LINE);
         System.out.println(line);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(DASHED_LINE);
     }
 
     /**
      * Prints the introduction.
      */
     public void introductionPrinter() {
-        print(LOGO + "Hey hey! My name is Lovie! How can I help you today?\n" +
-                "Just a heads up: you can type 'command' for a list of everything you can ask me!");
+        print(LOGO + INTRODUCTION_MESSAGE);
     }
 
     /**
      * Prints the goodbye message.
      */
     public void goodbyePrinter() {
-        print("Thanks for using me! See you next time ♡〜٩( ˃▿˂ )۶〜♡");
+        print(GOODBYE_MESSAGE);
     }
 
     /**
@@ -48,8 +76,8 @@ public class Ui {
      * @param input The user's input.
      */
     public void noValidNumberPrinter(String input) {
-        print("Sorry, there is no record of a task number " + input.split(" ")[1] +
-                "\n Can I help you with anything else?");
+        print(NO_TASK_NUMBER_MESSAGE + input.split(SPACE)[1] +
+                FURTHER_HELP_MESSAGE);
     }
 
     /**
@@ -60,7 +88,7 @@ public class Ui {
     public void unmarkTaskPrinter(Task selectedTask) {
         print("Okay, no worries. I've unmarked this task for you: \n" + "[" + selectedTask.getTaskIcon() + "] [" +
                 selectedTask.getStatusIcon() + "] " + selectedTask.getDescription() +
-                selectedTask.getTimespan() + "\n" + "What else can I do for you today?");
+                selectedTask.getTimespan() + FURTHER_HELP_MESSAGE);
     }
   
     
@@ -68,7 +96,7 @@ public class Ui {
      * Prints the error message if user does not include key word for find command.
      */
     public void noValidFindPrinter() {
-        print("Oopsies. Please make sure to include a keyword while using the find command!");
+        print(NEED_A_KEYWORD_MESSAGE);
     }
 
     /**
@@ -81,7 +109,7 @@ public class Ui {
         print("Okay, no worries. I've deleted this task for you: \n" + "[" + selectedTask.getTaskIcon() + "] [" +
                 selectedTask.getStatusIcon() + "] " + selectedTask.getDescription() +
                 selectedTask.getTimespan() + "\n" + "You now have " + tasksList.size() + " tasks in the list.\n" +
-                "What else can I do for you today?");
+                FURTHER_HELP_MESSAGE);
     }
 
     /**
@@ -89,28 +117,14 @@ public class Ui {
      */
     public void invalidCommandPrinter() {
         print("Sorry, I can't understand what you are saying.\n" +
-                "Please try again! Your command options are as follows: \n\n" +
-                "(1) To add a todo: todo **description** \n(2) To add an event: event **description** /from **start**" +
-                "/to **end**\n(3) To add a deadline: deadline **description** /by **end**\n(4) To list all tasks: list\n"
-                + "(5) To mark a task as done: mark **task number**\n(6) To unmark a task as not done: unmark " +
-                "**task number**\n(7) To delete a task: delete **task number**\n" +
-                "(7) To find tasks with a keyword: find **keyword**\n(8) To leave our session: bye"
-        );
+                "Please try again!" + ALL_COMMANDS_MESSAGE);
     }
 
     /**
      * Prints all possible user commands.
      */
     public void commandPrinter() {
-        print("Of course girlie <3 Here are all the possible commands you can ask me:\n\n" +
-                "(1) To add a todo: todo **description** \n(2) To add an event: event **description** /from **start**" +
-                "/to **end**\n(3) To add a deadline: deadline **description** /by **end**\n(4) To list all tasks: list\n"
-                + "(5) To mark a task as done: mark **task number**\n(6) To unmark a task as not done: unmark " +
-                "**task number**\n(7) To delete a task: delete **task number**\n" +
-                "(8) To find tasks with a keyword: find **keyword**\n" +
-                "(9) To ask for a list of all commands: command\n" +
-                "(10) To leave our session: bye"
-        );
+        print("Of course girlie <3 " + ALL_COMMANDS_MESSAGE);
     }
 
     /**
@@ -119,7 +133,7 @@ public class Ui {
      * @param newTask The task the user wanted added.
      */
     public void addTaskPrinter(Task newTask) {
-        print("How cutesie! Of course I'll add that task for you.\nAdded: [" + newTask.getTaskIcon() + "] [ ] " + newTask.getDescription() +
+        print(ADD_TASK_MESSAGE + " [" + newTask.getTaskIcon() + "] [ ] " + newTask.getDescription() +
                 newTask.getTimespan());
     }
 
@@ -138,9 +152,7 @@ public class Ui {
      * Prints the empty list message.
      */
     public void emptyListPrinter() {
-        print("Your list is empty right now. \nTry adding a task using one of the following " +
-                "command formats: \n\n" + "(1) todo **description** \n" + "(2) event **description** " +
-                "/from **start** /to **end**\n" + "(3) deadline **description** /by **end**");
+        print(EMPTY_LIST_MESSAGE);
     }
 
     /**
@@ -154,10 +166,10 @@ public class Ui {
         while (counter < tasksList.size()) {
             String listNumber = Integer.toString(counter + 1);
             Task selected = tasksList.get(counter);
-            output += listNumber + ". [" + selected.getTaskIcon() + "] [" + selected.getStatusIcon() + "] " +
-                    selected.getDescription() + selected.getTimespan();
+            output += listNumber + LIST_NUMBER_BRACKET + selected.getTaskIcon() + OPEN_CLOSE_BRACKETS +
+                    selected.getStatusIcon() + CLOSE_BRACKET + selected.getDescription() + selected.getTimespan();
             if (counter != tasksList.size() - 1) {
-                output += "\n";
+                output += NEW_LINE;
             }
             counter += 1;
         }
@@ -166,21 +178,21 @@ public class Ui {
 
     public void findPrinter(TaskList miniList) {
         if (miniList.getSize() == 0) {
-            print("Aw, I'm sorry. There were no tasks that contained that keyword.\nTry searching for another.");
+            print(NO_MATCHING_TASKS_MESSAGE);
         } else {
             int counter = 0;
             String output = new String();
             while (counter < miniList.getSize()) {
                 String listNumber = Integer.toString(counter + 1);
                 Task selected = miniList.get(counter);
-                output += listNumber + ". [" + selected.getTaskIcon() + "] [" + selected.getStatusIcon() + "] " +
-                        selected.getDescription() + selected.getTimespan();
+                output += listNumber + LIST_NUMBER_BRACKET + selected.getTaskIcon() + OPEN_CLOSE_BRACKETS +
+                        selected.getStatusIcon() + CLOSE_BRACKET + selected.getDescription() + selected.getTimespan();
                 if (counter != miniList.getSize() - 1) {
-                    output += "\n";
+                    output += NEW_LINE;
                 }
                 counter += 1;
             }
-            print("Here are your matching tasks!\n" + output);
+            print(MATCHING_TASKS_MESSAGE + output);
         }
     }
 }

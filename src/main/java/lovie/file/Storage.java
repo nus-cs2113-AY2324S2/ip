@@ -17,6 +17,10 @@ import java.nio.file.Paths;
  * Represents the storage of the tasks.
  */
 public class Storage {
+    public static final String STRAIGHT_LINE_REGEX = " \\| ";
+    public static final String SPACE = " ";
+    public static final String EVENT_TASK_TYPE = "event";
+    public static final String DEADLINE_TASK_TYPE = "deadline";
     private final String filePath;
 
     /**
@@ -50,7 +54,6 @@ public class Storage {
                 e.printStackTrace();
             }
         }
-
         return tasks;
     }
 
@@ -87,30 +90,27 @@ public class Storage {
             return null;
         }
 
-        String[] parts = line.split(" \\| ");
+        String[] parts = line.split(STRAIGHT_LINE_REGEX);
 
         String taskDescription = parts[0];
         boolean isDone = "1".equals(parts[1].trim());
-        String taskType = taskDescription.split(" ")[0];
+        String taskType = taskDescription.split(SPACE)[0];
         Task newTask;
 
         switch (taskType) {
-            case "event":
-                newTask = new Event(taskDescription);
-                break;
-            case "deadline":
-                newTask = new Deadline(taskDescription);
-                break;
-            default:
-                newTask = new Todo(taskDescription);
-
+        case EVENT_TASK_TYPE:
+            newTask = new Event(taskDescription);
+            break;
+        case DEADLINE_TASK_TYPE:
+            newTask = new Deadline(taskDescription);
+            break;
+        default:
+            newTask = new Todo(taskDescription);
         }
 
         if (newTask != null && isDone) {
-            newTask.markAsDone(); // Mark the task as done if indicated
+            newTask.markAsDone();
         }
-
         return newTask;
     }
-
 }

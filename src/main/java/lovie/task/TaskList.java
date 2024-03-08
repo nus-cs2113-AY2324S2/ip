@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * Represents the user's list of tasks.
  */
 public class TaskList {
+    public static final String SPACE = " ";
     private final ArrayList<Task> tasksList;
     private final Ui ui;
 
@@ -24,7 +25,7 @@ public class TaskList {
      * @param input The input from the user.
      */
     public void deleteTask(String input) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+        int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
         if (taskNumber >= tasksList.size() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {

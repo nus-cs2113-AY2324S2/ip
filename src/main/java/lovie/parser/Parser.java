@@ -13,12 +13,26 @@ import lovie.ui.Ui;
  * Represents the parser of the program.
  */
 public class Parser {
+    public static final int COMMAND = 0;
+    public static final String SPACE = " ";
+    public static final int HALVES = 2;
+    public static final String TO_INCLUSION = "Oops! Make sure you include a /to for your event. Here is the format:\n" +
+            "event **description** /from **start** /to **end**";
+    public static final String FROM_INCLUSION = "Oops! Make sure you include a /from for your event. Here is the format:\n" +
+            "event **description** /from **start** /to **end**";
+    public static final String BY_INCLUSION = "Oops! Make sure you include a /by for your deadline. Here is the format:\n" +
+            "deadline **description** /by **end**";
+    public static final String DEADLINE_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your deadline! Here is the format:\n" +
+            "deadline **description** /by **end**";
+    public static final String EVENT_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your event! Here is the format:\n" +
+            "event **description** /from **start** /to **end**";
+    public static final String TODO_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your todo! Here is the format:\n" +
+            "todo **description**";
     private final String line;
     private final String processedInput;
     private final String firstCommand;
     private final Storage storage;
     private final TaskList tasksList;
-
     private final Ui ui;
 
     /**
@@ -33,7 +47,7 @@ public class Parser {
         this.storage = storage;
         this.tasksList = tasksList;
         this.processedInput = input.toLowerCase().trim();
-        this.firstCommand = processedInput.split(" ")[0];
+        this.firstCommand = processedInput.split(SPACE)[COMMAND];
         ui = new Ui();
     }
 
@@ -43,6 +57,7 @@ public class Parser {
      * @return A boolean value to indicate if the program should exit.
      */
     public boolean inputSorter() {
+        Task newTask;
         switch (firstCommand) {
         case "bye":
             storage.saveTasks(tasksList);
@@ -69,51 +84,44 @@ public class Parser {
         case "command":
             ui.commandPrinter();
             break;
-        default:
-            String taskType = processedInput.split(" ")[0];
-            Task newTask;
-
-            // Switch statement to keep track of taskType + default of incorrect input
-            switch (taskType) {
-            case "event":
-                try {
-                    eventFormatChecker(line);
-                } catch (LovieException e) {
-                    ui.print(e.getMessage());
-                    break;
-                }
-                newTask = new Event(line);
-                tasksList.addTask(newTask);
-                ui.addTaskPrinter(newTask);
-                storage.saveTasks(tasksList);
+        case "event":
+            try {
+                eventFormatChecker(line);
+            } catch (LovieException e) {
+                ui.print(e.getMessage());
                 break;
-            case "deadline":
-                try {
-                    deadlineFormatChecker(line);
-                } catch (LovieException e) {
-                    ui.print(e.getMessage());
-                    break;
-                }
-                newTask = new Deadline(line);
-                tasksList.addTask(newTask);
-                ui.addTaskPrinter(newTask);
-                storage.saveTasks(tasksList);
-                break;
-            case "todo":
-                try {
-                    todoFormatChecker(line);
-                } catch (LovieException e) {
-                    ui.print(e.getMessage());
-                    break;
-                }
-                newTask = new Todo(line);
-                tasksList.addTask(newTask);
-                ui.addTaskPrinter(newTask);
-                storage.saveTasks(tasksList);
-                break;
-            default:
-                ui.invalidCommandPrinter();
             }
+            newTask = new Event(line);
+            tasksList.addTask(newTask);
+            ui.addTaskPrinter(newTask);
+            storage.saveTasks(tasksList);
+            break;
+        case "deadline":
+            try {
+                deadlineFormatChecker(line);
+            } catch (LovieException e) {
+                ui.print(e.getMessage());
+                break;
+            }
+            newTask = new Deadline(line);
+            tasksList.addTask(newTask);
+            ui.addTaskPrinter(newTask);
+            storage.saveTasks(tasksList);
+            break;
+        case "todo":
+            try {
+                todoFormatChecker(line);
+            } catch (LovieException e) {
+                ui.print(e.getMessage());
+                break;
+            }
+            newTask = new Todo(line);
+            tasksList.addTask(newTask);
+            ui.addTaskPrinter(newTask);
+            storage.saveTasks(tasksList);
+            break;
+        default:
+            ui.invalidCommandPrinter();
         }
         return false;
     }
@@ -124,13 +132,13 @@ public class Parser {
      * @param input The input from the user.
      */
     public void markTaskHelper(String input) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+        int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
         if (taskNumber >= tasksList.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {
             tasksList.markTask(taskNumber);
             ui.markTaskPrinter(tasksList.get(taskNumber));
-        }
+        }S
     }
 
     /**
@@ -138,10 +146,9 @@ public class Parser {
      *
      * @param input The input from the user.
      */
-  
     public void findHelper(String input) {
-        String[] inputParts = input.split(" ");
-        if (inputParts.length < 2) {
+        String[] inputParts = input.split(SPACE);
+        if (inputParts.length < HALVES) {
             ui.noValidFindPrinter();
         } else {
            String keyword = inputParts[1];
@@ -149,14 +156,13 @@ public class Parser {
         }
     }
 
-
     /**
      * Helper method to unmark a task.
      *
      * @param input The input from the user.
      */
     public void unmarkTaskHelper(String input) {
-        int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+        int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
         if (taskNumber >= tasksList.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {
@@ -172,10 +178,9 @@ public class Parser {
      * @throws LovieException If the input is in the wrong format.
      */
     public void todoFormatChecker(String input) throws LovieException {
-        String[] splitUpInput = input.split(" ", 2);
+        String[] splitUpInput = input.split(SPACE, HALVES);
         if (splitUpInput.length <= 1) {
-            throw new LovieException("Oops! Make sure you add a description for your todo! Here is the format:\n" +
-                    "todo **description**");
+            throw new LovieException(TODO_DESCRIPTION_INCLUSION);
         }
     }
 
@@ -186,16 +191,14 @@ public class Parser {
      * @throws LovieException If the input is in the wrong format.
      */
     public void deadlineFormatChecker(String input) throws LovieException {
-        String firstHalf = input.split("/", 2)[0].trim();
-        String[] splitUpFirstHalf = firstHalf.split(" ", 2);
-        if (splitUpFirstHalf.length <= 1) {
-            throw new LovieException("Oops! Make sure you add a description for your deadline! Here is the format:\n" +
-                    "deadline **description** /by **end**");
+        String firstHalf = input.split("/", HALVES)[0].trim();
+        String[] firstHalfParts = firstHalf.split(SPACE, HALVES);
+        if (firstHalfParts.length <= 1) {
+            throw new LovieException(DEADLINE_DESCRIPTION_INCLUSION);
         }
-        String[] bySplitter = input.trim().split("/by", 2);
-        if (bySplitter.length <= 1 || bySplitter[1].trim().isEmpty()) { //what if there are 2 /by methods
-            throw new LovieException("Oops! Make sure you include a /by for your deadline. Here is the format:\n" +
-                    "deadline **description** /by **end**");
+        String[] byParts = input.trim().split("/by", HALVES);
+        if (byParts.length <= 1 || byParts[1].trim().isEmpty()) { //what if there are 2 /by methods
+            throw new LovieException(BY_INCLUSION);
         }
     }
 
@@ -207,35 +210,30 @@ public class Parser {
      */
     public void eventFormatChecker(String input) throws LovieException {
         String splitUpInput = input.split("/from")[0].trim();
-        String[] splitUpDescription = splitUpInput.split(" ", 2);
+        String[] descriptionParts = splitUpInput.split(SPACE, HALVES);
 
-        if (splitUpDescription.length <= 1) {
-            throw new LovieException("Oops! Make sure you add a description for your event! Here is the format:\n" +
-                    "event **description** /from **start** /to **end**");
+        if (descriptionParts.length <= 1) {
+            throw new LovieException(EVENT_DESCRIPTION_INCLUSION);
         }
 
-        String[] fromSplitter = input.split("/from", 2);
-        if (fromSplitter.length <= 1) {
-            throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
-                    "event **description** /from **start** /to **end**");
+        String[] fromParts = input.split("/from", HALVES);
+        if (fromParts.length <= 1) {
+            throw new LovieException(FROM_INCLUSION);
         }
 
-        String[] fromDescription = fromSplitter[1].split("/to", 2);
-        if (fromDescription[0].trim().isEmpty()) {
-            throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
-                    "event **description** /from **start** /to **end**");
+        String[] fromWords = fromParts[1].split("/to", HALVES);
+        if (fromWords[0].trim().isEmpty()) {
+            throw new LovieException(FROM_INCLUSION);
         }
 
-        String[] toSplitter = input.split("/to", 2);
-        if (toSplitter.length <= 1) {
-            throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
-                    "event **description** /from **start** /to **end**");
+        String[] toParts = input.split("/to", HALVES);
+        if (toParts.length <= 1) {
+            throw new LovieException(TO_INCLUSION);
         }
 
-        String[] toDescription = toSplitter[1].split("/to", 2);
+        String[] toDescription = toParts[1].split("/to", HALVES);
         if (toDescription[0].trim().isEmpty()) {
-            throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
-                    "event **description** /from **start** /to **end**");
+            throw new LovieException(TO_INCLUSION);
         }
     }
 }

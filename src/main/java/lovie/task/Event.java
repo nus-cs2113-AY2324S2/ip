@@ -5,6 +5,9 @@ package lovie.task;
  */
 public class Event extends Task {
 
+    public static final String EVENT_SYMBOL = "E";
+    public static final String PLACEHOLDER = "";
+
     /**
      * Constructor for Event.
      *
@@ -40,7 +43,7 @@ public class Event extends Task {
             String endTime = description.split("(?i)/to")[1].trim();
             return " (from: " + startTime + " to: " + endTime + ")";
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "";
+            return PLACEHOLDER;
         }
     }
 
@@ -51,7 +54,7 @@ public class Event extends Task {
      */
     @Override
     public String getTaskIcon() {
-        return "E";
+        return EVENT_SYMBOL;
     }
 
 }
