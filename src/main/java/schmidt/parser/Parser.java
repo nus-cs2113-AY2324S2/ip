@@ -1,12 +1,6 @@
 package schmidt.parser;
 
-import schmidt.command.AddCommand;
-import schmidt.command.Command;
-import schmidt.command.DeleteCommand;
-import schmidt.command.ExitCommand;
-import schmidt.command.HelpCommand;
-import schmidt.command.ListCommand;
-import schmidt.command.MarkCommand;
+import schmidt.command.*;
 import schmidt.exception.SchmidtException;
 import schmidt.task.Deadline;
 import schmidt.task.Event;
@@ -51,6 +45,10 @@ public class Parser {
             // add event task
             Event event = parseEventCommand(trimmedCommand);
             return new AddCommand(event);
+        case "find":
+            // find tasks
+            String keyword = parseFindCommand(trimmedCommand);
+            return new FindCommand(keyword);
         default:
             // invalid command
             return new HelpCommand();
@@ -135,6 +133,23 @@ public class Parser {
         } catch (Exception e) {
             throw new SchmidtException("Please follow the mark/unmark command format\n" +
                     "\t[un]mark <task number>");
+        }
+    }
+
+    public static String parseFindCommand(String command) throws SchmidtException {
+        try {
+            // split by the first whitespace to get the keyword
+            String[] inputTokens = command.split("\\s+", 2);
+
+            if (inputTokens.length < 2) {
+                throw new SchmidtException("Please follow the find command format\n" +
+                        "\tfind <keyword>");
+            }
+
+            return inputTokens[1];
+        } catch (Exception e) {
+            throw new SchmidtException("Please follow the find command format\n" +
+                    "\tfind <keyword>");
         }
     }
 }
