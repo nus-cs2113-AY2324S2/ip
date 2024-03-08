@@ -1,0 +1,6 @@
+T | [/] | this
+T | [ ] | thisthis
+T | [ ] | thisagain
+T | [/] | hwfwo
+T | [/] | this 2
+D | [ ] | thisewfwcdthis | tomorrow
