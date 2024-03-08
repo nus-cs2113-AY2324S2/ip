@@ -11,6 +11,10 @@ public class Message {
     public static final String TODO_EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description of a todo cannot be empty.";
     public static final String DEADLINE_EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description of a deadline cannot be empty.";
     public static final String EVENT_EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description of a event cannot be empty.";
+    public static final String DEADLINE_MISSING_DUE = "Deadline task requires due date/time.";
+    public static final String EVENT_MISSING_START_END = "Event task requires both start date/time and end date/time.";
+    public static final String INTEGER_NUMBER_REQUIRED = "An integer number is required as an input.";
+    public static final String INDEX_OUT_OF_BOUNDS = "The task number provided does not exist. Check list to see valid numbers.";
     public static final String INEXISTENT_FILE = "File does not exist.";
     public static final String CORRUPTED_FILE = "File data is corrupted.";
 
