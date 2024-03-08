@@ -3,10 +3,15 @@
 ## Setup
 
 1) Make sure that you have Java 11 on your device.
+
 2) Download the latest `ip.jar` from this repo.
+
 3) Move `ip.jar` to the directory that you plan to use as Stella's home directory.
+
 4) Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar` command to run the application.
+
 5) Type the command in the terminal and hit `Enter` to execute it.
+
 6) Refer to the Features section for detailed tutorial on the commands.
 
 ## Features 
