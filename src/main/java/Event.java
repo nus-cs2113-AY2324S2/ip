@@ -30,30 +30,12 @@ public class Event extends Task{
     }
 
     /**
-     * Sets the start time of the event.
-     *
-     * @param startOfEvent The start time of the event.
-     */
-    public void setStartOfEvent(String startOfEvent) {
-        this.startOfEvent = startOfEvent;
-    }
-
-    /**
      * Gets the end time of the event.
      *
      * @return The end time of the event.
      */
     public String getEndOfEvent() {
         return endOfEvent;
-    }
-
-    /**
-     * Sets the end time of the event.
-     *
-     * @param endOfEvent The end time of the event.
-     */
-    public void setEndOfEvent(String endOfEvent) {
-        this.endOfEvent = endOfEvent;
     }
 
     /**
