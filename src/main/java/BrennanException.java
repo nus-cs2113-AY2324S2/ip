@@ -1,4 +1,4 @@
-public class DukeException extends Exception {
+public class BrennanException extends Exception {
     /**
      * Handles exceptions that occur during Duke application operations.
      * It prints appropriate error messages based on the type of exception.

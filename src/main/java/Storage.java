@@ -20,9 +20,9 @@ public class Storage {
      * Loads tasks from the file specified by the file path.
      *
      * @return An ArrayList containing the loaded tasks.
-     * @throws DukeException If an error occurs while loading tasks.
+     * @throws BrennanException If an error occurs while loading tasks.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws BrennanException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -33,7 +33,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            DukeException.handleException(e, "null");
+            BrennanException.handleException(e, "null");
         }
         return tasks;
     }

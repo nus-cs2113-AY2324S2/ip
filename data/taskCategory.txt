@@ -1,5 +1,2 @@
-D| assignment                     (by:                    today))))))))))))))))))))|0|                   today)))))))))))))))))))
-D|deadline coding|0|null
-T| analyse book|0
-T| haircut|0
-E| show    (from:   5pm  to:   8pm)))|0|  5pm |  8pm))
+D| Submit essay  (by:  2024-03-17))|0| 2024-03-17)
+E| Marriage   (from:   2pm  to:  5pm))|0|  2pm | 5pm)

@@ -11,9 +11,9 @@ public class Parser {
      * @param command The command to be parsed and executed.
      * @param tasks   The TaskList object on which actions will be executed.
      * @return True if the program should exit after executing the command, false otherwise.
-     * @throws DukeException If an error occurs during command execution.
+     * @throws BrennanException If an error occurs during command execution.
      */
-    public boolean parseCommand(String command, TaskList tasks) throws DukeException {
+    public boolean parseCommand(String command, TaskList tasks) throws BrennanException {
         String[] splitCommand = command.split(" ");
         try {
             if (splitCommand[0].equals("list")) {
@@ -40,12 +40,13 @@ public class Parser {
                 checkCommandArguments(splitCommand, 2, tasks);
                 tasks.findTasks(splitCommand[1], tasks.getTasks());
             } else if (splitCommand[0].equals("bye")) {
+                System.out.println("Goodbye! Have a nice day!");
                 return true; // Indicate that the program should exit
             } else {
                 throw new IllegalArgumentException();
             }
         } catch (Exception e) {
-            DukeException.handleException(e, command);
+            BrennanException.handleException(e, command);
         }
         finally {
             Storage.save(tasks.getTasks());

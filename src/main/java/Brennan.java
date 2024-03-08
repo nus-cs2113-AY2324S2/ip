@@ -4,7 +4,7 @@
  * It allows users to add, delete, mark as done, and list tasks.
  * Duke stores tasks in a file and loads them upon startup.
  */
-public class Duke {
+public class Brennan {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -15,13 +15,13 @@ public class Duke {
      *
      * @param filePath The file path where tasks are stored.
      */
-    public Duke(String filePath) {
+    public Brennan(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (BrennanException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -39,7 +39,7 @@ public class Duke {
                 String fullCommand = ui.getUserInput();
                 ui.showLine(); // show the divider line ("_______")
                 isExit = parser.parseCommand(fullCommand, tasks);
-            } catch (DukeException e) {
+            } catch (BrennanException e) {
                 ui.printMessage("Error: " + e.getMessage());
             } finally {
                 ui.showLine();
@@ -54,6 +54,6 @@ public class Duke {
      * @param args Command line arguments (not used in this implementation).
      */
     public static void main(String[] args) {
-        new Duke("data/taskCategory.txt").run();
+        new Brennan("data/taskCategory.txt").run();
     }
 }
