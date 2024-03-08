@@ -1,8 +1,14 @@
 package ui;
 import tasklist.todo.Todo;
 
+<<<<<<< HEAD
+/**
+ * Deals with all the printing of communication with user.
+ */
+=======
 import java.util.ArrayList;
 
+>>>>>>> master
 public class Ui {
 
     public Ui() {}

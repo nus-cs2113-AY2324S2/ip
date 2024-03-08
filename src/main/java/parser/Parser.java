@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static tasklist.TaskList.*;
-
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
     protected ArrayList<Todo> list;
     protected int taskNum;
@@ -23,6 +24,16 @@ public class Parser {
 
     }
 
+<<<<<<< HEAD
+    /**
+     * Runs the process of interacting with user. Reads in user input and respond accordingly.
+     *
+     * @param pathName Path of file where data is saved in.
+     * @param tasklist Tasklist initiated in Main, containing task number and array list.
+     * @throws IOException If runParser runs into problems.
+     */
+    public void runParser(String pathName, TaskList tasklist) throws IOException {
+=======
     protected boolean hasFoundItem (String temp) {
         for (Todo task : list) {
             if (task.getDescription().contains(temp)) {
@@ -34,6 +45,7 @@ public class Parser {
 
 
     public void runParser(String pathName) throws IOException {
+>>>>>>> master
         Storage storage = new Storage(pathName);
         Ui ui = new Ui();
         String temp = in.nextLine();
@@ -47,19 +59,19 @@ public class Parser {
                         ui.printList(list);
                 } else if (temp.startsWith("todo")) {
                     temp = temp.substring(4); //trim off command
-                    addTodo(list, temp, taskNum);
+                    tasklist.addTodo(list, temp, taskNum);
                     ui.printMessage(list.get(taskNum), taskNum + 1);
                     storage.writeTask(list.get(taskNum));
                     taskNum++;
                 } else if (temp.startsWith("deadline")) {
                     temp = temp.substring(8); //trim off command
-                    addDeadline(list, temp, taskNum);
+                    tasklist.addDeadline(list, temp, taskNum);
                     ui.printMessage(list.get(taskNum), taskNum + 1);
                     storage.writeTask(list.get(taskNum));
                     taskNum++;
                 } else if (temp.startsWith("event")) {
                     temp = temp.substring(5); //trim off command
-                    addEvent(list, temp, taskNum);
+                    tasklist.addEvent(list, temp, taskNum);
                     ui.printMessage(list.get(taskNum), taskNum + 1);
                     storage.writeTask(list.get(taskNum));
                     taskNum++;

@@ -1,6 +1,9 @@
 package tasklist.deadline;
 import tasklist.todo.Todo;
 
+/**
+ * Inherits from Todo with date to store deadline type of input.
+ */
 public class Deadline extends Todo {
     protected String date;
 
