@@ -134,7 +134,7 @@ public class CommandHandler {
                                        TaskLists listCommands) throws InputException {
         String[] deadlines = command.split(" /by ", 2);
         if (deadlines.length == 2) {
-            if ((command.matches("deadline"))) {
+            if ((deadlines[0].equals("deadline"))) {
                 throw new InputException("Don't have an empty description for deadline");
             }
             String deadline = decodeDateTime(deadlines[1]);
@@ -160,7 +160,7 @@ public class CommandHandler {
                                     TaskLists listCommands) throws InputException {
         String[] events = command.split(" /from ", 2);
         if (events.length == 2) {
-            if ((command.matches("events"))) {
+            if ((events[0].equals("event"))) {
                 throw new InputException("Don't have an empty description for event");
             }
             String[] times = events[1].split(" /to ", 2);
