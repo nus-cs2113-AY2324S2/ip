@@ -1,24 +1,49 @@
-# Duke project template
+# DoraemonBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project building a simple chat bot to keep track of tasks. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+## Setting up 
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Ensure that you have Java 11 or above installed on your computer.
+1. Download the lastest JAR file from ___
+2. Copy the file to the folder you want to use as the home folder for DoraemonBot.
+3. Open a command terminal, `cd` into the folder where the JAR file is placed in and use `java -jar CS2113_IP_New.jar` command to run the programme.
+
+## Add
+To Add Tasks: Use the `todo` command and type in the name of the task and it will be added.
+Example:
+```
+todo project
+```
+
+To Add Deadlines: Use the `deadline` and `/by ` commands and type in the name and due date of the task.
+Example:
+```
+deadline project /by tomorrow
+```
+
+To Add Events: Use the `deadline`, `/from ` and `/to` commands and type in the name, starting time and ending time of the event.
+Example:
+```
+event project /from today 2pm /to 3pm
+```
+
+## List
+To List tasks you have saved. Type the command `list`.
+Example:
+```
+list
+```
+
+## Mark
+To Mark tasks completed, type the command `mark` followed by the task number of the task.
+Example:
+```
+mark 3
+```
+
+
+
+
