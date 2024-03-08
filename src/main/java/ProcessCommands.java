@@ -42,7 +42,7 @@ public class ProcessCommands {
                 taskList.findTasks(commandParts[1]);
                 break;
             default:
-                System.out.println("☹ Dobby does not understand."); // Default to addTask if not recognised
+                System.out.println("☹ Dobby does not understand.");
                 break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
