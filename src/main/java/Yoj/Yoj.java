@@ -14,7 +14,15 @@ import Yoj.ui.*;
 
 
 public class Yoj {
-
+    /**
+     * main method is the entry point for Yoj which handles user input and commands processing for the task management system.
+     *
+     * @param args Command-line arguments passed to the application.
+     * @throws YojException Custom exception for application-specific errors.
+     * @throws InvalidCommandException Custom exception for invalid commands entered by the user.
+     * @throws FileNotFoundException Exception thrown when the file with saved tasks is not found.
+     *
+     */
     public static void main(String[] args) throws YojException, InvalidCommandException, FileNotFoundException {
         Ui.printHello();
         // get user input
