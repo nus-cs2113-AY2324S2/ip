@@ -2,14 +2,20 @@
 
 ## Features
 
-Words in `UPPER_CASE` are the parameters to be supplied by the user.
-e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
+> Words in `UPPER_CASE` are the parameters to be supplied by the user.
+> e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
 
 ### Adding a Todo task: `todo`
 
 Adds a todo task to the list.
 
 Format: `todo DESCRIPTION`
+
+Examples:
+- `todo read book`
+
+Expected outcome:
+!(/pictures/todo.png)
 
 ### Adding a Deadline task: `deadline`
 
