@@ -85,9 +85,9 @@ Lists all tasks your task list.
 * Expected outcome:
    ```
      Here are the tasks in your list:
-     1. [T][ ] Merida: Answer GDP2021 questions
-     2. [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
-     3. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
+     [T][ ] Merida: Answer GDP2021 questions
+     [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
+     [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
    ```
 
 [Back to Commands Usage Overview](#commands-usage-overview)<br>
@@ -121,8 +121,8 @@ Displays your tasks containing `WORD` in your task list.<br>
 * Expected outcome:
    ```
      Here are the matching tasks in your list:
-     1. [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
-     2. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
+     [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
+     [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
    ```
 
 ### 8. Delete a task in task list: `delete`
