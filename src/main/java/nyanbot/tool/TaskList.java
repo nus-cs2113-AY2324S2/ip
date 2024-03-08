@@ -1,8 +1,6 @@
 package nyanbot.tool;
 
 import java.util.ArrayList;
-
-import nyanbot.exception.NyanException;
 import nyanbot.task.Task;
 import nyanbot.task.Todo;
 import nyanbot.task.Deadline;
@@ -35,26 +33,6 @@ public class TaskList {
      */
     public ArrayList<Task> exportTask() {
         return this.tasks;
-    }
-
-    /***
-     *searches for task in task list with description matching specified keyword
-     * @param string containing keyword
-     * @return foundTasks arraylist of tasks matching search
-     */
-    public ArrayList<Task> findTasks(String input) throws NyanException {
-        ArrayList<Task> foundTasks = new ArrayList<>();
-        if (input.isBlank()) {
-            throw new NyanException("missing keyword\n" + UI.FIND_USAGE_MESSAGE);
-        }
-        for (Task task : tasks) {
-            String string = task.toString();
-            String[] tokens = string.split("//", 3);
-            if (tokens[2].contains(input)) {
-                foundTasks.add(task);
-            }
-        }
-        return foundTasks;
     }
 
     /***
@@ -140,7 +118,7 @@ public class TaskList {
                 UI.printDeadlineUsage();
                 return;
             }
-            if (splitInputs[1].isBlank()) {
+            if (splitInputs[1].isBlank() || splitInputs[2].isBlank()) {
                 UI.printMissingStartEnd();
                 UI.printDeadlineUsage();
                 return;
@@ -167,7 +145,7 @@ public class TaskList {
                 UI.printEventUsage();
                 return;
             }
-            if (splitInputs[1].isBlank() || splitInputs[2].isBlank()) {
+            if (splitInputs[1].isBlank()) {
                 UI.printMissingDate();
                 UI.printEventUsage();
                 return;

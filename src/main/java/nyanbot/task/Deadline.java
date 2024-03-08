@@ -4,7 +4,7 @@ public class Deadline extends Task {
     private String date;
 
     public String toString() {
-        return "deadline//" + this.isDone + "//" + this.description + "//" + date;
+        return "deadline/" + this.isDone + "/" + this.description + "/" + date;
     }
 
     public Deadline(String description, String date) {

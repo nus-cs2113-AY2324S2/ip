@@ -11,7 +11,7 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return "event//" + this.isDone + "//" + this.description + "//" + start + "//" + end;
+        return "event/" + this.isDone + "/" + this.description + "/" + start + "/" + end;
     }
 
     public String getDescription() {

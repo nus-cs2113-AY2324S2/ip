@@ -6,7 +6,7 @@ public class Todo extends Task {
     }
 
     public String toString() {
-        return "todo//" + this.isDone + "//" + this.description;
+        return "todo/" + this.isDone + "/" + this.description;
     }
 
     public String getDescription() {

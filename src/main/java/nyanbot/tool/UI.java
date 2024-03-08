@@ -16,7 +16,7 @@ public class UI {
     protected static final String UNMARK_USAGE_MESSAGE = "使い方：unmark [index]";
     protected static final String DELETE_MESSAGE = "分かりました！deleteするをsuccessful desu!";
     protected static final String DELETE_USAGE_MESSAGE = "使い方: delete [index]";
-    protected static final String LIST_MESSAGE = "as per request, 今は tasks:";
+    protected static final String LIST_MESSAGE = "今は tasks currently:";
     protected static final String TODO_USAGE_MESSAGE = "使い方: todo [description]";
     protected static final String DEADLINE_USAGE_MESSAGE = "使い方：deadline [description] //[date]";
     protected static final String EVENT_USAGE_MESSAGE = "使い方：event [description] //[start] //[end]";
@@ -33,7 +33,7 @@ public class UI {
     protected static final String IO_EXCEPTION_MESSAGE = "cannot read file nyannnnn";
     protected static final String DIRECTORY_CREATED_MESSAGE = "directory created desu.";
     protected static final String FILE_CREATED_MESSAGE = "data file created desu.";
-    protected static final String FIND_USAGE_MESSAGE = "usage: find [keyword]";
+    protected static final String INCOMPLETE_INPUT_MESSAGE = "incomplete input. pls use \"help\" command";
 
     public static void printLine() {
         System.out.println(LINE);
@@ -172,9 +172,5 @@ public class UI {
 
     public static void printFileCreated() {
         System.out.println(FILE_CREATED_MESSAGE);
-    }
-
-    public static void printFindUsage() {
-        System.out.println(FIND_USAGE_MESSAGE);
     }
 }
