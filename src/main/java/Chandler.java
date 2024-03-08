@@ -8,7 +8,7 @@ public class Chandler {
     private Storage storageManager;
     private Ui ui;
     private Parser inputParser;
-    public static final String LINE_DIVIDER = "------------------------------------------";
+    public static final String LINE_DIVIDER = "----------------------------------------------------";
 
     /**
      * Constructor for Chandler
