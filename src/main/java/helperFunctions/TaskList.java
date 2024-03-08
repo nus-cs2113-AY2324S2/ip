@@ -86,7 +86,8 @@ public class TaskList {
     }
 
     /**
-     * Adds Deadline to Tasks
+     * Adds Deadline to Tasks. Ideal deadline format is "yyyy/mm/dd", which
+     * will be converted to "MMM d yyyy" format
      *
      * @param userInputInParts separates each word in userInput
      * @param userInput is the original CLI user input

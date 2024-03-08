@@ -38,7 +38,7 @@ What can I do for you?
 
 ## Possible user commands
 1. `todo <task>`                            : Add todo task
-2. `deadline <task> /<deadline>`            : Add deadline
+2. `deadline <task> /<deadline>`            : Add deadline (Deadline format: "yyyy/mm/dd")
 3. `event <task> /<startTime> /<endTime>`   : Add event
 4. `list`                                   : List all tasks
 5. `mark/unmark <taskIndex>`                : Mark task <index> as done/ undone
