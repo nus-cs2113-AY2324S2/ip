@@ -1,6 +1,6 @@
 # Chandler Chat Bot User Guide
 
-This is a user guide for using Chandler Chat Bot - a simple task management CLI App
+Chandler Chat Bot is a simple Task Management CLI App that was developed by Jeffinson Darmawan in 2024 under the CS2113 course at NUS.
 
 ## Features 
 
