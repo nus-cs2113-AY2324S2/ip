@@ -1,3 +1,6 @@
-D| assignment             (by:            today))))))))))))|0|           today)))))))))))
-E| presentation          (from:         2pm  to:         4pm)))))))))|0|        2pm |        4pm))))))))
-D|deadline coding|1|null
+D| assignment                  (by:                 today)))))))))))))))))|0|                today))))))))))))))))
+E| presentation               (from:              2pm  to:              4pm))))))))))))))|0|             2pm |             4pm)))))))))))))
+D|deadline coding|0|null
+T| analyse book|1
+D|deadline return book in library|1|null
+T| cleaning|1

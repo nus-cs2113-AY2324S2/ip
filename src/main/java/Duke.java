@@ -15,6 +15,7 @@ public class Duke {
             tasks = new TaskList();
         }
     }
+
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -31,6 +32,7 @@ public class Duke {
             }
         }
     }
+
     public static void main(String[] args) {
         new Duke("data/taskCategory.txt").run();
     }

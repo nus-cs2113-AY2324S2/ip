@@ -18,14 +18,12 @@ public class DukeException extends Exception {
                 System.out.println("Incomplete " + splitInput[0] + " detected. " +
                         "Your statement is not clear. Please fix this.");
             }
-
         } else if (exception instanceof IllegalArgumentException) {
             System.out.println("Unfamiliar commands cannot be accepted by the system.");
 
         } else {
             System.out.println("Unknown error detected. Try to fix this immediately.");
         }
-
         System.out.println(SEPARATOR);
     }
 }

@@ -22,6 +22,9 @@ public class Parser {
             } else if (splitCommand[0].equals("delete")) {
                 checkCommandArguments(splitCommand, 2, tasks);
                 tasks.deleteTask(Integer.parseInt(splitCommand[1]));
+            } else if (splitCommand[0].equals("find")) {
+                checkCommandArguments(splitCommand, 2, tasks);
+                tasks.findTasks(splitCommand[1], tasks.getTasks());
             } else if (splitCommand[0].equals("bye")) {
                 return true; // Indicate that the program should exit
             } else {
