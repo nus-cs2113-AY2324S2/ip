@@ -29,6 +29,7 @@ To get started with Phoebe,
 
 If the setup is correct, Phoebe will be the first one to greet you!
 
+
 ```
 █▀█ █░█ █▀█ █▀▀ █▄▄ █▀▀
 █▀▀ █▀█ █▄█ ██▄ █▄█ ██▄
