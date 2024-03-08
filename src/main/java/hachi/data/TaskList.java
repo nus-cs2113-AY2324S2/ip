@@ -1,33 +1,77 @@
 package hachi.data;
 
-import hachi.data.task.*;
+import hachi.data.task.Task;
+import hachi.data.task.Event;
+import hachi.data.task.Deadline;
+import hachi.data.task.TaskType;
+import hachi.data.task.Todo;
 import hachi.parser.Parser;
 import hachi.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the TaskList for the chatbot Hachi.
+ * Contains methods for handling tasks.
+ *
+ * @author clarencepohh
+ * @version 08/03/2024
+ */
+
 public class TaskList {
     private final ArrayList<Task> tasksArrayList;
     private final Ui ui;
+
+    /**
+     * The standard constructor for TaskList.
+     * Initializes the required ArrayList and Ui classes.
+     *
+     */
 
     public TaskList () {
         tasksArrayList = new ArrayList<>();
         ui = new Ui();
     }
 
+    /**
+     * The constructor for TaskList that takes in an existing ArrayList.
+     * Initializes the Arraylist with an existing Arraylist and a new Ui classes.
+     *
+     * @param tasksArrayList The existing ArrayList that the TaskList takes in.
+     */
+
     public TaskList (ArrayList<Task> tasksArrayList) {
         this.tasksArrayList = tasksArrayList;
         ui = new Ui();
     }
 
+    /**
+     * Getter for the TaskList.
+     *
+     * @return Returns the Task ArrayList.
+     */
+
     public ArrayList<Task> getTasksArrayList() {
         return tasksArrayList;
     }
 
+    /**
+     * Getter for the size of the TaskList.
+     *
+     * @return Returns the size of the Task ArrayList.
+     */
+
     public int getSize () {
         return tasksArrayList.size();
     }
+
+    /**
+     * Getter for a task of specific index in the Task ArrayList.
+     *
+     * @param index Index of the task to be returned.
+     * @return Returns the specified task.
+     */
 
     public Task getSpecifiedTask (int index) {
         return tasksArrayList.get(index);
@@ -51,10 +95,12 @@ public class TaskList {
     /**
      * Given a task's name and the list of tasks, add a new task into the list.
      * Depending on the user's input, can create subclass of tasks: Todos, Deadlines and Events.
+     * Prints to the console after a successful addition to the Task ArrayList.
      *
      * @param taskType Type of task to be added. (Todo, Event, Deadline)
      * @param line The line of text given by the user.
      * @param cleanInput The cleaned line of text that will be used to determine the instruction.
+     * @throws HachiException If there is an error creating the tasks.
      */
 
     public void addTask(TaskType taskType, String line, String cleanInput) throws HachiException {
@@ -90,6 +136,13 @@ public class TaskList {
         tasksArrayList.add(toAdd);
         ui.printAddTaskMessage(toAdd);
     }
+
+    /**
+     * Given a task index, deletes it from the Task ArrayList.
+     *
+     * @param cleanedInput The String containing the cleaned whole user input.
+     * @throws HachiException If the list is empty or the specified task index is out of bounds.
+     */
 
     public void deleteTask(String cleanedInput) throws HachiException {
         int numTasks = Task.getTotalNumTasks();
@@ -144,6 +197,15 @@ public class TaskList {
     public void add (Task toAdd) {
         tasksArrayList.add(toAdd);
     }
+
+    /**
+     * Given a specified substring, finds all tasks that contains that substring and
+     * returns it to the caller as an ArrayList<Task>.
+     *
+     * @param cleanedInput The String that contains the cleaned whole user input.
+     * @return An ArrayList<Task> that contains all tasks that contains the user specified substring.
+     * @throws HachiException If the user input for the 'find' command is invalid.
+     */
 
     public ArrayList<Task> findTask (String cleanedInput) throws HachiException{
         int indexOfFind = cleanedInput.indexOf("FIND") + 5;
