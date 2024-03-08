@@ -1,10 +1,24 @@
+import java.io.FileNotFoundException;
+
 public class Duke {
+    public Duke() {
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        try {
+            CacheManager.bootFromCache();
+        } catch (FileNotFoundException e1) {
+            CacheManager.spawnCacheFile();
+        }
+        Formatter.printWelcomeMsg();
+        while (CommandExecutor.isRunning) {
+            try {
+                CommandExecutor.beginListening();
+                CommandExecutor.processInput();
+                CommandExecutor.executeCommand();
+            } catch (ProcessInputException e) {
+                Formatter.printErrorExecutionFail();
+            }
+        }
     }
 }
