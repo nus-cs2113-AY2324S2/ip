@@ -1,3 +1,11 @@
+/**
+ * Implements a to-do task that stores only the description of the task.
+ *
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class Todo extends Task {
 
     protected String toDo;

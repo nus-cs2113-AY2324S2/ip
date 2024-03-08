@@ -1,3 +1,11 @@
+/**
+ * Implements an exception class for Eln
+ * This is the custom exceptions for handling invalid todo commands.
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class InvalidTodoException extends ElnException{
 
     @Override

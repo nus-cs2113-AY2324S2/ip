@@ -1,3 +1,12 @@
+/**
+ * Implements an event task that stores the description of the task in the form
+ * of task, from and to. Indicating the start, end and description of the task.
+ *
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class Event extends Task {
     protected String task;
     protected String from;
