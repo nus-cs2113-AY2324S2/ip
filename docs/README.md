@@ -15,7 +15,7 @@ Examples:
 - `todo read book`
 
 Expected outcome:
-!(/pictures/todo.png)
+![](/pictures/todo.png)
 
 ### Adding a Deadline task: `deadline`
 
