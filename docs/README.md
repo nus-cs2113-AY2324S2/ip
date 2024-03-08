@@ -7,7 +7,7 @@ Loopy is here to help with tracking your tasks!
 1. Ensure you have Java 11 or above installed on your computer.
 2. Download the jar file [here](https://github.com/luozihui2003/Luo-Zi-Hui-ip/releases/tag/v0.2).
 3. Copy the file into a folder to set it as home directory.
-4. From the terminal, `cd` into home directory of the jar file and run the command `java -jar loopy.txt` to launch Loopy!
+4. From the terminal, `cd` into home directory of the jar file and run the command `java -jar loopy.jar` to launch Loopy!
 5. Type in the commands and press enter to execute.
 
 ## Features 
