@@ -1,2 +1,2 @@
-public class IllegalCommandException extends Exception{
+public class IllegalCommandException extends Exception {
 }

@@ -1,2 +1,2 @@
-public class ProcessInputException extends Exception{
+public class ProcessInputException extends Exception {
 }

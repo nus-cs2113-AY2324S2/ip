@@ -12,7 +12,6 @@ public class CacheManager {
     /**
      * Creates a file called "duke.txt" to cache user data in directory "data"
      * Creates a new directory called "data" if not created yet
-     *
      */
     public static void spawnCacheFile() {
         File f = new File(CACHE_FILE_PATH);
@@ -30,7 +29,6 @@ public class CacheManager {
      * Reads user data from cache file and adds the tasks based on read data
      *
      * @throws IllegalArgumentException If zone is <= 0.
-     *
      */
     public static void bootFromCache() throws FileNotFoundException {
         File f = new File(CACHE_FILE_PATH);
@@ -74,7 +72,6 @@ public class CacheManager {
      * Appends a new task to cache file
      *
      * @param task
-     *
      */
     public static void updateCache(Task task) {
         try {
@@ -86,9 +83,9 @@ public class CacheManager {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * Overwrites the entire cache file whenever tasks are marked, unmarked or deleted
-     *
      */
     public static void updateCache() {
         try {

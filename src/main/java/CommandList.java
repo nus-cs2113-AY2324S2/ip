@@ -1,17 +1,17 @@
 public enum CommandList {
     BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND//insert new command name here
     ;
+
     /**
      * Exits the program
-     *
      */
     public static void executeBye() {
         Formatter.printGoodbyeMsg();
         CommandExecutor.isRunning = false;
     }
+
     /**
      * Prints user list
-     *
      */
     public static void executeList() {
         if (CommandExecutor.tasks.isEmpty()) {
@@ -26,7 +26,6 @@ public enum CommandList {
      *
      * @param userCommandReader the parsed user input
      * @return index location of task in list
-     *
      */
     public static int executeMark(CommandParser userCommandReader) {
         int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
@@ -44,7 +43,6 @@ public enum CommandList {
      *
      * @param userCommandReader the parsed user input
      * @return index location of task in list
-     *
      */
     public static int executeUnmark(CommandParser userCommandReader) {
         int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
@@ -56,12 +54,12 @@ public enum CommandList {
         }
         return userSelectedIndex;
     }
+
     /**
      * Returns and adds a Todo task into list
      *
      * @param userCommandReader the parsed user input
      * @return The todo task
-     *
      */
     public static Todo executeTodo(CommandParser userCommandReader) {
         Todo newTodo = new Todo(userCommandReader.getArgumentTokens()[0]);
@@ -75,7 +73,6 @@ public enum CommandList {
      *
      * @param userCommandReader the parsed user input
      * @return The deadline task
-     *
      */
     public static Deadline executeDeadline(CommandParser userCommandReader) {
         Deadline newDeadline = new Deadline(userCommandReader.getArgumentTokens()[0], userCommandReader.getArgumentTokens()[1]);
@@ -83,12 +80,12 @@ public enum CommandList {
         Formatter.printTaskNotif(newDeadline);
         return newDeadline;
     }
+
     /**
      * Returns and adds a Event task into list
      *
      * @param userCommandReader the parsed user input
      * @return The event task
-     *
      */
     public static Event executeEvent(CommandParser userCommandReader) {
         String description = userCommandReader.getArgumentTokens()[0];
@@ -100,12 +97,12 @@ public enum CommandList {
         Formatter.printTaskNotif(newEvent);
         return newEvent;
     }
+
     /**
      * Returns the index of deleted task and deletes task from list
      *
      * @param userCommandReader the parsed user input
      * @return The index of deleted task
-     *
      */
     public static int executeDelete(CommandParser userCommandReader) {
         int userSelectedIndex = Integer.parseInt(userCommandReader.getArgumentTokens()[0]);
