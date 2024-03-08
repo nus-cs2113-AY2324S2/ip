@@ -1,7 +1,7 @@
 package drosstasks;
 
 /**
- * Represents a generic task with a description and a completion status.
+ * Represents a generic task with a description and a completion status .
  */
 public class Task {
     private String description;
