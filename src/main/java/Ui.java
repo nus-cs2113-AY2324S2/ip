@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Ui {
     public static final String LINE_DIVIDER = "------------------------------------------";
-    public static final String OUTPUT_INDENTATION = "    ";
     private Scanner input = new Scanner(System.in);
 
     public void printStartingMessage() {
@@ -18,7 +17,7 @@ public class Ui {
         System.out.println(LINE_DIVIDER);
     }
 
-    public String inputPrompt() {
+    public String getInput() {
         return input.nextLine();
     }
     public void closeScanner() {

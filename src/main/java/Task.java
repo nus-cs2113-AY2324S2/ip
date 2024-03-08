@@ -1,14 +1,8 @@
 public class Task {
-    public static final String OUTPUT_INDENTATION = "    ";
+
     protected String description;
     protected boolean isDone;
     protected String taskType;
-
-    public Task(String description, boolean b) {
-        this.description = description;
-        this.isDone = b;
-        this.taskType = "";
-    }
 
     public Task(String description) {
         this.description = description;
@@ -36,5 +30,4 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-
 }

@@ -41,18 +41,17 @@ public class Parser {
                 throw new ChandlerException("You need to specify if it's a todo, deadline, or event.");
         }
     }
-    public void parseLineFromFile (String line, TaskList taskList) throws ChandlerException {
+    public void parseLineFromFile(String line, TaskList taskList) throws ChandlerException {
         String[] parts = line.split(" \\| "); // Assuming the format is: Type | Status | Description | Additional Info (optional)
         String taskType = parts[0];
         storageParser = new Storage();
         if (parts.length >= 3) {
-            Integer doneStatus = Integer.parseInt(parts[1]);
+            int doneStatus = Integer.parseInt(parts[1]);
             String description = parts[2];
             String additionalInfo = parts.length > 3 ? parts[3] : "";
             storageParser.createTaskFromParsedLine(taskType, doneStatus, description, additionalInfo, taskList);
         } else {
-            // Handle unexpected format (corrupted data)
-            System.err.println("Corrupted data: Unexpected format in the file.");
+            throw new ChandlerException("Corrupted data: Unexpected format in the file.");
         }
     }
 

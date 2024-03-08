@@ -27,10 +27,10 @@ public class Storage{
             fileScanner.close();
         } catch (FileNotFoundException e) {
             // Handle file not found
-            System.err.println("File not found: " + e.getMessage());
+            throw new ChandlerException("File not found: " + e.getMessage());
         } catch (IOException e) {
             // Handle IO exceptions
-            System.err.println("Error saving task: " + e.getMessage());
+            throw new ChandlerException("Error reading file: " + e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class Storage{
     }
 
     // Save the task list to the file (make it in the format of |)
-    public void saveTaskListToFile(TaskList taskList) {
+    public void saveTaskListToFile(TaskList taskList) throws ChandlerException{
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (int i = 0; i < taskList.getListSize(); i++) {
                 Task currentTask = taskList.getTask(i);
@@ -72,19 +72,26 @@ public class Storage{
                 String doneStatus = currentTask.isDone ? "1" : "0";
                 String description = currentTask.getDescription();
                 String additionalInfo = "";
-                if (taskType.equals("T")) {
-                    additionalInfo = "";
-                } else if (taskType.equals("D")) {
-                    additionalInfo = ((Deadline) currentTask).by;
-                } else if (taskType.equals("E")) {
-                    additionalInfo = ((Event) currentTask).from + " - " + ((Event) currentTask).to;
+
+                if (taskType == null) {
+                    throw new ChandlerException(" Corrupted data: Unexpected task type in the file.");
                 }
-                writer.write(taskType + " | " + doneStatus + " | " + description + " | " + additionalInfo + "\n");
+                switch (taskType) {
+                    case "T":
+                        additionalInfo = "";
+                        break;
+                    case "D":
+                        additionalInfo = " | " + ((Deadline) currentTask).by;
+                        break;
+                    case "E":
+                        additionalInfo = " | " + ((Event) currentTask).from + " - " + ((Event) currentTask).to;
+                        break;
+                }
+                writer.write(taskType + " | " + doneStatus + " | " + description + additionalInfo + "\n");
             }
             writer.close();
         } catch (IOException e) {
-            // Handle IO exceptions
-            System.err.println("Error saving task: " + e.getMessage());
+            throw new ChandlerException("Error writing to file: " + e.getMessage());
         }
     }
 }

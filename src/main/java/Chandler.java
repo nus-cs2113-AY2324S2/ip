@@ -22,7 +22,7 @@ public class Chandler {
 
     public void run() {
         ui.printStartingMessage();
-        String input = ui.inputPrompt();
+        String input = ui.getInput();
         System.out.println(LINE_DIVIDER);
 
         while(!input.equals("bye")) {
@@ -33,11 +33,15 @@ public class Chandler {
                 System.out.println("ChandlerException: " + e.getMessage());
                 System.out.println(LINE_DIVIDER);
             }
-            input = ui.inputPrompt();
+            input = ui.getInput();
             System.out.println(LINE_DIVIDER);
         }
+        try {
+            storageManager.saveTaskListToFile(taskList);
+        } catch (ChandlerException e) {
+            System.out.println("ChandlerException: " + e.getMessage());
+        }
         ui.printEndingMessage();
-        storageManager.saveTaskListToFile(taskList);
     }
 
     public static void main(String[] args) {

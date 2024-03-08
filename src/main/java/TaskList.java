@@ -22,52 +22,29 @@ public class TaskList {
         return taskList.get(index);
     }
 
-    // Add a string type task to the list
-    public void addTask (String taskType, String description) throws ChandlerException{
-        // Error when no task has been specified
-        if (Objects.equals(description, "")) {
-            throw new ChandlerException("You need to specify if it's a todo, deadline or event.");
-        }
-
-        switch (taskType.toUpperCase()) {
-            case "T":
-                addTodo(description);
-                break;
-            case "D":
-                addDeadline(description);
-                break;
-            case "E":
-                addEvent(description);
-                break;
-            default:
-                System.err.println("Invalid task type");
-        }
-    }
     // Add a todo to the taskList
-    public void addTodo (String description) {
+    public void addTodo(String description) {
         Todo taskTodo = new Todo(description);
         addTask(taskTodo);
-        System.out.println(
-                OUTPUT_INDENTATION + "Awesome! Something to do without deadline hehe\n" +
-                        OUTPUT_INDENTATION + "  " + taskTodo + "\n" +
-                        OUTPUT_INDENTATION + "You better not procrastinate... or maybe you should");
+        System.out.println(OUTPUT_INDENTATION + "Awesome! Something to do without deadline hehe\n"
+                + OUTPUT_INDENTATION + "  " + taskTodo + "\n"
+                + OUTPUT_INDENTATION + "You better not procrastinate... or maybe you should");
     }
 
     // Add a deadline to the taskList
-    public void addDeadline (String description) {
+    public void addDeadline(String description) {
         int indexBy = description.indexOf("/by");
         String task = description.substring(0, indexBy).trim();
         String by = description.substring(indexBy + 4);
         Deadline taskDeadline = new Deadline(task, by);
         addTask(taskDeadline);
-        System.out.println(
-                OUTPUT_INDENTATION + "Oh wow... a deadline, how exciting :)\n" +
-                        OUTPUT_INDENTATION + "  " + taskDeadline+ "\n" +
-                        OUTPUT_INDENTATION + "A deadline a day keeps the sanity away.");
+        System.out.println(OUTPUT_INDENTATION + "Oh wow... a deadline, how exciting :)\n"
+                + OUTPUT_INDENTATION + "  " + taskDeadline+ "\n"
+                + OUTPUT_INDENTATION + "A deadline a day keeps the sanity away.");
     }
 
     // Add an event to the taskList
-    public void addEvent (String description) {
+    public void addEvent(String description) {
         int indexFrom = description.indexOf("/from");
         int indexTo = description.indexOf("/to");
         String task = description.substring(0, indexFrom).trim();
@@ -75,10 +52,9 @@ public class TaskList {
         String to = description.substring(indexTo + 4).trim();
         Event taskEvent = new Event(task, from, to);
         addTask(taskEvent);
-        System.out.println(
-                OUTPUT_INDENTATION + "Event... yeay.\n" +
-                        OUTPUT_INDENTATION + "  " + taskEvent + "\n" +
-                        OUTPUT_INDENTATION + "Can it BE any more fun?");
+        System.out.println(OUTPUT_INDENTATION + "Event... yeay.\n"
+                + OUTPUT_INDENTATION + "  " + taskEvent + "\n"
+                + OUTPUT_INDENTATION + "Can it BE any more fun?");
     }
 
     // Delete a task from the list
@@ -95,22 +71,38 @@ public class TaskList {
 
     // Mark a task as done
     public void markTaskAsDone(int task_number) throws ChandlerException {
-        if (task_number < 0 || task_number >= listSize) {
+        if (task_number < 0) {
             throw new ChandlerException("Invalid task number");
         }
-        System.out.println(OUTPUT_INDENTATION + "Nice! I've marked this task as done:");
-        taskList.get(task_number).markAsDone();
-        System.out.println(OUTPUT_INDENTATION + taskList.get(task_number));
+        if (task_number >= listSize) {
+            throw new ChandlerException("Task number exceeds list size");
+        }
+        if (taskList.get(task_number).isDone) {
+            System.out.println(OUTPUT_INDENTATION + "But, you have already done the task.");
+            System.out.println(OUTPUT_INDENTATION + "I can totally see why you would mark it again.");
+        } else {
+            System.out.println(OUTPUT_INDENTATION + "Nice! I've marked this task as done:");
+            taskList.get(task_number).markAsDone();
+            System.out.println(OUTPUT_INDENTATION + taskList.get(task_number));
+        }
     }
 
     // Mark a task as undone
     public void markTaskAsUndone(int task_number) throws ChandlerException {
-        if (task_number < 0 || task_number >= listSize) {
+        if (task_number < 0) {
             throw new ChandlerException("Invalid task number");
         }
-        System.out.println(OUTPUT_INDENTATION + "Ok, I've marked this task as not done yet:");
-        taskList.get(task_number).markAsUndone();
-        System.out.println(OUTPUT_INDENTATION + taskList.get(task_number));
+        if (task_number >= listSize) {
+            throw new ChandlerException("Task number exceeds list size");
+        }
+        if (!taskList.get(task_number).isDone) {
+            System.out.println(OUTPUT_INDENTATION + "You must be enjoying the task so much :)");
+            System.out.println(OUTPUT_INDENTATION + "Because you are unmarking an unmarked task.");
+        } else {
+            System.out.println(OUTPUT_INDENTATION + "Ok, I've marked this task as not done yet:");
+            taskList.get(task_number).markAsUndone();
+            System.out.println(OUTPUT_INDENTATION + taskList.get(task_number));
+        }
     }
 
     public void findMatchingTasks(String keyword) {
@@ -123,15 +115,23 @@ public class TaskList {
                 System.out.println(OUTPUT_INDENTATION + matchingTasks + "." + taskList.get(index));
             }
         }
-        System.out.println("You have " + matchingTasks + " matching tasks in the list.");
+        if (matchingTasks <= 0) {
+            System.out.println("Oops, there is no task that contains the keyword: " + keyword);
+        } else {
+            System.out.println("You have " + matchingTasks + " matching tasks in the list.");
+        }
     }
 
     // List all the tasks in the list
     public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int index = 0; index < listSize; index++) {
-            System.out.println(OUTPUT_INDENTATION + (index+1) + "." + taskList.get(index));
+        if (listSize <= 0) {
+            System.out.println("You currently do not have any tasks.");
+            System.out.println("Let's keep it that way shall we? :)");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int index = 0; index < listSize; index++) {
+                System.out.println(OUTPUT_INDENTATION + (index + 1) + "." + taskList.get(index));
+            }
         }
     }
-
 }
