@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-public class DataManager {
+public class Storage {
 
     private static void writeToFile(String filePath, String textToAppend, boolean isAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, isAppend);

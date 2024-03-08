@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Nehsik {
     public static final int MARK_TASK_INDEX = 5;
     public static final int UNMARK_TASK_INDEX = 7;
@@ -8,11 +9,11 @@ public class Nehsik {
     public static final String DATA_FILE_PATH = "./nehsik.txt";
 
     public static void main(String[] args) {
-        displayGreetings();
+        Ui.displayGreetings();
 
         Scanner in = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
-        DataManager.loadTasksFromFile(DATA_FILE_PATH, taskList);
+        Storage.loadTasksFromFile(DATA_FILE_PATH, taskList);
 
         while (true) {
             try {
@@ -35,25 +36,25 @@ public class Nehsik {
                 } else if (command.startsWith("delete")) {
                     deleteTask(command, taskList);
                 } else if (command.equals("bye")) {
-                    displayExitMessage();
+                    Ui.displayExitMessage();
                     break;
                 } else {
                     throw new NehsikException("Invalid Command");
                 }
             } catch (NehsikException e) {
-                printLine();
+                Ui.printLine();
                 System.out.println(e.getMessage());
-                printLine();
+                Ui.printLine();
             }
 
-            DataManager.saveTasksToFile(DATA_FILE_PATH, taskList);
+            Storage.saveTasksToFile(DATA_FILE_PATH, taskList);
         }
 
         in.close();
     }
 
     private static void displayTaskList(ArrayList<Task> taskList) {
-        printLine();
+        Ui.printLine();
         int taskListSize = taskList.size();
         if (taskListSize > 0) {
             System.out.println("Here are the tasks in your list:");
@@ -63,7 +64,7 @@ public class Nehsik {
         } else {
             System.out.println("You have no tasks");
         }
-        printLine();
+        Ui.printLine();
     }
 
     private static void markTask(String command, ArrayList<Task> taskList) throws NehsikException {
@@ -80,11 +81,11 @@ public class Nehsik {
         if (taskNum >= taskListSize || taskNum < 0) {
             throw new NehsikException("Please enter a valid task number. There are " + taskListSize + " tasks in the list");
         }
-        printLine();
+        Ui.printLine();
         System.out.println("Nice! I've marked this task as done:");
         taskList.get(taskNum).markAsDone();
         System.out.println(taskList.get(taskNum).toString());
-        printLine();
+        Ui.printLine();
     }
 
     private static void unmarkTask(String command, ArrayList<Task> taskList) throws NehsikException {
@@ -101,11 +102,11 @@ public class Nehsik {
         if (taskNum >= taskListSize || taskNum < 0) {
             throw new NehsikException("Please enter a valid task number. There are " + taskListSize + " tasks in the list");
         }
-        printLine();
+        Ui.printLine();
         System.out.println("OK, I've marked this task as not done yet:");
         taskList.get(taskNum).markAsUndone();
         System.out.println(taskList.get(taskNum).toString());
-        printLine();
+        Ui.printLine();
     }
 
     private static void addTodoTask(String command, ArrayList<Task> taskList) throws NehsikException {
@@ -177,37 +178,20 @@ public class Nehsik {
             throw new NehsikException("Please enter a valid task number. There are " + taskListSize + " tasks in the list");
         }
 
-        printLine();
+        Ui.printLine();
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + taskList.get(taskNum).toString());
         taskList.remove(taskNum);
         System.out.println("Now you have " + taskList.size() + " tasks in the list");
-        printLine();
+        Ui.printLine();
     }
 
     private static void acknowledgeTaskAdded(ArrayList<Task> taskList) {
         int latestTaskIndex = taskList.size() - 1;
-        printLine();
+        Ui.printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + taskList.get(latestTaskIndex).toString());
         System.out.println("Now you have " + (latestTaskIndex + 1) + " tasks in the list");
-        printLine();
-    }
-
-    private static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void displayGreetings() {
-        printLine();
-        System.out.println("Hala habibi! Shlonik? Shakhbarak?");
-        System.out.println("I'm Nehsik, What can I do for you?");
-        printLine();
-    }
-
-    private static void displayExitMessage() {
-        printLine();
-        System.out.println("Yalla bye. Ka Mal Lah!");
-        printLine();
+        Ui.printLine();
     }
 }
