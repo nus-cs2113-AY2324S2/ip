@@ -26,7 +26,7 @@ public class Storage {
     public static final String CORRUPTED_STORAGE_MESSAGE = "Saved tasks are corrupted\n" + "Starting with a new task list";
     public static final String STORAGE_FILE_NOT_FOUND_ERROR_MESSAGE = "Storage file not found\n" + "Starting with an empty task list";
     public static final String SAVING_TASKS_ERROR_MESSAGE = "An error occurred while saving tasks";
-    private final File file;
+    private final String filePath;
 
     /**
      * Constructs a storage with the file path.
@@ -34,7 +34,12 @@ public class Storage {
      * @param filePath the file path.
      */
     public Storage(String filePath) {
-        this.file = new File(filePath);
+        this.filePath = filePath;
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (!directory.exists()) {
+            directory.mkdirs(); // This will create the parent directories if they don't exist
+        }
     }
 
     /**
@@ -45,6 +50,7 @@ public class Storage {
      */
     public ArrayList<Task> load() throws SchmidtException {
         try {
+            File file = new File(filePath);
             ArrayList<Task> tasks;
             tasks = new ArrayList<>();
             Scanner scanner = new Scanner(file);
@@ -68,6 +74,7 @@ public class Storage {
      */
     public void save(TaskList tasks) throws SchmidtException {
         try {
+            File file = new File(filePath);
             FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task task = tasks.getTask(i);
