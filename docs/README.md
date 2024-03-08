@@ -84,10 +84,10 @@ Lists all tasks your task list.
   Example of usage: `list`.
 * Expected outcome:
    ```
-     Got it. I've added this task: 
-       [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
-     Now you have 7 tasks in the list
+     Noted. I've removed this task:
+     [T][ ] Merida: Answer GDP2021 questions
    ```
+
 [Back to Commands Usage Overview](#commands-usage-overview)<br>
 
 ### 5. Mark a task in task list: `mark`
@@ -118,8 +118,8 @@ Displays your tasks containing `WORD` in your task list.<br>
   Example of usage: `find GDP2021`.<br>
 * Expected outcome:
    ```
-     OK, I've marked this task as not done yet:
-     [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
+     Noted. I've removed this task:
+     [T][ ] Merida: Answer GDP2021 questions
    ```
 
 ### 8. Delete a task in task list: `delete`
