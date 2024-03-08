@@ -1,9 +1,9 @@
 package schmidt.storage;
 
-import schmidt.command.Command;
 import schmidt.exception.SchmidtException;
 import schmidt.parser.Parser;
-import schmidt.task.*;
+import schmidt.task.Task;
+import schmidt.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,6 +17,11 @@ import java.util.Scanner;
 public class Storage {
     private final File file;
 
+    /**
+     * Constructs a storage with the file path.
+     *
+     * @param filePath the file path
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }

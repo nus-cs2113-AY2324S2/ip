@@ -10,6 +10,11 @@ import schmidt.ui.Ui;
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Constructs a find command with the keyword to find.
+     *
+     * @param keyword the keyword to find
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

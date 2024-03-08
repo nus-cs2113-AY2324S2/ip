@@ -13,6 +13,12 @@ public class MarkCommand extends Command {
     private final int taskIndex;
     private final boolean isDone;
 
+    /**
+     * Constructs a mark command with the index of the task to mark and whether to mark it as done or undone.
+     *
+     * @param taskIndex the index of the task to mark
+     * @param isDone whether to mark the task as done or undone
+     */
     public MarkCommand(int taskIndex, boolean isDone) {
         this.taskIndex = taskIndex;
         this.isDone = isDone;
@@ -32,7 +38,7 @@ public class MarkCommand extends Command {
         try {
             markedTask = tasks.setDone(taskIndex, isDone);
         } catch (Exception e) {
-            throw new SchmidtException("Please enter a valid task number\n\t[un]mark <task number>");
+            throw new SchmidtException("Sorry, I cannot find a task with the number " + (taskIndex + 1));
         }
 
         try {

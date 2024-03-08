@@ -1,11 +1,19 @@
 package schmidt.parser;
 
-import schmidt.command.*;
+
+import schmidt.command.AddCommand;
+import schmidt.command.Command;
+import schmidt.command.DeleteCommand;
+import schmidt.command.ExitCommand;
+import schmidt.command.FindCommand;
+import schmidt.command.HelpCommand;
+import schmidt.command.ListCommand;
+import schmidt.command.MarkCommand;
 import schmidt.exception.SchmidtException;
 import schmidt.task.Deadline;
 import schmidt.task.Event;
-import schmidt.task.Todo;
 import schmidt.task.Task;
+import schmidt.task.Todo;
 
 /**
  * Represents a parser to parse user input into commands.
@@ -24,6 +32,7 @@ public class Parser {
             String taskStatus;
             String taskDescription;
             String taskTime;
+            // find the type of task and parse it accordingly
             if (task instanceof Todo) {
                 taskType = "T";
                 taskStatus = task.getStatus() ? "1" : "0";
@@ -161,7 +170,7 @@ public class Parser {
      * @return the todo task
      * @throws SchmidtException if the command is invalid
      */
-    public static Todo parseTodoCommand(String command) throws SchmidtException {
+    private static Todo parseTodoCommand(String command) throws SchmidtException {
         try {
             // split by the first whitespace to get the description
             String[] inputTokens = command.split("\\s+", 2);
@@ -181,7 +190,7 @@ public class Parser {
      * @return the deadline task
      * @throws SchmidtException if the command is invalid
      */
-    public static Deadline parseDeadlineCommand(String command) throws SchmidtException {
+    private static Deadline parseDeadlineCommand(String command) throws SchmidtException {
         try {
             // parse the input to get the description and by
             String[] commandTokens = command.split("\\s+/by\\s+");
@@ -203,7 +212,7 @@ public class Parser {
      * @return the event task
      * @throws SchmidtException if the command is invalid
      */
-    public static Event parseEventCommand(String command) throws SchmidtException {
+    private static Event parseEventCommand(String command) throws SchmidtException {
         try {
             // split by "/from" to get the description and time details
             String[] commandSplitByFrom = command.split("\\s+/from\\s+");
@@ -229,7 +238,7 @@ public class Parser {
      * @return the index of the command
      * @throws SchmidtException if the command is invalid
      */
-    public static int parseIndexCommand(String command) throws SchmidtException {
+    private static int parseIndexCommand(String command) throws SchmidtException {
         try {
             // split by the first whitespace to get the index
             String[] inputTokens = command.split("\\s+", 2);
@@ -252,7 +261,7 @@ public class Parser {
      * @return the keyword to be found
      * @throws SchmidtException if the command is invalid
      */
-    public static String parseFindCommand(String command) throws SchmidtException {
+    private static String parseFindCommand(String command) throws SchmidtException {
         try {
             // split by the first whitespace to get the keyword
             String[] inputTokens = command.split("\\s+", 2);

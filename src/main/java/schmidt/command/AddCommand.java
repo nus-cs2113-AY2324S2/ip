@@ -12,6 +12,11 @@ import schmidt.ui.Ui;
 public class AddCommand extends Command {
     private final Task taskToAdd;
 
+    /**
+     * Constructs an add command with the task to add.
+     *
+     * @param taskToAdd the task to add
+     */
     public AddCommand(Task taskToAdd) {
         this.taskToAdd = taskToAdd;
     }

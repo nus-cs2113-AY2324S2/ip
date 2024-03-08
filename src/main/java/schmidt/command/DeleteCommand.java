@@ -12,6 +12,11 @@ import schmidt.ui.Ui;
 public class DeleteCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs a delete command with the index of the task to delete.
+     *
+     * @param index the index of the task to delete
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
@@ -30,7 +35,7 @@ public class DeleteCommand extends Command {
         try {
             deletedTask = tasks.deleteTask(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new SchmidtException("Invalid task number");
+            throw new SchmidtException("Sorry, I cannot find a task with the number " + (index + 1));
         }
 
         try {

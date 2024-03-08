@@ -1,3 +1,3 @@
-D | 0 | ba/by birthday | november
-T | 0 | hi
-E | 0 | hi | hi | hi
+T | 0 | buy GRE practice book
+D | 0 | turn in iP project | eod
+E | 0 | eat dinner | 6pm | 7pm
