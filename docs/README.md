@@ -9,7 +9,7 @@ help users get familiarized with the different commands available in the applica
 
 ## Quick Start 
 1. Download Java11.
-2. Download the latest JAR file from [here]().
+2. Download the latest JAR file from [here](https://github.com/liuzehui03/ip/releases/tag/A-Release).
 3. Move the JAR file into an empty folder.
 4. In the command terminal, use the `cd` command to switch to the
    folder with the JAR file.
