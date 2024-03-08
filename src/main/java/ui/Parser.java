@@ -25,6 +25,7 @@ public class Parser {
             throw new EkudException();
         }
         int descriptionStart = dividerPosition + 1;
+        
         return new Todo(userInput.substring(descriptionStart).trim());
     }
 
@@ -37,11 +38,13 @@ public class Parser {
      */
     public static Deadline parseDeadline(String userInput) throws EkudException, IndexOutOfBoundsException {
 
+        // Get boundaries of substrings in userInput.
         int dividerPosition = userInput.indexOf(" ");
         int slashPosition = userInput.indexOf("/by");
         int descriptionStart = dividerPosition + 1;
         int descriptionEnd = slashPosition - 1;
         int byStart = slashPosition + 4;
+
         return new Deadline(userInput.substring(descriptionStart, descriptionEnd).trim(),
                 userInput.substring(byStart).trim());
     }
@@ -55,6 +58,7 @@ public class Parser {
      */
     public static Event parseEvent(String userInput) throws EkudException, IndexOutOfBoundsException {
 
+        // Get boundaries of substrings in userInput.
         int dividerPosition = userInput.indexOf(" ");
         int descriptionStart = dividerPosition + 1;
         int descriptionEnd = userInput.indexOf("/from") - 1;
