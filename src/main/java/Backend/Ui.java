@@ -21,6 +21,6 @@ public class Ui {
     }
 
     public static void showLine() {
-        System.out.println("______________________________________");
+        System.out.println("______________________________________\n");
     }
 }
