@@ -68,7 +68,7 @@ public abstract class Command {
             if (nextIndex != -1) {
                 return line.substring(index, nextIndex).trim();
             } else {
-                throw new IncompletePromptException();
+                throw new IncompletePromptException(true);
             }
         }
         return line.substring(index).trim();

@@ -48,7 +48,7 @@ public class Duke {
                     c.execute(list, storageHandler);
                 }
             } catch (IncompletePromptException e) {
-                if (!line.equals("list")) {
+                if (!line.equals("list") && e.isPrintMessage()) {
                     System.out.println("Sorry, your sentence appears to be incomplete. Could you complete your sentence?");
                 }
             } catch (UnknownPromptException e) {
