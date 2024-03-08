@@ -45,7 +45,7 @@ public class Task {
     }
 
     /**
-     * Give the newly created task an associated task number.
+     * Gives the newly created task an associated task number.
      */
     private void setTaskNumber(int taskNumber) {
         this.taskNumber = taskNumber;
