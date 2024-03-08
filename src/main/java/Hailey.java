@@ -31,7 +31,6 @@ public class Hailey {
 
         scanner.close();
     }
-
     private static void listTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No tasks added yet.");
