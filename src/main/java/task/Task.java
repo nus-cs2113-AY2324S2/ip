@@ -1,8 +1,9 @@
 package task;
 
-import java.io.Serializable;
-
-public abstract class Task implements Serializable {
+/**
+ * The Task class is an abstract representation of a task.
+ */
+public abstract class Task {
     protected static final String DONE = "X";
     protected static final String IN_PROGRESS = " ";
     protected boolean isDone;

@@ -3,6 +3,9 @@ package command;
 import task.TaskList;
 import ui.ResponseManager;
 
+/**
+ * The ListCommand class represents a command to list all the tasks in the task list.
+ */
 public class ListCommand implements Command {
     /**
      * {@inheritDoc}

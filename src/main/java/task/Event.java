@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The Event class represents a task that starts at a specific date/time and ends at a specific date/time.
+ */
 public class Event extends Task {
     private static final int TASK_NAME_INDEX = 0;
     private static final int START_DATE_INDEX = 1;

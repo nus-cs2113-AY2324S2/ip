@@ -2,6 +2,9 @@ package ui;
 
 import command.CommandType;
 
+/**
+ * The ResponseManager class handles the response to the user.
+ */
 public class ResponseManager {
     private static final String LOGO =
             "███████╗██╗   ██╗██╗  ██╗███████╗\n" +
@@ -73,6 +76,9 @@ public class ResponseManager {
     public static final String TIME_PARADOX_MSG =
             "U HAVE REACHED A TIME PARADOX!!!\n" +
             "The start time cannot be after the end time\n";
+    public static final String GREET_MSG = "Hello! I'm Zuke\n" +
+            "What can I do for you?\n" +
+            "\nNeed help? Command help for the manual :>\n";
 
     /**
      * Prints the response to the user with indentation line.
@@ -89,8 +95,7 @@ public class ResponseManager {
      */
     public static void greet() {
         System.out.println("Hello from\n" + LOGO);
-        indentPrint("Hello! I'm Zuke\n" +
-                "What can I do for you?\n");
+        indentPrint(GREET_MSG);
     }
 
     /**

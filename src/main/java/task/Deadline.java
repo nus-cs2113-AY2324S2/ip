@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The Deadline class represents a task that must finish before a specific date/time.
+ */
 public class Deadline extends Task {
     private static final int TASK_NAME_INDEX = 0;
     private static final int DUE_DATE_INDEX = 1;

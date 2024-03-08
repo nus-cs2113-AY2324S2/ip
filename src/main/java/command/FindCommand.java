@@ -3,6 +3,9 @@ package command;
 import task.TaskList;
 import ui.ResponseManager;
 
+/**
+ * The FindCommand class represents a command to find tasks in the task list based on a keyword or time. 
+ */
 public class FindCommand implements Command {
     private static final String FIND_TIME = "/t";
     private static final String FIND_WORD = "/w";

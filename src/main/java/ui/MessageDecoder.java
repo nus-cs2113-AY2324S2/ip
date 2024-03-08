@@ -1,14 +1,18 @@
 package ui;
 
-import command.CommandType;
-import exception.InputException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import command.CommandType;
+import exception.ZukeException;
+
+/**
+ * The MessageDecoder class decodes the user input message and 
+ * returns the decoded message.
+ */
 public class MessageDecoder {
     private static final String DEADLINE_PREFIX = "/by";
     private static final String EVENT_START_PREFIX = "/from";
@@ -31,7 +35,7 @@ public class MessageDecoder {
     private static final DateTimeFormatter INPUT_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter OUTPUT_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+            DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     public static final String TIME_PREFIX = "/t";
     public static final String FIND_FORMAT = "\nfind /w <keyword> or find /t <time>\n";
     public static final String EVENT_FORMAT = "\nevent <task name> /from <start time> /to <end time>\n";
@@ -39,12 +43,8 @@ public class MessageDecoder {
     public static final String TODO_FORMAT = "\ntodo <task name>\n";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public static final DateTimeFormatter OUT_DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM dd yyyy");
     public static final DateTimeFormatter TIME_FORMATTER =
             DateTimeFormatter.ofPattern("HHmm");
-    public static final DateTimeFormatter OUT_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("HH:mm");
 
     /**
      * Separates the command from the user input message.
@@ -69,9 +69,9 @@ public class MessageDecoder {
      * @param type type of command received.
      * @param message user input information about the command.
      * @return String[] containing the decoded details regarding the command.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */
-    public static String[] decodeInput(CommandType type, String message) throws InputException {
+    public static String[] decodeInput(CommandType type, String message) throws ZukeException {
         switch (type) {
         case TODO:
             return decodeTodo(message);
@@ -101,14 +101,14 @@ public class MessageDecoder {
      * 
      * @param message user input information about the todo command.
      * @return String[] containing the decoded details for the todo command.
-     * @throws InputException exception thrown when the user input is blank or does not match the format.
+     * @throws ZukeException exception thrown when the user input is blank or does not match the format.
      */
-    private static String[] decodeTodo(String message) throws InputException {
+    private static String[] decodeTodo(String message) throws ZukeException {
         if (message.matches(BLANK)) {
-            throw new InputException(ResponseManager.BLANK_MSG_ERROR);
+            throw new ZukeException(ResponseManager.BLANK_MSG_ERROR);
         }
         if (!message.matches(TODO_REGEX)) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
+            throw new ZukeException(ResponseManager.FORMAT_ERROR_MESSAGE +
                     ResponseManager.TODO +
                     TODO_FORMAT);
         }
@@ -121,11 +121,11 @@ public class MessageDecoder {
      * 
      * @param message user input information about the deadline command.
      * @return String[] containing the decoded details for the deadline command.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */
-    private static String[] decodeDeadline(String message) throws InputException {
+    private static String[] decodeDeadline(String message) throws ZukeException {
         if (!message.matches(DEADLINE_REGEX)) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
+            throw new ZukeException(ResponseManager.FORMAT_ERROR_MESSAGE +
                     ResponseManager.DEADLINE +
                     DEADLINE_FORMAT);
         }
@@ -138,7 +138,7 @@ public class MessageDecoder {
 
         for (String msg : decoded) {
             if (msg.matches(BLANK)) {
-                throw new InputException(ResponseManager.BLANK_MSG_ERROR);
+                throw new ZukeException(ResponseManager.BLANK_MSG_ERROR);
             }
         }
         decoded[DUE_DATE_INDEX] = decodeDateNTime(decoded[DUE_DATE_INDEX]);
@@ -150,11 +150,11 @@ public class MessageDecoder {
      * 
      * @param message user input information about the event command.
      * @return String[] containing the decoded details for the event command.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */
-    private static String[] decodeEvent(String message) throws InputException {
+    private static String[] decodeEvent(String message) throws ZukeException {
         if (!message.matches(EVENT_REGEX)) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE +
+            throw new ZukeException(ResponseManager.FORMAT_ERROR_MESSAGE +
                     ResponseManager.EVENT +
                     EVENT_FORMAT);
         }
@@ -167,7 +167,7 @@ public class MessageDecoder {
         LocalDateTime start = LocalDateTime.parse(decoded[START_DATE_INDEX], OUTPUT_TIME_FORMATTER);
         LocalDateTime end = LocalDateTime.parse(decoded[END_DATE_INDEX], OUTPUT_TIME_FORMATTER);
         if (start.isAfter(end)) {
-            throw new InputException(ResponseManager.TIME_PARADOX_MSG);
+            throw new ZukeException(ResponseManager.TIME_PARADOX_MSG);
         }
         return decoded;
     }
@@ -179,10 +179,10 @@ public class MessageDecoder {
      * @param indexOfFrom index of the start time prefix.
      * @param indexOfTo index of the end time prefix.
      * @return String[] containing the decoded start time and end time for the event command.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */
     private static String[] getFromNTo(String message,
-            int indexOfFrom, int indexOfTo) throws InputException {
+            int indexOfFrom, int indexOfTo) throws ZukeException {
         String[] decoded = new String[EVENT_INFO_COUNT];
         if (indexOfTo > indexOfFrom) {
             decoded[TASK_NAME_INDEX] = message.substring(0, indexOfFrom).trim();
@@ -200,7 +200,7 @@ public class MessageDecoder {
 
         for (String msg : decoded) {
             if (msg.matches(BLANK)) {
-                throw new InputException(ResponseManager.BLANK_MSG_ERROR);
+                throw new ZukeException(ResponseManager.BLANK_MSG_ERROR);
             }
         }
         return decoded;
@@ -211,14 +211,14 @@ public class MessageDecoder {
      * 
      * @param message user input information about the index of the target task.
      * @return String[] containing the decoded index of the target task.
-     * @throws InputException exception thrown when the user input is blank or does not match the format.
+     * @throws ZukeException exception thrown when the user input is blank or does not match the format.
      */
-    private static String[] decodeIndex(String message) throws InputException {
+    private static String[] decodeIndex(String message) throws ZukeException {
         if (message.matches(BLANK)) {
-            throw new InputException(ResponseManager.BLANK_MSG_ERROR);
+            throw new ZukeException(ResponseManager.BLANK_MSG_ERROR);
         }
         if (!message.matches(NUMERIC)) {
-            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+            throw new ZukeException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
         return new String[] {message};
     }
@@ -239,18 +239,18 @@ public class MessageDecoder {
      * 
      * @param message user input information about the find command.
      * @return String[] containing the decoded details for the find command.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */
-    private static String[] decodeFind(String message) throws InputException {
+    private static String[] decodeFind(String message) throws ZukeException {
         if (!message.matches(FIND_REGEX)) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE + CommandType.FIND +
+            throw new ZukeException(ResponseManager.FORMAT_ERROR_MESSAGE + CommandType.FIND +
                     FIND_FORMAT);
         }
 
         int splitLimit = 2;
         String[] typeAndKeyword = message.trim().split("\\s+", splitLimit);
         if (typeAndKeyword.length != splitLimit) {
-            throw new InputException(ResponseManager.FORMAT_ERROR_MESSAGE + CommandType.FIND +
+            throw new ZukeException(ResponseManager.FORMAT_ERROR_MESSAGE + CommandType.FIND +
                     FIND_FORMAT);
         }
 
@@ -266,9 +266,9 @@ public class MessageDecoder {
      * 
      * @param input user input message containing the date and time.
      * @return String containing the parsed date and time.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */    
-    private static String decodeDateNTime(String input) throws InputException {
+    private static String decodeDateNTime(String input) throws ZukeException {
         int splitLimit = 2;
         String[] inputTime = input.split("\\s+", splitLimit);
         if (inputTime.length != splitLimit) {
@@ -280,7 +280,7 @@ public class MessageDecoder {
             return LocalDateTime.parse(formattedTime, INPUT_TIME_FORMATTER)
                     .format(OUTPUT_TIME_FORMATTER);
         } catch (DateTimeParseException error) {
-            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+            throw new ZukeException(ResponseManager.DATE_FORMAT_ERROR);
         }
     }
 
@@ -290,11 +290,11 @@ public class MessageDecoder {
      * 
      * @param input user input message containing the date or time.
      * @return String containing the decoded and formatted date or time.
-     * @throws InputException exception thrown when the user input does not match the format.
+     * @throws ZukeException exception thrown when the user input does not match the format.
      */
-    private static String decodeDateOrTime(String input) throws InputException {
+    private static String decodeDateOrTime(String input) throws ZukeException {
         if (!input.matches(DATE_REGEX) && !input.matches(TIME_REGEX)) {
-            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+            throw new ZukeException(ResponseManager.DATE_FORMAT_ERROR);
         }
 
         String today = LocalDate.now().format(DATE_FORMATTER);
@@ -307,7 +307,7 @@ public class MessageDecoder {
             return LocalDateTime.parse(today + " " + input, INPUT_TIME_FORMATTER)
                     .format(OUTPUT_TIME_FORMATTER);
         } catch (DateTimeParseException error) {
-            throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
+            throw new ZukeException(ResponseManager.DATE_FORMAT_ERROR);
         }
     }
 

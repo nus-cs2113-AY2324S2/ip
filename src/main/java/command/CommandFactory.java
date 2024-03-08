@@ -1,17 +1,20 @@
 package command;
 
-import exception.InputException;
+import exception.ZukeException;
 import ui.MessageDecoder;
 
+/**
+ * The CommandFactory class generates the command of different type based on the decoded user input.
+ */
 public class CommandFactory {
     /**
      * Generates the command of different type based on the decoded user input.
      *
      * @param input the user input.
      * @return the command to be executed.
-     * @throws InputException if the input is invalid.
+     * @throws ZukeException if the input is invalid.
      */
-    public static Command generate(String input) throws InputException {
+    public static Command generate(String input) throws ZukeException {
         String[] processedMessage = MessageDecoder.separateCommand(input);
         String command = processedMessage[0];
         String information = processedMessage[1];

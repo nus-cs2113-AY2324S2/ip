@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import exception.InputException;
+import exception.ZukeException;
 import task.Deadline;
 import task.Event;
 import task.TaskList;
@@ -13,6 +13,9 @@ import task.Todo;
 import ui.MessageDecoder;
 import ui.ResponseManager;
 
+/**
+ * The DataManager class is responsible for creating the file to store or load the saved data.
+ */
 public class DataManager {
     public static final String EVENT = "E";
     private static final String FILE_PATH = "data/zukeBot.txt";
@@ -51,9 +54,9 @@ public class DataManager {
      * Reads the saved data from the file to recover previous task list.
      * 
      * @return TaskList object containing the saved data.
-     * @throws InputException if the file does not exist.
+     * @throws ZukeException if the file does not exist.
      */
-    public static TaskList readSavedData() throws InputException {
+    public static TaskList readSavedData() throws ZukeException {
         try (Scanner reader = new Scanner(new File(FILE_PATH))) {
             TaskList taskList = new TaskList();
             while (reader.hasNextLine()) {
@@ -61,7 +64,7 @@ public class DataManager {
             }
             return taskList;
         } catch (IOException Error) {
-            throw new InputException(ResponseManager.NO_FILE_ERROR);
+            throw new ZukeException(ResponseManager.NO_FILE_ERROR);
         }
     }
 
@@ -71,9 +74,9 @@ public class DataManager {
      * 
      * @param taskList TaskList object to store the saved data.
      * @param input String containing the saved data.
-     * @throws InputException if the file is corrupted.
+     * @throws ZukeException if the file is corrupted.
      */
-    private static void addToTaskList(TaskList taskList, String input) throws InputException {
+    private static void addToTaskList(TaskList taskList, String input) throws ZukeException {
         int splitLimit = 3;
         String[] taskDetails = input.split(" \\| ", splitLimit);
         String[] information = MessageDecoder.decodeSavedData(taskDetails[2]);
@@ -92,7 +95,7 @@ public class DataManager {
             break;
 
         default:
-            throw new InputException(ResponseManager.LOAD_FILE_ERROR);
+            throw new ZukeException(ResponseManager.LOAD_FILE_ERROR);
         }
     }
 

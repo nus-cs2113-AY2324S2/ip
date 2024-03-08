@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The Todo class represents a task that the user wants to do without any date/time attached to it.
+ */
 public class Todo extends Task {
     private static final String TASK_TYPE = "[T]";
 

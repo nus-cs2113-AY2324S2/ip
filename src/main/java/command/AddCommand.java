@@ -7,6 +7,9 @@ import task.Deadline;
 import task.Event;
 import ui.ResponseManager;
 
+/**
+ * The AddCommand class represents a command to add a task to the task list.
+ */
 public class AddCommand implements Command {
     private final CommandType taskType;
     private final String[] taskDetails;

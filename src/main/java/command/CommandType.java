@@ -1,8 +1,11 @@
 package command;
 
-import exception.InputException;
+import exception.ZukeException;
 import ui.ResponseManager;
 
+/**
+ * The CommandType enum contains the type of command that can be executed by ZukeBot.
+ */
 public enum CommandType {
     TODO("todo"),
     DEADLINE("deadline"),
@@ -25,15 +28,15 @@ public enum CommandType {
      *
      * @param input the user input.
      * @return the type of the command.
-     * @throws InputException if the command is not recognized.
+     * @throws ZukeException if the command is not recognized.
      */
-    public static CommandType analyseType(String input) throws InputException {
+    public static CommandType analyseType(String input) throws ZukeException {
         for (CommandType commandType : CommandType.values()) {
             if (commandType.type.equals(input)) {
                 return commandType;
             }
         }
-        throw new InputException(ResponseManager.COMMAND_ERROR);
+        throw new ZukeException(ResponseManager.COMMAND_ERROR);
     }
 
     @Override

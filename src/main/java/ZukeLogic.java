@@ -5,8 +5,11 @@ import command.CommandFactory;
 import task.TaskList;
 import storage.DataManager;
 import ui.ResponseManager;
-import exception.InputException;
+import exception.ZukeException;
 
+/**
+ *  The ZukeLogic class represents the main class that runs the initialization and chat iteration for the Zuke chatbot.
+ */
 public class ZukeLogic {
     private TaskList taskList;
 
@@ -19,7 +22,7 @@ public class ZukeLogic {
         DataManager.createFile();
         try {
             this.taskList = DataManager.readSavedData();
-        } catch (InputException error) {
+        } catch (ZukeException error) {
             ResponseManager.indentPrint(error.getMessage());
         }
     }
@@ -41,7 +44,7 @@ public class ZukeLogic {
                 Command command = CommandFactory.generate(userInput.nextLine());
                 command.run(taskList);
                 exitFlag = command.isExit();
-            } catch (InputException error) {
+            } catch (ZukeException error) {
                 ResponseManager.indentPrint(error.getMessage());
             }
         }

@@ -1,9 +1,12 @@
 package command;
 
-import exception.InputException;
+import exception.ZukeException;
 import task.TaskList;
 import ui.ResponseManager;
 
+/**
+ * The MarkUnmarkCommand class represents a command to mark or unmark a task in the task list.
+ */
 public class MarkUnmarkCommand implements Command {
     private final CommandType taskType;
     private final int taskIndex;
@@ -21,21 +24,21 @@ public class MarkUnmarkCommand implements Command {
      * If task type is unmark, it will unmark the task.
      *
      * @param tasks the task list.
-     * @throws InputException if the index is out of range.
+     * @throws ZukeException if the index is out of range.
      */
     @Override
-    public void run(TaskList tasks) throws InputException {
+    public void run(TaskList tasks) throws ZukeException {
         switch (taskType) {
         case MARK:
             if (tasks.getPosAt(taskIndex).isMarked()) {
-                throw new InputException(ResponseManager.MARKED_TASK_MSG);
+                throw new ZukeException(ResponseManager.MARKED_TASK_MSG);
             }
             tasks.markTask(taskIndex);
             break;
 
         case UNMARK:
             if (tasks.getPosAt(taskIndex).isMarked()) {
-                throw new InputException(ResponseManager.UNMARKED_TASK_MSG);
+                throw new ZukeException(ResponseManager.UNMARKED_TASK_MSG);
             }
             tasks.unmarkTask(taskIndex);
             break;

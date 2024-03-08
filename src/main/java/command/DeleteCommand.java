@@ -1,9 +1,12 @@
 package command;
 
-import exception.InputException;
+import exception.ZukeException;
 import task.TaskList;
 import ui.ResponseManager;
 
+/**
+ * The DeleteCommand class represents a command to delete a task from the task list.
+ */
 public class DeleteCommand implements Command {
     private static final CommandType taskType = CommandType.DELETE;
     private final int taskIndex;
@@ -18,15 +21,15 @@ public class DeleteCommand implements Command {
      * Deletes a task from the task list and prints the delete action to the user.
      *
      * @param tasks the task list.
-     * @throws InputException if the index is out of range.
+     * @throws ZukeException if the index is out of range.
      */
     @Override
-    public void run(TaskList tasks) throws InputException {
+    public void run(TaskList tasks) throws ZukeException {
         if (tasks.getSize() == 0) {
-            throw new InputException(ResponseManager.DELETE_EMPTY_LIST_MSG);
+            throw new ZukeException(ResponseManager.DELETE_EMPTY_LIST_MSG);
         }
         if (taskIndex > tasks.getSize() || taskIndex <= 0) {
-            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+            throw new ZukeException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
         String response = tasks.getPosAt(taskIndex).toString();
         tasks.deleteTaskAt(taskIndex);

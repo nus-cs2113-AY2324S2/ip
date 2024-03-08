@@ -1,13 +1,16 @@
 package task;
 
-import exception.InputException;
-import ui.ResponseManager;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TaskList implements Serializable {
+import exception.ZukeException;
+import ui.ResponseManager;
+
+/**
+ * The TaskList class represents a list of tasks.
+ */
+public class TaskList {
     private final List<Task> tasks;
 
     public TaskList() {
@@ -31,11 +34,11 @@ public class TaskList implements Serializable {
      * Deletes a task from the task list at the labeled index.
      * 
      * @param index the index of the task to be deleted.
-     * @throws InputException if the index is out of range.
+     * @throws ZukeException if the index is out of range.
      */
-    public void deleteTaskAt(int index) throws InputException {
+    public void deleteTaskAt(int index) throws ZukeException {
         if (index > this.getSize()) {
-            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+            throw new ZukeException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
         tasks.remove(index - 1);
     }
@@ -58,11 +61,11 @@ public class TaskList implements Serializable {
      * Marks a task at specified index as done.
      * 
      * @param index the index of the task to be marked.
-     * @throws InputException if the index is out of range.
+     * @throws ZukeException if the index is out of range.
      */
-    public void markTask(int index) throws InputException {
+    public void markTask(int index) throws ZukeException {
         if (index > this.getSize()) {
-            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+            throw new ZukeException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
         Task task = tasks.get(index - 1);
         int position = tasks.indexOf(task);
@@ -74,11 +77,11 @@ public class TaskList implements Serializable {
      * Unmarks a task at specified index as not done.
      * 
      * @param index the index of the task to be unmarked.
-     * @throws InputException if the index is out of range.
+     * @throws ZukeException if the index is out of range.
      */
-    public void unmarkTask(int index) throws InputException {
+    public void unmarkTask(int index) throws ZukeException {
         if (index > this.getSize()) {
-            throw new InputException(ResponseManager.INDEX_ERROR_MESSAGE);
+            throw new ZukeException(ResponseManager.INDEX_ERROR_MESSAGE);
         }
         Task task = tasks.get(index - 1);
         int position = tasks.indexOf(task);

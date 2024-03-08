@@ -3,6 +3,9 @@ package command;
 import task.TaskList;
 import ui.ResponseManager;
 
+/**
+ * The ExitCommand class represents a command to exit the program.
+ */
 public class ExitCommand implements Command {
     /**
      * {@inheritDoc}
