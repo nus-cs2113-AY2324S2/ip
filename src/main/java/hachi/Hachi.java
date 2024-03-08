@@ -38,6 +38,7 @@ public class Hachi {
             tasksList = new TaskList(storage.load());
         } catch (HachiException | FileNotFoundException e) {
             ui.printFileLoadingError();
+            tasksList = new TaskList();
         }
     }
 
