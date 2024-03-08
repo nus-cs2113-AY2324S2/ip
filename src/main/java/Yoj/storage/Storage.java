@@ -62,11 +62,18 @@ public class Storage {
                     }
                     break;
                 case "[E]":
-                    if (parts.length < 5) return null;
-                    String times = parts[3].trim();
-                    String[] timeParts = times.split(" to ", 2);
-                    if (timeParts.length < 2) return null;
-                    task = new Event(description, timeParts[0], timeParts[1]);
+                    String[] eventDetails = parts[2].trim().split(" from ");
+                    if (eventDetails.length < 2) {
+                        return null;
+                    }
+                    String eventDescription = eventDetails[0].trim();
+                    String[] timeDetails = eventDetails[1].trim().split(" to ");
+                    if (timeDetails.length < 2) {
+                        return null;
+                    }
+                    String startTime = timeDetails[0].trim();
+                    String endTime = timeDetails[1].trim();
+                    task = new Event(eventDescription, startTime, endTime);
                     break;
                 }
                 if (task != null) {
@@ -92,7 +99,17 @@ public class Storage {
         FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
         try {
             for (Task task : tasks) { // loop through the ArrayList
-                String textToWrite = task.taskType() + " | " + task.isCompleted() + " | " + task.getDescription() + System.lineSeparator();
+                String textToWrite = task.taskType() + " | " + task.isCompleted();
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    textToWrite += " | " + deadlineTask.getDescription() + " by " + deadlineTask.getBy();
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    textToWrite += " | " + eventTask.getDescription() + " from " + eventTask.getStart() + " to " + eventTask.getEnd();
+                } else {
+                    textToWrite += " | " + task.getDescription();
+                }
+                textToWrite += System.lineSeparator();
                 fw.write(textToWrite); // write the task to the file
             }
         } finally {

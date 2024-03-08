@@ -32,4 +32,11 @@ public class Event extends Task {
     public String toString() {
         return taskType() + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    public String getStart() {
+        return start;
+    }
+    public String getEnd() {
+        return end;
+    }
 }

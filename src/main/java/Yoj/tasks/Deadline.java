@@ -19,6 +19,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+
     /**
      * Provides a string representation of the Deadline task including its type, status, description, and deadline.
      *
@@ -27,5 +28,9 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return taskType() + super.toString() + " (by: " + by + ")";
+    }
+
+    public String getBy() {
+        return by;
     }
 }
