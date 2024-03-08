@@ -1,4 +1,10 @@
-# User Guide
+<!-- 
+Format used here follows the structure of the following webpage:
+https://se-education.org/addressbook-level3/UserGuide.html
+-->
+
+# Anonbot User Guide
+Anonbot is a Command-line application that allows you to create and manage all your tasks.
 
 ## Features 
 
