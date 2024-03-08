@@ -1,24 +1,87 @@
-# Duke project template
+# KuroBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a chat-bot that stores tasks and performs various operations to the tasks. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+## Features
+> [!NOTE]
+> Words in UPPER_CASE are the parameters to be supplied by the user.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+\
+**1. Adding a todo:** todo 
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Adds a task of type todo to the task list.
+
+Format: todo TASK_NAME 
+
+Example:
+>todo borrow book
+
+\
+**2. Adding a deadline:** deadline
+
+Adds a task of type deadline to the task list.
+
+Format: deadline TASK_NAME /by DEADLINE
+
+Example:
+>deadline return book /by Sunday
+
+\
+**3. Adding a event:** event
+
+Adds a task of type event to the task list.
+
+Format: event TASK_NAME /from START_TIME /to END_TIME
+
+Example:
+>event project meeting /from Mon 2pm /to 4pm
+
+\
+**4. Viewing all tasks:** list 
+
+Shows a list of all the added tasks.
+
+Format: list
+
+\
+**5. Mark a task as done:** mark
+
+Marks the specified task as completed.
+
+Format: mark TASK_INDEX
+
+Example:
+>mark 2
+
+\
+**6. Mark a task as undone:** unmark 
+
+Marks the specified task a incompleted.
+
+Format: unmark TASK_INDEX
+
+Example:
+>unmark 2
+
+\
+**7. Delete a task from list:** delete 
+
+Removes the specified task from the list.
+
+Format: delete TASK_INDEX
+
+Example:
+>delete 3
+
+\
+**8. End the session:** bye 
+
+Exits the program.
+
+Format: bye
+
+> [!TIP]
+> Tasks data are saved in the hard disk automatically after any command that changes the data. \
+> There is no need to save manually.
+
+
