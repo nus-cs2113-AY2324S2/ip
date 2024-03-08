@@ -6,8 +6,17 @@ import tasklist.todo.Todo;
 import java.util.ArrayList;
 
 public class TaskList {
+    protected ArrayList<Todo> list;
+    public int taskNum;
+
 
     public TaskList() {
+        list = new ArrayList<>();
+        taskNum = 0;
+    }
+
+    public ArrayList<Todo> getList() {
+        return list;
     }
 
     public static void addTodo(ArrayList<Todo> list, String task, int taskNum) {
