@@ -94,6 +94,11 @@ public class TaskList {
         selectedTask.markAsDone();
     }
 
+    /**
+     * Finds the tasks with keyword in user task list.
+     *
+     * @param keyword The keyword that the user passes in.
+     */
     public void find(String keyword) {
         TaskList matches = new TaskList();
         if (tasks.isEmpty()) {

@@ -4,6 +4,7 @@ package lovie.exception;
  * Represents an exception in Lovie.
  */
 public class LovieException extends Exception{
+
     /**
      * Constructor for LovieException.
      *

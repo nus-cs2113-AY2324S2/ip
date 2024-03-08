@@ -16,18 +16,24 @@ public class Parser {
     public static final int COMMAND = 0;
     public static final String SPACE = " ";
     public static final int HALVES = 2;
-    public static final String TO_INCLUSION = "Oops! Make sure you include a /to for your event. Here is the format:\n" +
-            "event **description** /from **start** /to **end**";
-    public static final String FROM_INCLUSION = "Oops! Make sure you include a /from for your event. Here is the format:\n" +
-            "event **description** /from **start** /to **end**";
-    public static final String BY_INCLUSION = "Oops! Make sure you include a /by for your deadline. Here is the format:\n" +
-            "deadline **description** /by **end**";
-    public static final String DEADLINE_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your deadline! Here is the format:\n" +
-            "deadline **description** /by **end**";
-    public static final String EVENT_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your event! Here is the format:\n" +
-            "event **description** /from **start** /to **end**";
-    public static final String TODO_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your todo! Here is the format:\n" +
-            "todo **description**";
+
+    public static final String NEW_LINE = "\n";
+    public static final String FORMATTER_MESSAGE = "Here is the format:";
+    public static final String EVENT_FORMAT = " event **description** /from **start** /to **end**";
+    public static final String DEADLINE_FORMAT = " deadline **description** /by **end**";
+    public static final String TO_INCLUSION = "Oops! Make sure you include a /to for your event. " +
+            FORMATTER_MESSAGE + NEW_LINE + EVENT_FORMAT;
+    public static final String FROM_INCLUSION = "Oops! Make sure you include a /from for your event. " +
+            FORMATTER_MESSAGE + NEW_LINE + EVENT_FORMAT;
+    public static final String BY_INCLUSION = "Oops! Make sure you include a /by for your deadline. " +
+            FORMATTER_MESSAGE + NEW_LINE + DEADLINE_FORMAT;
+    public static final String DEADLINE_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for " +
+            "your deadline!" + FORMATTER_MESSAGE + NEW_LINE + DEADLINE_FORMAT;
+    public static final String EVENT_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your event!" +
+            FORMATTER_MESSAGE + NEW_LINE + EVENT_FORMAT;
+    public static final String TODO_FORMAT = "todo **description**";
+    public static final String TODO_DESCRIPTION_INCLUSION = "Oops! Make sure you add a description for your todo!" +
+            FORMATTER_MESSAGE + NEW_LINE + TODO_FORMAT;
     private final String line;
     private final String processedInput;
     private final String firstCommand;
@@ -67,11 +73,11 @@ public class Parser {
             tasks.printTasks();
             break;
         case "unmark":
-            unmarkTaskHelper(line);
+            parseUnmarkTask(line);
             storage.saveTasks(tasks);
             break;
         case "mark":
-            markTaskHelper(line);
+            parseMarkTask(line);
             storage.saveTasks(tasks);
             break;
         case "delete":
@@ -79,7 +85,7 @@ public class Parser {
             storage.saveTasks(tasks);
             break;
         case "find":
-            findHelper(line);
+            parseFind(line);
             break;
         case "command":
             ui.commandPrinter();
@@ -127,11 +133,11 @@ public class Parser {
     }
 
     /**
-     * Helper method to mark a task.
+     * Parses the user input to pass into markTask.
      *
      * @param input The input from the user.
      */
-    public void markTaskHelper(String input) {
+    public void parseMarkTask(String input) {
         int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
         if (taskNumber >= tasks.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
@@ -142,11 +148,11 @@ public class Parser {
     }
 
     /**
-     * Helper method to find a task using user-given keyword.
+     * Parses user input to pass into find (extracts the keyword).
      *
      * @param input The input from the user.
      */
-    public void findHelper(String input) {
+    public void parseFind(String input) {
         String[] inputParts = input.split(SPACE);
         if (inputParts.length < HALVES) {
             ui.noValidFindPrinter();
@@ -157,11 +163,11 @@ public class Parser {
     }
 
     /**
-     * Helper method to unmark a task.
+     * Parses the user input to pass into unmarkTask.
      *
      * @param input The input from the user.
      */
-    public void unmarkTaskHelper(String input) {
+    public void parseUnmarkTask(String input) {
         int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
         if (taskNumber >= tasks.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
@@ -197,7 +203,7 @@ public class Parser {
             throw new LovieException(DEADLINE_DESCRIPTION_INCLUSION);
         }
         String[] byParts = input.trim().split("/by", HALVES);
-        if (byParts.length <= 1 || byParts[1].trim().isEmpty()) { //what if there are 2 /by methods
+        if (byParts.length <= 1 || byParts[1].trim().isEmpty()) {
             throw new LovieException(BY_INCLUSION);
         }
     }

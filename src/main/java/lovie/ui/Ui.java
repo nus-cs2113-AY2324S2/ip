@@ -188,6 +188,11 @@ public class Ui {
         print(output.toString());
     }
 
+    /**
+     * Prints the list of found tasks that match the user keyword.
+     *
+     * @param matches The list of matched tasks.
+     */
     public void findPrinter(TaskList matches) {
         if (matches.getSize() == 0) {
             print(NO_MATCHING_TASKS_MESSAGE);
