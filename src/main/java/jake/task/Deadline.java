@@ -1,6 +1,9 @@
 package jake.task;
-public class Deadline extends Task {
 
+import java.time.format.DateTimeParseException;
+import jake.JakeException;
+
+public class Deadline extends Task {
     protected String by;
 
     /**
@@ -9,10 +12,16 @@ public class Deadline extends Task {
      * @param description Description of the task.
      * @param by Date to complete task by.
      * @param isDateFormatted True if date-time inputted is already formatted as MMM DD YYYY. Else, false.
+     * @throws JakeException if date-time format does not comply     
      */
-    public Deadline(String description, String by, boolean isDateFormatted) {
+    public Deadline(String description, String by, boolean isDateFormatted) throws JakeException {
         super(description.substring(9));
-        this.by = isDateFormatted ? by : convertDateTime(by);
+        
+        try {
+            this.by = isDateFormatted ? by : convertDateTime(by);
+        } catch (DateTimeParseException e) {
+            throw new JakeException("Invalid date and/or time format given. Using current date");
+        }
     }
 
     /**

@@ -1,8 +1,8 @@
 package jake.task;
 
 import java.util.ArrayList;
+import jake.JakeException;
 import jake.ui.Ui;
-
 import static jake.common.Messages.MESSAGE_TASK_ADDED;
 import static jake.common.Messages.MESSAGE_TASK_DELETED;
 
@@ -86,25 +86,29 @@ public class TaskList {
      * @param taskType Takes in a task type, such as "event"/"todo", which determines the object created.
      */
     public void addInputtedTask(String userInput, String taskType) {
-        Task newTask;
-        switch (taskType) {
-        case "todo":
-            newTask = new ToDo(userInput);
-            break;
-        case "deadline":
-            String[] deadlineSections = userInput.split(" by ");
-            newTask = new Deadline(deadlineSections[0], deadlineSections[1], false);;
-            break;
-        case "event":
-            String[] eventSections = userInput.split(" from ");
-            String[] eventTimings = eventSections[1].split(" to ");
-            newTask = new Event(eventSections[0], eventTimings[0], eventTimings[1], false);
-            break;
-        default:
-            return;
-        } 
-        commands.add(newTask);
-        System.out.printf(MESSAGE_TASK_ADDED, newTask.toString(), commands.size());
+        try {
+            Task newTask;
+            switch (taskType) {
+            case "todo":
+                newTask = new ToDo(userInput);
+                break;
+            case "deadline":
+                String[] deadlineSections = userInput.split(" by ");
+                newTask = new Deadline(deadlineSections[0], deadlineSections[1], false);;
+                break;
+            case "event":
+                String[] eventSections = userInput.split(" from ");
+                String[] eventTimings = eventSections[1].split(" to ");
+                newTask = new Event(eventSections[0], eventTimings[0], eventTimings[1], false);
+                break;
+            default:
+                return;
+            } 
+            commands.add(newTask);
+            System.out.printf(MESSAGE_TASK_ADDED, newTask.toString(), commands.size());
+        } catch (JakeException e) {
+            System.out.println("Date-Time format inputted wrongly. Please try again!");
+        }
     }
 
     /**
@@ -117,32 +121,36 @@ public class TaskList {
      * @param taskType Takes in character representing task type, such as T for ToDo. Determines object created.
      */
     public void addSavedTask(String userInput, char taskType) {
-        Task newTask;
-        String shortenedTask = userInput.substring(6);
-        boolean isCompleted = userInput.charAt(4) == 'X';
-        switch (taskType) {
-        case 'T':
-            newTask = new ToDo("todo" + shortenedTask);
-            break;
-        case 'D':
-            // "\\" deals with PatternSyntaxException due to the (
-            String[] deadlineSections = shortenedTask.split(" \\(by: "); 
-            newTask = new Deadline("deadline" + deadlineSections[0], 
-                    deadlineSections[1].substring(0, deadlineSections[1].length()-1), 
-                    true);;
-            break;
-        case 'E':
-            String[] eventSections = shortenedTask.split(" \\(from: ");
-            String[] eventTimings = eventSections[1].split(" to: ");
-            newTask = new Event("event" + eventSections[0], eventTimings[0], 
-                    eventTimings[1].substring(0, eventTimings[1].length()-1),
-                    true);
-            break;
-        default:
-            return;
-        } 
-        newTask.markTask(isCompleted);
-        commands.add(newTask);
+        try {
+            Task newTask;
+            String shortenedTask = userInput.substring(6);
+            boolean isCompleted = userInput.charAt(4) == 'X';
+            switch (taskType) {
+            case 'T':
+                newTask = new ToDo("todo" + shortenedTask);
+                break;
+            case 'D':
+                // "\\" deals with PatternSyntaxException due to the (
+                String[] deadlineSections = shortenedTask.split(" \\(by: "); 
+                newTask = new Deadline("deadline" + deadlineSections[0], 
+                        deadlineSections[1].substring(0, deadlineSections[1].length()-1), 
+                        true);;
+                break;
+            case 'E':
+                String[] eventSections = shortenedTask.split(" \\(from: ");
+                String[] eventTimings = eventSections[1].split(" to: ");
+                newTask = new Event("event" + eventSections[0], eventTimings[0], 
+                        eventTimings[1].substring(0, eventTimings[1].length()-1),
+                        true);
+                break;
+            default:
+                return;
+            } 
+            newTask.markTask(isCompleted);
+            commands.add(newTask);
+        } catch (JakeException e) {
+            System.out.println("Date-Time format inputted wrongly. Please try again!");
+        }
     }
 
     /**
@@ -172,7 +180,6 @@ public class TaskList {
                 isFound = true;
             }
         }
-
         if (!isFound) {
             ui.showNonexistentTask();
         }

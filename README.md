@@ -49,19 +49,19 @@ Examples:
 ### Mark a task: `mark` <a name="mark"></a>
 Marks a task as completed
 
-Format: `mark task <INDEX>`
+Format: `mark <INDEX>`
 
 Examples:
-- `mark task 3`
+- `mark 3`
 <br>
 
 ### Unmark a task: `unmark` <a name="unmark"></a>
 Marks a task as uncompleted
 
-Format: `unmark task <INDEX>`
+Format: `unmark <INDEX>`
 
 Examples:
-- `unmark task 3`
+- `unmark 3`
 <br>
 
 ### List all tasks: `list` <a name="list"></a>

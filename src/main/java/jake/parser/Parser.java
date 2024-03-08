@@ -1,7 +1,6 @@
 package jake.parser;
 
 import java.util.Scanner;
-
 import jake.storage.Storage;
 import jake.task.TaskList;
 import jake.ui.Ui;
@@ -24,7 +23,6 @@ public class Parser {
     public void readInput() {
         Scanner myScanner = new Scanner(System.in);
         String userInput= "";
-    
         do {
             userInput = myScanner.nextLine();
             String taskType; 
@@ -67,7 +65,6 @@ public class Parser {
                 ui.showInvalidCommand();
             }
         } while (!userInput.equals("bye"));
-    
         myScanner.close();
     }
 }

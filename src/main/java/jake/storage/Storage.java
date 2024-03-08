@@ -1,14 +1,13 @@
 package jake.storage;
+
 import java.util.Scanner;
 import java.io.File; 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import jake.task.TaskList;
-
 import static jake.common.Messages.MESSAGE_INVALID_FILEPATH;
 import static jake.common.Messages.MESSAGE_TASK_ERROR_ENCOUNTERED;
-
 
 public class Storage {
     private String filePath;

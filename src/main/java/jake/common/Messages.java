@@ -7,7 +7,7 @@ public class Messages {
     public static final String MESSAGE_GOODBYE = "Bye. Hope to see you again soon!";
     public static final String MESSAGE_LISTED_TASKS = "Current commands being executed: ";
     public static final String MESSAGE_INVALID_COMMAND = "Command not recognised! Please try again!";
-    public static final String MESSAGE_INVALID_FILEPATH = "File cannot be found!";
+    public static final String MESSAGE_INVALID_FILEPATH = "File cannot be found! \n";
     public static final String MESSAGE_TASK_DOES_NOT_EXIST = "Task does not exist!";
     public static final String MESSAGE_TASK_MARKED = "Successfully marked";
     public static final String MESSAGE_TASK_UNMARKED = "Successfully unmarked";
