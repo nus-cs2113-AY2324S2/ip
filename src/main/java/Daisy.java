@@ -48,7 +48,7 @@ public class Daisy {
                         String keyWord = userInput.getFindInfo();
                         tasks.findTasks(keyWord);
                     } catch (IllegalFindFormatException e) {
-                        ui.printTodoMissingError();
+                        ui.printFindMissingError();
                     }
                     break;
                 case "mark":
@@ -113,6 +113,8 @@ public class Daisy {
         ui.sendExit();
 
         storage.saveData(tasks);
+
+        ui.setLineBreak();
 
     }
 }
