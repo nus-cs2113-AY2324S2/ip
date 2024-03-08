@@ -198,6 +198,15 @@ public class TaskList {
         tasksArrayList.add(toAdd);
     }
 
+    /**
+     * Given a specified substring, finds all tasks that contains that substring and
+     * returns it to the caller as an ArrayList<Task>.
+     *
+     * @param cleanedInput The String that contains the cleaned whole user input.
+     * @return An ArrayList<Task> that contains all tasks that contains the user specified substring.
+     * @throws HachiException If the user input for the 'find' command is invalid.
+     */
+
     public ArrayList<Task> findTask (String cleanedInput) throws HachiException{
         int indexOfFind = cleanedInput.indexOf("FIND") + 5;
         HachiException.checkFindTaskDescription(indexOfFind, cleanedInput);
