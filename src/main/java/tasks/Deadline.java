@@ -15,9 +15,20 @@ public class Deadline extends Task {
     protected boolean haveDeadline;
     protected String deadline;
 
+    /**
+     * Returns the deadline associated with the task.
+     *
+     * @return Deadline.
+     */
     public String getDeadline() {
         return deadline;
     }
+
+    /**
+     * Sets the deadline and indicates that the task is a deadline as well.
+     *
+     * @param deadline Deadline associated with task.
+     */
     public void setDeadline(String deadline) {
         this.deadline = deadline;
         this.haveDeadline = true;

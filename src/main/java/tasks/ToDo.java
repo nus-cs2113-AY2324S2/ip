@@ -2,6 +2,11 @@ package tasks;
 
 /** The most basic type of task with just a simple description. */
 public class ToDo extends Task {
+    /**
+     * Constructs a new ToDo task object, initiallising the haveToDo as false.
+     *
+     * @param task Task.
+     */
     public ToDo(String task) {
         super(task);
         this.haveToDo = false;
