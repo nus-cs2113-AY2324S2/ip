@@ -1,7 +1,7 @@
-# nick Chatbot User Guide
+# Nick Chatbot User Guide
 
-nick Chatbot is a task manager desktop app, optimized for use via a Command Line Interface (CLI). 
-If you can type fast, nick Chatbot can help manage your day-to-day tasks faster than ever. 
+Nick Chatbot is a task manager desktop app, optimized for use via a Command Line Interface (CLI). 
+If you can type fast, Nick Chatbot can help manage your day-to-day tasks faster than ever. 
 
 * [Quick Start](#Quick-Start)
 * [Features](#Features)
@@ -20,9 +20,9 @@ If you can type fast, nick Chatbot can help manage your day-to-day tasks faster 
 
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your computer.
-2. Download the latest nick.jar.
-3. Copy the file to the folder you want to use as the home folder for your nick Chatbot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar nick.jar`
+2. Download the latest ip.jar.
+3. Copy the file to the folder you want to use as the home folder for your Nick Chatbot.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar`
 command to run the application.
 5. Type any command and press Enter to execute it.
 6. Refer to the [Features](#Features) below for details of each command.
@@ -52,7 +52,7 @@ Adds an Event task. State the event duration after `/to` and after `/from`.
 Format: `event [Event task] /from [from timing] /to [to timing]`
 
 Examples:
-* `event Programming workshop /from Monday 10am /to Monday 1pm`
+* `event Programming Workshop /from Monday 10am /to Monday 1pm`
 
 ### List all tasks: `list`
 Shows a list of all tasks in the nick Chatbot.
@@ -65,7 +65,7 @@ Find related tasks from the specified keyword.
 Format: `find [keyword]`
 
 ### Deleting a task: `delete`
-Delete a task from index.
+Delete a task by index.
 
 Format: `delete [index]`
 
@@ -89,13 +89,13 @@ Examples:
 * `unmark 1`
 
 ### Exiting the program: `bye`
-Exit nick Chatbot.
+Exit Nick Chatbot.
 
 Format: `bye`
 
 ### Saving the tasks
-nick Chatbot tasks are saved in the hard disk automatically after any command that changes the data.
+Nick Chatbot tasks are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
 ### Loading the tasks
-nick Chatbot loads the tasks instantly when it starts up. There is no need to load manually.
+Nick Chatbot loads the tasks instantly when it starts up. There is no need to load manually.
