@@ -1,0 +1,49 @@
+todo Eat Breakfast
+todo Eat Lunch
+todo Watch CEG Video
+todo
+list
+event Tutorial /from 1pm /to 3pm
+event CEG 1 Lecture /from 3pm /to 5pm
+event Seminar
+event Seminar /from /to
+event Seminar /from 5pm
+event Seminar /to 7pm
+event /from 5pm /to 7pm
+event Seminar /from 5pm /to 7pm
+list
+deadline RealizeIt /by Thursday
+deadline CEG 1 Coursemology /by Friday
+deadline 
+deadline Teammates /by
+deadline /by Saturday
+deadline Teammates /by Saturday
+list
+mark 1
+mark 3
+mark 5
+mark 7
+list
+unmark 3
+unmark 4
+unmark 5
+unmark 6
+list
+mark string
+mark 1000
+unmark string
+unmark 2000
+find
+find target that does not exist
+find CEG
+find CEG 1
+find Watch CEG Video
+list
+delete 1
+delete 2
+delete 4
+delete 0
+delete string
+delete 1000
+list
+bye
