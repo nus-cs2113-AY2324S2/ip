@@ -37,11 +37,16 @@ Make sure you have Java 11 or later installed on your computer.
 
 ### Installation
 1.Download the latest release of Zoro from the releases page.
+
 2.Extract the downloaded zip file to a folder on your computer.
+
 3.Navigate to the folder where you extracted the zip file and open a terminal.
+
 4.Run the following command to start the Zoro application:
 
+
       java -jar ZORO.jar
+
 
 If the application started successfully, it will display the following welcome message.
 
