@@ -6,9 +6,11 @@
 
 ### Feature-ToDo
 
-# Add a todo item without further instruction
-### Format: todo ITEM
-### Example: todo book
+Add a todo item without further instruction
+
+Format: todo ITEM
+
+Example: todo book
 ### Output: [T][ ] book
 
 ### Feature-Deadline
