@@ -83,6 +83,7 @@ Lists all tasks your task list.
 * Format: `list`.
   Example of usage: `list`.
 * Expected outcome:
+
   ```
     ____________________________________________________
      Here are the tasks in your list:
@@ -92,7 +93,7 @@ Lists all tasks your task list.
     ____________________________________________________
   ```
 
-[Back to Commands Usage Overview](#commands-usage-overview)<br>
+[Back to Commands Usage Overview](#commands-usage-overview)
 
 ### 5. Mark a task in task list: `mark`
 Marks the selected task shown in the current task list.<br>
@@ -125,6 +126,7 @@ Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
   Example of usage: `find GDP2021`.<br>
 * Expected outcome:
+
    ```
     ____________________________________________________
      Here are the matching tasks in your list:
