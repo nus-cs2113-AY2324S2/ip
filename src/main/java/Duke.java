@@ -271,7 +271,8 @@ public class Duke {
         try {
             inputFileContents();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            System.out.println("File not found, please run Steffy again");
+            ui.printBye();
             try {
                 outfile.createNewFile();
             } catch (IOException ex) {
