@@ -1,5 +1,6 @@
 package soot.task;
 
+import soot.exceptions.InvalidTaskIndexException;
 import soot.exceptions.MissingTaskDetailException;
 import soot.ui.UserUi;
 
@@ -42,6 +43,7 @@ public class TaskList {
      *
      * @param userInput details of the task as given by the user.
      * @param taskType task type of the task to be added.
+     * @throws MissingTaskDetailException If the user did not input one or more required task detail.
      */
     public static void addTask(String userInput, TaskType taskType) throws MissingTaskDetailException {
         switch (taskType) {
@@ -81,6 +83,7 @@ public class TaskList {
      * Details of this task will be printed to the terminal for the user to view.
      *
      * @param userInput details of the deadline task as given by the user.
+     * @throws MissingTaskDetailException If the user did not input one or more required task detail.
      */
     public static void addDeadlineTask(String userInput) throws MissingTaskDetailException {
         String inputTaskDetails = userInput.substring(9);
@@ -104,6 +107,7 @@ public class TaskList {
      * Details of this task will be printed to the terminal for the user to view.
      *
      * @param userInput details of the event task as given by the user.
+     * @throws MissingTaskDetailException If the user did not input one or more required task detail.
      */
     public static void addEventTask(String userInput) throws MissingTaskDetailException {
         String inputTaskDetails = userInput.substring(6);
@@ -151,8 +155,13 @@ public class TaskList {
      * Mark the task at the specified index completed.
      *
      * @param taskIndex index of task in the task list.
+     * @throws InvalidTaskIndexException If task index is out of bounds.
      */
-    public static void markTaskDone(int taskIndex) {
+    public static void markTaskDone(int taskIndex) throws InvalidTaskIndexException {
+        if (taskIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
+
         taskList.get(taskIndex).markTaskDone();
         UserUi.displayDividerLine();
     }
@@ -160,9 +169,14 @@ public class TaskList {
     /**
      * Mark the task at the specified index uncompleted.
      *
-     * @param taskIndex index of task in the task list.
+     * @param taskIndex index of task in the task Arraylist.
+     * @throws InvalidTaskIndexException If task index is out of bounds.
      */
-    public static void markTaskUndone(int taskIndex) {
+    public static void markTaskUndone(int taskIndex) throws InvalidTaskIndexException {
+        if (taskIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
+
         taskList.get(taskIndex).markTaskUndone();
         UserUi.displayDividerLine();
     }
@@ -175,8 +189,12 @@ public class TaskList {
      * task count printed will be accurate.
      *
      * @param listIndex index of task in the task list.
+     * @throws InvalidTaskIndexException If task index is out of bounds.
      */
-    public static void deleteTask(int listIndex) {
+    public static void deleteTask(int listIndex) throws InvalidTaskIndexException {
+        if (listIndex >= taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
         Task tempTask = taskList.get(listIndex);
         taskList.remove(taskList.get(listIndex));
 

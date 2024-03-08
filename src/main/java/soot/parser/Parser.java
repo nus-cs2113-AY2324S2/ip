@@ -3,6 +3,7 @@ package soot.parser;
 import soot.Soot;
 
 import soot.exceptions.EmptyTaskException;
+import soot.exceptions.InvalidTaskIndexException;
 import soot.exceptions.MissingTaskDetailException;
 import soot.exceptions.UnknownCommandException;
 
@@ -123,6 +124,8 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             UserUi.printMessageWithDivider("the task specified should be a integer task number! \n" +
                     "you can type command 'list' to verify this number :)");
+        } catch (InvalidTaskIndexException e) {
+            UserUi.printMessageWithDivider("this task index cannot be found. please try again");
         }
     }
 
@@ -135,9 +138,13 @@ public class Parser {
      * @param userInput command inputted by the user.
      */
     private static void handleDeleteCommand(String userInput) {
-        String taskIndexInList = userInput.substring(7);
-        int taskIndexInArrayList = Integer.parseInt(taskIndexInList) - 1;
-        TaskList.deleteTask(taskIndexInArrayList);
+        try {
+            String taskIndexInList = userInput.substring(7);
+            int taskIndexInArrayList = Integer.parseInt(taskIndexInList) - 1;
+            TaskList.deleteTask(taskIndexInArrayList);
+        } catch (InvalidTaskIndexException e) {
+            UserUi.printMessageWithDivider("this task index cannot be found. please try again");
+        }
     }
 
     /**
