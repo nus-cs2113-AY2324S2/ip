@@ -6,6 +6,9 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    public boolean isDone() {
+        return isDone;
+    }
 
     public String getDescription() {
         return description;
