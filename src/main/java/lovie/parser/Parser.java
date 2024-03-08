@@ -32,7 +32,7 @@ public class Parser {
     private final String processedInput;
     private final String firstCommand;
     private final Storage storage;
-    private final TaskList tasksList;
+    private final TaskList tasks;
     private final Ui ui;
 
     /**
@@ -45,7 +45,7 @@ public class Parser {
     public Parser(String input, Storage storage, TaskList tasksList) {
         this.line = input;
         this.storage = storage;
-        this.tasksList = tasksList;
+        this.tasks = tasksList;
         this.processedInput = input.toLowerCase().trim();
         this.firstCommand = processedInput.split(SPACE)[COMMAND];
         ui = new Ui();
@@ -60,23 +60,23 @@ public class Parser {
         Task newTask;
         switch (firstCommand) {
         case "bye":
-            storage.saveTasks(tasksList);
+            storage.saveTasks(tasks);
             ui.goodbyePrinter();
             return true;
         case "list":
-            tasksList.printTasks();
+            tasks.printTasks();
             break;
         case "unmark":
             unmarkTaskHelper(line);
-            storage.saveTasks(tasksList);
+            storage.saveTasks(tasks);
             break;
         case "mark":
             markTaskHelper(line);
-            storage.saveTasks(tasksList);
+            storage.saveTasks(tasks);
             break;
         case "delete":
-            tasksList.deleteTask(line);
-            storage.saveTasks(tasksList);
+            tasks.deleteTask(line);
+            storage.saveTasks(tasks);
             break;
         case "find":
             findHelper(line);
@@ -92,9 +92,9 @@ public class Parser {
                 break;
             }
             newTask = new Event(line);
-            tasksList.addTask(newTask);
+            tasks.addTask(newTask);
             ui.addTaskPrinter(newTask);
-            storage.saveTasks(tasksList);
+            storage.saveTasks(tasks);
             break;
         case "deadline":
             try {
@@ -104,9 +104,9 @@ public class Parser {
                 break;
             }
             newTask = new Deadline(line);
-            tasksList.addTask(newTask);
+            tasks.addTask(newTask);
             ui.addTaskPrinter(newTask);
-            storage.saveTasks(tasksList);
+            storage.saveTasks(tasks);
             break;
         case "todo":
             try {
@@ -116,9 +116,9 @@ public class Parser {
                 break;
             }
             newTask = new Todo(line);
-            tasksList.addTask(newTask);
+            tasks.addTask(newTask);
             ui.addTaskPrinter(newTask);
-            storage.saveTasks(tasksList);
+            storage.saveTasks(tasks);
             break;
         default:
             ui.invalidCommandPrinter();
@@ -133,11 +133,11 @@ public class Parser {
      */
     public void markTaskHelper(String input) {
         int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
-        if (taskNumber >= tasksList.getSize() || taskNumber < 0) {
+        if (taskNumber >= tasks.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {
-            tasksList.markTask(taskNumber);
-            ui.markTaskPrinter(tasksList.get(taskNumber));
+            tasks.markTask(taskNumber);
+            ui.markTaskPrinter(tasks.get(taskNumber));
         }
     }
 
@@ -152,7 +152,7 @@ public class Parser {
             ui.noValidFindPrinter();
         } else {
            String keyword = inputParts[1];
-           tasksList.find(keyword);
+            tasks.find(keyword);
         }
     }
 
@@ -163,11 +163,11 @@ public class Parser {
      */
     public void unmarkTaskHelper(String input) {
         int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
-        if (taskNumber >= tasksList.getSize() || taskNumber < 0) {
+        if (taskNumber >= tasks.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {
-            tasksList.unmarkTask(taskNumber);
-            ui.unmarkTaskPrinter(tasksList.get(taskNumber));
+            tasks.unmarkTask(taskNumber);
+            ui.unmarkTaskPrinter(tasks.get(taskNumber));
         }
     }
 

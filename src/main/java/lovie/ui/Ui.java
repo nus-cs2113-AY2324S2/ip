@@ -112,12 +112,12 @@ public class Ui {
      * Prints the successful deleted task message.
      *
      * @param selectedTask The task the user wanted deleted.
-     * @param tasksList The list of tasks.
+     * @param tasks The list of tasks.
      */
-    public void deleteTaskPrinter(Task selectedTask, ArrayList<Task> tasksList) {
+    public void deleteTaskPrinter(Task selectedTask, ArrayList<Task> tasks) {
         print(SUPPORT_MESSAGE + NEW_LINE + OPEN_BRACKET + selectedTask.getTaskIcon() + OPEN_CLOSE_BRACKETS +
                 selectedTask.getStatusIcon() + CLOSE_BRACKET + selectedTask.getDescription() +
-                selectedTask.getTimespan() + NEW_LINE + HAVE_MESSAGE + tasksList.size() + HAVE_MESSAGE_PART_TWO +
+                selectedTask.getTimespan() + NEW_LINE + HAVE_MESSAGE + tasks.size() + HAVE_MESSAGE_PART_TWO +
                 FURTHER_HELP_MESSAGE);
     }
 
@@ -166,17 +166,17 @@ public class Ui {
     /**
      * Prints the list of tasks.
      *
-     * @param tasksList The list of tasks.
+     * @param tasks The list of tasks.
      */
-    public void listPrinter(ArrayList<Task> tasksList) {
+    public void listPrinter(ArrayList<Task> tasks) {
         int counter = 0;
         String output = new String();
-        while (counter < tasksList.size()) {
+        while (counter < tasks.size()) {
             String listNumber = Integer.toString(counter + 1);
-            Task selected = tasksList.get(counter);
+            Task selected = tasks.get(counter);
             output += listNumber + LIST_NUMBER_BRACKET + selected.getTaskIcon() + OPEN_CLOSE_BRACKETS +
                     selected.getStatusIcon() + CLOSE_BRACKET + selected.getDescription() + selected.getTimespan();
-            if (counter != tasksList.size() - 1) {
+            if (counter != tasks.size() - 1) {
                 output += NEW_LINE;
             }
             counter += 1;
@@ -184,18 +184,18 @@ public class Ui {
         print(output);
     }
 
-    public void findPrinter(TaskList miniList) {
-        if (miniList.getSize() == 0) {
+    public void findPrinter(TaskList matches) {
+        if (matches.getSize() == 0) {
             print(NO_MATCHING_TASKS_MESSAGE);
         } else {
             int counter = 0;
             String output = new String();
-            while (counter < miniList.getSize()) {
+            while (counter < matches.getSize()) {
                 String listNumber = Integer.toString(counter + 1);
-                Task selected = miniList.get(counter);
+                Task selected = matches.get(counter);
                 output += listNumber + LIST_NUMBER_BRACKET + selected.getTaskIcon() + OPEN_CLOSE_BRACKETS +
                         selected.getStatusIcon() + CLOSE_BRACKET + selected.getDescription() + selected.getTimespan();
-                if (counter != miniList.getSize() - 1) {
+                if (counter != matches.getSize() - 1) {
                     output += NEW_LINE;
                 }
                 counter += 1;

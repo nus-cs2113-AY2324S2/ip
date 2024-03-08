@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class TaskList {
     public static final String SPACE = " ";
-    private final ArrayList<Task> tasksList;
+    private final ArrayList<Task> tasks;
     private final Ui ui;
 
     /**
      * Constructor for TaskList.
      */
     public TaskList() {
-        tasksList = new ArrayList<>();
+        tasks = new ArrayList<>();
         ui = new Ui();
     }
 
@@ -26,12 +26,12 @@ public class TaskList {
      */
     public void deleteTask(String input) {
         int taskNumber = Integer.parseInt(input.split(SPACE)[1]) - 1;
-        if (taskNumber >= tasksList.size() || taskNumber < 0) {
+        if (taskNumber >= tasks.size() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {
-            Task selectedTask = tasksList.get(taskNumber);
-            tasksList.remove(taskNumber);
-            ui.deleteTaskPrinter(selectedTask, tasksList);
+            Task selectedTask = tasks.get(taskNumber);
+            tasks.remove(taskNumber);
+            ui.deleteTaskPrinter(selectedTask, tasks);
         }
     }
 
@@ -41,7 +41,7 @@ public class TaskList {
      * @param newTask The new task to be added.
      */
     public void addTask(Task newTask) {
-        tasksList.add(newTask);
+        tasks.add(newTask);
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskList {
      * @return The size of the list.
      */
     public int getSize() {
-        return tasksList.size();
+        return tasks.size();
     }
 
     /**
@@ -60,17 +60,17 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
-        return tasksList.get(index);
+        return tasks.get(index);
     }
 
     /**
      * Prints the tasks in the list.
      */
     public void printTasks() {
-        if (tasksList.isEmpty()) {
+        if (tasks.isEmpty()) {
             ui.emptyListPrinter();
         } else {
-            ui.listPrinter(tasksList);
+            ui.listPrinter(tasks);
         }
     }
 
@@ -80,7 +80,7 @@ public class TaskList {
      * @param index The index of the task.
      */
     public void unmarkTask(int index) {
-        Task selectedTask = tasksList.get(index);
+        Task selectedTask = tasks.get(index);
         selectedTask.markAsUndone();
     }
 
@@ -90,21 +90,21 @@ public class TaskList {
      * @param index The index of the task.
      */
     public void markTask(int index) {
-        Task selectedTask = tasksList.get(index);
+        Task selectedTask = tasks.get(index);
         selectedTask.markAsDone();
     }
 
     public void find(String keyword) {
-        TaskList matchedList = new TaskList();
-        if (tasksList.isEmpty()) {
+        TaskList matches = new TaskList();
+        if (tasks.isEmpty()) {
             ui.emptyListPrinter();
         } else {
-            for (int i = 0; i < tasksList.size(); i += 1) {
-                if (tasksList.get(i).getDescription().contains(keyword)) {
-                    matchedList.addTask(tasksList.get(i));
+            for (int i = 0; i < tasks.size(); i += 1) {
+                if (tasks.get(i).getDescription().contains(keyword)) {
+                    matches.addTask(tasks.get(i));
                 }
             }
-            ui.findPrinter(matchedList); 
+            ui.findPrinter(matches);
         }
     }
 }

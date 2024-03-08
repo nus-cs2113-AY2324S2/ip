@@ -13,7 +13,7 @@ public class Lovie {
     private static final String FILEPATH = "data/lovie.txt";
     private static Storage storage;
     private static Ui ui;
-    private static TaskList tasksList;
+    private static TaskList tasks;
 
     /**
      * Constructor for Lovie.
@@ -21,7 +21,7 @@ public class Lovie {
     public Lovie() {
         storage = new Storage(FILEPATH);
         ui = new Ui();
-        tasksList = storage.loadTasks();
+        tasks = storage.loadTasks();
     }
 
     /**
@@ -35,7 +35,7 @@ public class Lovie {
         while (!shouldExit) {
             System.out.print("\t");
             input = inputGetter.nextLine();
-            Parser parser = new Parser(input, storage, tasksList);
+            Parser parser = new Parser(input, storage, tasks);
             shouldExit = parser.inputSorter();
         }
     }
