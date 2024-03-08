@@ -29,7 +29,7 @@ public class Deadline extends Task {
 
     @Override
     public String toSave() {
-        return "D / " + (isDone ? "1" : "0") + " / " + description + " / " + dueTime;
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + dueTime;
     }
 
     @Override

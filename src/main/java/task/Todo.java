@@ -14,7 +14,7 @@ public class Todo extends Task {
     
     @Override
     public String toSave() {
-        return "T / " + (isDone ? "1" : "0") + " / " + description;
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override

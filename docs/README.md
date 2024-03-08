@@ -24,8 +24,6 @@ Zuke is a chatbot that helps you manage your tasks in a command line interface (
 3. Copy the file to the folder you want to use as the home folder for Zuke.
 4. Open a terminal and navigate to the folder where `zuke.jar` is located.
 5. Run the command `java -jar zuke.jar` to start the chatbot. The chatbot should start and greet you with a welcome message.
-
-
 ```
 Hello from
 ███████╗██╗   ██╗██╗  ██╗███████╗
@@ -36,7 +34,6 @@ Hello from
 ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
 
 ```
-
 6. Type the command in the command box and press Enter to execute it. Some example commands you can try:
     - `help`: outputs a list of commands and their usage.
     - `list`: Lists all tasks in the task list.

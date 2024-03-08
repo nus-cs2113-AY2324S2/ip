@@ -34,7 +34,7 @@ public class Event extends Task {
 
     @Override
     public String toSave() {
-        return "E / " + (isDone ? "1" : "0") + " / " + description + " / " + startTime + " / " + dueTime;
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startTime + " | " + dueTime;
     }
 
     @Override

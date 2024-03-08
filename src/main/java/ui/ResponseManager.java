@@ -70,6 +70,9 @@ public class ResponseManager {
             "OOPS seems like there's nothing to delete\n";
     public static final String MARKED_TASK_MSG = "This task is already marked\n";
     public static final String UNMARKED_TASK_MSG = "This task is already unmarked\n";
+    public static final String TIME_PARADOX_MSG =
+            "U HAVE REACHED A TIME PARADOX!!!\n" +
+            "The start time cannot be after the end time\n";
 
     /**
      * Prints the response to the user with indentation line.

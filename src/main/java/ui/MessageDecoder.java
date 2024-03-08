@@ -164,6 +164,11 @@ public class MessageDecoder {
         String[] decoded = getFromNTo(message, indexOfFrom, indexOfTo);
         decoded[START_DATE_INDEX] = decodeDateNTime(decoded[START_DATE_INDEX]);
         decoded[END_DATE_INDEX] = decodeDateNTime(decoded[END_DATE_INDEX]);
+        LocalDateTime start = LocalDateTime.parse(decoded[START_DATE_INDEX], OUTPUT_TIME_FORMATTER);
+        LocalDateTime end = LocalDateTime.parse(decoded[END_DATE_INDEX], OUTPUT_TIME_FORMATTER);
+        if (start.isAfter(end)) {
+            throw new InputException(ResponseManager.TIME_PARADOX_MSG);
+        }
         return decoded;
     }
     
@@ -292,13 +297,15 @@ public class MessageDecoder {
             throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
         }
 
+        String today = LocalDate.now().format(DATE_FORMATTER);
+        String currTime = LocalTime.now().format(TIME_FORMATTER);
         try {
             if (input.matches(DATE_REGEX)) {
-                return LocalDate.parse(input, DATE_FORMATTER)
-                        .format(OUT_DATE_FORMATTER);
+                return LocalDateTime.parse(input + " " + currTime, INPUT_TIME_FORMATTER)
+                        .format(OUTPUT_TIME_FORMATTER);
             }
-            return LocalTime.parse(input, TIME_FORMATTER)
-                    .format(OUT_TIME_FORMATTER);
+            return LocalDateTime.parse(today + " " + input, INPUT_TIME_FORMATTER)
+                    .format(OUTPUT_TIME_FORMATTER);
         } catch (DateTimeParseException error) {
             throw new InputException(ResponseManager.DATE_FORMAT_ERROR);
         }
@@ -311,6 +318,6 @@ public class MessageDecoder {
      * @return String[] containing the decoded saved data.
      */
     public static String[] decodeSavedData(String data) {
-        return data.split(" / ");
+        return data.split(" \\| ");
     }
 }

@@ -1,6 +1,8 @@
 package storage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import exception.InputException;
@@ -73,7 +75,7 @@ public class DataManager {
      */
     private static void addToTaskList(TaskList taskList, String input) throws InputException {
         int splitLimit = 3;
-        String[] taskDetails = input.split(" / ", splitLimit);
+        String[] taskDetails = input.split(" \\| ", splitLimit);
         String[] information = MessageDecoder.decodeSavedData(taskDetails[2]);
         boolean isDone = taskDetails[1].equals("1");
         switch (taskDetails[0]) {
