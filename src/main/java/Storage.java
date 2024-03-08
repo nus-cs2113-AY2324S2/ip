@@ -17,6 +17,14 @@ public class Storage {
      */
     public static List<Task> loadTasksFromFile() {
         List<Task> tasks = new ArrayList<>();
+
+        // Check if file exists
+        Path filePath = Paths.get(FILE_PATH);
+        if (!Files.exists(filePath)) {
+            // If the file doesn't exist, return an empty list of tasks
+            return tasks;
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
