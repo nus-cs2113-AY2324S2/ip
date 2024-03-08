@@ -1,3 +1,0 @@
-T | [/] | this
-D | [ ] | hw | 8 Mar 2024
-E | [ ] | competition | 15 Mar 2024 -> 8 Apr 2024
