@@ -214,5 +214,6 @@ and is located in a subfolder `./data/tonytask.txt`.
 
 ## FAQ
 **Q:** Will my tasks in the list be wiped when I end the program?
+
 **A:** No, the program creates a file and saved all the data into that file, and the next time the program is run,
 the data is loaded back from the file.
