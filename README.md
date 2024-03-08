@@ -29,7 +29,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 ## Features
 
-Enter a line of text adds the item to the list. You should see somethind like the below as the output:
+Enter a line of text adds the item to the list. You should see something like the below as the output:
 ```
 read book
 ____________________________________________________________
