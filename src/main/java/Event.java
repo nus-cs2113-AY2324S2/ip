@@ -1,3 +1,7 @@
+/**
+ * Represents an event task
+ * An <code>Event</code> object represents an event task with a description, start time and end time
+ */
 public class Event extends Task {
     protected String taskType;
     protected String from;

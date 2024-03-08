@@ -1,3 +1,7 @@
+/*
+ * Deadline class represents a task with a deadline
+ * A <code>Deadline</code> object represents a task with a deadline
+ */
 public class Deadline extends Task {
     protected String by;
 

@@ -1,3 +1,7 @@
+/*
+ * Todo class represents a todo task
+ * A <code>Todo</code> object represents a todo task with a description
+ */
 public class Todo extends Task {
 
     /**

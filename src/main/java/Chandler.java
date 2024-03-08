@@ -1,3 +1,7 @@
+/**
+ * Chandler is a task manager that allows users to add, delete, and view tasks.
+ * A <code>Chandler</code> object represents the task manager.
+ */
 public class Chandler {
 
     private TaskList taskList;

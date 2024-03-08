@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the program
+ * A <code>Ui</code> object represents the user interface of the program
+ */
 public class Ui {
     public static final String LINE_DIVIDER = "------------------------------------------";
     private Scanner input = new Scanner(System.in);

@@ -1,3 +1,6 @@
+/**
+ * ChandlerException is a custom exception class that extends the Exception class.
+ */
 public class ChandlerException extends Exception {
 
     /**

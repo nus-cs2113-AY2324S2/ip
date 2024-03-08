@@ -4,6 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file
+ * A <code>Storage</code> object represents the storage of the programme
+ */
 public class Storage{
 
     private File file;

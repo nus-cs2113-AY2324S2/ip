@@ -1,6 +1,9 @@
 import java.util.ArrayList;
-import java.util.Objects;
 
+/**
+ * Represents the task list
+ * A <code>TaskList</code> object represents the task list that contains the tasks
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<Task>();
     private int listSize = 0;

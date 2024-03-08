@@ -1,3 +1,7 @@
+/**
+ * The Parser class is responsible for parsing the input from the user and calling the appropriate methods in TaskList.
+ * A <code>Parser</code> object represents the parser.
+ */
 public class Parser {
 
     private Storage storageParser;
