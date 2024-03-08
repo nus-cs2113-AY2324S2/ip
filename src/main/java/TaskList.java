@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class TaskList {
         this.storage = new Storage();
         this.parser = new Parser();
         this.storage.newFile(list);
+        list.clear();
         processUserInput();
     }
 
@@ -61,7 +63,10 @@ public class TaskList {
                         storage.saveTasks(list);
                         i--;
                         n--;
-                    } else {
+                    } else if (array[0].startsWith("find")) {
+                        commandFind(array, list);
+                    }
+                        else {
                         throw new IllegalArgumentException();
                     }
                 } catch (IllegalArgumentException e) {
@@ -119,5 +124,20 @@ public class TaskList {
         System.out.println("Noted. I've removed this task: ");
         System.out.println(" " + list.get(commandIndex).taskDescription());
         list.remove(commandIndex);
+    }
+    private void commandFind(String [] array,  ArrayList<Task> list) {
+        String find = array[1];
+        int number = 0;
+        ArrayList<Task> taskReturn = new ArrayList<Task>();
+        for (Task task : list) {
+            if (task.taskDescription().contains(find)) {
+                taskReturn.add(task);
+                number ++;
+            }
+        }
+        for (int i = 0; i < number; i ++) {
+            System.out.println((i + 1) + "." + taskReturn.get(i).taskDescription());
+        }
+
     }
 }
