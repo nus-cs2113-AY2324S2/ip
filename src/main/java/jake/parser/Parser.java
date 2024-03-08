@@ -34,7 +34,6 @@ public class Parser {
             } else {
                 taskType = userInput;
             }
-    
             switch (taskType) {
             case "bye":
                 ui.showGoodbye();

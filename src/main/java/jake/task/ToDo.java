@@ -2,9 +2,9 @@ package jake.task;
 public class ToDo extends Task {
 
     /**
-     * Creates a ToDo object based on user inputs
+     * Creates a ToDo object based on user inputs.
      *
-     * @param description Description of the task
+     * @param description Description of the task.
      */
     public ToDo(String description) {
         super(description.substring(5));

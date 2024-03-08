@@ -12,26 +12,26 @@ public class TaskList {
     private static ArrayList<Task> commands = new ArrayList<>();
 
     /**
-     * Returns the number of tasks in TaskList
+     * Returns the number of tasks in TaskList.
      *
-     * @return Integer representing the number of tasks in TaskList
+     * @return Integer representing the number of tasks in TaskList.
      */
     public int size() {
         return commands.size();
     }
 
     /**
-     * Returns a task from TaskList, based on the given index
+     * Returns a task from TaskList, based on the given index.
      *
-     * @param index Takes in an integer, representing the index of the task within TaskList 
-     * @return Task at the specified index
+     * @param index Takes in an integer, representing the index of the task within TaskList.
+     * @return Task at the specified index.
      */
     public Task get(int index) {
         return commands.get(index);
     }
 
     /**
-     * Iterates through TaskList, and prints out each task within the TaskList
+     * Iterates through TaskList, and prints out each task within the TaskList.
      *
      */
     public void listTasks() {
@@ -43,11 +43,11 @@ public class TaskList {
     }
 
     /**
-     * Reads a string input, and returns the given index within this String
-     * For example, the string input "delete task 4" will return 4
+     * Reads a string input, and returns the given index within this String.
+     * For example, the string input "delete task 4" will return 4.
      *
-     * @param userInput Takes in a String, representing the user input 
-     * @return An integer represented in the user input string
+     * @param userInput Takes in a String, representing the user input.
+     * @return An integer represented in the user input string.
      */
     public int retrieveTaskNumber(String userInput) {
         int taskNumber = Integer.parseInt(userInput.substring(userInput.lastIndexOf(" ")+1));
@@ -55,12 +55,12 @@ public class TaskList {
     }
 
     /**
-     * Reads a string input, and extracts out the given index within this String
-     * For example, the string input "unmark task 4" will extract out the index 4
-     * Will mark/unmark the task at the specified index as completed/uncompleted
+     * Reads a string input, and extracts out the given index within this String.
+     * For example, the string input "unmark task 4" will extract out the index 4.
+     * Will mark/unmark the task at the specified index as completed/uncompleted.
      *
-     * @param userInput Takes in a String, representing the user input
-     * @param markOrUnmark Takes in a String, either "mark" or "unmark", to determine how to toggle the task
+     * @param userInput Takes in a String, representing the user input.
+     * @param markOrUnmark Takes in a String, either "mark" or "unmark", to determine how to toggle the task.
      */
     public void toggleTask(String userInput, String markOrUnmark) {
         int taskNumber = retrieveTaskNumber(userInput);
@@ -77,13 +77,13 @@ public class TaskList {
     }
 
     /**
-     * Reads a user's input, and a task type
-     * Based on the task type (Event, ToDo, Deadline etc), creates the respective object using the user's input 
-     * addInputtedTask() is specifically used to deal with new user inputs only 
-     * It cannot deal with the saved tasks being loaded from the saved text file
+     * Reads a user's input, and a task type.
+     * Based on the task type (Event, ToDo, Deadline etc), creates the respective object using the user's input. 
+     * addInputtedTask() is specifically used to deal with new user inputs only. 
+     * It cannot deal with the saved tasks being loaded from the saved text file.
      *
-     * @param userInput Takes in the user's input command
-     * @param taskType Takes in a task type, such as "event"/"todo", which determines the object created
+     * @param userInput Takes in the user's input command.
+     * @param taskType Takes in a task type, such as "event"/"todo", which determines the object created.
      */
     public void addInputtedTask(String userInput, String taskType) {
         Task newTask;
@@ -108,13 +108,13 @@ public class TaskList {
     }
 
     /**
-     * Reads a user's input, and a task type
-     * Based on the task type (Event, ToDo etc), creates the respective object using the user's input description
-     * addSavedTask() is specifically used to deal with the saved tasks being loaded from the saved text file only
-     * It cannot deal with new user inputs 
+     * Reads a user's input, and a task type.
+     * Based on the task type (Event, ToDo etc), creates the respective object using the user's input description.
+     * addSavedTask() is specifically used to deal with the saved tasks being loaded from the saved text file only.
+     * It cannot deal with new user inputs. 
      *
-     * @param userInput Takes in the user's input command
-     * @param taskType Takes in character representing task type, such as T for ToDo. Determines object created
+     * @param userInput Takes in the user's input command.
+     * @param taskType Takes in character representing task type, such as T for ToDo. Determines object created.
      */
     public void addSavedTask(String userInput, char taskType) {
         Task newTask;
@@ -146,11 +146,11 @@ public class TaskList {
     }
 
     /**
-     * Reads a user input, and extracts out the given index within this String
-     * For example, the string input "delete task 4" will extract out the index 4
-     * Will delete the task at the specified index
+     * Reads a user input, and extracts out the given index within this String.
+     * For example, the string input "delete task 4" will extract out the index 4.
+     * Will delete the task at the specified index.
      *
-     * @param userInput Takes in a String, representing the user input
+     * @param userInput Takes in a String, representing the user input.
      */
     public void deleteTask(String userInput) {
         int taskNumber = retrieveTaskNumber(userInput);

@@ -10,21 +10,20 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a Task object based on user inputs
+     * Creates a Task object based on user inputs.
      *
-     * @param description Description of the task
-     * @param isDone True if task is completed. Else, false
+     * @param description Description of the task.
+     * @param isDone True if task is completed. Else, false.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-
     /**
-     * Retrieves the status of task, whether it is completed or not
+     * Retrieves the status of task, whether it is completed or not.
      *
-     * @return string displaying whether task is completed
+     * @return string displaying whether task is completed.
      */
     public String getStatus() {
         String icon = isDone ? "X" : " ";
@@ -32,33 +31,30 @@ public class Task {
         return status;
     }
 
-
     /**
-     * Updates the status of task, whether it is completed or not
+     * Updates the status of task, to either completed or not.
      *
-     * @param isDone Is task completed? True marks task as completed, false unmarks tasks as uncompleted
+     * @param isDone Is task completed? True marks task as completed, false unmarks tasks as uncompleted.
      */
     public void markTask(boolean isDone) {
         this.isDone = isDone;
     }
 
-
     /**
-     * Prints the completion status of task, and description of the task
+     * Prints the completion status of task, and description of the task.
      *
-     * @return description of the task and completion status
+     * @return description of the task and completion status.
      */
     @Override
     public String toString() {
         return getStatus() + this.description;
     }
 
-
     /**
-     * Takes in a string representing date and time, and reformats the way it is displayed
+     * Reads in a string representing date and time, and reformats the way it is displayed.
      *
-     * @param dateTime Takes in a string, in 1 of 2 formats. Example: 2000-01-01 01:00, or 2000-01-01 01:00  
-     * @return String displaying newly formatted date, based on input. Either format: Jan 1 2000, 01:00AM, or Jan 1 2000
+     * @param dateTime Takes in a string, in 1 of 2 formats. Example: 2000-01-01 01:00, or 2000-01-01 01:00.  
+     * @return String displaying newly formatted date. Either format: Jan 1 2000, 01:00AM, or Jan 1 2000.
      */
     public String convertDateTime(String dateTime) {
         // dateTime should come in either format: YYYY-MM-DD HH:MM, or YYYY-MM-DD

@@ -14,19 +14,19 @@ public class Storage {
     private String filePath;
     
     /**
-     * Deals with loading tasks from the file and saving tasks in the file
+     * Handles loading tasks from the file and saving tasks in the file.
      *
-     * @param filePath Relative file path to the textfile where data is being saved, aka tasks.txt
+     * @param filePath Relative file path to the textfile where data is being saved, aka tasks.txt.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Takes all current tasks saved in TaskList, and writes it to the file tasks.txt
-     * If tasks.txt is not found, print an error message
+     * Reads all current tasks saved in TaskList, and writes it to the file tasks.txt.
+     * If tasks.txt is not found, print an error message.
      *
-     * @param task TaskList of all current tasks
+     * @param task TaskList of all current tasks.
      */
     public void saveTasks(TaskList tasks) {
         try {
@@ -41,10 +41,10 @@ public class Storage {
     }
 
     /**
-     * Loads up all previous tasks saved in tasks.txt into the new TaskList
-     * If tasks.txt is not found, print an error message
+     * Loads up all previous tasks saved in tasks.txt into the new TaskList.
+     * If file is not found, print an error message.
      *
-     * @param task TaskList of all previous tasks saved within tasks.txt
+     * @param task TaskList of all previous tasks saved within tasks.txt.
      */
     public void loadTasks(TaskList tasks) {
         try {
@@ -60,5 +60,4 @@ public class Storage {
             System.out.printf(MESSAGE_INVALID_FILEPATH, e.getMessage());
         }
     }
-
 }
