@@ -19,6 +19,10 @@ public class Storage {
      *
      */
     public static void saveToFile() {
+        if (TaskList.numberOfListItems == 0) {
+            writeToFile("");
+        }
+
         if (TaskList.numberOfListItems > 0) {
             writeToFile(TaskList.storedList.get(0).saveTaskDescription() + System.lineSeparator());
             for (int i = 1; i < TaskList.numberOfListItems; i++) {
