@@ -7,4 +7,4 @@ D|work|0|4
 T|homework|0
 E|marraige|0|4pm|5pm
 D|phone|0|4pm
-T|Top G|0
+E|bottle buying|0|today eve|tommorow morning

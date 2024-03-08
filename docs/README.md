@@ -1,6 +1,57 @@
 # Kratos Task Management Application User Guide
 
+### Greeting Message
+```
+			──────────────────────────────
+			───────────────────────▓▓▓▓───
+			──────────────────────▓▓▓▓▓▓──
+			─────────────────────▓▓▓▓▓▓▓▓─
+			────────────────────▓▓▓▓▓▓▓▓──
+			───────────────────▓▓▓▓▓▓▓▓───
+			──────────────────▓▓▓▓▓▓▓▓────
+			─────────────────▓▓▓▓▓▓▓▓─────
+			─────────█──────▓▓▓▓▓▓▓▓──────
+			────────██─────▓▓▓▓▓▓▓▓───────
+			───────██──────▓▓▓▓▓▓▓▓▓──────
+			─▀██▄─██───────▓▓▓▓▓▓▓▓██──▄█─
+			─█████████▄─▄───▓▄▓▄████████──
+			──█▀▀▀███████────███████▀▀▀██─
+			─███▄▄██▄███▀─────███▄██▄▄███─
+			─█─██████▀█────────▓████████▀─
+			────██▀───▀─█────█──▓▓▓▓▓▓▓▓──
+			────▄█▀──────█──█────▓▓▓▓▓▓▓▓─
+			───▀█────────█──█─────▓▓▓▓▓▓▓─
+			───▄█▀────▄▄█▀──▀█▄▄───▓▓▓▓▓▓─
+			───█▄────█──█────█──█──▓▓▓▓▓▓─
+			───█─────▀──────────▀──▓▓▓▓▓▓─
+			────▀─────▀█──────█▀────▓▓▓───
+			────────────▀▄▄▄▄▀──────▓▓────
+			────────────────────────▓─────
+			────────▄█████████████▄───────
+			───────██▀▀▀▀▀▀▀▀▀▀▀▀▀██──────
+			───────▀───────────────▀──────
+			───────────█████████──────────
+			────────────███████───────────
+			──────────────███─────────────
+			──────██▄█─▄─█████─▄─█▄██─────
+			───────█████████████████──────
+			────────███████████████───────
+			─────────█████████████────────
+			──────────███████████─────────
+			──────────▀─███████─▀─────────
+			────────────▀─███─▀───────────
+			───────────────▀──────────────
+
+----------------------------------------------------------------
+Kratos commends you for your presence. Prepare for battle.
+Enter your commands with purpose.
+----------------------------------------------------------------
+```
+
 ## Features
+
+### Help Command
+- Enables the user to view all the commands at ones disposal, providing a quick reference for available commands.
 
 ### Adding Tasks
 - **Todo Tasks**: Enables the user to add a todo task to the task list, a simple task without a deadline.
@@ -14,15 +65,40 @@
 - Allows the user to delete a task from the task list, providing the ability to clean up completed or irrelevant tasks.
 
 ### Finding Tasks
-- Enables the user to search for tasks containing a specific keyword, making it easy to locate specific tasks in the list.
-
-### Help Command
-- Enables the user to view all the commands at ones disposal, providing a quick reference for available commands.
+- Enables the user to search for tasks containing a specific keyword, 
+- making it easy to locate specific tasks in the list.
 
 ### List Tasks
 - Allows the user to view the list of all tasks saved, giving an overview of the current task list.
 
+### Exit Command
+- Allows the user to exit the program, while saving all the changes made during operation
+
+
 ## Usage
+
+### Displaying Commands
+```bash
+help
+```
+- **Example**: `help`
+- **Expected Outcome**: Displays a list of Commands in a neat formatted order.
+```
+// Example Output
+        ╔════════════════════════════════════════╗
+        ║           Available Commands           ║
+        ╠════════════════════════════════════════╣
+        ║ 1. list            - Display all tasks ║
+        ║ 2. mark <num>      - Mark task as done ║
+        ║ 3. unmark <num>    - Unmark task       ║
+        ║ 4. deadline <desc> - Add a deadline    ║
+        ║ 5. todo <desc>     - Add a todo        ║
+        ║ 6. event <desc>    - Add an event      ║
+        ║ 7. delete <num>    - Delete a task     ║
+        ║ 8. find <keyword>  - Find tasks        ║
+        ║ 9. bye             - Exit program      ║
+        ╚════════════════════════════════════════╝
+```
 
 ### Adding a Todo Task
 ```bash
@@ -41,7 +117,8 @@ What now? Forge ahead or risk oblivion?
 deadline <description> /by <deadline>
 ```
 - **Example**: `deadline Submit report /by 2024-03-31`
-- **Expected Outcome**: A deadline task with the description "Submit report" and the deadline "2024-03-31" will be added to the task list.
+- **Expected Outcome**: A deadline task with the description "Submit report" and the deadline "2024-03-31" 
+will be added to the task list.
 ```
 // Example Output
 Deadline acknowledged. Time ticks away, mortal.
@@ -54,7 +131,8 @@ What next? Embrace purpose or succumb to chaos?
 event <description> /from <start_date> /to <end_date>
 ```
 - **Example**: `event Project meeting /from 2024-03-05 4pm /to 9pm`
-- **Expected Outcome**: An event task with the description "Project meeting", start date "2024-03-05", and end date "2024-03-07" will be added to the task list.
+- **Expected Outcome**: An event task with the description "Project meeting", start date "2024-03-05", 
+and end date "2024-03-07" will be added to the task list.
 ```
 // Example Output
 Event recorded. Destiny's hourglass turns.
@@ -99,7 +177,7 @@ delete <task_number>
 // Example Output
 Task erased. Its existence now a whisper in the winds of fate.
 What's your next decree?
-        [E][X] project meeting (from: Mon 2pm to: 4pm)
+        [E][X] project meeting (from: Mon 2pm >>> to: 4pm)
 10 tasks linger, shadows yet unvanquished. How will you face them?
 ```
 
@@ -112,32 +190,10 @@ find <keyword>
 ```
 // Example Output
 Behold, the deeds that align with your purpose.
-     2. [E][X] project meeting 1 (from: Mon 2pm to: 4pm)
-     5. [E][ ] project meeting 2 (from: Mon 2pm to: 4pm)
+     2. [E][X] project meeting 1 (from: Mon 2pm >>> to: 4pm)
+     5. [E][ ] project meeting 2 (from: Mon 2pm >>> to: 4pm)
 ```
 
-### Displaying Commands
-```bash
-help
-```
-- **Example**: `help`
-- **Expected Outcome**: Displays a list of Commands in a neat formatted order.
-```
-// Example Output
-        ╔════════════════════════════════════════╗
-        ║           Available Commands           ║
-        ╠════════════════════════════════════════╣
-        ║ 1. list            - Display all tasks ║
-        ║ 2. mark <num>      - Mark task as done ║
-        ║ 3. unmark <num>    - Unmark task       ║
-        ║ 4. deadline <desc> - Add a deadline    ║
-        ║ 5. todo <desc>     - Add a todo        ║
-        ║ 6. event <desc>    - Add an event      ║
-        ║ 7. delete <num>    - Delete a task     ║
-        ║ 8. find <keyword>  - Find tasks        ║
-        ║ 9. bye             - Exit program      ║
-        ╚════════════════════════════════════════╝
-```
 
 ### Displaying Tasks
 ```bash
@@ -150,10 +206,24 @@ list
 ----------------------------------------------------------------
 Your list of Tasks
      1. [T][ ] helllo
-     2. [E][X] car wash (from: saturday night 6pm to: 9pm)
+     2. [E][X] car wash (from: saturday night 6pm >>> to: 9pm)
      3. [T][X] work
      4. [T][ ] project 1
      5. [T][X] project 2
      6. [D][ ] assignment (by: tonight)
+----------------------------------------------------------------
+```
+
+### Exiting Application
+```bash
+bye
+```
+- **Example**: `bye`
+- **Expected Outcome**: Displays a goodbye message to indicate to the user, that the application will be closed.
+```
+// Example Output
+----------------------------------------------------------------
+            Until the next battle, mortal.
+May your tasks be conquered with the ferocity of a god.
 ----------------------------------------------------------------
 ```
