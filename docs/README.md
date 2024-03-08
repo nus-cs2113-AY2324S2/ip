@@ -33,7 +33,7 @@ todo <task_description>
 ```
 Task noted. A duty without a deadline? Dangerous.
 What now? Forge ahead or risk oblivion?
-     7. [T][ ] homework
+     7. [T][ ] Buy groceries
 ```
 
 ### Adding a Deadline Task
@@ -46,20 +46,20 @@ deadline <description> /by <deadline>
 // Example Output
 Deadline acknowledged. Time ticks away, mortal.
 What next? Embrace purpose or succumb to chaos?
-     9. [D][ ] call manager (by: 4pm)
+     9. [D][ ] Submit report (by: 2024-03-31)
 ```
 
 ### Adding an Event Task
 ```bash
 event <description> /from <start_date> /to <end_date>
 ```
-- **Example**: `event Project meeting /from 2024-03-05 /to 2024-03-07`
+- **Example**: `event Project meeting /from 2024-03-05 4pm /to 9pm`
 - **Expected Outcome**: An event task with the description "Project meeting", start date "2024-03-05", and end date "2024-03-07" will be added to the task list.
 ```
 // Example Output
 Event recorded. Destiny's hourglass turns.
 What now? Seize control or be swept by its sands?
-     8. [E][ ] marraige (from: 4pm to: 5pm)
+     8. [E][ ] Project meeting (from: 2024-03-05 4pm to: 9pm)
 ```
 
 ### Marking a Task as Done
