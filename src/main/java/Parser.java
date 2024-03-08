@@ -48,6 +48,9 @@ public class Parser {
             throw new JaneException(Message.DEADLINE_EMPTY_DESCRIPTION_ERROR);
         }
         String[] deadlineInput = input.split(" /", 2);
+        if (deadlineInput.length < EXPECTED_DEADLINE_LENGTH) {
+            throw new JaneException(Message.DEADLINE_MISSING_DUE);
+        }
         Deadline deadline = new Deadline(deadlineInput[0],
                 deadlineInput[1].replace("/", "").replace("by ", ""));
         this.taskList.addTask(deadline);
@@ -66,6 +69,9 @@ public class Parser {
             throw new JaneException(Message.EVENT_EMPTY_DESCRIPTION_ERROR);
         }
         String[] eventInput = input.split(" /", 3);
+        if (eventInput.length < EXPECTED_EVENT_LENGTH) {
+            throw new JaneException(Message.EVENT_MISSING_START_END);
+        }
         Event event = new Event(eventInput[0],
                 eventInput[1].replace("/", "").replace("from ", ""),
                 eventInput[2].replace("/", "").replace("to ", ""));
