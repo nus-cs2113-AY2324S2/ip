@@ -7,7 +7,7 @@ Meet BobBot, your CLI-based task management sidekick designed for speedy typing 
 
 ## Quick Start
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `BobBot.jar` from [here]()
+2. Download the latest `BobBot.jar` from [here](https://github.com/NicholasTanYY/ip/releases/download/A-Release/BobBot_final.jar)
 3. Copy the file to the folder you want to use as the home folder for your BobBot.
 4. In the terminal, navigate to the folder where `BobBot.jar` is located.
 5. Run the command `java -jar BobBot.jar` to start the app. 
