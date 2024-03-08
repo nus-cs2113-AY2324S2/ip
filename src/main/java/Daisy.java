@@ -26,7 +26,6 @@ public class Daisy {
         TaskList tasks = new TaskList();
         File executingFilePath = new File(Daisy.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         String storageLocation = executingFilePath.getParentFile().getAbsolutePath() + defaultStorageLocation;
-        System.out.println(storageLocation);
         Storage storage = new Storage(storageLocation);
 
 
