@@ -1,7 +1,9 @@
 package schmidt.storage;
 
 import schmidt.exception.SchmidtException;
-import schmidt.task.*;
+import schmidt.parser.Parser;
+import schmidt.task.Task;
+import schmidt.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,13 +11,27 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of tasks in a file to be loaded from and saved to.
+ */
 public class Storage {
     private final File file;
 
+    /**
+     * Constructs a storage with the file path.
+     *
+     * @param filePath the file path
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return the list of tasks
+     * @throws SchmidtException if there was an error loading tasks
+     */
     public ArrayList<Task> load() throws SchmidtException {
         try {
             ArrayList<Task> tasks = null;
@@ -26,33 +42,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 isFileEmpty = false;
                 String line = scanner.nextLine();
-                String[] tokens = line.split(" \\| ");
-
-                switch (tokens[0]) {
-                case "T":
-                    Todo todo = new Todo(tokens[2]);
-                    if (tokens[1].equals("1")) {
-                        todo.markAsDone();
-                    }
-                    tasks.add(todo);
-                    break;
-                case "D":
-                    Deadline deadline = new Deadline(tokens[2], tokens[3]);
-                    if (tokens[1].equals("1")) {
-                        deadline.markAsDone();
-                    }
-                    tasks.add(deadline);
-                    break;
-                case "E":
-                    Event event = new Event(tokens[2], tokens[4], tokens[5]);
-                    if (tokens[1].equals("1")) {
-                        event.markAsDone();
-                    }
-                    tasks.add(event);
-                    break;
-                default:
-                    throw new SchmidtException("Saved tasks are corrupted\n" + "Starting with a new task list");
-                }
+                tasks.add(Parser.parseStorageToTask(line));
             }
 
             return tasks;
@@ -61,45 +51,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to the storage file.
+     *
+     * @param tasks the list of tasks
+     * @throws SchmidtException if there was an error saving tasks
+     */
     public void save(TaskList tasks) throws SchmidtException {
         try {
             FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task task = tasks.getTask(i);
-                // type of task
-                String taskType = "";
-                if (task instanceof Todo) {
-                    taskType = "T";
-                } else if (task instanceof Deadline) {
-                    taskType = "D";
-                } else if (task instanceof Event) {
-                    taskType = "E";
-                }
 
-                // status of task
-                String isDone = "0";
-                if (task.getStatus()) {
-                    isDone = "1";
-                }
-
-                // description of task
-                String description = task.getDescription();
-
-                // bye
-                String by = "";
-                if (task instanceof Deadline) {
-                    by = ((Deadline) task).getBy();
-                }
-
-                // from, to
-                String from = "";
-                String to = "";
-                if (task instanceof Event) {
-                    from = ((Event) task).getFrom();
-                    to = ((Event) task).getTo();
-                }
-
-                fileWriter.write(taskType + " | " + isDone + " | " + description + " | " + by + " | " + from + " | " + to + "\n");
+                fileWriter.write(Parser.parseTaskToStorage(task));
             }
             fileWriter.close();
         } catch (Exception e) {

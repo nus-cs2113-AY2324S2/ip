@@ -1,6 +1,3 @@
-T | 0 | 16 |  |  | 
-T | 0 | todo todo todo |  |  | 
-D | 0 | bab/y's birthday | november |  | 
-D | 0 | ba/by's birthday | november |  | 
-D | 0 | ba/by birthday | november |  | 
-D | 0 | ba | november |  | 
+T | 0 | buy GRE practice book
+D | 0 | turn in iP project | eod
+E | 0 | eat dinner | 6pm | 7pm
