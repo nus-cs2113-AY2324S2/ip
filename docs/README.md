@@ -24,16 +24,16 @@ Zuke is a chatbot that helps you manage your tasks in a command line interface (
 3. Copy the file to the folder you want to use as the home folder for Zuke.
 4. Open a terminal and navigate to the folder where `zuke.jar` is located.
 5. Run the command `java -jar zuke.jar` to start the chatbot. The chatbot should start and greet you with a welcome message.
-```
-Hello from
-███████╗██╗   ██╗██╗  ██╗███████╗
-╚══███╔╝██║   ██║██║ ██╔╝██╔════╝
-  ███╔╝ ██║   ██║█████╔╝ █████╗  
- ███╔╝  ██║   ██║██╔═██╗ ██╔══╝  
-███████╗╚██████╔╝██║  ██╗███████╗
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
-
-```
+    ```
+    Hello from
+    ███████╗██╗   ██╗██╗  ██╗███████╗
+    ╚══███╔╝██║   ██║██║ ██╔╝██╔════╝
+      ███╔╝ ██║   ██║█████╔╝ █████╗  
+     ███╔╝  ██║   ██║██╔═██╗ ██╔══╝  
+    ███████╗╚██████╔╝██║  ██╗███████╗
+    ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+    
+    ```
 6. Type the command in the command box and press Enter to execute it. Some example commands you can try:
     - `help`: outputs a list of commands and their usage.
     - `list`: Lists all tasks in the task list.
@@ -100,7 +100,7 @@ and when the chatbot is exited.
 > - Words in `<angle brackets>` are the parameters that need to be supplied in by the user.
 > - When supplying the parameters in the command, do not include the `<angle brackets>`.
 > - The commands are **NOT case-sensitive**, meaning `todo`, `Todo`, and `TODO` are all valid commands.
-> - Inputs associated with `time` need to be in the format:<br>
+> - Inputs associated with `time` need to be in the format of any one the three listed:<br>
 >  - `dd/MM/yyyy` (**Date only**)
 >  - `HHmm` (**Time only**)
 >  - `dd/MM/yyyy HHmm` (**Time & date together**)
@@ -123,7 +123,7 @@ and when the chatbot is exited.
     - Expected outcome:
       ```plaintext
       Got it. I've added this task:
-      [D][ ] submit report (by: 20 Sep 2021 23:59)
+      [D][ ] submit report (by: Sep 20 2021 23:59 pm)
       Now you have 2 tasks in the list.
       ```
 
@@ -134,9 +134,16 @@ and when the chatbot is exited.
     - Expected outcome:
       ```plaintext
       Got it. I've added this task:
-      [E][ ] cs2113 iP (from: 20 Jan 2024 to: 08 Mar 2024)
+      [E][ ] cs2113 iP (from: Jan 20 2024 0921 am to: Mar 08 2024 1159 pm)
       Now you have 3 tasks in the list.
       ```
+- Example of usage: `event cs2113 tp meeting /from 1900 /to 2100`
+  - Expected outcome:
+    ```plaintext
+    Got it. I've added this task:
+    [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
+    Now you have 4 tasks in the list.
+    ``
 
 ### Mark or Unmark a task
 
@@ -151,7 +158,7 @@ and when the chatbot is exited.
     - Expected outcome:
       ```plaintext
       Nice! I've marked this task as done:
-      [D][X] submit report (by: 20 Sep 2021 23:59)
+      [D][X] submit report (by: Sep 20 2021 23:59)
       ```
 
 #### Unmark - `unmark <task number>`
@@ -168,10 +175,11 @@ and when the chatbot is exited.
 - Example of usage: `list`
     - Expected outcome:
       ```plaintext
-      Here are the tasks in your list:
-      1. [T][ ] one hour running
-      2. [D][X] submit report (by: 20 Sep 2021 23:59)
-      3. [E][ ] cs2113 iP (from: 20 Jan 2024 to: 08 Mar 2024)
+        Here are the tasks in your list:
+        1. [T][X] one hour running
+        2. [D][X] submit report (by: Sep 20 2021 23:59)
+        3. [E][ ] cs2113 iP (from: Jan 20 2024 0921 am to: Mar 08 2024 1159 pm)
+        4. [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
       ```
 
 ### Delete a task
@@ -182,7 +190,7 @@ and when the chatbot is exited.
       ```plaintext
       Noted. I've removed this task:
       [T][ ] one hour running
-      Now you have 2 tasks in the list.
+      Now you have 3 tasks in the list.
       ```
 
 ### Find a task
