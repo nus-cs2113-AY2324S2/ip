@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task{
     protected String from;
     protected String to;
@@ -10,6 +12,6 @@ public class Event extends Task{
 
     @Override
     public String toString(){
-        return "[E]" + "[" + super.getStatusIcon() + "] " + this.description + "(from: " + from + " " + "to: " + to + ")";
+        return "[E]" + "[" + super.getStatusIcon() + "] " + this.description + " (from: " + from + " " + "to: " + to + ")";
     }
 }
