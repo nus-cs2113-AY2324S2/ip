@@ -1,4 +1,4 @@
-# User Guide
+# Stella User Guide
 
 ## Setup
 
