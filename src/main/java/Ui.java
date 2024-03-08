@@ -40,6 +40,10 @@ public class Ui {
                 case "deadline" :
                 case "event" :
                     throw new JaneException(Message.emptyDescriptionError(inputPart[0]));
+                case "mark" :
+                case "unmark" :
+                case "delete" :
+                    throw new JaneException(Message.missingSequenceNumberError(inputPart[0]));
                 }
             }
 
