@@ -1,25 +1,47 @@
 package lovie.task;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
-        public Deadline(String description) {
-            super(description);
-        }
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description The description of the deadline.
+     */
+    public Deadline(String description) {
+        super(description);
+    }
 
-        @Override
-        public String getDescription() {
-            String realDescription = description.split("(?i)/by ")[0].split("(?i)deadline")[1].trim();
-            return realDescription;
-        }
+    /**
+     * Returns the description of the deadline.
+     *
+     * @return The description of the deadline.
+     */
+    @Override
+    public String getDescription() {
+        return description.split("(?i)/by ")[0].split("(?i)deadline")[1].trim();
+    }
 
-        @Override
-        public String getTimespan() {
-            String date = " (by: " + description.split("(?i)/by ")[1] + ")";
-            return date;
-        }
+    /**
+     * Returns the timespan of the deadline.
+     *
+     * @return The timespan of the deadline.
+     */
+    @Override
+    public String getTimespan() {
+        return " (by: " + description.split("(?i)/by ")[1] + ")";
+    }
 
-        @Override
-        public String getTaskIcon() {
-            return "D";
-        }
+    /**
+     * Returns the icon of the deadline.
+     *
+     * @return The icon of the deadline.
+     */
+    @Override
+    public String getTaskIcon() {
+        return "D";
+    }
+
 }
 
