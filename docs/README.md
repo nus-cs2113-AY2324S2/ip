@@ -7,7 +7,7 @@ https://se-education.org/addressbook-level3/UserGuide.html
 Anonbot is a Command-line application that allows you to create and manage all your tasks.
 
 - [Quick Start](#quick-start)
-- [Features](#features-)
+- [Features](#features)
   - [Showing the list of supported commands: `help`](#showing-the-list-of-supported-commands-help)
   - [Creating a new todo task: `todo`](#creating-a-new-todo-task-todo)
   - [Creating a new deadline task: `deadline`](#creating-a-new-deadline-task-deadline)
@@ -35,7 +35,7 @@ Here is how to get started with running the program.
 4. Open a command terminal, navigate into the directory containing the `.jar` file.
 5. Type `java -jar anonbot.jar` to start running the application.
 
-# Features 
+# Features
 ## Showing the list of supported commands: `help`
 Shows the list of commands supported by anonBot.
 
