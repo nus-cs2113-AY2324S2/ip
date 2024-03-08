@@ -31,8 +31,7 @@ Got it! I've added this task:
 [T][ ]  CS2113 homework
 Now you have 1 tasks in the list!
 ```
-###
-###
+### ______________________________
 
 ### `event` - adds a new event task to your list
 
@@ -50,7 +49,7 @@ Got it! I've added this task:
 [E][ ]  CS2113 lecture (from: 2pm to: 4pm)
 Now you have 2 tasks in the list!
 ```
-### 
+### ______________________________
 
 ### `deadline` - adds a new deadline task to your list
 
@@ -68,7 +67,7 @@ Got it! I've added this task:
 Now you have 3 tasks in the list!
 ```
 
-### 
+### ______________________________
 
 ### `mark` - marks a task as done
 
@@ -86,7 +85,8 @@ Good job~! I've marked it as done
 [X]  CS2113 homework
 ```
 
-### 
+### ______________________________
+
 ### `unmark` - unmarks a task from its done status
 
 Unmarks a task from being complete in your list. The index is the index of the task you want to unmark.
@@ -103,7 +103,7 @@ Aww... I've marked it as undone.
 [ ]  CS2113 lecture 
 ```
 
-### 
+### ______________________________
 
 ### `list` - lists all the tasks you currently have
 
@@ -122,7 +122,8 @@ Here are your list items!
 3. [D][X]  CS2113 iP (by: 3rd Jan)
 ```
 
-### 
+### ______________________________
+
 ### `delete` - deletes a task
 
 Deletes a task from your list. The index is the index of the task you want to delete.
@@ -140,7 +141,7 @@ Okay, I'm deleting this task:
 Now you have 2 items in your list!
 ```
 
-### 
+### ______________________________
 
 ### `find` - finds a keyword
 
