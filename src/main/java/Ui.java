@@ -34,7 +34,7 @@ public class Ui {
             String[] inputPart = input.split(" ", 2);
 
             // Checking if the input has the expected length and is not null for certain commands
-            if (inputPart.length < EXPECTED_LENGTH || inputPart[1] == null) {
+            if (inputPart.length < EXPECTED_INPUT_LENGTH || inputPart[1] == null) {
                 switch (inputPart[0]) {
                 case "todo" :
                 case "deadline" :
@@ -59,13 +59,13 @@ public class Ui {
                 taskList.printList();
                 break;
             case "mark":
-                parser.markAsDone(Integer.parseInt(inputPart[1]) - 1);
+                parser.markAsDone(inputPart[1]);
                 break;
             case "unmark":
-                parser.markAsUndone(Integer.parseInt(inputPart[1]) - 1);
+                parser.markAsUndone(inputPart[1]);
                 break;
             case "delete":
-                taskList.removeTask(Integer.parseInt(inputPart[1]) - 1);
+                taskList.removeTask(inputPart[1]);
                 break;
             case "find":
                 parser.findWord(inputPart[1]);
