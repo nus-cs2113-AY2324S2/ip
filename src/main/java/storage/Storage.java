@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import task.TaskList;
 
+/**
+ * This Storage class is a file manager that stores the list of tasks.
+ */
 public class Storage {
 
     private static final String filePath = "tasks.txt";

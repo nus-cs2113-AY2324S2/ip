@@ -1,5 +1,8 @@
 package task;
 
+/**
+ * The super class for Todo, Deadline and Event.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
