@@ -38,6 +38,7 @@ initial execution is successful.
   * Keywords starting with the / symbol are important formatting keywords used to separate parameters.
   * The first word within every user command will be identified as the action keyword used to signify the desired 
     operation.
+
 ### Adding Tasks: Todo, Deadline, Event
 There are a total of 3 different task type for you to categorise their daily tasks into. 
 

@@ -28,8 +28,13 @@ public class TaskList {
      * @see Task
      */
     public void listTasks() {
-        for (Task task : tasks) {
-            System.out.println((tasks.indexOf(task) + 1) + "." + task);
+        if (getSize() == 0) {
+            System.out.println("There are current no tasks in your list!");
+        }
+        else {
+            for (Task task : tasks) {
+                System.out.println((tasks.indexOf(task) + 1) + "." + task);
+            }
         }
     }
 
@@ -163,6 +168,9 @@ public class TaskList {
                 System.out.println(count + "." + task);
                 count++;
             }
+        }
+        if (count == 1) {
+            System.out.println("No task matching your keyword found!");
         }
     }
 
