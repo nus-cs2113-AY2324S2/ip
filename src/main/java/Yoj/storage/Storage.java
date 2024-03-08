@@ -89,6 +89,7 @@ public class Storage {
         }
         return loadedTasks;
     }
+
     /**
      * Saves the current tasks to the storage file.
      *
