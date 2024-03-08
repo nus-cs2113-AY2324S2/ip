@@ -2,7 +2,6 @@ package parser;
 import doraemonexceptions.EmptyListException;
 import doraemonexceptions.InValidCommandException;
 import doraemonexceptions.IsEmptyException;
-import tasklist.TaskList;
 import tasklist.todo.Todo;
 import ui.Ui;
 import storage.Storage;
@@ -25,6 +24,7 @@ public class Parser {
 
     }
 
+<<<<<<< HEAD
     /**
      * Runs the process of interacting with user. Reads in user input and respond accordingly.
      *
@@ -33,6 +33,19 @@ public class Parser {
      * @throws IOException If runParser runs into problems.
      */
     public void runParser(String pathName, TaskList tasklist) throws IOException {
+=======
+    protected boolean hasFoundItem (String temp) {
+        for (Todo task : list) {
+            if (task.getDescription().contains(temp)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public void runParser(String pathName) throws IOException {
+>>>>>>> master
         Storage storage = new Storage(pathName);
         Ui ui = new Ui();
         String temp = in.nextLine();
@@ -43,10 +56,7 @@ public class Parser {
                     if (taskNum == 0) {
                         throw new EmptyListException();
                     }
-                    for (int i = 0; i < taskNum; i++) {
-                        System.out.println(i + 1 + "." + list.get(i).formatTask());
-                    }
-                    ui.printLine();
+                        ui.printList(list);
                 } else if (temp.startsWith("todo")) {
                     temp = temp.substring(4); //trim off command
                     tasklist.addTodo(list, temp, taskNum);
@@ -70,13 +80,25 @@ public class Parser {
                     int indexToMark = Integer.parseInt(temp) - 1;
                     list.get(indexToMark).markStatus();
                     ui.printMarked(list.get(indexToMark));
-                    ui.printLine();
                 } else if (temp.startsWith("delete")) {
                     temp = temp.substring(7); //trim delete
                     int indexToDel = Integer.parseInt(temp) - 1;
                     taskNum--;
                     ui.printDelMessage(list.get(indexToDel), taskNum);
                     list.remove(indexToDel);
+                } else if (temp.startsWith("find")) {
+                    temp = temp.substring(5); //trim find
+                    if (hasFoundItem(temp)) {
+                        ui.printFoundTaskHeader();
+                        for (Todo task : list) {
+                            if (task.getDescription().contains(temp)) {
+                                ui.printFoundTask(task, list.indexOf(task));
+                            }
+                        }
+                        ui.printLine();
+                    } else {
+                        ui.printNotFound();
+                    }
                 } else if (temp.isEmpty()) {
                     throw new IsEmptyException();
                 } else {

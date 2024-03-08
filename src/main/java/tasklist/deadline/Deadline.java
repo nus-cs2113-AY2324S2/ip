@@ -13,6 +13,10 @@ public class Deadline extends Todo {
         type = "[D]";
     }
 
+    public String getDate() {
+        return (date);
+    }
+
     public String formatTask() {
         return (type + status + description + "(by:" + date + ")");
     }
