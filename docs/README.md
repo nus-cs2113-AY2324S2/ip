@@ -22,6 +22,10 @@ Delete selected task.
 
 Find task in list using keywords.
 
+## Notes
+* No arguments are required unless otherwise stated.
+* Words in capital case denote the type of arguments users should pass. For example INT indicates that an argument expects a number
+
 ## Usage
 
 ### `bye` - Exits the program
@@ -57,6 +61,10 @@ Expected outcome:
 ```
 ### `mark` - Marks selected task as done
 
+Format:
+
+mark TASK_AT_INDEX_NUMBER
+
 Example of usage:
 
 `mark 1`
@@ -74,6 +82,10 @@ Expected outcome:
 	〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓
 ```
 ### `unmark` - Unmarks selected task as done
+
+Format:
+
+unmark TASK_AT_INDEX_NUMBER
 
 Example of usage:
 
@@ -95,6 +107,10 @@ Description of the outcome.
 ```
 ### `todo` - Adds a todo task to list
 
+Format:
+
+todo DESCRIPTION
+
 Example of usage:
 
 `todo math assignment`
@@ -109,6 +125,10 @@ Expected outcome:
 	____________________________________________________________
 ```
 ### `deadline` - Adds a deadline task to list
+
+Format:
+
+todo DESCRIPTION /DEADLINE
 
 Example of usage:
 
@@ -125,6 +145,10 @@ Expected outcome:
 ```
 ### `event` - Adds an event task to list
 
+Format:
+
+todo DESCRIPTION /START_TIME /END_TIME
+
 Example of usage:
 
 `event soccer match /from 9 March 2023 3pm /to 9 March 2023 5pm`
@@ -140,6 +164,10 @@ Expected outcome:
 ```
 ### `delete` - Deletes task from list.
 
+Format:
+
+delete TASK_AT_INDEX_NUMBER
+
 Example of usage:
 
 `delete 4`
@@ -154,6 +182,10 @@ Expected outcome:
 	____________________________________________________________
 ```
 ### `find` - find tasks with descriptions matching the query
+
+Format:
+
+find TASK_WITH_SEARCH_TERM
 
 Example of usage:
 
