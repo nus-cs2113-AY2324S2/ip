@@ -81,14 +81,15 @@ Data files are saved in `./data/tasklist.txt`. Advanced users can modify the tex
 <!--
 Credit: https://raw.githubusercontent.com/se-edu/addressbook-level3/master/docs/UserGuide.md
 -->
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+**Caution:**
 If your changes to the data file makes its format invalid, 
 anonbot will discard all data and start with an empty data file at the next run. 
-Hence, it is recommended to take a backup of the file before editing it.<br><br>
+Hence, it is recommended to take a backup of the file before editing it.
+
 Furthermore, certain edits can cause the anonbot to behave in unexpected ways 
-(e.g. Modifying the task number may end up with duplicate or unordered task numbers, which are not checked).<br><br>
+(e.g. Modifying the task number may end up with duplicate or unordered task numbers, which are not checked).
+
 Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
 
 # FAQ
 
