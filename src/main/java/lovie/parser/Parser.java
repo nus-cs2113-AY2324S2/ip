@@ -66,6 +66,9 @@ public class Parser {
         case "find":
             findHelper(line);
             break;
+        case "command":
+            ui.commandPrinter();
+            break;
         default:
             String taskType = processedInput.split(" ")[0];
             Task newTask;
@@ -103,7 +106,7 @@ public class Parser {
                     ui.print(e.getMessage());
                     break;
                 }
-                newTask = new ToDo(line);
+                newTask = new Todo(line);
                 tasksList.addTask(newTask);
                 ui.addTaskPrinter(newTask);
                 storage.saveTasks(tasksList);

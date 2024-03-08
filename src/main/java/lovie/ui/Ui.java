@@ -31,7 +31,8 @@ public class Ui {
      * Prints the introduction.
      */
     public void introductionPrinter() {
-        print(LOGO + "Hey hey! My name is Lovie! How can I help you today?");
+        print(LOGO + "Hey hey! My name is Lovie! How can I help you today?\n" +
+                "Just a heads up: you can type 'command' for a list of everything you can ask me!");
     }
 
     /**
@@ -94,6 +95,21 @@ public class Ui {
                 + "(5) To mark a task as done: mark **task number**\n(6) To unmark a task as not done: unmark " +
                 "**task number**\n(7) To delete a task: delete **task number**\n" +
                 "(7) To find tasks with a keyword: find **keyword**\n(8) To leave our session: bye"
+        );
+    }
+
+    /**
+     * Prints all possible user commands.
+     */
+    public void commandPrinter() {
+        print("Of course girlie <3 Here are all the possible commands you can ask me:\n\n" +
+                "(1) To add a todo: todo **description** \n(2) To add an event: event **description** /from **start**" +
+                "/to **end**\n(3) To add a deadline: deadline **description** /by **end**\n(4) To list all tasks: list\n"
+                + "(5) To mark a task as done: mark **task number**\n(6) To unmark a task as not done: unmark " +
+                "**task number**\n(7) To delete a task: delete **task number**\n" +
+                "(8) To find tasks with a keyword: find **keyword**\n" +
+                "(9) To ask for a list of all commands: command\n" +
+                "(10) To leave our session: bye"
         );
     }
 
