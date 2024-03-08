@@ -128,9 +128,9 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       [E][ ] cs2113 ip (from: 20 Jan 2024 11:00 to: 08 Mar 2024 12:00)
       Now you have 3 tasks in the list.
       ```
-### Delete a task
     
 ### Indicate completion of a task
+
 #### Mark - `mark <task number>`
 - Example: `mark 1`
     - Expected outcome:
@@ -138,6 +138,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       Nice! I've marked this task as done:
       [T][X] eat
       ```
+
 #### Unmark - `unmark <task number>`
 - Example: `unmark 1`
     - Expected outcome:
@@ -147,9 +148,11 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       ```
       
 ### List all tasks
+
 #### List - `list`
 - Example: `list`
     - Expected outcome:
+  
       ```plaintext
       Here are the tasks in your list:
       1. [T][ ] eat
@@ -160,6 +163,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
 #### Delete - `delete <task number>`
 - Example: `delete 1`
     - Expected outcome:
+  
       ```plaintext
       Noted. I've removed this task:
       1. [T][ ] eat
@@ -167,9 +171,11 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       ```
       
 ### Find a task
+
 #### Using keyword - `find <keyword>`
 - Example: `find ip`
     - Expected outcome:
+  
       ```plaintext
       Here are the matching tasks in your list:
       1. [D][X] submit ip (by: 20 Sep 2021 23:59)
@@ -177,6 +183,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       ```
       
 ### Exit the program
+
 #### Bye - `bye`
 - Example: `bye`
     - Expected outcome:
@@ -185,6 +192,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       ```
 
 ## Extra Questions
+
 #### Q  -  How do I transfer my data to another computer?
 - Download the `chris.jar` file in the new computer and copy the `data` folder on your original directory
   to the same directory of the application in the new device. 
