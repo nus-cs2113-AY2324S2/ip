@@ -1,6 +1,6 @@
-# Lovie User Guide
+# Lovie User Guide <3
 
-Welcome to the Lovie User Guide! Lovie is a command-line interface (CLI) application that helps you manage your tasks
+Welcome to the Lovie User Guide! Lovie ♡〜٩( ˃▿˂ )۶〜♡ is a command-line interface (CLI) application that helps you manage your tasks
 efficiently. This guide provides detailed instructions on using Lovie's features, including adding, marking, finding, 
 and deleting tasks. 
 
@@ -104,11 +104,14 @@ find <KEYWORD>
 
 ## Exiting the Application
 
-To leave Lovie, type `bye`. Lovie will save your tasks for the next session.
+To leave Lovie, type `bye`.  
 
 ```
 bye
 ```
+
+Lovie will automatically save your tasks for the next session. So when reloading back, don't
+hesitate to ask Lovie to `list` your previously saved tasks as a reminder!
 
 ## Commands Summary
 
@@ -142,4 +145,5 @@ task.
 
 ## Contributing
 
-Contributions to Lovie are welcome! Please feel free to open an issue or pull request on our GitHub repository for suggestions or bug reports
+Contributions to Lovie are welcome! Please feel free to open an issue or pull request on my GitHub repository for 
+suggestions or bug reports. 
