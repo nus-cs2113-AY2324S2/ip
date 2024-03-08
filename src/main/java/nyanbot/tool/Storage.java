@@ -11,10 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/***
- * Handles file IO operations for NyanBot class
- * Stores task list in ./data/nyan.txt
- */
 public class Storage {
     private static final String TRUE = "TRUE";
     private static final String TODO_COMMAND = "TODO";
@@ -28,11 +24,6 @@ public class Storage {
         filePath = dataDirectory + fileName;
     }
 
-    /***
-     * reads data in ./data/nyan.txt and converts data into arraylist of tasks
-     * creates new data directory and empty .txt file if they do not exist
-     * @return array list of containing tasks stored in data file
-     */
     public ArrayList<Task> readFile() {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -61,11 +52,6 @@ public class Storage {
         }
     }
 
-    /***
-     * writes arraylist of tasks into .txt file
-     * creates new .txt file in ./data/ if non-existent
-     * @param tasks arraylist containing tasks to write onto data file
-     */
     public void writeFile(ArrayList<Task> tasks) {
         try {
             File dataFile = new File(filePath);
@@ -85,12 +71,7 @@ public class Storage {
         }
     }
 
-    /***
-     * converts data string into specified task
-     * @param line string containing information for task
-     * @return task object with data converted from string input
-     */
-    private Task readLine(String line) {
+    public Task readLine(String line) {
         try {
             String[] tokens = line.split("/");
             String command = tokens[0].toUpperCase();
