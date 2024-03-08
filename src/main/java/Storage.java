@@ -4,13 +4,25 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object to handle data persistence.
+     * @param filePath The file path where tasks are saved and loaded.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by {@code filePath}.
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws DukeException If there is an error parsing the file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File file = new File(filePath);
@@ -32,6 +44,12 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Creates a Task object from the data stored in the file.
+     * @param parts An array of strings containing task data.
+     * @return A task object corresponding to the data provided.
+     * @throws DukeException If the data is invalid.
+     */
     private Task createTaskFromData(String[] parts) throws DukeException {
         Task task = null;
         boolean isDone = "1".equals(parts[1]);
@@ -60,6 +78,11 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by {@code filePath}.
+     * @param tasks The list of tasks to be saved.
+     * @throws DukeException If there is an error saving tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws DukeException {
         try {
             PrintWriter writer = new PrintWriter(filePath);
@@ -74,6 +97,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a Task object into a string format for file storage.
+     * @param task The Task object that has to be converted.
+     * @return A string representation of the Task for file storage.
+     */
     private String taskToFileString(Task task) {
         String type = "T";
         String isDone = task.isDone() ? "1" : "0";

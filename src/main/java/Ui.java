@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class handles all user interactions, which include reading user input
+ * and displaying messages to the user
+ */
 public class Ui {
     private Scanner scanner;
 
@@ -14,14 +18,14 @@ public class Ui {
 
     public void showWelcome(String chatBotName) {
         printLine();
-        System.out.println("Hello! I'm " + chatBotName);
+        System.out.println("Helloooo! I'm " + chatBotName);
         System.out.println("What can I do for you today?");
         printLine();
     }
 
     public void showGoodbye() {
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Byeeee. Hope to see you again soon!:)");
         printLine();
     }
 
@@ -41,6 +45,10 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     * @param tasks The list of tasks to display.
+     */
     public void showTaskList(ArrayList<Task> tasks) {
         printLine();
         if (tasks.isEmpty()) {
