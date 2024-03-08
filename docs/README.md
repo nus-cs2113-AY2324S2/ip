@@ -85,7 +85,7 @@ Here are the tasks in your list:
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 ```
 ### Marking Tasks
-You may mark tasks as complete by using either the `mark`.
+You may mark tasks as complete by using the `mark` command.
 ```
 mark <item index on list [number]> 
 ```
@@ -101,7 +101,7 @@ Nice! I've marked this task as done:
 [D][X] return book  (by: Feb 3 2024)
 ```
 ### Unmarking Tasks
-You may unmark tasks as incomplete by using either the `unmark`.
+You may unmark tasks as incomplete by using the `unmark` command.
 ```
 unmark <item index on list [number]> 
 ```
