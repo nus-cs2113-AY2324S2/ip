@@ -70,7 +70,8 @@ public class Parser {
             UserUi.printMessageWithDivider("  !! this isn't a command i recognise...\n"
                     + "sorry, pls try again. enter 'help' to view all commands i know");
         } catch (MissingTaskDetailException e) {
-            UserUi.printMessageWithDivider("i need more details about the task from you.");
+            UserUi.printMessageWithDivider("i need more details about the task from you.\n" +
+                    "enter 'help' to view the command format to add tasks");
         }
     }
 

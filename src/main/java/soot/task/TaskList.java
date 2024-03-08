@@ -88,10 +88,10 @@ public class TaskList {
     public static void addDeadlineTask(String userInput) throws MissingTaskDetailException {
         String inputTaskDetails = userInput.substring(9);
 
-        int slashIndex = inputTaskDetails.indexOf('/'); //slash splits the taskName and dueDate
-        if (slashIndex == -1) {
+        if (!userInput.contains("/by")) {
             throw new MissingTaskDetailException();
         }
+        int slashIndex = inputTaskDetails.indexOf('/'); //slash splits the taskName and dueDate
         String taskName = inputTaskDetails.substring(0, slashIndex - 1);
         String dueDate = inputTaskDetails.substring(slashIndex + 4);
 
@@ -112,18 +112,15 @@ public class TaskList {
     public static void addEventTask(String userInput) throws MissingTaskDetailException {
         String inputTaskDetails = userInput.substring(6);
 
-        int firstSlashIndex = inputTaskDetails.indexOf('/');
-        if (firstSlashIndex == -1) {
+        if (!userInput.contains("/from") || !userInput.contains("/to")) {
             throw new MissingTaskDetailException();
         }
+
+        int firstSlashIndex = inputTaskDetails.indexOf('/');
         String taskName = inputTaskDetails.substring(0, firstSlashIndex - 1);
 
         String eventTimelineDetails = inputTaskDetails.substring(firstSlashIndex + 6);
         int secondSlashIndex = eventTimelineDetails.indexOf('/');
-        if (secondSlashIndex == -1) {
-            throw new MissingTaskDetailException();
-        }
-
         String startDate = eventTimelineDetails.substring(0, secondSlashIndex - 1);
         String endDate = eventTimelineDetails.substring(secondSlashIndex + 4);
 
