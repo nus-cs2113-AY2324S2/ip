@@ -1,0 +1,11 @@
+todo 2113ip
+deadline ip Level-4 /by 12/04/2024 2300
+event 2113 lecture /from 12/04/2024 1600 /to 12/04/2024 1800
+list
+mark 2
+unmark 1
+unmark 100
+delete 2
+bye
+
+
