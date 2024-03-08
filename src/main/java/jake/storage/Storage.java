@@ -1,8 +1,10 @@
 package jake.storage;
 
 import java.util.Scanner;
-import java.io.File; 
-import java.io.FileNotFoundException;
+import java.nio.file.Files; 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import jake.task.TaskList;
@@ -41,21 +43,27 @@ public class Storage {
 
     /**
      * Loads up all previous tasks saved in tasks.txt into the new TaskList.
-     * If file is not found, print an error message.
+     * If file is not found, create a new file.
      *
      * @param task TaskList of all previous tasks saved within tasks.txt.
      */
     public void loadTasks(TaskList tasks) {
         try {
-            File savedFile = new File(filePath);
-            Scanner savedFileScanner = new Scanner(savedFile);
-            while (savedFileScanner.hasNext()) {
-                String userInput = savedFileScanner.nextLine();
-                char taskType = userInput.charAt(1);
-                tasks.addSavedTask(userInput, taskType);               
+            Path path = Paths.get(filePath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            } else {
+                File savedFile = new File(filePath);
+                Scanner savedFileScanner = new Scanner(savedFile);
+                while (savedFileScanner.hasNext()) {
+                    String userInput = savedFileScanner.nextLine();
+                    char taskType = userInput.charAt(1);
+                    tasks.addSavedTask(userInput, taskType);               
+                }
+                savedFileScanner.close();
             }
-            savedFileScanner.close();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.printf(MESSAGE_INVALID_FILEPATH, e.getMessage());
         }
     }
