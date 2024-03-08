@@ -83,13 +83,12 @@ Lists all tasks your task list.
 * Format: `list`.
   Example of usage: `list`.
 * Expected outcome:
-  ```
-    ____________________________________________________
-     Here are the tasks in your list:
-     1. [T][ ] Merida: Answer GDP2021 questions
-    ____________________________________________________
-  ```
-[Back to Commands Usage Overview](#commands-usage-overview)
+   ```
+     Got it. I've added this task: 
+       [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
+     Now you have 7 tasks in the list
+   ```
+[Back to Commands Usage Overview](#commands-usage-overview)<br>
 
 ### 5. Mark a task in task list: `mark`
 Marks the selected task shown in the current task list.<br>
@@ -97,10 +96,8 @@ Marks the selected task shown in the current task list.<br>
   Example of usage: `mark 1`.<br>
 * Expected outcome:
    ```
-    ____________________________________________________
      Nice! I've marked this task as done:
      [D][X] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
-    ____________________________________________________
    ```
 
 ### 6. Unmark a task in task list: `unmark`
@@ -109,10 +106,8 @@ Unmarks the selected task shown in the current task list.<br>
   Example of usage: `unmark 2`.<br>
 * Expected outcome:
    ```
-    ____________________________________________________
      OK, I've marked this task as not done yet:
      [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
-    ____________________________________________________
    ```
 
 [Back to Commands Usage Overview](#commands-usage-overview)
@@ -120,13 +115,11 @@ Unmarks the selected task shown in the current task list.<br>
 ### 7. Find a task in task list: `find`
 Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
-  Example of usage: `find Dog Bath`.<br>
+  Example of usage: `find GDP2021`.<br>
 * Expected outcome:
    ```
-    ____________________________________________________
-     Here are the matching tasks in your list:
-     1. [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
-    ____________________________________________________
+     OK, I've marked this task as not done yet:
+     [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
    ```
 
 ### 8. Delete a task in task list: `delete`
@@ -135,10 +128,8 @@ Deletes the selected task shown in the current task list.<br>
   Example of usage: `delete 1`.<br>
 * Expected outcome:
    ```
-    ____________________________________________________
      Noted. I've removed this task:
      [T][ ] Merida: Answer GDP2021 questions
-    ____________________________________________________
    ```
 
 [Back to Commands Usage Overview](#commands-usage-overview)
