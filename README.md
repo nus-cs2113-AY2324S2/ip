@@ -15,7 +15,7 @@ Introducing Jake! Ever needed help tracking your tasks? Jake is designed to make
 10. Saving the data [`save`](#save)
 <br>
 
-# Add a task: `toDo` <a name="todo"></a>
+### Add a task: `toDo` <a name="todo"></a>
 Adds a task to your task list
 
 Format: `todo <TASK>`
@@ -24,7 +24,7 @@ Examples:
 - `todo clean the kitchen`
 <br>
 
-# Add a deadline: `deadline` <a name="deadline"></a>
+### Add a deadline: `deadline` <a name="deadline"></a>
 Adds a deadline to your task list
 
 Format: `deadline <TASK> by <ENDDATE>`
@@ -35,7 +35,7 @@ Examples:
 - `deadline proposal submission by 2024-04-17`
 <br>
 
-# Add an event: `event` <a name="event"></a>
+### Add an event: `event` <a name="event"></a>
 Adds an event to your task list
 
 Format: `event <TASK> from <STARTDATE> to <ENDDATE>`
@@ -46,7 +46,7 @@ Examples:
 - `event swimming comps from 2024-03-04 12:00 to 2024-03-04 14:00`
 <br>
 
-# Mark a task: `mark` <a name="mark"></a>
+### Mark a task: `mark` <a name="mark"></a>
 Marks a task as completed
 
 Format: `mark task <INDEX>`
@@ -55,7 +55,7 @@ Examples:
 - `mark task 3`
 <br>
 
-# Unmark a task: `unmark` <a name="unmark"></a>
+### Unmark a task: `unmark` <a name="unmark"></a>
 Marks a task as uncompleted
 
 Format: `unmark task <INDEX>`
@@ -64,13 +64,13 @@ Examples:
 - `unmark task 3`
 <br>
 
-# List all tasks: `list` <a name="list"></a>
+### List all tasks: `list` <a name="list"></a>
 List out all the tasks in your task list
 
 Format: `list`
 <br>
 
-# Find relevant tasks: `find` <a name="find"></a>
+### Find relevant tasks: `find` <a name="find"></a>
 Find all tasks in your task list containing a specified keyword
 
 Format: `find <KEYWORD>`
@@ -82,7 +82,7 @@ Examples:
 - `find math tutorial`
 <br>
 
-# Delete a task: `delete` <a name="delete"></a>
+### Delete a task: `delete` <a name="delete"></a>
 Deletes a task from your task list
 
 Format: `delete <INDEX>`
@@ -94,13 +94,13 @@ Examples:
 - `delete 4`
 <br>
 
-# Exit the program: `bye` <a name="bye"></a>
+### Exit the program: `bye` <a name="bye"></a>
 Exits the program
 
 Format: `bye`
 <br>
 
-# Saving the data <a name="save"></a>
+### Saving the data <a name="save"></a>
 TaskList data will be saved automatically after any command that changes the data. There is no need to save manually
 <br>
 
