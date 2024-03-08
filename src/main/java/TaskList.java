@@ -65,7 +65,7 @@ public class TaskList {
             System.out.println(Message.TASK_REMOVED + task);
             System.out.println(Message.numberOfTasks(getCount()));
         } catch (NumberFormatException e) {
-            throw new JaneException(Message.INTEGER_NUMBER_REQUIRED);
+            throw new JaneException(Message.missingSequenceNumberError("delete"));
         } catch (IndexOutOfBoundsException e) {
             throw new JaneException(Message.INDEX_OUT_OF_BOUNDS);
         }

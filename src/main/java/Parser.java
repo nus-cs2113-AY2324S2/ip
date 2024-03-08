@@ -93,7 +93,7 @@ public class Parser {
             task.setDone(true);
             System.out.println(Message.MARK_AS_DONE + task);
         } catch (NumberFormatException e) {
-            throw new JaneException(Message.INTEGER_NUMBER_REQUIRED);
+            throw new JaneException(Message.missingSequenceNumberError("mark"));
         } catch (IndexOutOfBoundsException e) {
         throw new JaneException(Message.INDEX_OUT_OF_BOUNDS);
         }
@@ -112,7 +112,7 @@ public class Parser {
             task.setDone(false);
             System.out.println(Message.MARK_AS_UNDONE + task);
         } catch (NumberFormatException e) {
-            throw new JaneException(Message.INTEGER_NUMBER_REQUIRED);
+            throw new JaneException(Message.missingSequenceNumberError("unmark"));
         } catch (IndexOutOfBoundsException e) {
             throw new JaneException(Message.INDEX_OUT_OF_BOUNDS);
         }

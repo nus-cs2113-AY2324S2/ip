@@ -13,7 +13,6 @@ public class Message {
     public static final String EVENT_EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description of a event cannot be empty.";
     public static final String DEADLINE_MISSING_DUE = "Deadline task requires due date/time.";
     public static final String EVENT_MISSING_START_END = "Event task requires both start date/time and end date/time.";
-    public static final String INTEGER_NUMBER_REQUIRED = "An integer number is required as an input.";
     public static final String INDEX_OUT_OF_BOUNDS = "The task number provided does not exist. Check list to see valid numbers.";
     public static final String INEXISTENT_FILE = "File does not exist.";
     public static final String CORRUPTED_FILE = "File data is corrupted.";
@@ -36,5 +35,15 @@ public class Message {
      */
     public static String emptyDescriptionError(String taskType) {
         return "OOPS!!! The description of a " + taskType + " cannot be empty.";
+    }
+
+    /**
+     * Generates an error message for missing or non-integer input of task sequence number.
+     *
+     * @param action The action to be done for task (e.g., mark, unamark, delete).
+     * @return An error message to ask user provide an integer number as input.
+     */
+    public static String missingSequenceNumberError(String action) {
+        return "Please provide the task sequence number to " + action + " task.";
     }
 }
