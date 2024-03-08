@@ -212,8 +212,8 @@ public class CommandHandler {
     public static void decodeFind(String command,
                                    TaskLists listCommands) throws InputException {
         String[] split = command.split(" ");
-        String searchKey = split[1];
-        if (!searchKey.isEmpty()) {
+        if (split.length != 1) {
+            String searchKey = split[1];
             listCommands.search(searchKey);
         } else {
             throw new InputException("Please do not input empty string inside find");
