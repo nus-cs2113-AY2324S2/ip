@@ -86,7 +86,12 @@ public class Storage {
      **/
     public void loadFile() throws MimiException.FileCorrupted {
         try {
+            if(!new File(this.filePath).exists()){
+                throw new MimiException.LoadError(MimiException.LOAD_ERROR_MSG);
+            }
+
             Scanner fileScanner = createFileScanner(this.filePath);
+
 
             while (fileScanner.hasNext()) {
                 String[] task = fileScanner.next().split("\\" + FILE_DELIMITER);
@@ -121,8 +126,10 @@ public class Storage {
         } catch (MimiException.IncorrectFormat | MimiException.InsufficientParameters | ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         } catch (MimiException.LoadError e){
+            new File("data").mkdir();
+            new File("data/mimi.logs");
             System.out.println(e.getMessage());
-            System.exit(1);
+            // repeat the load file process
         }
     }
 
@@ -134,6 +141,7 @@ public class Storage {
      * @param filePath  the path of the file to be saved
      */
     public void saveFile(ArrayList<Task> taskList, String filePath) {
+
         try {
             File file = new File(filePath);
             FileWriter writer = new FileWriter(file);
@@ -142,6 +150,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
+
             System.out.println("\u001B[31mError:Unable to save file as " + filePath + " does not exists. Please create a " +
                     "/data folder in the root directory first.\u001B[0m");
         }
