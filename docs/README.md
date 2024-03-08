@@ -48,26 +48,26 @@ Format: ```list```
 Adds a new task to do to the list.<br>
 Format: ```todo <task>```<br>
 - Replace ```<task>``` with your task to do.
-- e.g: ```todo buy groceries```
+- e.g: ```todo buy groceries```<br>
 ### Add a task with deadline to the list: ```deadline```<br>
 Adds a new task with a deadline to the list.<br>
 Format: ```deadline <task> /by <YYYY-MM-DD>T<HH:MM>```<br>
 - Replace ```<task>``` with your task and ```<YYYY-MM-DD>T<HH:MM>``` the date and time of the Task due.
-- e.g: ```deadline Assignment /by <2024-03-26>T<23:59>```
+- e.g: ```deadline Assignment /by <2024-03-26>T<23:59>```<br>
 ### Add an event to the list: ```event```<br>
 Adds a new event and its duration to the list.<br>
 Format: ```event <event name> /from <YYYY-MM-DD>T<HH:MM> /to YYYY-MM-DD>T<HH:MM>```<br>
 - Replace ```<event name>``` with your task and ```<YYYY-MM-DD>T<HH:MM>``` the date and time of the event start and end.
-- e.g: ```event CS2113 Lecture /from 2024-03-05T12:00 /to 2024-03-05T14:00```
+- e.g: ```event CS2113 Lecture /from 2024-03-05T12:00 /to 2024-03-05T14:00```<br>
 ### Mark the tasks as done: ```mark```<br>
 Marks the task as done.<br>
-Format: ```mark <taskNumber>```
+Format: ```mark <taskNumber>```<br>
 ### Unmark the tasks as done: ```unmark```<br>
 Un-marks the task.<br>
-Format:```unmask <taskNumber>```
+Format:```unmask <taskNumber>```<br>
 ### Delete the task: ```delete```<br>
 Deletes the task specified.<br>
-Format:```delete <taskNumber>```
+Format:```delete <taskNumber>```<br>
 ### Find all the tasks in the list: ```find```<br>
 Searches the list for the task by title or date.<br>
 Format:```find /title <title>``` or ```find /date <YYYY-MM-DD>```<br>
@@ -86,19 +86,4 @@ Saving the date occurs everytime a command is given.
 Q. How is my data saved for future use?<br>
 A. The list of tasks will be saved whenever there is a change in your tasks details/tasks added.<br>
 Q. How do I transfer my data to another computer? <br>
-A. Install the app on another computer and replace the taskList.txt file in the new computer with the old one.
-
-
-## Command Summary
-| Action                 | Format                                                                      |
-|------------------------|-----------------------------------------------------------------------------|
-| Commands               | ```commands```                                                              |
-| List                   | ```list```                                                                  |
-| Add task todo          | ```todo <task>```                                                           |
-| Add task with deadline | ```deadline <task> /by <YYYY-MM-DD>T<HH:MM>```                              |
-| Add event              | ```event <event name> /from <YYYY-MM-DD>T<HH:MM> /to YYYY-MM-DD>T<HH:MM>``` |
-| Mark                   | ```mark  <taskNumber>```                                                    |
-| Unmark                 | ```unmask <taskNumber>```                                                   |
-| Delete                 | ```delete  <taskNumber>```                                                  |
-| Find                   | ```find /title <title>``` or ```find /date <YYYY-MM-DD>```                  |
-| End                    | ```bye```                                                                   |
+A. Install the app on another computer and replace the taskList.txt file in the new computer with the old one.<br>
