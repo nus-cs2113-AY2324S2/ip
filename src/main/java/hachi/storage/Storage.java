@@ -128,7 +128,7 @@ public class Storage {
      *
      * @return The TaskList generated after reading the save file.
      * @throws HachiException If the save file is corrupted.
-     * @throws FileNotFoundException If the specified save file cannot be found. 
+     * @throws FileNotFoundException If the specified save file cannot be found.
      */
 
     public ArrayList<Task> load() throws HachiException, FileNotFoundException {

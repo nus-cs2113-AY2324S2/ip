@@ -7,12 +7,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents the UI interface that the user interacts with.
+ * Represents the UI interface that the user interacts with for the chatbot Hachi.
  *
+ * @author clarencepohh
+ * @version 08/03/2024
  */
 
 public class Ui {
     private static Scanner in;
+
+    /**
+     * The standard constructor for the Ui class.
+     * Initializes the required Scanner for the Ui class.
+     *
+     */
+
     public Ui () {
         in = new Scanner(System.in);
     }
@@ -57,14 +66,21 @@ public class Ui {
 
     /**
      * Prints to the console a spacer line made of tildes.
-     * Function call has option to choose length of the spacer,
-     * as well as whether there is a 4-space indent before the spacer.
+     *
      */
 
     public void spacerInsert() {
         System.out.print("\t");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
+
+    /**
+     * Prints to the console the message after a Task is deleted from the TaskList.
+     *
+     * @param taskType The TaskType of the Task to be deleted.
+     * @param statusIcon The String that contains the statusIcon: T (for Todo), D (for Deadline), E (for Event)
+     * @param taskToDelete The Task to be deleted from the TaskList.
+     */
 
     public void printTaskDeleteMessage(String taskType, String statusIcon, Task taskToDelete) {
         System.out.println("\tSure, I've done as you requested.");
@@ -81,13 +97,34 @@ public class Ui {
         System.out.println("\tGoodbye! Hope you have a marvelous day.");
     }
 
+    /**
+     * Gets the user input from the console.
+     *
+     * @return The String that contains the latest user input.
+     */
+
     public String getUserInput() {
         return in.nextLine();
     }
 
+    /**
+     * Converts the user input to uppercase and removes any trailing whitespace.
+     *
+     * @param input The String that contains the whole user input.
+     * @return The cleaned whole user input.
+     */
+
     public String cleanUserInput(String input) {
         return input.toUpperCase().trim();
     }
+
+    /**
+     * Prints to the console the message after a Task is marked/unmarked
+     * in the TaskList.
+     *
+     * @param tasksArrayList The ArrayList<Task> to be searched for marking/unmarking.
+     * @param index The int containing the Task index to be marked/unmarked.
+     */
 
     public void printAfterMarkOrUnmark (ArrayList<Task> tasksArrayList, int index) {
         Task currentTask = tasksArrayList.get(index);
@@ -101,24 +138,56 @@ public class Ui {
         System.out.println(currentTask.getName());
     }
 
+    /**
+     * Prints to the console after a Task has been added to the TaskList.
+     *
+     * @param toAdd The Task to be added to the TaskList.
+     */
+
     public void printAddTaskMessage(Task toAdd) {
         System.out.println("\tAdded to list: " + toAdd.getName());
     }
+
+    /**
+     * Prints to the console all the Tasks in the TaskList.
+     *
+     * @param tasksArrayList The ArrayList<Task> to be printed.
+     */
 
     public void printTaskList(ArrayList<Task> tasksArrayList) {
         System.out.println("\tThe following are in your list:");
         printFromTasksList(tasksArrayList);
     }
 
+    /**
+     * Prints to the console an error message if there was an error loading the save file.
+     *
+     */
+
     public void printFileLoadingError () {
         System.out.println("There was an error finding save files. Creating a new save...");
     }
+
+    /**
+     * Function is called from a find request.
+     * Given the ArrayList<Task> containing the Tasks found after a find request,
+     * prints to the console all the Tasks found.
+     *
+     * @param foundTasksList The ArrayList<Task> containing the found tasks.
+     * @throws HachiException If foundTasksList is empty.
+     */
 
     public void printFoundTasks (ArrayList<Task> foundTasksList) throws HachiException {
         HachiException.checkForEmptyFoundTaskList(foundTasksList);
         System.out.println("I found these matching tasks in your task list: ");
         printFromTasksList(foundTasksList);
     }
+
+    /**
+     * Given an ArrayList<Task>, prints to the console all the Tasks in the ArrayList.
+     *
+     * @param tasksList The ArrayList<Task> to be printed.
+     */
 
     private void printFromTasksList(ArrayList<Task> tasksList) {
         tasksList.forEach(task -> {
