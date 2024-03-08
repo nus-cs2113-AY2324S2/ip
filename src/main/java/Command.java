@@ -27,7 +27,7 @@ public class Command {
      * deleting tasks, finding tasks, and exiting the program.
      * Each command type is processed differently.
      *
-     * @param tasks The current total list of tasks.
+     * @param tasks The current total list of task.
      */
     public void execute(TaskList tasks) {
         try {
@@ -36,7 +36,7 @@ public class Command {
             case DEADLINE:
             case EVENT:
                 if (args.length < 1) {
-                    throw new IllegalArgumentException("Missing task description.");
+                    throw new StringIndexOutOfBoundsException();
                 } else if (tasks.getSize() >= 100) {
                     throw new ArrayIndexOutOfBoundsException("Task list is full.");
                 }
@@ -71,11 +71,12 @@ public class Command {
                 break;
             case FIND:
                 if (args.length < 1) {
-                    throw new IllegalArgumentException("Missing search query.");
+                    throw new StringIndexOutOfBoundsException();
                 }
                 findTask(tasks.getAllTasks(), args);
                 break;
             case BYE:
+                Ui.bidFarewell();
                 break;
             default:
                 throw new IllegalArgumentException("Unrecognized command.");
@@ -106,7 +107,7 @@ public class Command {
         Ui.showDividerLine();
         System.out.println("Searching the annals of time for tasks matching your query...");
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if (listOfTasks.get(i).description.startsWith(joinedArgs)) {
+            if (listOfTasks.get(i).description.toLowerCase().contains(joinedArgs.toLowerCase())) {
                 taskFound = true;
                 Ui.listTask(i, listOfTasks.get(i));
             }

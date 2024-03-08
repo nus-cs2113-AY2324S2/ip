@@ -69,7 +69,7 @@ public class Task {
      * @return The status icon ('✔' for completed, ' ' for incomplete).
      */
     public String getStatusIcon() {
-        return (isCompleted ? "✔" : " "); // mark done task with X
+        return (isCompleted ? "X" : " "); // mark done task with X
     }
 
     /**

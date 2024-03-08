@@ -95,6 +95,15 @@ public class Ui {
     }
 
     /**
+     * Displays a goodbye message to indicate the termination of the program.
+     */
+     static void bidFarewell() {
+        System.out.println(LINE);
+        System.out.println("Time's tide ebbs, and so must I. Farewell, traveler.");
+        System.out.println(LINE);
+    }
+
+    /**
      * Displays the current total list of tasks.
      *
      * @param listOfTasks The ArrayList containing the tasks to display.
