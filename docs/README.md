@@ -19,7 +19,7 @@ Anonbot is a Command-line application that allows you to create and manage all y
   - [Deleting a task: `delete`](#deleting-a-task-delete)
   - [Exiting the program: `bye`, `exit`](#exiting-the-program-bye-exit)
   - [Saving the data file](#saving-the-data-file)
-  - [Editing the data file](#saving-the-data-file)
+  - [Editing the data file](#editing-the-data-file)
 - [FAQ](#faq)
 
 # Quick Start
