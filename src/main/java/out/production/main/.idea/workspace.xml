@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="main:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/Duke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/main/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/main/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/Storage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/tasks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/tasks.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +40,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/untitled/src"
+    "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/untitled/src",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -43,7 +56,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1247f2cb-c5a4-42d6-8a2f-7c9048e178c5" name="Changes" comment="" />
+      <changelist id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="" />
       <created>1709608220757</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

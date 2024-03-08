@@ -314,11 +314,13 @@ class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> match_input = tasks.find_input(keyword);
         if (match_input.isEmpty()) {
             ui.error("There are no tasks found that match the keyword: " + keyword);
-        } else {
+        } else if(keyword.isEmpty()){
+            throw new DukeException("Keyword is missing");
+        }else {
             ui.line();
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < match_input.size(); i++) {
