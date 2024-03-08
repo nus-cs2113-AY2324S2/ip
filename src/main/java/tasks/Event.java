@@ -15,6 +15,11 @@ public class Event extends Task {
     }
     private boolean isEvent;
 
+    /**
+     * Marks the task as an event and not other tasks.
+     *
+     * @param event True if the task is an event, false otherwise.
+     */
     public void setEvent(boolean event) {
         isEvent = event;
     }
