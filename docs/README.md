@@ -62,7 +62,7 @@ Shows a message explaining the different commands.
 
 Format:`help`
 
-Expected Outcome: ![Help Command](/docs/assets/help.png)
+Expected Outcome: ![Help Command](/assets/help.png)
 
 ### Adding a `ToDo` : `todo`
 
@@ -109,7 +109,7 @@ Displays all tasks currently stored in the task list, including their type, desc
 Format: `list`
 
 Expected Outcome:\
-![List Command](/docs/assets/list.png)
+![List Command](/assets/list.png)
 
 ### Deleting a task from the task list: `delete`
 
@@ -125,7 +125,7 @@ Example:
 - `delete 1`
 
 Expected Outcome: \
-![Delete Command](/docs/assets/delete.png)
+![Delete Command](/assets/delete.png)
 
 ### Marking a task as done: `mark`
 
@@ -141,7 +141,7 @@ Example:
 - `mark 1`
 
 Expected Outcome:\
-![Mark Command](/docs/assets/mark.png)
+![Mark Command](/assets/mark.png)
 
 ### Marking a task as not done: `unmark`
 
@@ -157,7 +157,7 @@ Example:
 - `unmark 1`
 
 Expected Outcome:\
-![Unmark Command](/docs/assets/unmark.png)
+![Unmark Command](/assets/unmark.png)
 
 ### Finding tasks using a keyword: `find`
 
@@ -173,7 +173,7 @@ Example:
 - `find lecture`
 
 Expected Outcome:\
-![Find Command](/docs/assets/find.png)
+![Find Command](/assets/find.png)
 
 ### Exiting the app: `bye`
 
@@ -182,7 +182,7 @@ Saves the current task list to the storage file and exits the app.
 Format: `bye`
 
 Expected Outcome:\
-![Bye Command](/docs/assets/bye.png)
+![Bye Command](/assets/bye.png)
 
 ## Command Summary
 
