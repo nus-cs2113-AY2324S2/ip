@@ -1,12 +1,12 @@
 package daisy.storage;
 
+import daisy.tasklist.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
-import daisy.tasklist.TaskList;
 
 /**
  * The storage class handles storage related operations. It loads previous task data to the current task list at the start
@@ -16,22 +16,26 @@ import daisy.tasklist.TaskList;
 public class Storage {
 
     private String storageLocation;
+    private String defaultFileName = "\\Daisy.txt";
+    private String filePath;
 
     /**
-     * Constructs a Storage instance. It takes in the file path of the "Daisy.txt" file for read and write operations.
-     * @param filePath the file path of the "Daisy.txt" storage file
+     * Constructs a Storage instance. It takes in the directory path of the "Daisy.txt" file for read and write operations.
+     * @param storageLocation the directory path of the "Daisy.txt" storage file
      */
-    public Storage(String filePath) {
-        this.storageLocation = filePath;
+    public Storage(String storageLocation) {
+        this.storageLocation = storageLocation;
+        this.filePath = storageLocation + defaultFileName;
     }
 
     /**
      * Loads previous task data into the newly created task list. It first identifies the type of task stored by the first
      * comma separated entry, then breaks down the subsequent information such that a task of corresponding type is created.
+     * If the directory path of the "Daisy.txt" file is not found, creates one.
      * @param tasks the task list that requires data to be loaded into
      */
     public void loadData(TaskList tasks) {
-        File taskFile = new File(storageLocation);
+        File taskFile = new File(filePath);
         System.out.println("Please wait while Daisy loads your previous data!");
         try {
             Scanner entryReader = new Scanner(taskFile);
@@ -53,6 +57,8 @@ public class Storage {
             entryReader.close();
             System.out.println("Data is successfully loaded! Program will now begin.");
         } catch (FileNotFoundException e) {
+            File taskFolder = new File(storageLocation);
+            taskFolder.mkdirs();
             System.out.println("No previous data found! Daisy will create a new one for this entry!");
         }
     }
@@ -69,7 +75,7 @@ public class Storage {
     public void saveData(TaskList tasks) {
         System.out.println("Daisy will begin saving the data for this entry!");
         try {
-            FileWriter entryWriter = new FileWriter(storageLocation);
+            FileWriter entryWriter = new FileWriter(filePath);
             for (int i = 0; i < tasks.getSize(); i++) {
                 String entryInput = tasks.getTask(i).save() + "\n";
                 entryWriter.write(entryInput);

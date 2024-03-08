@@ -4,6 +4,7 @@ import daisy.storage.Storage;
 import daisy.tasklist.TaskList;
 import daisy.ui.Ui;
 
+import java.io.File;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ import java.util.Scanner;
 
 public class Daisy {
 
-    protected static String defaultFileLocation = System.getProperty("user.dir") + "\\src\\main\\java\\daisy\\data\\Daisy.txt";
+    protected static String defaultStorageLocation = "\\data";
 
     /**
      * Main running process for the Daisy application
@@ -23,7 +24,11 @@ public class Daisy {
 
         Ui ui = new Ui();
         TaskList tasks = new TaskList();
-        Storage storage = new Storage(defaultFileLocation);
+        File executingFilePath = new File(Daisy.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String storageLocation = executingFilePath.getParentFile().getAbsolutePath() + defaultStorageLocation;
+        System.out.println(storageLocation);
+        Storage storage = new Storage(storageLocation);
+
 
         storage.loadData(tasks);
 
