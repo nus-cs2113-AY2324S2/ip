@@ -1,10 +1,15 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -23,7 +28,9 @@ public class Task {
         return description;
     }
 
-    // The method to update status icon based on task completion
+    public abstract String toFileString();
+
+    // Method to update the status icon based on task completion
     public void updateStatusIcon() {
         // If the task is done, mark it with [X], otherwise mark it with [ ]
         String statusIcon = (isDone ? "[X]" : "[ ]");
