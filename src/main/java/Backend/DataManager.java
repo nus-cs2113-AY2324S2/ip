@@ -11,6 +11,10 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
 
+/**
+ * This class is used to handle all the chatbots data-based logic such as saving your todolist to a database.
+ * Functions include writing to a file and reading a file.
+ */
 public class DataManager {
 
     private static void writeToFile(String filePath, String data) throws IOException {

@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
+/**
+ * This class represents a ChatBot named John who performs certain task to help out with your todo list needs!.
+ * It supports tasks such as Todo, Deadlines, and Events.
+ * It comes with features such as adding and deleting task along with marking and unmarking tasks.
+ */
 public class John {
 
     private List<Task> tasks;

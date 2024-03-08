@@ -1,5 +1,8 @@
 package Backend;
 
+/**
+ * This class handles the String-outputted text giving feedback to the user.
+ */
 public class Ui {
 
     public static void WelcomeMessage() {

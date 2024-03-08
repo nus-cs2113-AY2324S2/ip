@@ -1,5 +1,8 @@
 package Backend;
 
+/**
+ * This class validates whether a command is typed in the correct format
+ */
 public class StringValidator {
     public static void validateDeadlineFormat(String input) throws InvalidFormatException {
         // Regular expression to match "deadline <description> /by <time>" format

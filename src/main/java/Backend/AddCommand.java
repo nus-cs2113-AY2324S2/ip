@@ -4,6 +4,10 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class represents a Add command that is used to add tasks to your todolist.
+ * Derived from the Command Super Class.
+ */
 public class AddCommand extends Command{
 
     private Task task;

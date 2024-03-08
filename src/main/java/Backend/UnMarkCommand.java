@@ -3,6 +3,10 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class represents the Unmark command that is used to mark a task as not complete.
+ * Derived from the Command Super Class.
+ */
 public class UnMarkCommand extends Command{
 
     private final int taskNum;

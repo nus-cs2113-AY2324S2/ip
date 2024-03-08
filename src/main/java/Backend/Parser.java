@@ -4,6 +4,9 @@ import tasks.Event;
 import tasks.Todo;
 import java.util.Scanner;
 
+/**
+ * This class represents the Parser Class used to detected which command is which when a string is inputted into the chatbot
+ */
 public class Parser {
 
     public static Command parse(Scanner scanner) {

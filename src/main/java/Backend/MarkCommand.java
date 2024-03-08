@@ -3,6 +3,10 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class represents the Mark command that is used to mark a task as complete.
+ * Derived from the Command Super Class.
+ */
 public class MarkCommand extends Command{
     private final int taskNum;
 

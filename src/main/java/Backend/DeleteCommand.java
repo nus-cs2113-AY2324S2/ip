@@ -3,6 +3,10 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class represents the Delete command that is used to remove a task from your todolist.
+ * Derived from the Command Super Class.
+ */
 public class DeleteCommand extends Command{
 
     private final int taskNum;
