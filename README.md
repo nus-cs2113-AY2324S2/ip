@@ -84,7 +84,8 @@ Command List:
    ____________________________________________________________
    ```
 7. `delete INDEX_NUMBER`: remove the task indicated by the index from the list.
-8. `bye`: exit the program. You should see something like the below as the output:
+8. `find DESCRIPTION`: find the tasks that match the description from the list.
+9. `bye`: exit the program. You should see something like the below as the output:
    ```
    bye
    ____________________________________________________________
@@ -102,3 +103,4 @@ e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.
 e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
