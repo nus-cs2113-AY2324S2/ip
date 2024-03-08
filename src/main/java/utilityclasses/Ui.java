@@ -27,7 +27,7 @@ public class Ui {
      */
     public static void printWelcomeMessage(){
         printLine();
-        System.out.println("Hello! I'm Dross");
+        System.out.println("Hello! I am Dross");
         System.out.println("What can I do for you?");
         printLine();
     }
