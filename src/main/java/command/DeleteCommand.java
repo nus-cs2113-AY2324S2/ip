@@ -2,7 +2,7 @@ package command;
 
 import exception.InputException;
 import task.TaskList;
-import tool.ResponseManager;
+import ui.ResponseManager;
 
 public class DeleteCommand implements Command {
     private static final CommandType taskType = CommandType.DELETE;

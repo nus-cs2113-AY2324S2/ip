@@ -1,7 +1,7 @@
 package command;
 
 import exception.InputException;
-import tool.ResponseManager;
+import ui.ResponseManager;
 
 public enum CommandType {
     TODO("todo"),

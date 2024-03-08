@@ -2,7 +2,7 @@ package command;
 
 import exception.InputException;
 import task.TaskList;
-import tool.ResponseManager;
+import ui.ResponseManager;
 
 public class MarkUnmarkCommand implements Command {
     private final CommandType taskType;

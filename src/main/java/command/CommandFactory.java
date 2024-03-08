@@ -1,7 +1,7 @@
 package command;
 
 import exception.InputException;
-import tool.MessageDecoder;
+import ui.MessageDecoder;
 
 public class CommandFactory {
     /**

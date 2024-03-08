@@ -3,8 +3,8 @@ import java.util.Scanner;
 import command.Command;
 import command.CommandFactory;
 import task.TaskList;
-import tool.DataManager;
-import tool.ResponseManager;
+import storage.DataManager;
+import ui.ResponseManager;
 import exception.InputException;
 
 public class ZukeLogic {
@@ -14,14 +14,25 @@ public class ZukeLogic {
         taskList = new TaskList();
     }
 
+    private void loadData() {
+        DataManager.createFolder();
+        DataManager.createFile();
+        try {
+            this.taskList = DataManager.readSavedData();
+        } catch (InputException error) {
+            ResponseManager.indentPrint(error.getMessage());
+        }
+    }
+
     public static ZukeLogic initZuke() {
+        ZukeLogic zukeBot = new ZukeLogic();
         ResponseManager.greet();
-        return new ZukeLogic();
+        zukeBot.loadData();
+        return zukeBot;
     }
 
     public void chattingStart() {
         Scanner userInput = new Scanner(System.in);
-        loadData();
         boolean exitFlag = false;
 
         while (!exitFlag) {
@@ -35,15 +46,5 @@ public class ZukeLogic {
             }
         }
         userInput.close();
-    }
-
-    private void loadData() {
-        DataManager.createFolder();
-        DataManager.createFile();
-        try {
-            this.taskList = DataManager.readSavedData();
-        } catch (InputException error) {
-            ResponseManager.indentPrint(error.getMessage());
-        }
     }
 }

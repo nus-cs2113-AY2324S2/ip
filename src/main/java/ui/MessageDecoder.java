@@ -1,4 +1,4 @@
-package tool;
+package ui;
 
 import command.CommandType;
 import exception.InputException;

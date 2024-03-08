@@ -1,4 +1,4 @@
-package tool;
+package storage;
 
 import java.io.*;
 import java.util.Scanner;
@@ -8,6 +8,8 @@ import task.Deadline;
 import task.Event;
 import task.TaskList;
 import task.Todo;
+import ui.MessageDecoder;
+import ui.ResponseManager;
 
 public class DataManager {
     public static final String EVENT = "E";

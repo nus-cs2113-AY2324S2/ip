@@ -1,7 +1,7 @@
 package command;
 
 import task.TaskList;
-import tool.ResponseManager;
+import ui.ResponseManager;
 
 public class ExitCommand implements Command {
     /**

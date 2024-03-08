@@ -5,7 +5,7 @@ import task.TaskList;
 import task.Todo;
 import task.Deadline;
 import task.Event;
-import tool.ResponseManager;
+import ui.ResponseManager;
 
 public class AddCommand implements Command {
     private final CommandType taskType;

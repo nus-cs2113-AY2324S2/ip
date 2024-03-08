@@ -1,7 +1,7 @@
 package command;
 
 import task.TaskList;
-import tool.ResponseManager;
+import ui.ResponseManager;
 
 public class FindCommand implements Command {
     private static final String FIND_TIME = "/t";

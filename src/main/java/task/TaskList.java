@@ -1,7 +1,7 @@
 package task;
 
 import exception.InputException;
-import tool.ResponseManager;
+import ui.ResponseManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
