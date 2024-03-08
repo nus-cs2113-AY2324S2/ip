@@ -2,16 +2,16 @@
 Schmidt is a task manager CLI application that helps you to keep track of your tasks. It is designed to be simple and easy to use, and it is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Schmidt can help you manage your tasks faster than traditional GUI apps.
 * [Quick Start](#quick-start)
 * [Features](#features)
-  * [Viewing Help: `help`](#viewing-help-help) 
-  * [Adding a task: `todo`, `deadline`, `event`](#adding-a-task-todo-deadline-event)
-    * [Adding a todo task: `todo`](#adding-a-todo-task-todo)
-    * [Adding a deadline task: `deadline`](#adding-a-deadline-task-deadline)
-    * [Adding an event task: `event`](#adding-an-event-task-event)
-  * [Listing all tasks: `list`](#listing-all-tasks-list)
-  * [Marking a task as done or undone: `mark`, `unmark`](#marking-a-task-as-done-or-undone-mark-unmark)
-  * [Deleting a task: `delete`](#deleting-a-task-delete)
-  * [Finding a task: `find`](#finding-a-task-find)
-  * [Exiting the program: `bye`](#exiting-the-program-bye)
+  * [Viewing Help:](#viewing-help-help) `help` 
+  * [Adding a task:](#adding-a-task-todo-deadline-event) `todo`, `deadline`, `event`
+    * [Adding a todo task:](#adding-a-todo-task-todo) `todo`
+    * [Adding a deadline task:](#adding-a-deadline-task-deadline) `deadline`
+    * [Adding an event task:](#adding-an-event-task-event) `event`
+  * [Listing all tasks:](#listing-all-tasks-list) `list`
+  * [Marking a task as done or undone:](#marking-a-task-as-done-or-undone-mark-unmark) `mark`, `unmark`
+  * [Deleting a task:](#deleting-a-task-delete) `delete`
+  * [Finding a task:](#finding-a-task-find) `find`
+  * [Exiting the program:](#exiting-the-program-bye) `bye`
   * [Saving the data](#saving-the-data)
   * [Editing the data file](#editing-the-data-file)
 * [Known Issues](#known-issues)
