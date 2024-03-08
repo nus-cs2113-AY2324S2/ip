@@ -1,9 +1,15 @@
 package anonbot.task;
 
+/**
+ * Represents the generic task.
+ */
 public class Task {
+    /**
+     * Represents the types of tasks available.
+     */
     public enum TaskType {
         TODO, DEADLINE, EVENT,
-        INVALID
+        INVALID // Catch-All type, not a valid task type.
     }
 
     private String taskDescription;
@@ -70,6 +76,11 @@ public class Task {
         return taskType;
     }
 
+    /**
+     * Represents the type of task with an alphabetical letter.
+     *
+     * @return The alphabetical letter representing the type of task.
+     */
     private char getCharRepresentationOfTaskType() {
         switch (getTaskType()) {
         case TODO:
@@ -85,6 +96,10 @@ public class Task {
         }
     }
 
+    /**
+     * Prints the corresponding task.
+     * It includes the task number, the type of task, the status of the task, and the task description.
+     */
     public void printTask() {
         System.out.format("%d.[%c][%c] %s" + System.lineSeparator(),
                 getTaskNumber(),
