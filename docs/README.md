@@ -200,10 +200,117 @@ ____________________________________________________________
 ```
 
 ## Marking a task as completed: `mark`
+Marks a task (todo, deadline, event) as complete.
+
+Format: `mark <task_number>`
+- An empty `mark` argument will show an error, along with the correct syntax.
+- The `task_number` should be a valid number. Else an error will be thrown.
+
+Examples:
+- `mark`: Errors out and provides the correct syntax. 
+- `mark slfjsfdkljsf` Errors out as an invalid argument.
+- `mark 1`: Succeeds and return the state of the marked task.
+- `mark 775687` Errors out as the task could not be found.
+```
+mark
+____________________________________________________________
+[Error] Argument expected for the command: mark
+Syntax: mark <task_number>
+____________________________________________________________
+
+mark slfjsfdkljsf
+____________________________________________________________
+[Error] Command mark has invalid argument slfjsfdkljsf
+Syntax: mark <task_number>
+____________________________________________________________
+
+mark 1
+____________________________________________________________
+Cool, this task is now done:
+1.[T][X] Test out the document
+____________________________________________________________
+
+mark 775687
+____________________________________________________________
+[Error] There is no task number 775687 to mark
+____________________________________________________________
+```
 
 ## Marking a task as incomplete: `unmark`
+Marks a task (todo, deadline, event) as incomplete.
+
+Format: `unmark <task_number>`
+- An empty `unmark` argument will show an error, along with the correct syntax.
+- The `task_number` should be a valid number. Else an error will be thrown.
+
+Examples:
+- `unmark`: Errors out and provides the correct syntax.
+- `unmark slfjsfdkljsf` Errors out as an invalid argument.
+- `unmark 1`: Succeeds and return the state of the unmarked task.
+- `unmark 775687` Errors out as the task could not be found.
+```
+unmark
+____________________________________________________________
+[Error] Argument expected for the command: unmark
+Syntax: unmark <task_number>
+____________________________________________________________
+
+unmark slfjsfdkljsf
+____________________________________________________________
+[Error] Command unmark has invalid argument slfjsfdkljsf
+Syntax: unmark <task_number>
+____________________________________________________________
+
+unmark 1
+____________________________________________________________
+Oh okay, this task is now marked as undone:
+1.[T][ ] Test out the document
+____________________________________________________________
+
+unmark 775687
+____________________________________________________________
+[Error] There is no task number 775687 to unmark
+____________________________________________________________
+```
 
 ## Deleting a task: `delete`
+Deletes a task (todo, deadline, event)
+
+Format: `delete <task_number>`
+- An empty `delete` argument will show an error, along with the correct syntax.
+- The `task_number` should be a valid number. Else an error will be thrown.
+
+Examples:
+- `delete`: Errors out and provides the correct syntax.
+- `delete slfjsfdkljsf` Errors out as an invalid argument.
+- `delete 1`: Succeeds and shows the task that was deleted.
+- `delete 775687` Errors out as the task could not be found.
+```
+delete
+____________________________________________________________
+[Error] Argument expected for the command: delete
+Syntax: delete <task_number>
+____________________________________________________________
+
+delete slfjsfdkljsf
+____________________________________________________________
+[Error] Command delete has invalid argument slfjsfdkljsf
+Syntax: delete <task_number>
+____________________________________________________________
+
+delete 1
+____________________________________________________________
+Ok. Task Removed:
+1.[T][ ] Test out the document
+Now you have 5 tasks in the list.
+____________________________________________________________
+
+delete 775687
+____________________________________________________________
+[Error] Command delete has invalid argument 775687
+Syntax: delete <task_number>
+____________________________________________________________
+```
 
 ## Exiting the program: `bye`, `exit`
 Exits the program
