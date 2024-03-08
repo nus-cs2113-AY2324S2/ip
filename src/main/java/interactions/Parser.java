@@ -70,7 +70,7 @@ public class Parser {
             command = new FindCommand();
             break;
         default:
-            return null;
+            throw new UnknownPromptException();
         }
         command.setFirstWord(firstWord);
         command.setLine(line);

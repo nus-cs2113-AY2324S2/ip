@@ -44,8 +44,7 @@ public class Ui {
 
     /** Opens discussion with the user by introducing itself. */
     public void greet() {
-        System.out.println(name + ": Hello! I'm " + name + "!");
-        System.out.println(name + ": What can I do for you?");
+        System.out.println(name + ": Hello! I'm " + name + "! What can I do for you?");
     }
 
     /**
