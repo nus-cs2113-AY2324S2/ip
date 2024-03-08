@@ -1,3 +1,0 @@
-[T] | 1 | trial
-[T] | 0 | add book
-[T] | 1 | do marketing
