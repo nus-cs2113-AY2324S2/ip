@@ -6,6 +6,7 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -29,6 +30,15 @@ public class UploadData {
      * @throws IOException If an I/O error occurs while updating the file
      */
     public static void updateFile(String filepath, TaskList tasks) throws IOException {
+        File file = new File(filepath);
+        if (!file.exists()) {
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs(); // Creates parent directories if they don't exist
+            }
+            file.createNewFile(); // Creates the file
+        }
+
         for (Task task : tasks.getAll()) {
             FileWriter fw = new FileWriter(filepath, !isFirstWrite);
             if (task.getTaskType().equals("T")) {
