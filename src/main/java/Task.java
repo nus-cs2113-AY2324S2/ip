@@ -1,3 +1,8 @@
+/**
+ * The Task class represents a task in the task list.
+ * It is an abstract class that provides common functionality for different types of tasks.
+ * Each task has a description and a status indicating whether it is done or not.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
