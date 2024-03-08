@@ -3,11 +3,9 @@ import java.util.ArrayList;
 
 public class Storage {
     private static String filePath;
-
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
