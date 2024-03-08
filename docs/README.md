@@ -9,7 +9,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
 - [All possible commands](#commands-summary)
 - [Usage](#usage)
     - [Add a task](#add-a-task)
-    - [Mark or Unmark a task](#mark-or-unmark-a-task)
+    - [Mark or Unmark a task](#mark---mark-task-number)
     - [List all tasks](#list-all-tasks)
     - [Delete a task](#delete-a-task)
     - [Find a task](#find-a-task)
@@ -82,17 +82,17 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
 ## All possible commands
 ## Commands Summary
 
-| Description                                             | Command                                         |
-|---------------------------------------------------------|-------------------------------------------------|
-| [Add a todo](#add-a-task)                               | `todo <task description>`                       |
-| [Add a deadline](#add-a-task)                           | `deadline <task description> /by <time>`        |
-| [Add an event](#add-a-task)                             | `event <task description> /from <time> /to <time>` |
-| [Delete a task](#delete-a-task)                         | `delete <task number>`                          |
-| [Find tasks with keyword](#find-a-task)                 | `find <keyword>`                                |
-| [Exit](#exit-the-program)                               | `bye`                                           |
-| [Mark a task](#mark-or-unmark-a-task)                   | `mark <task number>`                            |
-| [Unmark a task](#mark-or-unmark-a-task)                 | `unmark <task number>`                          |
-| [List all tasks](#list-all-tasks)                       | `list`                                          |
+| Description                                   | Command                                         |
+|-----------------------------------------------|-------------------------------------------------|
+| [Add a todo](#add-a-task)                     | `todo <task description>`                       |
+| [Add a deadline](#add-a-task)                 | `deadline <task description> /by <time>`        |
+| [Add an event](#add-a-task)                   | `event <task description> /from <time> /to <time>` |
+| [Delete a task](#delete-a-task)               | `delete <task number>`                          |
+| [Find tasks with keyword](#find-a-task)       | `find <keyword>`                                |
+| [Exit](#exit-the-program)                     | `bye`                                           |
+| [Mark a task](#mark---mark-task-number)       | `mark <task number>`                            |
+| [Unmark a task](#unmark---unmark-task-number) | `unmark <task number>`                          |
+| [List all tasks](#list-all-tasks)             | `list`                                          |
 
 > [!NOTE]
 > - Words in `<angle brackets>` are user input parameters.
