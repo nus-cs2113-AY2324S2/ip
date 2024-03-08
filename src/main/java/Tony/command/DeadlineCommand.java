@@ -57,7 +57,7 @@ public class DeadlineCommand implements Command {
      * @throws IOException If there is error in saving data into file.
      */
 
-    private void addDeadlineCommand(String[] deadlineTask) throws IOException, TonyException {
+    private void addDeadlineCommand(String[] deadlineTask) throws IOException, TonyException, ArrayIndexOutOfBoundsException {
         try {
             parser.checkContainsByWord(deadlineTask);
             String[] description = deadlineTask[1].split("/by");
@@ -66,13 +66,12 @@ public class DeadlineCommand implements Command {
             ui.printAddOrDeleteTask(description[0], tasks.indexOf(deadline));
             String deadlineLine = fileSaver.saveDeadline(deadline);
             fileSaver.saveData(deadlineLine, true);
-        } catch (TonyException e) {
+        } catch (TonyException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Your deadline command should have '/by' after task description."
                     + System.lineSeparator()
                     + "\tFormat: deadline <description> /by <DATE>");
         }
     }
-
     /**
      * Returns <code>false</code> if command not entered <code>bye</code>
      * @return <code>false</code> and does not exit program.
