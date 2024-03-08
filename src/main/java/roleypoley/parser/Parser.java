@@ -32,12 +32,16 @@ public class Parser {
                 throw new RoleyPoleyParseException("eventError");
             }
         }
-        return switch (commandWord) {
-            case "todo" -> new Task(arguments, false);
-            case "deadline" -> new Deadline(arguments, false);
-            case "event" -> new Event(arguments, false);
-            default -> throw new RoleyPoleyParseException("defaultError");
-        };
+        switch (commandWord) {
+        case "todo":
+            return new Task(arguments, false);
+        case "deadline":
+            return new Deadline(arguments, false);
+        case "event":
+            return new Event(arguments, false);
+        default:
+            throw new RoleyPoleyParseException("defaultError");
+        }
     }
 
     /**

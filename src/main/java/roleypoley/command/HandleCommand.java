@@ -18,7 +18,7 @@ import static roleypoley.ui.TextUi.*;
 public class HandleCommand {
 
     protected static ArrayList<Task> taskList = new ArrayList<>();
-    private static String myPath = "./src/main/java/RoleyPoleyData.txt";
+    private static String myPath = "./RoleyPoleyData.txt";
 
     public static ArrayList<Task> getTaskList() { 
         return taskList;
@@ -42,12 +42,20 @@ public class HandleCommand {
                 displayList(taskList, false);
                 createLine();
                 return false;
-            case "todo", "deadline", "event":
+            case "todo":
+                //fall through
+            case "deadline":
+                //fall through
+            case "event":
                 taskList.add(Parser.parseAddCommand(userInput));
                 printAddReply(taskList);
                 createLine();
                 return false;
-            case "delete", "unmark", "mark":
+            case "delete":
+                //fall through
+            case "unmark":
+                //fall through
+            case "mark":
                 int size_taskList = taskList.size();
                 int taskNum = Parser.parseEditCommand(size_taskList, userInput);
                 EditCommand(splitString[0], taskNum);

@@ -27,8 +27,9 @@ public class WriteFile {
             }
             try {
                 fw.write(task.getTaskTypeIcon() + " | " + markDoneOrUndone + " | " + task.getDescription() + "\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (IOException ex) {
+                System.out.println("File Error: " + ex.getMessage());
+                throw new RuntimeException(ex);
             }
         });
         fw.close();

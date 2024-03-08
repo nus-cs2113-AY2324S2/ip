@@ -1,0 +1,2 @@
+E | 0 | eat steambot (from: 5pm to: 7pm)
+D | 0 | finish IP (by: today)

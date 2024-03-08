@@ -1,3 +1,0 @@
-T | 0 | my work
-D | 0 | play game (by: 12midnight)
-E | 1 | buffet (from: 5pm to: 7pm)

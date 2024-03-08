@@ -16,7 +16,7 @@ public class TextUi {
      */
     public static void printAddReply(ArrayList<Task> taskList) {
         System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t  [" + taskList.getLast().getTaskTypeIcon() + "][ ] " + taskList.getLast().getDescription());
+        System.out.println("\t  [" + taskList.get(taskList.size() - 1).getTaskTypeIcon() + "][ ] " + taskList.get(taskList.size() - 1).getDescription());
         System.out.println("\t Now you have " + taskList.size() + " tasks in the list.");
     }
 

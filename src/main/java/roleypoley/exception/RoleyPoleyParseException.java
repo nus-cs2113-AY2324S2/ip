@@ -20,19 +20,16 @@ public class RoleyPoleyParseException extends Exception {
             break;
         case "eventError":
             System.out.println("\tInvalid entry. Please enter input in the following format:" +
-                    "\n\tevent <Task Description> /from <Start Time> /to <End Time");
+                    "\n\tevent <Task Description> /from <Start Time> /to <End Time>");
             break;
         default:
-            System.out.println("""
-                    \tInvalid entry. Please enter input according to the commands below:
-                    \t1. Tasks to be done with no time restriction.\s
-                    \ttodo <Task Description>\s""");
-            System.out.println("""
-                    \n\t2. Tasks to be done by a certain time.\s
-                    \tdeadline <Task Description> /by <Due Date>""");
-            System.out.println("""
-                    \n\t3. Tasks to be done within a time frame.\s
-                    \tevent <Task Description> /from <Start Time> /to <End Time>""");
+            System.out.println("\tInvalid entry. Please enter input according to the commands below:\n" +
+                               "\t1. Tasks to be done with no time restriction. \n" +
+                               "\ttodo <Task Description> ");
+            System.out.println("\n\t2. Tasks to be done by a certain time. \n" +
+                               "\tdeadline <Task Description> /by <Due Date>");
+            System.out.println("\n\t3. Tasks to be done within a time frame. \n" +
+                               "\tevent <Task Description> /from <Start Time> /to <End Time>");
             System.out.println("\n\t4. List all tasks in current task list. \n\tEnter 'list' in the command prompt");
             System.out.println("\n\t5. Exit from Chatbot. \n\tEnter 'bye' in the command prompt ");
             break;
