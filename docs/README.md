@@ -29,7 +29,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 ## Features
 
-Enter a line of text adds the item to the list. You should see somethind like the below as the output:
+Enter a line of text adds the item to the list. You should see something like the below as the output:
 ```
 read book
 ____________________________________________________________
@@ -57,9 +57,40 @@ Command List:
    ____________________________________________________________
    ```
 4. `todo DESCRIPTION`: add a todo task.
+   ```
+   todo attend cs2113 lecture
+   ____________________________________________________________
+   Got it. I've added this task:
+   [T][ ] attend cs2113 lecture
+   Now you have 2 tasks in the list.
+   ____________________________________________________________
+   ```
 5. `deadline DESCRIPTION [/by DUE_DATE]`: add a task that need to be done before a specific date/time.
+   ```
+   deadline submit ip /by Friday 2359
+   ____________________________________________________________
+   Got it. I've added this task:
+   [D][ ] submit ip (by: Friday 2359)
+   Now you have 3 tasks in the list.
+   ____________________________________________________________
+   ```
 6. `event DESCRIPTION [/from START_DATE] [/to END_DATE]`: add a task that start at a specific date/time and ends at a specific date/time.
+   ```
+   event cs2113 tutorial /from 3pm /to 4pm
+   ____________________________________________________________
+   Got it. I've added this task:
+   [E][ ] cs2113 tutorial (from: 3pm to: 4pm)
+   Now you have 4 tasks in the list.
+   ____________________________________________________________
+   ```
 7. `delete INDEX_NUMBER`: remove the task indicated by the index from the list.
+8. `bye`: exit the program. You should see something like the below as the output:
+   ```
+   bye
+   ____________________________________________________________
+   Bye. Hope to see you again soon!
+   ____________________________________________________________
+   ```
 
 Notes about the command format:
 
