@@ -1,11 +1,24 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>(); // Using ArrayList to store tasks
+
+        // Load tasks from file
+        try {
+            tasks = Storage.loadTasksFromFile(FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+
+        Scanner scanner = new Scanner(System.in);
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm [Sparky]");
         System.out.println("What can I do for you?");
@@ -100,7 +113,7 @@ public class Duke {
                     }
                     tasks.get(index).markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks.get(index).getStatusIcon() + " " + tasks.get(index).getDescription());
+                    System.out.println("  " + tasks.get(index));
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("unmark")) {
                     String[] parts = input.split(" ");
@@ -113,11 +126,15 @@ public class Duke {
                     }
                     tasks.get(index).markAsUndone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks.get(index).getStatusIcon() + " " + tasks.get(index).getDescription());
+                    System.out.println("  " + tasks.get(index));
                     System.out.println("____________________________________________________________");
                 } else {
                     throw new DukeException("Invalid command");
                 }
+
+                // Save tasks to file after each change
+                Storage.saveTasksToFile(tasks, FILE_PATH);
+
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 System.out.println("____________________________________________________________");
@@ -127,6 +144,8 @@ public class Duke {
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("Sorry! The description of a todo can't be empty");
                 System.out.println("____________________________________________________________");
+            } catch (IOException e) {
+                System.out.println("Error saving tasks to file: " + e.getMessage());
             }
         }
         scanner.close();
