@@ -25,7 +25,7 @@ To start using Lovie, ensure Java 11 is installed on your machine. Lovie specifi
 Download Lovie and run it using the Java command:
 
 ```
-java -jar Lovie.jar
+java -jar ip.jar
 ```
 
 Upon launching, Lovie will very sweetly greet you and help you if you need a list of possible commands.

@@ -1,6 +1,4 @@
 todo hi hi hi  | 1
-deadline deadline /by deadline | 0
-event event event /from event /to event | 0
 todo read book | 1
 todo hello | 0
-deadline deadline /by wednesday | 0
+event kiss mihir /from tuesday /to wednesday | 1
