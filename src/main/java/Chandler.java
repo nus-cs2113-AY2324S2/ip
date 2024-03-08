@@ -6,6 +6,11 @@ public class Chandler {
     private Parser inputParser;
     public static final String LINE_DIVIDER = "------------------------------------------";
 
+    /**
+     * Constructor for Chandler
+     *
+     * @param filePath The file path to the file from which to load the task list
+     */
     public Chandler(String filePath) {
         taskList = new TaskList();
         storageManager = new Storage();
@@ -20,6 +25,9 @@ public class Chandler {
         }
     }
 
+    /**
+     * Run the programme
+     */
     public void run() {
         ui.printStartingMessage();
         String input = ui.getInput();
@@ -44,6 +52,11 @@ public class Chandler {
         ui.printEndingMessage();
     }
 
+    /**
+     * Main method
+     *
+     * @param args The command line arguments
+     */
     public static void main(String[] args) {
         new Chandler("./data/chandler.txt").run();
     }

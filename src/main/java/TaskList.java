@@ -6,23 +6,56 @@ public class TaskList {
     private int listSize = 0;
     public static final String OUTPUT_INDENTATION = "    ";
 
-    // Add a task to the list
+    /**
+     * Add a task to the list
+     *
+     * @param task The task to be added
+     */
     public void addTask(Task task) {
         taskList.add(task);
         listSize++;
     }
 
-    // Get size of the list
+    /**
+     * Get the size of the list
+     *
+     * @return the size of the list
+     */
     public int getListSize() {
         return listSize;
     }
 
-    // Get the task
+    /**
+     * Get a task from the list
+     *
+     * @param index The index of the task in the list
+     * @return the task at the input index
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
-    // Add a todo to the taskList
+    /**
+     * Load the task list from the file
+     */
+    public void printHelpMessage() {
+        System.out.println("Here are the commands you can use:");
+        System.out.println(OUTPUT_INDENTATION + "todo <description> - Add a todo task");
+        System.out.println(OUTPUT_INDENTATION + "deadline <description> /by <date> - Add a deadline task");
+        System.out.println(OUTPUT_INDENTATION + "event <description> /from <date> /to <date> - Add an event task");
+        System.out.println(OUTPUT_INDENTATION + "list - List all the tasks");
+        System.out.println(OUTPUT_INDENTATION + "mark <task number> - Mark a task as done");
+        System.out.println(OUTPUT_INDENTATION + "unmark <task number> - Mark a task as not done");
+        System.out.println(OUTPUT_INDENTATION + "delete <task number> - Delete a task");
+        System.out.println(OUTPUT_INDENTATION + "find <keyword> - Find tasks with the keyword");
+        System.out.println(OUTPUT_INDENTATION + "bye - Exit the program");
+    }
+
+    /**
+     * Add a todo to the taskList
+     *
+     * @param description The description of the todo
+     */
     public void addTodo(String description) {
         Todo taskTodo = new Todo(description);
         addTask(taskTodo);
@@ -31,7 +64,11 @@ public class TaskList {
                 + OUTPUT_INDENTATION + "You better not procrastinate... or maybe you should");
     }
 
-    // Add a deadline to the taskList
+    /**
+     * Add a deadline to the taskList
+     *
+     * @param description The description of the deadline
+     */
     public void addDeadline(String description) {
         int indexBy = description.indexOf("/by");
         String task = description.substring(0, indexBy).trim();
@@ -43,7 +80,11 @@ public class TaskList {
                 + OUTPUT_INDENTATION + "A deadline a day keeps the sanity away.");
     }
 
-    // Add an event to the taskList
+    /**
+     * Add an event to the taskList
+     *
+     * @param description The description of the event
+     */
     public void addEvent(String description) {
         int indexFrom = description.indexOf("/from");
         int indexTo = description.indexOf("/to");
@@ -57,10 +98,18 @@ public class TaskList {
                 + OUTPUT_INDENTATION + "Can it BE any more fun?");
     }
 
-    // Delete a task from the list
+    /**
+     * Delete a task from the list
+     *
+     * @param task_number The index of the task to be deleted
+     * @throws ChandlerException If the task number is invalid
+     */
     public void deleteTask(int task_number) throws ChandlerException {
-        if (task_number < 0 || task_number >= listSize) {
+        if (task_number < 0) {
             throw new ChandlerException("Invalid task number");
+        }
+        if (task_number >= listSize){
+            throw new ChandlerException("Task number exceeds the list size");
         }
         listSize--;
         System.out.println(OUTPUT_INDENTATION + "YES, less things to do! I've removed this task:");
@@ -69,13 +118,18 @@ public class TaskList {
         taskList.remove(task_number);
     }
 
-    // Mark a task as done
+    /**
+     * Mark a task as done
+     *
+     * @param task_number The index of the task to be marked as done
+     * @throws ChandlerException If the task number is invalid
+     */
     public void markTaskAsDone(int task_number) throws ChandlerException {
         if (task_number < 0) {
             throw new ChandlerException("Invalid task number");
         }
         if (task_number >= listSize) {
-            throw new ChandlerException("Task number exceeds list size");
+            throw new ChandlerException("Task number exceeds the list size");
         }
         if (taskList.get(task_number).isDone) {
             System.out.println(OUTPUT_INDENTATION + "But, you have already done the task.");
@@ -87,7 +141,12 @@ public class TaskList {
         }
     }
 
-    // Mark a task as undone
+    /**
+     * Mark a task as not done
+     *
+     * @param task_number The index of the task to be marked as not done
+     * @throws ChandlerException If the task number is invalid
+     */
     public void markTaskAsUndone(int task_number) throws ChandlerException {
         if (task_number < 0) {
             throw new ChandlerException("Invalid task number");
@@ -105,6 +164,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Find tasks with the input keyword
+     *
+     * @param keyword The keyword to be searched among the tasks in the list
+     */
     public void findMatchingTasks(String keyword) {
         System.out.println("I'm hopeless and awkward and desperate for love!");
         System.out.println("I mean... here are the matching tasks in your list.");
@@ -122,7 +186,9 @@ public class TaskList {
         }
     }
 
-    // List all the tasks in the list
+    /**
+     * List all the tasks in the list
+     */
     public void listTasks() {
         if (listSize <= 0) {
             System.out.println("You currently do not have any tasks.");

@@ -10,7 +10,13 @@ public class Storage{
     private Parser parser;
     private static final String FILE_PATH = "./data/chandler.txt";
 
-    // Load the task list from the task file
+    /**
+     * Load the task list from the file
+     *
+     * @param taskList The task list
+     * @param filePath The file path to the file from which to load the task list
+     * @throws ChandlerException If the file is not found or there is an error reading the file
+     */
     public void loadTaskListFromFile(TaskList taskList, String filePath) throws ChandlerException {
         try {
             file = new File(filePath);
@@ -34,23 +40,34 @@ public class Storage{
         }
     }
 
-    public void createTaskFromParsedLine(String taskType, int doneStatus, String description, String additionalInfo, TaskList taskList) {
+    /**
+     * Parses the words in the input line from the file and add a task to the task list
+     *
+     * @param taskType The type of the task - todo, deadline, or event
+     * @param doneStatus The status of the task - done or not done
+     * @param description The description of the task
+     * @param additionalInfo The additional information of the task such as deadline or event time
+     * @param taskList The task list to which the created task will be added.
+     * @throws ChandlerException If there is a problem creating the task due to corrupted data or unexpected task type.
+     */
+    public void createTaskFromParsedLine(String taskType, int doneStatus,
+        String description, String additionalInfo, TaskList taskList) throws ChandlerException {
         switch (taskType) {
-            case "T":
+            case "T": // Todo
                 Todo taskTodo = new Todo(description);
                 if (doneStatus == 1) {
                     taskTodo.markAsDone();
                 }
                 taskList.addTask(taskTodo);
                 break;
-            case "D":
+            case "D": // Deadline
                 Deadline taskDeadline = new Deadline(description, additionalInfo);
                 if (doneStatus == 1) {
                     taskDeadline.markAsDone();
                 }
                 taskList.addTask(taskDeadline);
                 break;
-            case "E":
+            case "E": // Event
                 String[] fromTo = additionalInfo.split(" - ");
                 Event taskEvent = new Event(description, fromTo[0], fromTo[1]);
                 if (doneStatus == 1) {
@@ -59,12 +76,18 @@ public class Storage{
                 taskList.addTask(taskEvent);
                 break;
             default:
-                System.err.println("Corrupted data: Unexpected task type in the file.");
+                throw new ChandlerException("Corrupted data: Unexpected task type in the file.");
         }
     }
 
-    // Save the task list to the file (make it in the format of |)
-    public void saveTaskListToFile(TaskList taskList) throws ChandlerException{
+    /**
+     * Save the task list to the file
+     * Format: Type | Status | Description | Additional Info (optional)
+     *
+     * @param taskList The task list
+     * @throws ChandlerException If there is an error writing to the file
+     */
+    public void saveTaskListToFile(TaskList taskList) throws ChandlerException {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             for (int i = 0; i < taskList.getListSize(); i++) {
                 Task currentTask = taskList.getTask(i);
