@@ -1,9 +1,23 @@
 
 import java.util.Scanner;
 
+/**
+ * Implements a parser that parses the user input and performs the necessary
+ * operations.
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class Parser {
     private static final String LINE = "____________________________________________________________";
     private static final String ErrorLINE = "************************************************************";
+
+    /**
+     * Parses the commands from the user input and performs the necessary operations.
+     * Operations include adding, deleting tasks and
+     * marking, unmarking and listing tasks.
+     */
     public static void taskManager() {
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -36,6 +50,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input to create a Task object based on the input type.
+     *
+     * @param userInput The string input provided by the user.
+     * @param taskToParse The task object to be parsed or initialized based on the user input.
+     * @return A Task object parsed from the user input, or null if the input is invalid.
+     */
     public static Task parseTask(String userInput, Task taskToParse) {
         try {
             if (userInput.startsWith("todo")) {

@@ -1,3 +1,11 @@
+/**
+ * Implements an exception class for Eln
+ * This is the custom exceptions for handling invalid event commands.
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class InvalidEventException extends ElnException {
 
     @Override

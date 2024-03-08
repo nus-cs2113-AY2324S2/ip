@@ -1,3 +1,11 @@
+/**
+ * Implements a parent task that stores the details of all task types.
+ * Task can be marked or unmarked as done and have a description
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
