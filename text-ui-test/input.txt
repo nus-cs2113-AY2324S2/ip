@@ -1,11 +1,22 @@
+sup
+list
+help
+delete 1
 todo 2113iP
-deadline iP Level-4 /by tutorial
-event 2113 lecture /from fri 4pm /to fri 6pm
+deadline iP /by 08/03/2024 2359
+deadline exam /by 28/03/2024
+event 2113 lecture /from 1600 /to 1800
 list
 mark 2
+mark 2
+unmark 3
 mark 1
 list
 unmark 1
+find /t 1800
+find /w iP
+find /w cs2113
+find /t 0001
 list
 mark 100
 unmark 1000
