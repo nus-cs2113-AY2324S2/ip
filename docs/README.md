@@ -6,39 +6,8 @@ Join and discover more uses of Hiko !!!
 # Quick Start
 
 1.Download the release package hiko.jar.
-<<<<<<< HEAD
-<<<<<<< HEAD
-2.Run by right-clicking and selecting “open in terminal”.
-=======
-2.Run by right-clicking and selecting “open in terminal”. 
->>>>>>> 14731387b440fe9083afcc2e9ee31b40daefb391
-3.Type in the following: java -jar hiko.jar
-4.Strart using Hiko !
-
-## Features
-Hiko has following Features
-
-### 1.Store "ToDo" tasks
-- By typing (todo + task descriptions), hiko will auto record down the task that you have to do.
-
-### 2.Store "Event" tasks
-- By typing (event + event name + /from start time + /to end time) ,hiko will auto record down the event with start and end time.
-
-### 3.Store "DeadLine" tasks
-- By typing (deadline + task name + /by end time) ,hiko will auto record down the task with its deadline.
-
-### 4.Auto write in.
-- Hiko will auto record down the tasks that you have input in the .txt file under /docs folder.
-
-
-> [!NOTE]
-> Setting up Intellij.
-
-=======
 
 2.Run by right-clicking and selecting “open in terminal”.
-
-2.Run by right-clicking and selecting “open in terminal”. 
 
 3.Type in the following: java -jar hiko.jar
 
@@ -63,7 +32,6 @@ Hiko has following Features
 > [!NOTE]
 > Setting up Intellij.
 
->>>>>>> origin/master
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
 1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
@@ -89,13 +57,5 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 
 # Updates
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-08/03/2024 Finalize Hiko.
-=======
-08/03/2024 Finalize Hiko.
->>>>>>> 14731387b440fe9083afcc2e9ee31b40daefb391
-=======
 
 08/03/2024 Finalize Hiko.
->>>>>>> origin/master
