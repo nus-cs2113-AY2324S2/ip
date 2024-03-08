@@ -7,12 +7,6 @@ public class GOne {
     }
 
     public void start() {
-        System.out.println("  ________     ________                 \n" +
-                " /  _____/     \\_____  \\   ____   ____  \n" +
-                "/   \\  ___      /   |   \\ /    \\_/ __ \\ \n" +
-                "\\    \\_\\  \\    /    |    \\   |  \\  ___/ \n" +
-                " \\______  / /\\ \\_______  /___|  /\\___  >\n" +
-                "        \\/  \\/         \\/     \\/     \\/ \n");
         System.out.println("Hello! I'm G.one");
         System.out.println("--------------------------------------");
 
@@ -29,8 +23,6 @@ public class GOne {
                 isRunning = false;
             } else {
                 commandProcessor.processUserInput(userInput);
-                System.out.print("\n");
-
             }
         }
 
