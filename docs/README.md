@@ -2,7 +2,9 @@
 
 ## Introduction
 
-Zuke is a chatbot that helps you manage your tasks in a command line interface (CLI), optimized for users who prefer to type :).
+Discover Zuke, your task-management chatbot, thoughtfully crafted for those who appreciate the art of typing! 
+Zuke brings the simplicity of managing tasks to a whole new level with its intuitive command line interface (CLI).
+Welcome to a world where managing tasks becomes a breeze with the power of Zuke!
 
 ## Table of Contents
 
@@ -15,12 +17,13 @@ Zuke is a chatbot that helps you manage your tasks in a command line interface (
     - [List all tasks](#list-all-tasks)
     - [Delete a task](#delete-a-task)
     - [Find a task](#find-a-task)
+    - [Ask for help](#ask-for-help)
     - [Exit the program](#exit-the-program)
 
 ## Quick Start
 
 1. Ensure you have Java 11 installed on your computer.
-2. Download the latest `zuke.jar` from [here](#).
+2. Download the latest `zuke.jar` from [here](https://github.com/ZMinghuiZ/ip/releases/download/A-Release/zuke.jar).
 3. Copy the file to the folder you want to use as the home folder for Zuke.
 4. Open a terminal and navigate to the folder where `zuke.jar` is located.
 5. Run the command `java -jar zuke.jar` to start the chatbot. The chatbot should start and greet you with a welcome message.
