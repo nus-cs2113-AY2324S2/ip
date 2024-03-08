@@ -1,7 +1,9 @@
+package tasklist.deadline;
+import tasklist.todo.Todo;
+
 public class Deadline extends Todo {
     protected String date;
 
-    //constructor for Deadline
     public Deadline(String description, String date) {
         super(description);
         this.date = date;
@@ -9,7 +11,7 @@ public class Deadline extends Todo {
     }
 
     public String getDate() {
-        return date;
+        return (date);
     }
 
     public String formatTask() {
@@ -20,3 +22,4 @@ public class Deadline extends Todo {
         return (type + status + description + "/by" + date);
     }
 }
+

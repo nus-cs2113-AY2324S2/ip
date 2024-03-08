@@ -1,8 +1,10 @@
+package tasklist.event;
+import tasklist.todo.Todo;
+
 public class Event extends Todo {
     protected String start;
     protected String end;
 
-    //constructor for Event
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;
@@ -11,11 +13,11 @@ public class Event extends Todo {
     }
 
     public String getStart() {
-        return start;
+        return (start);
     }
 
     public String getEnd() {
-        return end;
+        return (end);
     }
 
     public String formatTask() {
