@@ -1,5 +1,7 @@
 # User Guide for "Howard Smith"
 
+Howard Smith is a personal chatbot assistant that will remember key tasks and their deadlines.
+You can view your tasks at a glance and keep track of deadlines for key events.
 ## Features 
 
 ### List tasks
