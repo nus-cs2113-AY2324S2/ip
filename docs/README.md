@@ -84,7 +84,8 @@ Command List:
    ____________________________________________________________
    ```
 7. `delete INDEX_NUMBER`: remove the task indicated by the index from the list.
-8. `bye`: exit the program. You should see something like the below as the output:
+8. `find DESCRIPTION`: find the tasks that match the description from the list.
+9. `bye`: exit the program. You should see something like the below as the output:
    ```
    bye
    ____________________________________________________________
