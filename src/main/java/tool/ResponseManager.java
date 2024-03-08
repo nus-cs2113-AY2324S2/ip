@@ -53,17 +53,17 @@ public class ResponseManager {
             "For date: dd/MM/yyyy\n" +
             "For time: HHmm\n";
     public static final String HELP_MESSAGE =
-            "\n======================ZUKE   MANUAL====================\n" +
-            "ADD TODO TASK:                         todo <task name>\n" +
-            "ADD DEADLINE TASK:      deadline <task name> /by <date>\n" +
-            "ADD EVENT TASK:            event <task name> /at <date>\n" +
-            "LIST ALL TASKS:                                    list\n" +
-            "MARK/UNMARK A TASKS:          mark/unmark <task number>\n" +
-            "DELETE A TASK:                     delete <task number>\n" +
-            "FIND WITH WORD:                       find /w <keyword>\n" +
-            "FIND WITH TIME:                          find /t <date>\n" +
-            "EXIT:                                               bye\n" +
-            "=======================================================\n";
+            "\n===========================ZUKE   MANUAL=========================\n" +
+            "ADD TODO TASK:                                   todo <task name>\n" +
+            "ADD DEADLINE TASK:                deadline <task name> /by <date>\n" +
+            "ADD EVENT TASK:         event <task name> /from <date> /to <time>\n" +
+            "LIST ALL TASKS:                                              list\n" +
+            "MARK/UNMARK A TASKS:                    mark/unmark <task number>\n" +
+            "DELETE A TASK:                               delete <task number>\n" +
+            "FIND WITH WORD:                                 find /w <keyword>\n" +
+            "FIND WITH TIME:                                    find /t <date>\n" +
+            "EXIT:                                                         bye\n" +
+            "=================================================================\n";
     public static final String EMPTY_LIST_MSG =
             "OOPS your task list is still empty, pls add some tasks\n";
     public static final String DELETE_EMPTY_LIST_MSG =
