@@ -16,6 +16,12 @@ public class Storage {
 
     public Storage() {}
 
+    /**
+     * Saves the tasks before ending the chatbot session.
+     *
+     * @param tasks contain the tasks that were added during the session.
+     * @throws IOException if the text file cannot be opened or written to etc.
+     */
     public void writeToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for(int i = 0; i < tasks.getTaskCount(); i++){
@@ -24,6 +30,12 @@ public class Storage {
         fw.close();
     };
 
+    /**
+     * Loads pre-existing tasks from a text file.
+     *
+     * @return TaskList object containing the loaded tasks.
+     * @throws FileNotFoundException if the text file cannot be found.
+     */
     public TaskList readFromFile() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);

@@ -6,6 +6,9 @@ import task.TaskList;
 import storage.Storage;
 import ui.UI;
 
+/**
+ * This Duke class is an abstraction of the chatbot and provides its driver method.
+ */
 public class Duke {
 
     public static void main(String[] args) {
@@ -18,6 +21,7 @@ public class Duke {
 
         Storage storage = new Storage();
 
+        // Try to load existing tasks.
         try {
             tasks = storage.readFromFile();
         }
@@ -66,6 +70,7 @@ public class Duke {
             userInput = in.nextLine();
         }
 
+        // Save tasks before ending the session.
         try {
             storage.writeToFile(tasks);
         }

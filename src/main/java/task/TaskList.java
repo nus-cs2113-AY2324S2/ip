@@ -133,6 +133,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds the tasks which are relevant to the keyword provided.
+     *
+     * @param userInput contains the keyword to query.
+     */
     public void find(String userInput) {
         String[] userInputWords = userInput.split(" ");
         ArrayList<Task> relevantTasks = new ArrayList<Task>();
@@ -162,6 +167,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Loads pre-existing tasks from text file.
+     *
+     * @param currentLine contains a particular task read from the text file.
+     */
     public void addTaskFromFile(String currentLine) {
         if(currentLine.contains("[T]")){
             int descriptionStart = currentLine.indexOf("[T]") + 7;
