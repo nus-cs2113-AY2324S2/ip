@@ -79,18 +79,18 @@ Adds a new event task with `/from` and `/to` to your task list..<br>
    ```
 
 ### 4. List all tasks: `list`
-Lists all tasks your task list.<br>
-* Format: `list`.<br>
-  Example of usage: `list`.<br>
-* Expected outcome:<br>
-   ```
+Lists all tasks your task list.
+* Format: `list`.
+  Example of usage: `list`.
+* Expected outcome:
+  ```
     ____________________________________________________
      Here are the tasks in your list:
      1. [T][ ] Merida: Answer GDP2021 questions
      2. [D][ ] Weekly GDP2021 Routine Dog Bath (by: Monday 11:59pm)
      3. [E][ ] GDP2021 OJT Baiting Challenge (from: Friday 1pm to: 6pm)
     ____________________________________________________
-   ```
+  ```
 
 [Back to Commands Usage Overview](#commands-usage-overview)<br>
 
@@ -124,7 +124,7 @@ Unmarks the selected task shown in the current task list.<br>
 Displays your tasks containing `WORD` in your task list.<br>
 * Format: `find WORD`.<br>
   Example of usage: `find GDP2021`.<br>
-* Expected outcome:<br>
+* Expected outcome:
    ```
     ____________________________________________________
      Here are the matching tasks in your list:
