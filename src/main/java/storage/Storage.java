@@ -18,9 +18,9 @@ public class Storage {
 
     public int loadData(ArrayList<Todo> list) throws IOException {
         Ui ui = new Ui();
-        TaskList tasklist = new TaskList();
-        File storedFile = new File(pathName);
         int taskNum = 0;
+        TaskList tasklist = new TaskList(list, taskNum);
+        File storedFile = new File(pathName);
         if (!storedFile.exists()) {
             new File(storedFile.getParent()).mkdirs();
             ui.showMakeDir();

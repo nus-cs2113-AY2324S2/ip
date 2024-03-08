@@ -10,9 +10,9 @@ public class TaskList {
     public int taskNum;
 
 
-    public TaskList() {
-        list = new ArrayList<>();
-        taskNum = 0;
+    public TaskList(ArrayList<Todo> list, int taskNum) {
+        this.list = list;
+        this.taskNum = taskNum;
     }
 
     public ArrayList<Todo> getList() {
