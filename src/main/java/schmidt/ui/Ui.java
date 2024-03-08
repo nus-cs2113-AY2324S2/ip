@@ -5,7 +5,7 @@ import schmidt.task.TaskList;
 
 import java.util.Scanner;
 
-public class  Ui {
+public class Ui {
     private static final String LINE = "------------------------------------------------------------";
     private static final String LOGO = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
             "██╔════╝██╔══██╗██║░░██║████╗░████║██║██╔══██╗╚══██╔══╝\n" +
@@ -75,6 +75,10 @@ public class  Ui {
 
     public void printTaskUndone(Task task) {
         printWithLines("Ok! I've unmarked this task as done:\n\t" + task);
+    }
+
+    public void printMatchingTasks(TaskList tasks) {
+        printWithLines("Here are the matching tasks in your list:\n" + tasks);
     }
 
     public void printHelpMessage() {

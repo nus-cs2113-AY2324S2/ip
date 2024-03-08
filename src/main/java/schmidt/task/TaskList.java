@@ -39,6 +39,34 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    public TaskList findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            boolean isKeywordInDescription = task.getDescription().contains(keyword);
+            if (isKeywordInDescription) {
+                matchingTasks.add(task);
+                continue;
+            }
+
+            if (task instanceof Deadline) {
+                boolean isKeywordInBy = ((Deadline) task).getBy().contains(keyword);
+                if (isKeywordInBy) {
+                    matchingTasks.add(task);
+                    continue;
+                }
+            }
+
+            if (task instanceof Event) {
+                boolean isKeywordInFrom = ((Event) task).getFrom().contains(keyword);
+                boolean isKeywordInTo = ((Event) task).getTo().contains(keyword);
+                if (isKeywordInFrom || isKeywordInTo) {
+                    matchingTasks.add(task);
+                }
+            }
+        }
+        return new TaskList(matchingTasks);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
