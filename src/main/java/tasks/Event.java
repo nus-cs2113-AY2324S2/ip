@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package tasks;
 
 public class Event extends Task {
@@ -16,9 +21,11 @@ public class Event extends Task {
         this.to = to;
         this.isDone = isDone;
     }
-  
+
     @Override
-    public String toString(){
-        return "[E]" + "[" + super.getStatusIcon() + "] " + this.description + " (from: " + from + " " + "to: " + to + ")";
+    public String toString() {
+        return "[E][" + super.getStatusIcon() +
+                "] " + this.description +
+                " (from: " + this.from + " to: " + this.to + ")";
     }
 }
