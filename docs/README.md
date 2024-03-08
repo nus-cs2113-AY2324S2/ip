@@ -1,29 +1,64 @@
-# User Guide
+# Avocado User Guide
 
 ## Features 
 
-### Feature-ABC
+### words in UPPER-CASE are parameters to be supplied 
 
-Description of the feature.
+### Feature-ToDo
 
-### Feature-XYZ
+Add a todo item without further instruction
+Format: todo ITEM
+Example: todo book
+Output: [T][ ] book
 
-Description of the feature.
+### Feature-Deadline
 
-## Usage
+Add an item with a due date
+Format: deadline ITEM / by X
+Example: dealine return book / by tue
+Output: [D][ ] return book (by: tue)
 
-### `Keyword` - Describe action
+### Feature-Event
 
-Describe the action and its outcome.
+Add an item with a start and fin
+Format: event ITEM /from X /to Y
+Example: event party /from 1pm /to 3pm
+Output: [E][ ] party (from: 1pm to:3pm)
 
-Example of usage: 
+### Feature-Mark
 
-`keyword (optional arguments)`
+Tick an item as done
+Format: mark [ITEM NUMBER]
+Example: mark 1
+Output: [T][X] book
 
-Expected outcome:
+### Feature-Unmark
 
-Description of the outcome.
+Undo the item
+Format: unmark[ITEM NUMBER]
+Example: unmark 1
+Output: [T][ ] book
 
-```
-expected output
-```
+### Feature-Delete
+
+delete an item
+Format: delete[ITEM NUMBER]
+Example: delete 1
+
+### Feature-List
+
+List all items
+Format: list
+Output:
+1. [T][ ]book
+2. [E][ ]party(from:1pm to: 3pm)
+
+### Feature-Find
+
+Returns all items with description
+Format: find [ITEM]
+Example: find book
+Output:
+1. [T][ ]book
+
+
