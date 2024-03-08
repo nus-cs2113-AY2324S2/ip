@@ -58,6 +58,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + getDescription();
+
+        return getStatusIcon() + " " +getDescription();
     }
 }

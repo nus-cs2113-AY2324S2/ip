@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Storage {
     private static final String FILENAME = "text.txt";
-    private static final String DIRECTORY = "src/main/java/data";
+    private static final String DIRECTORY = "data";
 
     /**
      * Loads tasks from the file.

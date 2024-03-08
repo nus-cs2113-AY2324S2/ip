@@ -71,6 +71,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
+
         return getStatusIcon() + " " + getDescription();
     }
 }

@@ -24,6 +24,7 @@ public class Task {
      * @return The status icon ("[X]" if completed, "[ ]" if not completed).
      */
     public String getStatusIcon() {
+
         return (isDone ? "[X]" : "[ ]");
     }
 
@@ -31,6 +32,7 @@ public class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
+
         isDone = true;
     }
 
@@ -38,6 +40,7 @@ public class Task {
      * Marks the task as not done.
      */
     public void markAsNotDone() {
+
         isDone = false;
     }
 
@@ -47,6 +50,7 @@ public class Task {
      * @return The description of the task.
      */
     public String getDescription() {
+
         return description;
     }
 

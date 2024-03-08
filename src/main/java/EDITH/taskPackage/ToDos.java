@@ -12,6 +12,7 @@ public class ToDos extends Task {
      * @param isDone      The completion status of the to-do task.
      */
     public ToDos(String description, boolean isDone) {
+
         super(description, isDone);
     }
 
@@ -22,6 +23,7 @@ public class ToDos extends Task {
      */
     @Override
     public String getStatusIcon() {
+
         return "[T]" + super.getStatusIcon();
     }
 
@@ -32,6 +34,7 @@ public class ToDos extends Task {
      */
     @Override
     public String toString() {
+
         return getStatusIcon() + " " + getDescription();
     }
 }
