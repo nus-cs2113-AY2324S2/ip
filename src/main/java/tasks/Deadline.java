@@ -1,5 +1,9 @@
 package tasks;
 
+import customexceptions.IncompletePromptException;
+
+import java.time.format.DateTimeParseException;
+
 /** Type of task with a single date */
 public class Deadline extends Task {
     /**
@@ -25,12 +29,17 @@ public class Deadline extends Task {
     }
 
     /**
-     * Sets the deadline and indicates that the task is a deadline as well.
+     * Sets the deadline based on "d MMM yyyy" format and indicates that the task is a deadline as well.
      *
      * @param deadline Deadline associated with task.
      */
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setDeadline(String deadline) throws IncompletePromptException {
+        try {
+            this.deadline = parseStringToDate(deadline);
+        } catch (DateTimeParseException e) {
+            System.out.println("Sorry, the deadline date inputted could not be parsed.");
+            throw new IncompletePromptException(false);
+        }
         this.haveDeadline = true;
     }
 

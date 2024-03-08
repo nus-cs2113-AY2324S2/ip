@@ -1,5 +1,9 @@
 package tasks;
 
+import customexceptions.IncompletePromptException;
+
+import java.time.format.DateTimeParseException;
+
 /** Most complex type of task with a timeframe between two dates. */
 public class Event extends Task {
 
@@ -29,16 +33,36 @@ public class Event extends Task {
         return eventFrom;
     }
 
-    public void setEventFrom(String eventFrom) {
-        this.eventFrom = eventFrom;
+    /**
+     * Sets the start event date based on a specific date format of "d MMM yyyy".
+     *
+     * @param eventFrom Start date.
+     */
+    public void setEventFrom(String eventFrom) throws IncompletePromptException {
+        try {
+            this.eventFrom = parseStringToDate(eventFrom);
+        } catch (DateTimeParseException e) {
+            System.out.println("Sorry, the event date could not be parsed.");
+            throw new IncompletePromptException(false);
+        }
     }
 
     public String getEventTo() {
         return eventTo;
     }
 
-    public void setEventTo(String eventTo) {
-        this.eventTo = eventTo;
+    /**
+     * Sets the end event date based on specific date format "d MMM yyyy"
+     *
+     * @param eventTo End date.
+     */
+    public void setEventTo(String eventTo) throws IncompletePromptException {
+        try {
+            this.eventTo = parseStringToDate(eventTo);
+        } catch (DateTimeParseException e) {
+            System.out.println("Sorry, the event date could not be parsed.");
+            throw new IncompletePromptException(false);
+        }
     }
 
     /** Prints the event information such as the description, start time and end time when presented by UI. */
