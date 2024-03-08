@@ -25,6 +25,12 @@ public class Ui {
             "\tmark <task number>\n" +
             "\tunmark <task number>\n" +
             "\tdelete <task number>";
+    private static final String USER_INPUT_INDICATOR = "\t-> ";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Schmidt\nWhat can I do for you?";
+    private static final String GOODBYE_MESSAGE = "Goodbye! Hope to see you again soon!";
+    private static final String DONE_TASK_MESSAGE = "Nice! I've marked this task as done:\n\t";
+    private static final String UNDONE_TASK_MESSAGE = "Ok! I've unmarked this task as done:\n\t";
+    private static final String MATCHING_TASKS_MESSAGE = "Here are the matching tasks in your list:\n";
     private final Scanner scanner;
 
     /**
@@ -37,7 +43,7 @@ public class Ui {
     /**
      * Prints a message with lines above and below it for better user readability.
      *
-     * @param message the message to print
+     * @param message the message to print.
      */
     public void printWithLines(String message) {
         System.out.println(LINE);
@@ -48,7 +54,7 @@ public class Ui {
     /**
      * Prints a message to the user.
      *
-     * @param message the message to print
+     * @param message the message to print.
      */
     public void printMessage(String message) {
         System.out.println(message);
@@ -57,10 +63,10 @@ public class Ui {
     /**
      * Reads a command from the user.
      *
-     * @return the command read from the user
+     * @return the command read from the user.
      */
     public String readCommand() {
-        System.out.print("\t-> ");
+        System.out.print(USER_INPUT_INDICATOR);
         return scanner.nextLine();
     }
 
@@ -69,20 +75,20 @@ public class Ui {
      */
     public void printWelcome() {
         printMessage(LOGO);
-        printWithLines("Hello! I'm Schmidt\nWhat can I do for you?");
+        printWithLines(WELCOME_MESSAGE);
     }
 
     /**
      * Prints the goodbye message to the user.
      */
     public void printGoodbye() {
-        printWithLines("Goodbye! Hope to see you again soon!");
+        printWithLines(GOODBYE_MESSAGE);
     }
 
     /**
      * Prints an error message to the user.
      *
-     * @param errorMessage the error message to print
+     * @param errorMessage the error message to print.
      */
     public void printError(String errorMessage) {
         printWithLines(errorMessage);
@@ -91,7 +97,7 @@ public class Ui {
     /**
      * Prints the list of tasks to the user.
      *
-     * @param tasks the list of tasks to print
+     * @param tasks the list of tasks to print.
      */
     public void printTaskList(TaskList tasks) {
         printWithLines(tasks.toString());
@@ -100,8 +106,8 @@ public class Ui {
     /**
      * Prints the message to the user after a task has been added.
      *
-     * @param task the task that was added
-     * @param taskCount the number of tasks in the list
+     * @param task the task that was added.
+     * @param taskCount the number of tasks in the list.
      */
     public void printTaskAdded(Task task, int taskCount) {
         printWithLines("Got it. I've added this task:\n\t" + task + "\nNow you have " + taskCount + " tasks in the list.");
@@ -110,8 +116,8 @@ public class Ui {
     /**
      * Prints the message to the user after a task has been deleted.
      *
-     * @param task the task that was deleted
-     * @param taskCount the number of tasks in the list
+     * @param task the task that was deleted.
+     * @param taskCount the number of tasks in the list.
      */
     public void printTaskDeleted(Task task, int taskCount) {
         printWithLines("Noted. I've removed this task:\n\t" + task + "\nNow you have " + taskCount + " tasks in the list.");
@@ -120,28 +126,28 @@ public class Ui {
     /**
      * Prints the message to the user after a task has been marked as done.
      *
-     * @param task the task that was marked as done
+     * @param task the task that was marked as done.
      */
     public void printTaskDone(Task task) {
-        printWithLines("Nice! I've marked this task as done:\n\t" + task);
+        printWithLines(DONE_TASK_MESSAGE + task);
     }
 
     /**
      * Prints the message to the user after a task has been unmarked as done.
      *
-     * @param task the task that was unmarked as done
+     * @param task the task that was unmarked as done.
      */
     public void printTaskUndone(Task task) {
-        printWithLines("Ok! I've unmarked this task as done:\n\t" + task);
+        printWithLines(UNDONE_TASK_MESSAGE + task);
     }
 
     /**
      * Prints the message to the user after a task has been found.
      *
-     * @param tasks the list of tasks that match the search query
+     * @param tasks the list of tasks that match the search query.
      */
     public void printMatchingTasks(TaskList tasks) {
-        printWithLines("Here are the matching tasks in your list:\n" + tasks);
+        printWithLines(MATCHING_TASKS_MESSAGE + tasks);
     }
 
     /**

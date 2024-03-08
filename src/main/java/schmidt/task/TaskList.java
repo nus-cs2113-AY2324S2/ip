@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Represents a list of tasks.
  */
 public class TaskList {
+    private static final String EMPTY_TASK_LIST_MESSAGE = "You have no tasks in your list!";
     private final ArrayList<Task> tasks;
 
     /**
@@ -18,7 +19,7 @@ public class TaskList {
     /**
      * Constructs a list of tasks with the specified tasks.
      *
-     * @param tasks the list of tasks
+     * @param tasks the list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -27,7 +28,7 @@ public class TaskList {
     /**
      * Adds a task to the list of tasks.
      *
-     * @param task the task to be added
+     * @param task the task to be added.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
@@ -36,8 +37,8 @@ public class TaskList {
     /**
      * Deletes a task from the list of tasks.
      *
-     * @param index the index of the task to be deleted
-     * @return the task that was deleted
+     * @param index the index of the task to be deleted.
+     * @return the task that was deleted.
      */
     public Task deleteTask(int index) {
         return this.tasks.remove(index);
@@ -46,8 +47,8 @@ public class TaskList {
     /**
      * Returns the task at the specified index.
      *
-     * @param index the index of the task
-     * @return the task at the specified index
+     * @param index the index of the task.
+     * @return the task at the specified index.
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
@@ -56,9 +57,9 @@ public class TaskList {
     /**
      * Sets the task at the specified index as done or not done.
      *
-     * @param index the index of the task
-     * @param isDone whether the task is done
-     * @return the task that was set as done or not done
+     * @param index the index of the task.
+     * @param isDone whether the task is done.
+     * @return the task that was set as done or not done.
      */
     public Task setDone(int index, boolean isDone) {
         if (isDone) {
@@ -73,7 +74,7 @@ public class TaskList {
     /**
      * Returns the number of tasks in the list.
      *
-     * @return the number of tasks in the list
+     * @return the number of tasks in the list.
      */
     public int getSize() {
         return this.tasks.size();
@@ -82,8 +83,8 @@ public class TaskList {
     /**
      * Finds tasks that contain the specified keyword in their description, by, from, or to.
      *
-     * @param keyword the keyword to search for
-     * @return the list of tasks that contain the keyword
+     * @param keyword the keyword to search for.
+     * @return the list of tasks that contain the keyword.
      */
     public TaskList findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
@@ -120,14 +121,14 @@ public class TaskList {
     /**
      * Returns a readable string representation of the list of tasks.
      *
-     * @return the string representation of the list of tasks
+     * @return the string representation of the list of tasks.
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
         if (this.tasks.isEmpty()) {
-            return "You have no tasks in your list!";
+            return EMPTY_TASK_LIST_MESSAGE;
         }
 
         for (int i = 0; i < this.tasks.size(); i++) {

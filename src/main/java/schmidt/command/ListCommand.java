@@ -9,13 +9,15 @@ import schmidt.ui.Ui;
  * Represents a command to list all tasks in the task list.
  */
 public class ListCommand extends Command {
+    public static final String COMMAND = "list";
+
     /**
      * Lists all tasks in the task list.
      *
-     * @param tasks the list of tasks
-     * @param ui the user interface
-     * @param storage the storage
-     * @throws SchmidtException if there was an error listing the tasks
+     * @param tasks the list of tasks.
+     * @param ui the user interface.
+     * @param storage the storage.
+     * @throws SchmidtException if there was an error listing the tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SchmidtException {

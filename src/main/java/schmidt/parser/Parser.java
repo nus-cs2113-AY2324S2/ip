@@ -9,7 +9,9 @@ import schmidt.command.FindCommand;
 import schmidt.command.HelpCommand;
 import schmidt.command.ListCommand;
 import schmidt.command.MarkCommand;
+import schmidt.command.UnmarkCommand;
 import schmidt.exception.SchmidtException;
+import schmidt.storage.Storage;
 import schmidt.task.Deadline;
 import schmidt.task.Event;
 import schmidt.task.Task;
@@ -19,146 +21,119 @@ import schmidt.task.Todo;
  * Represents a parser to parse user input into commands.
  */
 public class Parser {
+
+    private static final String NEW_LINE = "\n";
+    private static final String INVALID_TASK_MESSAGE = "Task is invalid";
+    private static final String WHITESPACE = "\\s+";
+
     /**
      * Parses a task into a line of storage.
      *
-     * @param task the task
-     * @return the line of storage
-     * @throws SchmidtException if the task is invalid
+     * @param task the task.
+     * @return the line of storage.
+     * @throws SchmidtException if the task is invalid.
      */
     public static String parseTaskToStorage(Task task) throws SchmidtException {
-        try {
-            String taskType;
-            String taskStatus;
-            String taskDescription;
-            String taskTime;
-            // find the type of task and parse it accordingly
-            if (task instanceof Todo) {
-                taskType = "T";
-                taskStatus = task.getStatus() ? "1" : "0";
-                taskDescription = task.getDescription();
-                return taskType + " | " + taskStatus + " | " + taskDescription + "\n";
-            } else if (task instanceof Deadline) {
-                taskType = "D";
-                taskStatus = task.getStatus() ? "1" : "0";
-                taskDescription = task.getDescription();
-                taskTime = ((Deadline) task).getBy();
-                return taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskTime + "\n";
-            } else if (task instanceof Event) {
-                taskType = "E";
-                taskStatus = task.getStatus() ? "1" : "0";
-                taskDescription = task.getDescription();
-                taskTime = ((Event) task).getFrom() + " | " + ((Event) task).getTo();
-                return taskType + " | " + taskStatus + " | " + taskDescription + " | " + taskTime + "\n";
-            } else {
-                throw new SchmidtException("Task is invalid");
-            }
-        } catch (Exception e) {
-            throw new SchmidtException("An error occurred while saving tasks");
+        String taskLetter;
+        String taskStatus;
+        String taskDescription;
+        String taskTime;
+
+        // find the type of task and parse it accordingly
+        if (task instanceof Todo) {
+            taskLetter = Todo.LETTER;
+            taskStatus = task.getStatus() ? Task.DONE : Task.NOT_DONE;
+            taskDescription = task.getDescription();
+            return taskLetter + Storage.DELIMITER + taskStatus + Storage.DELIMITER + taskDescription + NEW_LINE;
+        } else if (task instanceof Deadline) {
+            taskLetter = Deadline.LETTER;
+            taskStatus = task.getStatus() ? Task.DONE : Task.NOT_DONE;
+            taskDescription = task.getDescription();
+            taskTime = ((Deadline) task).getBy();
+            return taskLetter + Storage.DELIMITER + taskStatus + Storage.DELIMITER + taskDescription + Storage.DELIMITER + taskTime + NEW_LINE;
+        } else if (task instanceof Event) {
+            taskLetter = Event.LETTER;
+            taskStatus = task.getStatus() ? Task.DONE : Task.NOT_DONE;
+            taskDescription = task.getDescription();
+            taskTime = ((Event) task).getFrom() + Storage.DELIMITER + ((Event) task).getTo();
+            return taskLetter + Storage.DELIMITER + taskStatus + Storage.DELIMITER + taskDescription + Storage.DELIMITER + Storage.DELIMITER + taskTime + NEW_LINE;
+        } else {
+            throw new SchmidtException(INVALID_TASK_MESSAGE);
         }
     }
 
     /**
      * Parses a line of storage into a task.
      *
-     * @param line the line of storage
-     * @return the task
-     * @throws SchmidtException if the line is invalid
+     * @param line the line of storage.
+     * @return the task.
+     * @throws SchmidtException if the line is invalid.
      */
     public static Task parseStorageToTask(String line) throws SchmidtException {
 
-        String[] tokens = line.split(" \\| ");
+        String[] tokens = line.split(Storage.REGEX_DELIMITER);
 
-        switch (tokens[0]) {
-        case "T":
-            Todo todo = new Todo(tokens[2]);
-            if (tokens[1].equals("1")) {
+        switch (tokens[Storage.TASK_TYPE_INDEX]) {
+        case Todo.LETTER:
+            Todo todo = new Todo(tokens[Storage.DESCRIPTION_INDEX]);
+            if (tokens[Storage.IS_DONE_INDEX].equals(Task.DONE)) {
                 todo.markAsDone();
             }
             return todo;
-        case "D":
-            Deadline deadline = new Deadline(tokens[2], tokens[3]);
-            if (tokens[1].equals("1")) {
+        case Deadline.LETTER:
+            Deadline deadline = new Deadline(tokens[Storage.DESCRIPTION_INDEX], tokens[Storage.BY_INDEX]);
+            if (tokens[Storage.IS_DONE_INDEX].equals(Task.DONE)) {
                 deadline.markAsDone();
             }
             return deadline;
-        case "E":
-            Event event = new Event(tokens[2], tokens[3], tokens[4]);
-            if (tokens[1].equals("1")) {
+        case Event.LETTER:
+            Event event = new Event(tokens[Storage.DESCRIPTION_INDEX], tokens[Storage.FROM_INDEX], tokens[Storage.TO_INDEX]);
+            if (tokens[Storage.IS_DONE_INDEX].equals(Task.DONE)) {
                 event.markAsDone();
             }
             return event;
         default:
-            throw new SchmidtException("Saved tasks are corrupted\n" + "Starting with a new task list");
+            throw new SchmidtException(Storage.CORRUPTED_STORAGE_MESSAGE);
         }
     }
 
     /**
      * Parses the user input into a command.
      *
-     * @param command the user input
-     * @return the command to be executed
-     * @throws SchmidtException if the command is invalid
+     * @param command the user input.
+     * @return the command to be executed.
+     * @throws SchmidtException if the command is invalid.
      */
     public static Command parseCommand(String command) throws SchmidtException {
-        String trimmedCommand = command.trim();
-        String[] commandArray = trimmedCommand.split(" ");
-        String commandType = commandArray[0];
-        switch (commandType) {
-        case "list":
-            // list tasks
+        String[] trimmedAndSplitCommand = command.trim().split(WHITESPACE, 2);
+        String caseInsensitiveCommandType = trimmedAndSplitCommand[Command.TYPE_INDEX].toLowerCase();
+        String commandArguments = trimmedAndSplitCommand.length > 1 ? trimmedAndSplitCommand[1].trim() : "";
+        switch (caseInsensitiveCommandType) {
+        case ListCommand.COMMAND:
             return new ListCommand();
-        case "mark":
-            // mark task as done
-            int markIndex;
-            try {
-                markIndex = parseIndexCommand(trimmedCommand);
-            } catch (SchmidtException e) {
-                throw new SchmidtException("Please follow the mark command format\n\tmark <task number>");
-            }
-            return new MarkCommand(markIndex, true);
-        case "unmark":
-            // mark task as undone
-            int unmarkIndex;
-            try {
-                unmarkIndex = parseIndexCommand(trimmedCommand);
-            } catch (SchmidtException e) {
-                throw new SchmidtException("Please follow the unmark command format\n\tunmark <task number>");
-            }
-            return new MarkCommand(unmarkIndex, false);
-        case "bye":
-            // exit program
+        case MarkCommand.COMMAND:
+            int markIndex = parseIndexCommand(commandArguments, MarkCommand.COMMAND);
+            return new MarkCommand(markIndex);
+        case UnmarkCommand.COMMAND:
+            int unmarkIndex = parseIndexCommand(commandArguments, UnmarkCommand.COMMAND);
+            return new UnmarkCommand(unmarkIndex);
+        case ExitCommand.COMMAND:
             return new ExitCommand();
-        case "help":
-            // display help message
-            return new HelpCommand();
-        case "delete":
-            // delete task
-            int deleteIndex;
-            try {
-                deleteIndex = parseIndexCommand(trimmedCommand);
-            } catch (SchmidtException e) {
-                throw new SchmidtException("Please follow the delete command format\n\tdelete <task number>");
-            }
+        case DeleteCommand.COMMAND:
+            int deleteIndex = parseIndexCommand(commandArguments, DeleteCommand.COMMAND);
             return new DeleteCommand(deleteIndex);
-        case "todo":
-            // add todo task
-            Todo todo = parseTodoCommand(trimmedCommand);
+        case AddCommand.TODO_COMMAND:
+            Todo todo = parseTodoCommand(commandArguments);
             return new AddCommand(todo);
-        case "deadline":
-            // add deadline task
-            Deadline deadline = parseDeadlineCommand(trimmedCommand);
+        case AddCommand.DEADLINE_COMMAND:
+            Deadline deadline = parseDeadlineCommand(commandArguments);
             return new AddCommand(deadline);
-        case "event":
-            // add event task
-            Event event = parseEventCommand(trimmedCommand);
+        case AddCommand.EVENT_COMMAND:
+            Event event = parseEventCommand(commandArguments);
             return new AddCommand(event);
-        case "find":
-            // find tasks
-            String keyword = parseFindCommand(trimmedCommand);
-            return new FindCommand(keyword);
+        case FindCommand.COMMAND:
+            return new FindCommand(commandArguments);
         default:
-            // invalid command
             return new HelpCommand();
         }
     }
@@ -166,115 +141,107 @@ public class Parser {
     /**
      * Splits the user input to get the description of the todo task.
      *
-     * @param command the user input
-     * @return the todo task
-     * @throws SchmidtException if the command is invalid
+     * @param description the description of the todo task.
+     * @return the todo task.
+     * @throws SchmidtException if the command is invalid.
      */
-    private static Todo parseTodoCommand(String command) throws SchmidtException {
+    private static Todo parseTodoCommand(String description) throws SchmidtException {
         try {
-            // split by the first whitespace to get the description
-            String[] inputTokens = command.split("\\s+", 2);
+            if (description.isEmpty()) {
+                throw new SchmidtException(Todo.INCORRECT_FORMAT_MESSAGE);
+            }
 
-            String description = inputTokens[1];
             return new Todo(description);
         } catch (Exception e) {
-            throw new SchmidtException("Please follow the todo command format\n" +
-                    "\ttodo <description>");
+            throw new SchmidtException(Todo.INCORRECT_FORMAT_MESSAGE);
         }
     }
 
     /**
      * Splits the user input to get the description and by of the deadline task.
      *
-     * @param command the user input
-     * @return the deadline task
-     * @throws SchmidtException if the command is invalid
+     * @param commandArguments the user input.
+     * @return the deadline task.
+     * @throws SchmidtException if the command is invalid.
      */
-    private static Deadline parseDeadlineCommand(String command) throws SchmidtException {
+    private static Deadline parseDeadlineCommand(String commandArguments) throws SchmidtException {
         try {
-            // parse the input to get the description and by
-            String[] commandTokens = command.split("\\s+/by\\s+");
+            commandArguments = " " + commandArguments + " ";
+            String[] tokenizedDeadlineCommand = commandArguments.split(Deadline.REGEX_BY_DELIMITER);
 
-            String description = commandTokens[0].split("\\s+", 2)[1];
-            String by = commandTokens[1];
+            if (tokenizedDeadlineCommand.length != 2) {
+                throw new SchmidtException(Deadline.INCORRECT_FORMAT_MESSAGE);
+            }
+
+            String description = tokenizedDeadlineCommand[Deadline.DESCRIPTION_INDEX].trim();
+            String by = tokenizedDeadlineCommand[Deadline.BY_INDEX].trim();
+
+            boolean isDescriptionEmpty = description.isEmpty();
+            boolean isByEmpty = by.isEmpty();
+
+            if (isDescriptionEmpty || isByEmpty) {
+                throw new SchmidtException(Deadline.INCORRECT_FORMAT_MESSAGE);
+            }
 
             return new Deadline(description, by);
         } catch (Exception e) {
-            throw new SchmidtException("Please follow the deadline command format\n" +
-                    "\tdeadline <description> /by <date>");
+            throw new SchmidtException(Deadline.INCORRECT_FORMAT_MESSAGE);
         }
     }
 
     /**
      * Splits the user input to get the description, from, and to of the event task.
      *
-     * @param command the user input
-     * @return the event task
-     * @throws SchmidtException if the command is invalid
+     * @param commandArguments the user input.
+     * @return the event task.
+     * @throws SchmidtException if the command is invalid.
      */
-    private static Event parseEventCommand(String command) throws SchmidtException {
+    private static Event parseEventCommand(String commandArguments) throws SchmidtException {
         try {
-            // split by "/from" to get the description and time details
-            String[] commandSplitByFrom = command.split("\\s+/from\\s+");
+            String[] tokenizedEventCommand = commandArguments.split(Event.REGEX_FROM_DELIMITER + "|" + Event.REGEX_TO_DELIMITER);
 
-            // split by "/to" to get the from and to
-            String[] commandSplitByTo = commandSplitByFrom[1].split("\\s+/to\\s+");
+            if (tokenizedEventCommand.length != 3) {
+                throw new SchmidtException(Event.INCORRECT_FORMAT_MESSAGE);
+            }
 
-            String description = commandSplitByFrom[0].split("\\s+", 2)[1];
-            String from = commandSplitByTo[0].trim();
-            String to = commandSplitByTo[1].trim();
+            String description = tokenizedEventCommand[Event.DESCRIPTION_INDEX].trim();
+            String from = tokenizedEventCommand[Event.FROM_INDEX].trim();
+            String to = tokenizedEventCommand[Event.TO_INDEX].trim();
+
+            boolean isDescriptionEmpty = description.isEmpty();
+            boolean isFromEmpty = from.isEmpty();
+            boolean isToEmpty = to.isEmpty();
+
+            if (isDescriptionEmpty || isFromEmpty || isToEmpty) {
+                throw new SchmidtException(Event.INCORRECT_FORMAT_MESSAGE);
+            }
 
             return new Event(description, from, to);
         } catch (Exception e) {
-            throw new SchmidtException("Please follow the event command format\n" +
-                    "\tevent <description> /from <start> /to <end>");
+            throw new SchmidtException(Event.INCORRECT_FORMAT_MESSAGE);
         }
     }
 
     /**
      * Splits the user input to get the index of the inputted command.
      *
-     * @param command the user input
-     * @return the index of the command
-     * @throws SchmidtException if the command is invalid
+     * @param index the index of the command.
+     * @return the index of the command as an integer.
+     * @throws SchmidtException if the command is invalid.
      */
-    private static int parseIndexCommand(String command) throws SchmidtException {
+    private static int parseIndexCommand(String index, String commandType) throws SchmidtException {
         try {
-            // split by the first whitespace to get the index
-            String[] inputTokens = command.split("\\s+", 2);
-
-            if (inputTokens.length != 2) {
-                throw new SchmidtException("Invalid command format");
-            }
-
-            return Integer.parseInt(inputTokens[1]) - 1;
+            return Integer.parseInt(index) - 1;
         } catch (Exception e) {
-            throw new SchmidtException("Please follow the command format\n" +
-                    "\t<task number>");
-        }
-    }
-
-    /**
-     * Splits the user input to get the keyword to be found.
-     *
-     * @param command the user input
-     * @return the keyword to be found
-     * @throws SchmidtException if the command is invalid
-     */
-    private static String parseFindCommand(String command) throws SchmidtException {
-        try {
-            // split by the first whitespace to get the keyword
-            String[] inputTokens = command.split("\\s+", 2);
-
-            if (inputTokens.length < 2) {
-                throw new SchmidtException("Please follow the find command format\n" +
-                        "\tfind <keyword>");
+            switch (commandType) {
+            case MarkCommand.COMMAND:
+                throw new SchmidtException(MarkCommand.INCORRECT_FORMAT_MESSAGE);
+            case UnmarkCommand.COMMAND:
+                throw new SchmidtException(UnmarkCommand.INCORRECT_FORMAT_MESSAGE);
+            case DeleteCommand.COMMAND:
+                throw new SchmidtException(DeleteCommand.INCORRECT_FORMAT_MESSAGE);
             }
-
-            return inputTokens[1];
-        } catch (Exception e) {
-            throw new SchmidtException("Please follow the find command format\n" +
-                    "\tfind <keyword>");
         }
+        return -1;
     }
 }
