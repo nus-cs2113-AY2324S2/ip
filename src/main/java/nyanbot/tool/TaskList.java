@@ -39,7 +39,7 @@ public class TaskList {
 
     /***
      *searches for task in task list with description matching specified keyword
-     * @param string containing keyword
+     * @param input containing keyword
      * @return foundTasks arraylist of tasks matching search
      */
     public ArrayList<Task> findTasks(String input) throws NyanException {
@@ -102,7 +102,7 @@ public class TaskList {
             int index = Integer.parseInt(input) - 1;
             this.tasks.get(index).markAsUndone();
             UI.printUnmarkSuccess();
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             UI.printNullError();
         } catch (NumberFormatException e) {
             UI.printUnmarkUsage();
