@@ -1,0 +1,6 @@
+T | 0 | buy flowers
+D | 0 | CS2113 IP | 8 Mar 1159
+E | 0 | Taylor Swift Eras Tour concert | from 1700 to 2230
+T | 0 | test
+D | 0 | test | now
+E | 1 | test | from this to that
