@@ -6,6 +6,12 @@ public class Parser {
     /** The TaskList instance to which the parsed tasks will be added or manipulated. */
     public TaskList taskList;
 
+    /** Expected length of Deadline Task. One description string and one task deadline. */
+    public static final int EXPECTED_DEADLINE_LENGTH = 2;
+
+    /** Expected length of Event Task. One description string, one task start date/time, and one task end date/time */
+    public static final int EXPECTED_EVENT_LENGTH = 3;
+
     /**
      * Constructs a Parser object with the specified TaskList.
      *
