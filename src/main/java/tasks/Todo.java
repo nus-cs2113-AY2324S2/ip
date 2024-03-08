@@ -12,7 +12,6 @@ public class Todo extends Task {
         this.isDone = isDone;
     }
 
-
     @Override
     public String toString() {
         return "[T]" + "[" + super.getStatusIcon() + "] " + description;

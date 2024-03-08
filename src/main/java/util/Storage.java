@@ -20,6 +20,11 @@ public class Storage {
             dir.mkdir();
         }
         this.f = new File(PATH);
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void saveToFile(TaskList taskList) {
