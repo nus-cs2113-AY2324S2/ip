@@ -1,5 +1,4 @@
 D/ 1 / add her / 6pm
 T/ 0 / hit me
 E/ 1 / go for meeting / Monday 2pm / 4pm
-E/ 1 / kill it / 6pm / 7pm
-T/ 0 / fix computer
+T/ 1 / fix computer

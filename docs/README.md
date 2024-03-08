@@ -30,6 +30,8 @@ Porato is a **desktop app for managing tasks using a Command Line Interface**.
 > * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
 > e.g. `todo TASK`, `TASK` is a parameter which can be used as `todo add me`.
 > * Commands such as `help`, `list` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. e.g. `help 123` will just be intepreted as `help`.
+
+
 ### Viewing help : `help`
 
 Shows a list of commands the user can input
