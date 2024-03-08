@@ -14,11 +14,19 @@ public class Todo extends Task{
         return "[T]" + super.toString();
     }
 
+    /**
+     * get the icon of TodoTask
+     * @return Char of the task type icon
+     */
     protected String getTaskType()
     {
         return "T";
     }
 
+    /**
+     * transfer todoTask to txt save format
+     * @return String of todoTask
+     */
     public String toFileFormat() {
         return String.format("%s | %d | %s", getTaskType(), this.isComplete() ? 1 : 0, this.getTask());
     }

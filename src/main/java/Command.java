@@ -9,10 +9,12 @@ public class Command {
     {
         this.fullCommand=null;
     }
+
     public void setCommand(String fullCommand)
     {
         this.fullCommand=fullCommand;
     }
+
     public void execute(TaskList tasks,Ui ui,Storage storage)throws BotException
     {
         String[] parts = fullCommand.split(" ", 2);
@@ -49,19 +51,21 @@ public class Command {
                 throw new BotException("I'm sorry, but I don't know what that means :-(");
         }
     }
+
     private void handleDelete(TaskList tasks,Ui ui,Storage storage) throws  BotException{
-    String[] parts = fullCommand.split(" ");
-    if (parts.length < 2) {
-        throw new BotException("The index of delete cannot be empty.");
+        String[] parts = fullCommand.split(" ");
+        if (parts.length < 2) {
+            throw new BotException("The index of delete cannot be empty.");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            deleteTask(index,tasks,ui,storage);
+        } catch (NumberFormatException e){
+            System.out.println("The index is not a number! "); // check the index kind
+            ui.printLine();
+        }
     }
-    try {
-        int index = Integer.parseInt(parts[1]) - 1;
-        deleteTask(index,tasks,ui,storage);
-    } catch (NumberFormatException e){
-        System.out.println("The index is not a number! "); // check the index kind
-        ui.printLine();
-    }
-}
+
     private void handleUnmark(TaskList tasks,Ui ui,Storage storage) throws  BotException{
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -77,6 +81,7 @@ public class Command {
             System.out.println("The index is not a number! "); // check the index kind
         }
     }
+
     private void handleMark(TaskList tasks,Ui ui,Storage storage) throws BotException{
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
@@ -93,6 +98,7 @@ public class Command {
             System.out.println("The index is not a number! "); // check the index kind
         }
     }
+
     private void handleEvent(TaskList tasks,Ui ui,Storage storage) throws  BotException{
         String[] parts = fullCommand.split(" /from | /to ");
         if (parts.length < 3) {
@@ -153,6 +159,7 @@ public class Command {
         }
         storage.saveTasksToFile(tasks.taskList);
     }
+
     private void unmarkAsDone(int index,TaskList tasks,Ui ui,Storage storage)
     {
         if (index >= 0 && index <tasks.size()) {
@@ -171,7 +178,6 @@ public class Command {
         }
         storage.saveTasksToFile(tasks.taskList);
     }
-
 
     private void handleTodo(TaskList tasks,Ui ui,Storage storage) throws BotException{
         if (fullCommand.trim().equals("todo")) {
@@ -206,7 +212,6 @@ public class Command {
 
     }
 
-
     private void handleFind(TaskList tasks,Ui ui,Storage storage) throws  BotException{
         ui.printLine();
         String[] parts = fullCommand.split(" ");
@@ -234,6 +239,7 @@ public class Command {
         ui.printLine();
 
     }
+
     private void deleteTask(int index,TaskList tasks,Ui ui,Storage storage) throws BotException {
     if (index < 0 || index >= tasks.size()) {
         throw new BotException("Invalid task index.");
