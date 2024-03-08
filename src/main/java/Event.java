@@ -33,6 +33,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + (isDone ? "X" : " ") + "] " + getDescription() + " (from: " + start + " to: " + end + ")";
+        return "[E][" + (isDone ? "X" : " ") + "] " + getDescription() + " (from: " + start + " " + end + ") ";
     }
 }
