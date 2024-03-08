@@ -14,6 +14,7 @@ Hello from
 ```
 
 Get the latest release [here](https://github.com/ChongXern/ip/releases).
+> Latest version: MOBY v0.2
 
 ## Features  
 - [Adding new task](#adding-new-task): ```todo```, ```deadline``` or ```event```
@@ -89,7 +90,7 @@ Adds a new task to the list of tasks. There are three types of tasks available: 
 
    Examples:
    + ```event Chinese New Year from 10-02-2024 to 11-02-2024```
-   + ```event hackathon from today to next month```
+   + ```event hackathon from next week to next month```
    + ```event recess week from tmr to next week```
 
    _Example of usage_: 
