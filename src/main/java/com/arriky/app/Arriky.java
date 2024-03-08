@@ -13,6 +13,10 @@ import java.util.ArrayList;
 public class Arriky {
     private TaskList taskList;
 
+    /**
+     * Main operation logic of Arriky app.
+     * Repetitively takes and executes user's input. Terminate when a termination instruction is received.
+     */
     public void run() {
         UI.greet();
         boolean isRunning = true;
@@ -34,6 +38,10 @@ public class Arriky {
         }
     }
 
+    /**
+     * Constructor of Arriky class.
+     * Instantiate required classes, including Storage manager and TaskList.
+     */
     public Arriky() {
         // attempt to load tasklist from file. If failed, instantiate an empty one.
         try {
@@ -46,8 +54,11 @@ public class Arriky {
         }
     }
 
+    /**
+     * Entry point of the app.
+     * @param args Arguments given in the CLI
+     */
     public static void main(String[] args) {
-        // entry point of the app.
         new Arriky().run();
     }
 }
