@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             throws IncompletePromptException, UnknownPromptException {
         String taskDescription = extractTaskOrDate(line, firstWord);
         if (taskDescription.isEmpty()) {
-            throw new IncompletePromptException();
+            throw new IncompletePromptException(true);
         }
         Task newTask;
         switch (firstWord) {
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
             newTask = new Deadline(taskDescription);
             String deadline = extractTaskOrDate(line, "by");
             if (deadline.isEmpty()) {
-                throw new IncompletePromptException();
+                throw new IncompletePromptException(true);
             }
             ((Deadline)newTask).setDeadline(deadline);
             newTask.setTaskType("D");
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
             String dateFrom = extractTaskOrDate(line, "from");
             String dateTo = extractTaskOrDate(line, "to");
             if (dateFrom.isEmpty() || dateTo.isEmpty()) {
-                throw new IncompletePromptException();
+                throw new IncompletePromptException(true);
             } else {
                 ((Event)newTask).setEventFrom(dateFrom);
                 ((Event)newTask).setEventTo(dateTo);

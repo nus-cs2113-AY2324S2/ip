@@ -35,7 +35,7 @@ public class Parser {
         boolean isTypo = ui.isTypo(firstWord);
         if (words.length == 1) {
             if (Arrays.binarySearch(INSTRUCTIONS, firstWord) >= 0) {
-                throw new IncompletePromptException();
+                throw new IncompletePromptException(true);
             }
             if (!isTypo) {
                 throw new UnknownPromptException();
@@ -44,7 +44,7 @@ public class Parser {
         if (line.length() > firstWord.length()) {
             taskDescription = line.substring(firstWord.length() + 1);
         } else {
-            throw new IncompletePromptException();
+            throw new IncompletePromptException(true);
         }
 
         switch (firstWord) {

@@ -38,7 +38,7 @@ public abstract class Task {
     }
 
     /**
-     * Parses a string representing a date into formatted string with "d MMM yyyy" format.
+     * Parses a string representing a date in "dd-MM-yyyy" into formatted string with "d MMM yyyy" format.
      * Special words such as "today", "tomorrow", "tmr", "next week" and "next month" are supported.
      *
      * param dateStr String representing day to be parsed.
@@ -46,26 +46,26 @@ public abstract class Task {
      * @throws DateTimeParseException If input string is invalid as a date
      */
     public String parseStringToDate(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
         LocalDate today = LocalDate.now();
         if (dateStr.equalsIgnoreCase("today") || dateStr.equalsIgnoreCase("now")) {
-            return today.format(formatter);
+            return today.format(outputFormatter);
         }
         if (dateStr.equalsIgnoreCase("tomorrow") ||
                 dateStr.equalsIgnoreCase("tmr") || dateStr.equalsIgnoreCase("tmrw")) {
-            return today.plusDays(1).format(formatter);
+            return today.plusDays(1).format(outputFormatter);
         }
         if (dateStr.equalsIgnoreCase("next week")) {
-            return today.plusWeeks(1).format(formatter);
+            return today.plusWeeks(1).format(outputFormatter);
         }
         if (dateStr.equalsIgnoreCase("next month")) {
-            return today.plusMonths(1).format(formatter);
+            return today.plusMonths(1).format(outputFormatter);
         }
-        try {
-            return LocalDate.parse(dateStr + "2024", formatter).format(formatter);
-        } catch (DateTimeParseException e) {
+        return LocalDate.parse(dateStr, inputFormatter).format(outputFormatter);
+        /*} catch (DateTimeParseException e) {
             System.out.println("Sorry, this format is not accepted.");
-        }
+        }*/
     }
 
     /** Prints information about type and if it's marked, as indicated by X,
