@@ -2,8 +2,6 @@ package Yoj.ui;
 import Yoj.taskList.*;
 import Yoj.tasks.Task;
 
-import java.util.ArrayList;
-
 public class Ui {
     public static void printLine() {
         System.out.println("________________________________________");
@@ -61,15 +59,6 @@ public class Ui {
             System.out.println(deletedTask);
             System.out.println("Now you have " + List.tasks.size() + " tasks in the list.");
         }
-    }
-    public static void printTaskFound(ArrayList<Task> tasksFound) {
-        System.out.println("here are the tasks found with the keyword!");
-        for (int i = 0; i < tasksFound.size(); i++) {
-            System.out.println(i + 1 + ". " + tasksFound.get(i));
-        }
-    }
-    public static void printNoTaskFound() {
-        System.out.println("there are no such tasks found...");
     }
     public static void byeMessage() {
         System.out.println("bye bye!! hope to see u soon :)");
