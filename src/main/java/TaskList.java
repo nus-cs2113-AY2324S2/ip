@@ -52,8 +52,10 @@ public class TaskList {
 
         // prints message if task is not being generated from load file
         if (!isLoad) {
+            System.out.println(LINE);
             System.out.println("The following task has been added: ");
             System.out.println(newTask + " as task " + numberOfTasks);
+            System.out.println(LINE);
         }
     }
 
