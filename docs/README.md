@@ -36,7 +36,7 @@ This user guide provides a comprehensive overview of Adam's features and command
 If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
 
-> [!NOTE]\
+> [!NOTE]
 > * All the spaces in the commands are for clarity and are **optional** to include in the actual command.<br>
 > * Commands are **case-insensitive**.<br>
 > * The `<angle-brackets>` are used to denote the parameters that should be replaced with the **actual user input**.
