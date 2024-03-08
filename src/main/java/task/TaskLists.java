@@ -127,4 +127,12 @@ public class TaskLists implements Serializable{
         }
         return output;
     }
+
+    public String listTasksForSave() {
+        String output = "";
+        for (Tasks command : this.tasksList) {
+            output += String.format("%s\n", command.toSave());
+        }
+        return output;
+    }
 }

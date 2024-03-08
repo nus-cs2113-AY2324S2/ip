@@ -201,7 +201,14 @@ public class CommandHandler {
         System.out.println(Message.FAREWELL);
     }
 
-    private static void decodeFind(String command,
+    /**
+     * Decodes the find command and find the tasks that contains the keywords.
+     *
+     * @param command Keywords of the search.
+     * @param listCommands List of tasks stored inside the ChatBot.
+     * @throws InputException If the command is not understood by the ChatBot.
+     */
+    public static void decodeFind(String command,
                                    TaskLists listCommands) throws InputException {
         String[] split = command.split(" ");
         String searchKey = split[1];
@@ -212,7 +219,14 @@ public class CommandHandler {
         }
     }
 
-    private static String decodeDateTime(String date) throws InputException {
+    /**
+     * Converts date and time input into the right format.
+     *
+     * @param date Input dates using input format.
+     * @return Input date using output format.
+     * @throws InputException If the date format is not understood by the chatBot.
+     */
+    public static String decodeDateTime(String date) throws InputException {
         LocalDateTime dateTime;
         try {
             dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(INPUT_DATE_TIME));

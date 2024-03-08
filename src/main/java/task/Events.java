@@ -14,6 +14,11 @@ public class Events extends Tasks{
     }
 
     @Override
+    public String toSave() {
+        return "E / " + super.toSave() + " / " + start + " / " + end;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + start + " to: " + end + ")";
     }

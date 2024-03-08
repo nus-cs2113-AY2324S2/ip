@@ -6,10 +6,6 @@ import exceptions.InputException;
 import userInterface.Message;
 import command.CommandHandler;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-
 public class Chris {
     public static void main(String[] args) throws InputException {
         System.out.println("Hello from \n" + Message.LOGO);
@@ -29,7 +25,7 @@ public class Chris {
 
         System.out.println(Message.GREETING);
         while (sc.hasNextLine()) {
-            DataManage.saveData(listCommands);
+            DataManage.saveText(listCommands);
             try {
                 command = sc.nextLine();
                 boolean continueFlag = CommandHandler.handle(command, listCommands);
