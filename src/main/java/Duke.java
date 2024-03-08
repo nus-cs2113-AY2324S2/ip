@@ -10,6 +10,8 @@ public class Duke {
     static ArrayList<Task> tasks = new ArrayList<>(); //List of tasks
     static boolean ifNewWrite = false;
     private static UI ui;
+    private static final String filepath = "dukeLog.txt";
+    private static File outfile = new File(filepath);
 
     /**
      * Prints out latest task that has been added to list as an echo
@@ -248,8 +250,7 @@ public class Duke {
      * @throws FileNotFoundException when there is no file found
      */
     public static void inputFileContents() throws FileNotFoundException {
-        File f = new File("dukeLog.txt");
-        Scanner s = new Scanner(f);
+        Scanner s = new Scanner(outfile);
         while (s.hasNext()) {
             try {
                 performAction(s.nextLine()); //Executes an action based on first word of command in String line
@@ -271,6 +272,11 @@ public class Duke {
             inputFileContents();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
+            try {
+                outfile.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("Something went wrong");
+            }
         }
 
         while (!ui.ifExit) {
