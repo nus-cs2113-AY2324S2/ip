@@ -19,7 +19,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed on your computer.
-2. Download the latest `chris.jar` from [here](#).
+2. Download the latest `chris.jar` from [here](https://github.com/CXIA17/ip/releases/download/A-Release/chris.jar).
 3. Copy the file to the folder you want to use as the home folder for Chris.
 4. Open terminal and navigate to the folder where `chris.jar` is located.
 5. Run the command `java -jar chris.jar` to start the ChatBot. The chatbot should start with the following output.
