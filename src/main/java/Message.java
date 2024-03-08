@@ -21,7 +21,7 @@ public class Message {
      * @return A message indicating the number of tasks.
      */
     public static String numberOfTasks(int count) {
-        return "Now you have " + count + " tasks in the list.");
+        return "Now you have " + count + " tasks in the list.";
     }
 
     /**
