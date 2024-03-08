@@ -28,6 +28,9 @@ public class Parser {
             List.addTask(userInput);
         } else if(userInput.startsWith("delete")) {
             List.deleteTask(userInput);
+        } else if(userInput.startsWith("find")) {
+            String description = userInput.substring("find ".length()).trim();
+            List.findTask(description);
         } else if(userInput.equals("bye")){
             Ui.byeMessage();
             Storage.save(tasks);
