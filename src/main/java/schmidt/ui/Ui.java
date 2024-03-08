@@ -5,6 +5,9 @@ import schmidt.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
     private static final String LINE = "------------------------------------------------------------";
     private static final String LOGO = "░██████╗░█████╗░██╗░░██╗███╗░░░███╗██╗██████╗░████████╗\n" +
@@ -28,6 +31,11 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints a message with lines above and below it for better user readability.
+     *
+     * @param message the message to print
+     */
     public void printWithLines(String message) {
         System.out.println(LINE);
         System.out.println(message);
@@ -43,7 +51,6 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    // Include other methods like printWelcome(), printGoodbye(), printError(), printTaskList(), etc.
     public void printWelcome() {
         printMessage(LOGO);
         printWithLines("Hello! I'm Schmidt\nWhat can I do for you?");

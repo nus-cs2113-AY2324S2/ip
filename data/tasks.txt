@@ -1,6 +1,3 @@
-T | 0 | 16 |  |  | 
-T | 0 | todo todo todo |  |  | 
-D | 0 | bab/y's birthday | november |  | 
-D | 0 | ba/by's birthday | november |  | 
-D | 0 | ba/by birthday | november |  | 
-D | 0 | ba | november |  | 
+D | 0 | ba/by birthday | november
+T | 0 | hi
+E | 0 | hi | hi | hi

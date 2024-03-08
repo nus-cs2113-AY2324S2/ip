@@ -6,6 +6,9 @@ import schmidt.task.Task;
 import schmidt.task.TaskList;
 import schmidt.ui.Ui;
 
+/**
+ * Represents a delete command to remove a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
@@ -13,6 +16,14 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Deletes a task from the task list and saves it to storage.
+     *
+     * @param tasks the list of tasks
+     * @param ui the user interface
+     * @param storage the storage
+     * @throws SchmidtException if there was an error deleting the task or saving it to storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SchmidtException {
         Task deletedTask;

@@ -1,5 +1,8 @@
 package schmidt.task;
 
+/**
+ * Represents an event with a start and end time.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;

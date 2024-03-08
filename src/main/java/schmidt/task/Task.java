@@ -1,7 +1,7 @@
 package schmidt.task;
 
 /**
- * Task class represents a task with a description and a boolean to indicate if it is done.
+ * Represents a task with a description and a boolean to indicate if it is done.
  */
 public class Task {
     protected String description;

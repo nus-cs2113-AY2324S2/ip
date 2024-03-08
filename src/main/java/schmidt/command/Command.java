@@ -5,6 +5,9 @@ import schmidt.storage.Storage;
 import schmidt.task.TaskList;
 import schmidt.ui.Ui;
 
+/**
+ * Represents the parent class for a command to be executed by Schmidt.
+ */
 public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws SchmidtException;
 
