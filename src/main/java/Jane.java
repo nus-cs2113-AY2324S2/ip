@@ -27,9 +27,9 @@ public class Jane {
                 + " _  | |  |  _  |  | |  | |  |  ___|\n"
                 + "| |_| |  | | | |  | |  | |  | |___ \n"
                 + "|_____|  |_| |_|  |_| ___|  |_____|\n";
-        String Separator = "____________________________________________________________\n";
+        String Separator = "__________________________________________________________________________________________\n";
 
-        System.out.print(Logo + Separator);
+        System.out.print(Separator + Logo + Separator);
         System.out.print(Message.GREET + Separator);
 
         try {
