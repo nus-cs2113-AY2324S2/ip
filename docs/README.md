@@ -1,6 +1,6 @@
 # Hachi User Guide
 
-![image](https://github.com/clarencepohh/ip/assets/110753446/e0aafaa9-070d-45e1-9ce6-963e4a3116e3)
+![image](https://github.com/clarencepohh/ip/assets/110753446/8aa2ce06-83fe-460a-9141-cb12ad4f0545)
 
 Hachi is a simple chatbot that runs in the CLI that has the functionality to add Tasks to a list of Tasks.
 <br>There are 3 task types: Todos (which have no complete date), Deadlines (which have a complete date), and Events (which have a start and end date) 
