@@ -10,6 +10,7 @@ Format:`todo <DESCRIPTION>`
 Example of usage:
 - `todo read book`
 
+
 ### Adding a deadline: `deadline`
 Adds a deadline to the task list.
 
@@ -19,6 +20,7 @@ Example of usage:
 - `deadline return book /by 26 Aug`
 - `deadline return book to Sandy /by when i see her`
 
+
 ### Adding an event: `event`
 Adds an event to the task list.
 
@@ -27,10 +29,12 @@ Format:`event <DESCRIPTION> /from <START> /to <END>`
 Example of usage:
 - `event Book fair /from tmr /to 12/4`
 
+
 ### Listing all tasks: `list`
 Shows a list of all tasks in the task list.
 
 Format:`list`
+
 
 ### Marking a task as done: `mark`
 
@@ -49,6 +53,7 @@ Nice! I've marked this task as done:
   [D][X] return book (by: 26 Aug)
 ```
 
+
 ### Marking a task as not done: `unmark`
 
 Format:`unmark <INDEX>`
@@ -65,6 +70,7 @@ ____________________________________________________________
 OK, I've marked this task as not done yet:
   [E][ ] Book fair (from: tmr to: 12/4)
 ```
+
 
 ### Deleting a task: `delete`
 Delete the specified task from the task list.
@@ -83,6 +89,7 @@ ____________________________________________________________
 Noted. I've removed this task:
   [T][ ] read book
 ```
+
 
 ### Finding a task: `find`
 Finds tasks with descriptions containing the keyword.
@@ -112,6 +119,7 @@ ____________________________________________________________
 Here are the matching tasks in your list:
   1.[T][ ] read book
 ```
+
 
 ### Exiting the program: `bye`
 Exits the program.
