@@ -62,7 +62,7 @@ Shows a message explaining the different commands.
 
 Format:`help`
 
-Expected Outcome: ![Help Command](/assets/help.png)
+Expected Outcome: ![Help Command](/docs/assets/help.png)
 
 ### Adding a `ToDo` : `todo`
 
