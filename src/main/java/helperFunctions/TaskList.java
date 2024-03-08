@@ -74,7 +74,7 @@ public class TaskList {
         String timeRange = " (from: " + userInput.substring(indexFrom + 1, indexTo) +
                 "to " + userInput.substring(indexTo + 1) + ")";
         // add to tasks
-        Task newTask = new Event(description, timeRange, tasks.size() + 1);
+        Task newTask = new Event(description, timeRange);
         tasks.add(newTask);
         if (isReadMode) {
             return; // no need execute code below (for writing only)
@@ -86,7 +86,8 @@ public class TaskList {
     }
 
     /**
-     * Adds Deadline to Tasks
+     * Adds Deadline to Tasks. Ideal deadline format is "yyyy/mm/dd", which
+     * will be converted to "MMM d yyyy" format
      *
      * @param userInputInParts separates each word in userInput
      * @param userInput is the original CLI user input
@@ -115,7 +116,7 @@ public class TaskList {
         deadline += ")";
         String description = userInput.substring(startIndexOfDescription, indexDeadline);
         // add to tasks
-        Task newTask = new Deadline(description, deadline, tasks.size() + 1);
+        Task newTask = new Deadline(description, deadline);
         tasks.add(newTask);
 
         if (isReadMode) {
@@ -145,7 +146,7 @@ public class TaskList {
         // process input
         String description = userInput.substring(startIndexOfDescription);
         // add to tasks
-        Task newTask = new Todo(description, tasks.size() + 1);
+        Task newTask = new Todo(description);
         tasks.add(newTask);
         if (isReadMode) {
             // no need execute code below (for writing only)
@@ -238,15 +239,17 @@ public class TaskList {
      */
     public void findOperation(String[] userInputInParts) throws InvalidParamsException {
         // check for input validity
-        if (userInputInParts.length < 2) {
+        if (userInputInParts.length != 2) {
             throw new InvalidParamsException("invalid find operation");
         }
         String findKeyword = userInputInParts[1];
         String tasksToPrint = "";
+        int taskIndex = 0;
         for (Task task : tasks) {
             if (task.getDescription().contains(findKeyword)) {
-                tasksToPrint += displayListItem(task.getTaskNum() - 1);
+                tasksToPrint += displayListItem(taskIndex);
             }
+            taskIndex += 1;
         }
         if (tasksToPrint.isEmpty()) {
             System.out.println("No tasks found");
