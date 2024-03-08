@@ -12,6 +12,7 @@ GermaBot is also capable of saving files to your local hard disk, to the `/src/G
 > - Extra parameters that do not take in any parameters (such as `list` and `bye`) will be ignored. 
 > e.g. if the input is `list 123`, it will be interpreted as `list`.
 
+
     
 ### Adding Todo tasks : `todo`
 Adds a todo task to the task list.
@@ -62,7 +63,7 @@ Example:
 ```
 delete 2
 ```
-Expected output:
+Example output:
 ```
 Okay! I've removed this task from your To Do List:
 [D][X] Finish IP (by: tmr)
@@ -78,7 +79,7 @@ Example:
 ```
 find book
 ```
-Expected output:
+Example output:
 ```
 Gotcha! Finding tasks containing 'book'...
 1. [T][X] Read a book
@@ -93,7 +94,7 @@ Example:
 ```
 mark 2
 ```
-Expected output:
+Example output:
 ```
 Good job! I'll mark this task as done: [X] Finish IP
 ```
@@ -103,11 +104,11 @@ Marks a task as undone.
 
 Format: `unmark TASK_NUMBER`
 
-Example
+Example:
 ```
 unmark 1
 ```
-Expected output:
+Example output:
 ```
 Aww, not done? Okay, I'll mark this task as undone: [ ] Read a book
 ```
