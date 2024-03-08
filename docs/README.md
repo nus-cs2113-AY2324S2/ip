@@ -201,6 +201,7 @@ This is could be caused by
 * ./data/ was deleted during program operation
 
 ## Summary of Commands
+
 | Operation           | Command Format                                                                                    |
 |---------------------|---------------------------------------------------------------------------------------------------|
 | <b>Add</b> Todo     | todo \<task name\>                                                                                |
