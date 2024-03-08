@@ -6,7 +6,6 @@ GermaBot is also capable of saving files to your local hard disk, to the `/src/G
 
 ## Features 
 
-> [!NOTE]
 > ## Notes about the command format.
 > - Words in `UPPER_CASE` are the parameters to be supplied by the user.
 > - Extra parameters that do not take in any parameters (such as `list` and `bye`) will be ignored. 
