@@ -78,7 +78,6 @@ public class Hailey {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
-
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
