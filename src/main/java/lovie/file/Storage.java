@@ -1,7 +1,10 @@
 package lovie.file;
 
-import lovie.task.*;
-
+import lovie.task.TaskList;
+import lovie.task.Task;
+import lovie.task.Deadline;
+import lovie.task.Event;
+import lovie.task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -9,15 +12,27 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
+/**
+ * Represents the storage of the tasks.
+ */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param relativePath The relative path of the file.
+     */
     public Storage(String relativePath) {
         this.filePath = relativePath;
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return The list of tasks.
+     */
     public TaskList loadTasks() {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
@@ -39,6 +54,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The list of tasks.
+     */
     public void saveTasks(TaskList tasks) {
         try {
             Files.createDirectories(Paths.get(filePath).getParent());
@@ -56,6 +76,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the task line from the file.
+     *
+     * @param line The line from the file.
+     * @return The task parsed from the line.
+     */
     private Task parseTaskLine(String line) {
         if (line.isEmpty()) {
             return null;
@@ -76,7 +102,7 @@ public class Storage {
                 newTask = new Deadline(taskDescription);
                 break;
             default:
-                newTask = new ToDo(taskDescription);
+                newTask = new Todo(taskDescription);
 
         }
 

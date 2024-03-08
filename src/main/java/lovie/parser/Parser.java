@@ -2,17 +2,32 @@ package lovie.parser;
 
 import lovie.exception.LovieException;
 import lovie.file.Storage;
-import lovie.task.*;
+import lovie.task.TaskList;
+import lovie.task.Task;
+import lovie.task.Todo;
+import lovie.task.Event;
+import lovie.task.Deadline;
 import lovie.ui.Ui;
 
+/**
+ * Represents the parser of the program.
+ */
 public class Parser {
-    private String line;
-    private String processedInput;
-    private String firstCommand;
-    private Storage storage;
-    private TaskList tasksList;
+    private final String line;
+    private final String processedInput;
+    private final String firstCommand;
+    private final Storage storage;
+    private final TaskList tasksList;
 
-    private Ui ui;
+    private final Ui ui;
+
+    /**
+     * Constructor for Parser class.
+     *
+     * @param input The input from the user.
+     * @param storage The storage object.
+     * @param tasksList The task list object.
+     */
     public Parser(String input, Storage storage, TaskList tasksList) {
         this.line = input;
         this.storage = storage;
@@ -22,6 +37,11 @@ public class Parser {
         ui = new Ui();
     }
 
+    /**
+     * Sorts the input from the user and calls the appropriate methods.
+     *
+     * @return A boolean value to indicate if the program should exit.
+     */
     public boolean inputSorter() {
         switch (firstCommand) {
             case "bye":
@@ -80,7 +100,7 @@ public class Parser {
                             ui.print(e.getMessage());
                             break;
                         }
-                        newTask = new ToDo(line);
+                        newTask = new Todo(line);
                         tasksList.addTask(newTask);
                         ui.addTaskPrinter(newTask);
                         storage.saveTasks(tasksList);
@@ -92,6 +112,11 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Helper method to mark a task.
+     *
+     * @param input The input from the user.
+     */
     public void markTaskHelper(String input) {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskNumber >= tasksList.getSize() || taskNumber < 0) {
@@ -102,9 +127,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Helper method to unmark a task.
+     *
+     * @param input The input from the user.
+     */
     public void unmarkTaskHelper(String input) {
         int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
-        boolean output = true;
         if (taskNumber >= tasksList.getSize() || taskNumber < 0) {
             ui.noValidNumberPrinter(input);
         } else {
@@ -113,6 +142,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the input for todo is in the correct format.
+     *
+     * @param input The input from the user.
+     * @throws LovieException If the input is in the wrong format.
+     */
     public void todoFormatChecker(String input) throws LovieException {
         String[] splitUpInput = input.split(" ", 2);
         if (splitUpInput.length <= 1) {
@@ -121,7 +156,13 @@ public class Parser {
         }
     }
 
-    public static void deadlineFormatChecker(String input) throws LovieException {
+    /**
+     * Checks if the input for deadline is in the correct format.
+     *
+     * @param input The input from the user.
+     * @throws LovieException If the input is in the wrong format.
+     */
+    public void deadlineFormatChecker(String input) throws LovieException {
         String firstHalf = input.split("/", 2)[0].trim();
         String[] splitUpFirstHalf = firstHalf.split(" ", 2);
         if (splitUpFirstHalf.length <= 1) {
@@ -135,30 +176,41 @@ public class Parser {
         }
     }
 
-    public static void eventFormatChecker(String input) throws LovieException {
+    /**
+     * Checks if the input for event is in the correct format.
+     *
+     * @param input The input from the user.
+     * @throws LovieException If the input is in the wrong format.
+     */
+    public void eventFormatChecker(String input) throws LovieException {
         String splitUpInput = input.split("/from")[0].trim();
         String[] splitUpDescription = splitUpInput.split(" ", 2);
+
         if (splitUpDescription.length <= 1) {
             throw new LovieException("Oops! Make sure you add a description for your event! Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }
+
         String[] fromSplitter = input.split("/from", 2);
-        if (fromSplitter.length <= 1) { //what if there are 2 /from methods
+        if (fromSplitter.length <= 1) {
             throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }
+
         String[] fromDescription = fromSplitter[1].split("/to", 2);
-        if (fromSplitter.length <= 1 || fromDescription[0].trim().isEmpty()) { //what if there are 2 /from methods
+        if (fromDescription[0].trim().isEmpty()) {
             throw new LovieException("Oops! Make sure you include a /from for your event. Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }
+
         String[] toSplitter = input.split("/to", 2);
-        if (toSplitter.length <= 1) { //what if there are 2 /from methods
+        if (toSplitter.length <= 1) {
             throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }
+
         String[] toDescription = toSplitter[1].split("/to", 2);
-        if (toSplitter.length <= 1 || toDescription[0].trim().isEmpty()) { //what if there are 2 /from methods
+        if (toDescription[0].trim().isEmpty()) {
             throw new LovieException("Oops! Make sure you include a /to for your event. Here is the format:\n" +
                     "event **description** /from **start** /to **end**");
         }

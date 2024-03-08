@@ -1,20 +1,38 @@
 package lovie.task;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
+
+    /**
+     * Constructor for Event.
+     *
+     * @param description The description of the event.
+     */
     public Event(String description) {
         super(description);
     }
 
+    /**
+     * Returns the description of the event.
+     *
+     * @return The description of the event.
+     */
     @Override
     public String getDescription() {
         String[] parts = description.split("(?i)/from ");
         if (parts.length < 2) {
             return description;
         }
-        String realDescription = parts[0].split("(?i)event")[1].trim();
-        return realDescription;
+        return parts[0].split("(?i)event")[1].trim();
     }
 
+    /**
+     * Returns the timespan of the event.
+     *
+     * @return The timespan of the event.
+     */
     @Override
     public String getTimespan() {
         try {
@@ -26,6 +44,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the icon of the event.
+     *
+     * @return The icon of the event.
+     */
     @Override
     public String getTaskIcon() {
         return "E";
