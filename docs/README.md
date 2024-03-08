@@ -123,7 +123,7 @@ Task List:
 
 ### `mark` - Mark a task as done
 
-mark/unmark TASK_NUMBER
+mark TASK_NUMBER
 
 Example of usage:
 
