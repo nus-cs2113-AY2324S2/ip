@@ -158,3 +158,38 @@ Expected outcome:
 ----------------------------------------------------------
 ```
 
+### `help`
+
+Lists all commands that can be inputted by the user
+
+Format: `help`
+
+Example of usage:
+
+`help`
+
+Expected outcome:
+```
+list
+ - prints all items in list
+ - Format: list
+mark/unmark
+ - marks/unmarks an item in the list
+ - Format: mark/unmark [INDEX]
+delete
+ - deletes an item in the list
+ - Format: delete [INDEX]
+find
+ - finds all task descriptions that contain a keyword
+ - Format: find [KEYWORD]
+todo
+ - creates a todo task with no deadline
+ - Format: todo [TASK]deadline
+ - creates a task with a deadline
+ - Format: deadline [TASK] /[DUEDATE]
+event
+ - creates a task with start and end time/date
+ - Format: event [TASK] /[STARTTIME] /[ENDTIME]
+----------------------------------------------------------
+```
+
