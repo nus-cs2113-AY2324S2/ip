@@ -127,21 +127,6 @@ hesitate to ask Lovie to `list` your previously saved tasks as a reminder!
 | `find <KEYWORD>`                                              | Finds tasks by keyword.                        |
 | `bye`                                                         | Exits the application.                         |
 | `command`                                                     | Lists all possible commands that Lovie can do. |
- 
-
-## OOP Concepts in Lovie
-
-Lovie utilizes several OOP concepts, including:
-
-- **Encapsulation**: By keeping `Task` and its subclasses' details private and exposing operations 
-through public methods.
-- **Inheritance**: `Todo`, `Deadline`, and `Event` classes extend the `Task` class, inheriting its properties and 
-methods. Additionally, the `LovieException` class extends the `Exception` class.
-- **Polymorphism**: Methods such as `getDescription()` and `getTimespan()` are implemented differently in `Task`
-subclasses to accommodate their specific behaviors.
-- **Abstraction**: The `Task` class provides a generic representation of a task, while its concrete subclasses
-provide specific implementations. It has generic methods and flow to represent a more generalized idea of every kind of 
-task.
 
 ## Contributing
 
