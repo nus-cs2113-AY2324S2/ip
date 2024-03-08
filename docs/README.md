@@ -39,6 +39,7 @@ Schmidt is a task manager CLI application that helps you to keep track of your t
 6. Refer to the [Features](#features) below for details of each command.
 
 ## Features
+
 > [!NOTE]
 > **Notes about the command format**:
 > * Words in `UPPER_CASE` are the parameters to be supplied by the user.\
@@ -114,6 +115,7 @@ Schmidt data are saved in the hard disk automatically after any command that cha
 
 ### Editing the data file
 Schmidt data are saved as a text file `[JAR file location]/data/tasks.txt`. Advanced users are welcome to update the data directly by editing that file.
+
 > [!CAUTION]
 > If you choose to edit the data file directly, please follow the format specified in the file. Otherwise, the data may not be loaded correctly.
 
@@ -121,6 +123,7 @@ Schmidt data are saved as a text file `[JAR file location]/data/tasks.txt`. Adva
 1. The program does not support the use of the `|` character in the description or dates of tasks as it is used as a delimiter in the data file.
 
 ## Command Summary
+
 | Action         | Format, Examples                                                                                     |
 |----------------|------------------------------------------------------------------------------------------------------|
 | Help           | `help`                                                                                               |
