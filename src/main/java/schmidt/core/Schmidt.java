@@ -18,12 +18,10 @@ public class Schmidt {
 
     /**
      * Constructs a Schmidt object by initializing the user interface, task list, and storage.
-     *
-     * @param filePath the file path to the storage file.
      */
-    public Schmidt(String filePath) {
+    public Schmidt() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
         } catch (SchmidtException e) {
@@ -57,6 +55,6 @@ public class Schmidt {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        new Schmidt(FILE_PATH).run();
+        new Schmidt().run();
     }
 }
