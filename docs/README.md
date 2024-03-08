@@ -140,12 +140,11 @@ and when the chatbot is exited.
       ```
 - Example of usage: `event cs2113 tp meeting /from 1900 /to 2100`
   - Expected outcome:
-  
     ```plaintext
     Got it. I've added this task:
     [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
     Now you have 4 tasks in the list.
-    ``
+    ```
 
 ### Mark or Unmark a task
 

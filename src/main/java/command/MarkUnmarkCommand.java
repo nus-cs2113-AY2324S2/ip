@@ -28,6 +28,10 @@ public class MarkUnmarkCommand implements Command {
      */
     @Override
     public void run(TaskList tasks) throws ZukeException {
+        if (taskIndex > tasks.getSize() || taskIndex <= 0) {
+            throw new ZukeException(ResponseManager.INDEX_ERROR_MESSAGE);
+        }
+
         switch (taskType) {
         case MARK:
             if (tasks.getPosAt(taskIndex).isMarked()) {
@@ -37,7 +41,7 @@ public class MarkUnmarkCommand implements Command {
             break;
 
         case UNMARK:
-            if (tasks.getPosAt(taskIndex).isMarked()) {
+            if (!tasks.getPosAt(taskIndex).isMarked()) {
                 throw new ZukeException(ResponseManager.UNMARKED_TASK_MSG);
             }
             tasks.unmarkTask(taskIndex);

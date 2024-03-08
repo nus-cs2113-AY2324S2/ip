@@ -37,10 +37,14 @@ public class MessageDecoder {
     private static final DateTimeFormatter OUTPUT_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
     public static final String TIME_PREFIX = "/t";
-    public static final String FIND_FORMAT = "\nfind /w <keyword> or find /t <time>\n";
-    public static final String EVENT_FORMAT = "\nevent <task name> /from <start time> /to <end time>\n";
-    public static final String DEADLINE_FORMAT = "\ndeadline /by <due date>\n";
-    public static final String TODO_FORMAT = "\ntodo <task name>\n";
+    public static final String FIND_FORMAT =
+            "\nfind /w <keyword> or find /t <time>\n";
+    public static final String EVENT_FORMAT =
+            "\nevent <task name> /from <start time> /to <end time>\n";
+    public static final String DEADLINE_FORMAT =
+            "\ndeadline <task name> /by <due date>\n";
+    public static final String TODO_FORMAT =
+            "\ntodo <task name>\n";
     public static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter TIME_FORMATTER =

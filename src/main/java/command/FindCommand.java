@@ -47,7 +47,7 @@ public class FindCommand implements Command {
             break;
 
         case FIND_WORD:
-            if (tasks.findTime(keyword).isEmpty()) {
+            if (tasks.findTask(keyword).isEmpty()) {
                 throw new ZukeException(ResponseManager.NO_TASKS_FOUND_MSG);
             }
             ResponseManager.printActionOnTasks(CommandType.FIND, tasks.findTask(keyword));
