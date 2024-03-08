@@ -1,4 +1,4 @@
-# User Guide
+# GermaBot User Guide
 
 GermaBot is a task list bot. You can add, delete, find and list the stored tasks. GermaBot recognizes 3 different type 
 of tasks: Todo tasks, deadline tasks and event tasks. 
