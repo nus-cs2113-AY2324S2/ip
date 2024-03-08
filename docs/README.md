@@ -1,3 +1,5 @@
+![loopy](https://github.com/luozihui2003/Luo-Zi-Hui-ip/assets/110605459/9b223cb5-9182-4f48-8956-99d4ba25280f)
+
 # Loopy
 Loopy is here to help with tracking your tasks!
 
