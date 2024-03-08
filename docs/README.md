@@ -1,5 +1,4 @@
 # Duke User Guide
-theme: jekyll-theme-midnight
 
 // Update the title above to match the actual product name
 
