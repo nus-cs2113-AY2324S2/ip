@@ -130,6 +130,7 @@ and when the chatbot is exited.
 #### Event - `event <task description> /from <time> /to <time>`
 [!NOTE]
 > * The parameter for event can be in any order. <br>E.g. `/from <time> /to <time>` or `/to <time> /from <time>`.
+
 - Example of usage: `event cs2113 iP /from 20/01/2024 /to 08/03/2024`
     - Expected outcome:
       ```plaintext
@@ -139,6 +140,7 @@ and when the chatbot is exited.
       ```
 - Example of usage: `event cs2113 tp meeting /from 1900 /to 2100`
   - Expected outcome:
+  
     ```plaintext
     Got it. I've added this task:
     [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
@@ -173,14 +175,15 @@ and when the chatbot is exited.
 
 #### List - `list`
 - Example of usage: `list`
-    - Expected outcome:
-      ```plaintext
-        Here are the tasks in your list:
-        1. [T][X] one hour running
-        2. [D][X] submit report (by: Sep 20 2021 23:59)
-        3. [E][ ] cs2113 iP (from: Jan 20 2024 0921 am to: Mar 08 2024 1159 pm)
-        4. [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
-      ```
+  - Expected outcome:
+  
+    ```plaintext
+      Here are the tasks in your list:
+      1. [T][X] one hour running
+      2. [D][X] submit report (by: Sep 20 2021 23:59)
+      3. [E][ ] cs2113 iP (from: Jan 20 2024 0921 am to: Mar 08 2024 1159 pm)
+      4. [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
+    ```
 
 ### Delete a task
 
@@ -198,6 +201,7 @@ and when the chatbot is exited.
 #### Using keyword - `find /d <keyword>`
 - Example of usage: `find report`
     - Expected outcome:
+  
       ```plaintext
       Here are the matching tasks in your list:
       1. [D][X] submit report (by: 20 Sep 2021 23:59)
@@ -206,12 +210,14 @@ and when the chatbot is exited.
 #### Using time - `find /t <time>`
 - Example of usage: `find /t 20/01/2024`
     - Expected outcome:
+  
       ```plaintext
       Here are the matching tasks in your list:
       1. [E][ ] cs2113 iP (from: 20 Jan 2024 to: 08 Mar 2024)
       ```
 - Example of usage: `find /t 2359`
     - Expected outcome:
+  
       ```plaintext
       Here are the matching tasks in your list:
       1. [D][X] submit report (by: 20 Sep 2021 23:59)
