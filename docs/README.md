@@ -26,7 +26,8 @@ Welcome to a world where managing tasks becomes a breeze with the power of Zuke!
 2. Download the latest `zuke.jar` from [here](https://github.com/ZMinghuiZ/ip/releases/download/A-Release/zuke.jar).
 3. Copy the file to the folder you want to use as the home folder for Zuke.
 4. Open a terminal and navigate to the folder where `zuke.jar` is located.
-5. Run the command `java -jar zuke.jar` to start the chatbot. The chatbot should start and greet you with a welcome message.
+5. Run the command `java -jar zuke.jar` to start the chatbot. The chatbot should start 
+   and greet you with a welcome message (The display of logo may be different on Git Bash terminal).
     ```
     Hello from
     ███████╗██╗   ██╗██╗  ██╗███████╗
