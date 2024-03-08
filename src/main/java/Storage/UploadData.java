@@ -18,7 +18,6 @@ import static Storage.AppendData.appendEvent;
  * Represents a utility class which updates the storage file with the current TaskList.
  */
 public class UploadData {
-
     private static final String ERROR_MESSAGE = "Error saving file.";
     private static boolean isFirstWrite = true;
 
