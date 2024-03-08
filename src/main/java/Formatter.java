@@ -1,7 +1,7 @@
 public class Formatter {
-    final static String botName = "Howard Smith";
-    final static String emojiGrinning = "\uD83D\uDE00";
-    final static String emojiConfused = "\uD83D\uDE35\u200D\uD83D\uDCAB";
+    public static final String botName = "Howard Smith";
+    public static final String emojiGrinning = "\uD83D\uDE00";
+    public static final String emojiConfused = "\uD83D\uDE35\u200D\uD83D\uDCAB";
 
     /**
      * Appends a newline to a given string and returns the resulting string
