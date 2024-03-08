@@ -1,3 +1,7 @@
+/**
+ * The Parser class is responsible for parsing user input into commands and task details.
+ * It provides methods to parse commands, task descriptions, deadline details, and event details.
+ */
 public class Parser {
     public static String parseCommand(String input) throws DukeException {
         input = input.trim();
