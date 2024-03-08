@@ -15,7 +15,8 @@ public class TaskList {
 
     public static void addTask(String userInput, boolean isLoad) {
 
-        Task newTask = Parser.parseTask(userInput);
+        Task newTask = null;
+        newTask = Parser.parseTask(userInput,newTask);
 
         if (newTask == null) {
             return;
@@ -69,20 +70,5 @@ public class TaskList {
             System.out.println("Try a different number or type list to check");
             System.out.println(LINE);
         }
-    }
-
-    public static ArrayList<Task> findTasks(String userInput) {
-        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
-        String keyword = userInput.substring("find".length()).trim();
-
-        for (int index = 0; index < numberOfTasks; index += 1) {
-            Task task = allTasks.get(index);
-            String taskDescription = task.getDescription();
-
-            if (taskDescription.contains(keyword)) {
-                tasksWithKeyword.add(task);
-            }
-        }
-        return tasksWithKeyword;
     }
 }
