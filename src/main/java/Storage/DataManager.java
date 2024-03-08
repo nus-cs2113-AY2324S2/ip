@@ -1,12 +1,12 @@
-package task;
+package Storage;
 
 import java.io.*;
 import java.util.Scanner;
 
 import exceptions.InputException;
-import command.CommandHandler;
+import task.*;
 
-public class DataManage {
+public class DataManager {
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
@@ -38,19 +38,6 @@ public class DataManage {
             System.out.println(e.getMessage());
         }
     }
-
-    /**
-     * Saves the data to a text file.
-     *
-     * @param data List of tasks stored inside the ChatBot.
-     */
-    /*public static void saveText(TaskLists data) {
-        try (FileWriter fw = new FileWriter(TXT_PATH, false)) {
-            fw.write(data.print());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }*/
 
     /**
      * Saves the data to the file in a simplified format.
@@ -91,46 +78,34 @@ public class DataManage {
         boolean isDone = taskDetails[1].equals("1");
         switch (taskDetails[0]) {
         case TODO:
-            Tasks record = new ToDos(information);
-            if (isDone) {
-                record.mark();
-            }
-            listCommands.addTask(record);
+            Tasks todoRead = new ToDos(information);
+            checkFileState(todoRead, isDone);
+            listCommands.addTask(todoRead);
             break;
         case DEADLINE:
             String[] deadlines = information.split(" / ", 2);
             if (deadlines.length == 2) {
-                Tasks record_1 = new Deadlines(deadlines[0], deadlines[1]);
-                if (isDone) {
-                    record_1.mark();
-                }
-                listCommands.addTask(record_1);
-            } else {
-                throw new InputException("Wrong input syntax, have a time for deadline");
+                Tasks deadlinesRead = new Deadlines(deadlines[0], deadlines[1]);
+                checkFileState(deadlinesRead, isDone);
+                listCommands.addTask(deadlinesRead);
             }
             break;
         case EVENT:
-            String[] events = information.split(" / ", 2);
-            if (events.length == 2) {
-                if ((information.matches("events"))) {
-                    throw new InputException("Don't have an empty description for event");
-                }
-                String[] times = events[1].split(" / ", 2);
-                if (times.length == 2) {
-                    Tasks record_2 = new Events(events[0], times[0], times[1]);
-                    if (isDone) {
-                        record_2.mark();
-                    }
-                    listCommands.addTask(record_2);
-                } else {
-                    throw new InputException("invalid syntax, have a start and end time");
-                }
-            } else {
-                throw new InputException("wrong input syntax, have a description command");
+            String[] events = information.split(" / ", 3);
+            if (events.length == 3) {
+                Tasks eventRead = new Events(events[0], events[1], events[2]);
+                checkFileState(eventRead, isDone);
+                listCommands.addTask(eventRead);
             }
             break;
         default:
             throw new InputException("Something is wrong with file loading");
+        }
+    }
+
+    private static void checkFileState(Tasks record, boolean isDone) {
+        if (isDone) {
+            record.mark();
         }
     }
 }

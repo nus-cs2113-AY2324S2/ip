@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 import task.TaskLists;
-import task.DataManage;
+import Storage.DataManager;
 import exceptions.InputException;
 import userInterface.Message;
 import command.CommandHandler;
@@ -14,18 +14,18 @@ public class Chris {
         String command = "";
         TaskLists listCommands = new TaskLists();
 
-        DataManage.createFolder();
-        DataManage.createText();
+        DataManager.createFolder();
+        DataManager.createText();
 
         try {
-            listCommands = DataManage.readSavedData();
+            listCommands = DataManager.readSavedData();
         } catch (InputException e) {
             System.out.println(e.getMessage());
         }
 
         System.out.println(Message.GREETING);
         while (sc.hasNextLine()) {
-            DataManage.saveText(listCommands);
+            DataManager.saveText(listCommands);
             try {
                 command = sc.nextLine();
                 boolean continueFlag = CommandHandler.handle(command, listCommands);

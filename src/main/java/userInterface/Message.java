@@ -33,4 +33,13 @@ public class Message {
 
     public static final String NO_RESULT
             = DASH + "Nothing found";
+
+    public static final String MARK_TASK_FRONT
+            = DASH + "Nice! I've marked this task as done:";
+
+    public static final String UNMARK_TASK_FRONT
+            = DASH + "OK, I've marked this task as not done yet:";
+
+    public static final String DELETE_TASK_FRONT
+            = DASH + "Noted. I've removed this task:";
 }

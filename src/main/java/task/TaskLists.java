@@ -35,10 +35,9 @@ public class TaskLists implements Serializable{
         Tasks fetch = this.tasksList.get(index - 1);
         fetch.mark();
         this.tasksList.set(index - 1, fetch);
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(Message.MARK_TASK_FRONT);
         System.out.println("  " + fetch);
-        System.out.println("____________________________________________________________");
+        System.out.print(Message.DASH);
     }
 
     /**
@@ -50,10 +49,9 @@ public class TaskLists implements Serializable{
         Tasks fetch = this.tasksList.get(index - 1);
         fetch.unMark();
         this.tasksList.set(index - 1, fetch);
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(Message.UNMARK_TASK_FRONT);
         System.out.println("  " + fetch);
-        System.out.println("____________________________________________________________");
+        System.out.print(Message.DASH);
     }
 
     /**
@@ -64,12 +62,11 @@ public class TaskLists implements Serializable{
     public void delete(int index) {
         Tasks fetch = this.tasksList.get(index - 1);
         this.tasksList.remove(index - 1);
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
+        System.out.println(Message.DELETE_TASK_FRONT);
         System.out.println("  " + fetch);
         int size = this.tasksList.size();
         System.out.println("Now you have " + size + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        System.out.println(Message.DASH);
     }
 
     /**
@@ -128,6 +125,11 @@ public class TaskLists implements Serializable{
         return output;
     }
 
+    /**
+     * Converts the string of each task into the format of the local file.
+     *
+     * @return Strings to store inside the local file.
+     */
     public String listTasksForSave() {
         String output = "";
         for (Tasks command : this.tasksList) {

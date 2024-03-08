@@ -1,5 +1,6 @@
 package command;
 
+import Storage.DataManager;
 import exceptions.InputException;
 import task.*;
 import userInterface.Message;
@@ -197,7 +198,7 @@ public class CommandHandler {
      * @param listCommands List of tasks stored inside the ChatBot.
      */
     public static void decodeExit(TaskLists listCommands) {
-        DataManage.saveText(listCommands);
+        DataManager.saveText(listCommands);
         System.out.println(Message.FAREWELL);
     }
 
