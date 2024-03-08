@@ -11,7 +11,7 @@ public class Ui {
     public Scanner in;
 
     /** Expected length of user input. One keyword and subsequent description. */
-    public final int EXPECTED_LENGTH = 2;
+    public static final int EXPECTED_LENGTH = 2;
 
     /**
      * Constructs a Ui object and initializes the Scanner to read user input.
