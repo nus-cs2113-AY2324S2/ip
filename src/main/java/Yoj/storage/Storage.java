@@ -1,5 +1,7 @@
 package Yoj.storage;
 import Yoj.tasks.*;
+import Yoj.ui.Ui;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -53,7 +55,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No existing file found. A new file will be created.");
+            Ui.printFilenotFound();
         }
         return loadedTasks;
     }

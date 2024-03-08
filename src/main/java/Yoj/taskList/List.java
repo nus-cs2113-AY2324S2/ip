@@ -1,12 +1,12 @@
-package Yoj.List;
+package Yoj.taskList;
 
 import Yoj.exception.InvalidCommandException;
 import Yoj.exception.YojException;
 import Yoj.storage.Storage;
 import Yoj.tasks.Deadline;
 import Yoj.tasks.Event;
-import Yoj.tasks.Task;
 import Yoj.tasks.ToDo;
+import Yoj.tasks.Task;
 import Yoj.ui.*;
 
 import java.io.IOException;
@@ -32,15 +32,7 @@ public class List {
         int num = Integer.parseInt(taskNum);
         Task deletedTask = tasks.get(num - 1);
         tasks.remove(num - 1);
-        if (tasks.size() == 0) {
-            System.out.println("okie task removed!!");
-            System.out.println(deletedTask);
-            System.out.println("there's no more tasks in the list.. please add new tasks below :)");
-        } else {
-            System.out.println("okie task removed!!");
-            System.out.println(deletedTask);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        }
+        Ui.taskDeletedMessage(deletedTask);
 
     }
     public static void manageToDo(String userInput) throws YojException, IOException {
@@ -69,30 +61,6 @@ public class List {
             String[] times = parts[1].split(" /to ");
             tasks.add(new Event(parts[0].trim(), times[0].trim(), times[1].trim()));
         }
-    }
-    public static void manageUserInput(String userInput) throws YojException, InvalidCommandException, IOException {
-        if (userInput.equals("list")) {
-            Ui.printList();
-        } else if(userInput.matches("mark \\d+")) {
-            String[] taskIndex = userInput.split(" ");
-            int index = Integer.parseInt(taskIndex[1] );
-            tasks.get(index - 1).markDone();
-            Ui.markDoneMessage();
-            System.out.println(tasks.get(index-1).taskType() + "[X] " + tasks.get(index - 1).getDescription());
-        } else if(userInput.matches("unmark \\d+")) {
-            String[] taskIndex = userInput.split(" ");
-            int index = Integer.parseInt(taskIndex[1]);
-            tasks.get(index - 1).markUndone();
-            Ui.markUndoneMessage();
-            System.out.println(tasks.get(index-1).taskType() + "[ ] " + tasks.get(index - 1).getDescription());
-        } else if(userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
-            addTask(userInput);
-        } else if(userInput.startsWith("delete")) {
-            deleteTask(userInput);
-        } else if(userInput.equals("bye")){
-            Ui.byeMessage();
-            Storage.save(tasks);
-        } else throw new InvalidCommandException("command not recognised :<");
     }
 
 }
