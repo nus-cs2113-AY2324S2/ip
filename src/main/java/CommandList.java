@@ -1,5 +1,5 @@
 public enum CommandList {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, //insert new command name here
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND//insert new command name here
     ;
     public static void executeBye() {
         Formatter.printGoodbyeMsg();
@@ -71,6 +71,10 @@ public enum CommandList {
         return userSelectedIndex;
     }
 
+    public static void executeFind(CommandParser userCommandReader) {
+        String userQuery = userCommandReader.getArgumentTokens()[0];
+        Formatter.printMatches(userQuery);
+    }
     //insert new command here
 }
 

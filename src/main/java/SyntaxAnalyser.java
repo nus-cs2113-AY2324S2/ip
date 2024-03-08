@@ -17,6 +17,7 @@ public class SyntaxAnalyser {
             {UNRESTRICTED_CHAR_LENGTH_REGEX, UNRESTRICTED_CHAR_LENGTH_REGEX},
             {UNRESTRICTED_CHAR_LENGTH_REGEX, UNRESTRICTED_CHAR_LENGTH_REGEX, UNRESTRICTED_CHAR_LENGTH_REGEX},
             {VALID_INDEX_REGEX},
+            {UNRESTRICTED_CHAR_LENGTH_REGEX},
             //insert new command syntax here
     };
 
