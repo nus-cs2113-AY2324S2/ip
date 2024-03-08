@@ -1,11 +1,13 @@
 package tasklist.event;
 import tasklist.todo.Todo;
 
+/**
+ * Extends from Todo with start and end to store event type of input.
+ */
 public class Event extends Todo {
     protected String start;
     protected String end;
 
-    //constructor for Event
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;

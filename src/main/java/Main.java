@@ -8,6 +8,12 @@ import java.util.ArrayList;
 
 public class Main {
     public static final String PATHNAME = "src/data/prevData";
+
+    /**
+     * Runs the Doraemon chatbot programme.
+     * @param args Input from user
+     * @throws IOException If Scanner is unable to find file
+     */
     public static void main(String[] args) {
         ArrayList<Todo> list = new ArrayList<>();
         Ui ui = new Ui();
@@ -22,7 +28,7 @@ public class Main {
         Parser parser = new Parser(list, taskNum);
         ui.printGreetings();
         try {
-            parser.runParser(PATHNAME);
+            parser.runParser(PATHNAME, tasklist);
         } catch (IOException e) {
             ui.showIOException();
         }

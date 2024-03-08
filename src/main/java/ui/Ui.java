@@ -1,6 +1,9 @@
 package ui;
 import tasklist.todo.Todo;
 
+/**
+ * Deals with all the printing of communication with user.
+ */
 public class Ui {
 
     public Ui() {}
