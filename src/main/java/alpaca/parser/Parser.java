@@ -84,13 +84,13 @@ public class Parser {
     }
 
     /**
-     * Parses and executes an 'event' command with detailed date and time.
+     * Parses details of an 'event' command and creates an event task.
      *
-     * Validates the input and creates an event task, considering start and end times.
-     * Throws exceptions for invalid input.
+     * Extracts start and end times along with the event description from the command details.
+     * Constructs an AddCommand with the new event and executes it.
      *
-     * @param details The command details including event description and timing.
-     * @throws AlpacaException if the event details are invalid.
+     * @param details Details from the user input following the 'event' command keyword.
+     * @throws AlpacaException If any part of the event details is invalid.
      */
     private void parseEventCommand(String details) throws AlpacaException {
         String[] eventParts = details.split(" /from ", 2);
@@ -106,8 +106,21 @@ public class Parser {
         String[] startDateTimeParts = timeParts[0].split(" ", 2);
         String[] endDateTimeParts = timeParts[1].split(" ", 2);
 
-        AddCommand addEventCommand;
+        AddCommand addEventCommand = getAddEventCommand(startDateTimeParts, endDateTimeParts, eventParts);
+        addEventCommand.execute();
+    }
 
+    /**
+     * Creates an AddCommand for an Event task based on the provided start and end date-time parts and event details.
+     *
+     * @param startDateTimeParts Array containing start date and optionally start time.
+     * @param endDateTimeParts Array containing end date and optionally end time.
+     * @param eventParts Array containing the event description and timing details.
+     * @return An AddCommand configured to add the constructed Event task.
+     * @throws InvalidTimeException If the timing information is invalid or cannot be parsed.
+     */
+    private AddCommand getAddEventCommand(String[] startDateTimeParts, String[] endDateTimeParts, String[] eventParts) throws InvalidTimeException {
+        AddCommand addEventCommand;
         if (startDateTimeParts.length == 2 && endDateTimeParts.length == 2) {
             LocalDate startDay = LocalDate.parse(startDateTimeParts[0]);
             LocalTime startTime = LocalTime.parse(startDateTimeParts[1], DateTimeFormatter.ofPattern("HH:mm"));
@@ -122,17 +135,17 @@ public class Parser {
         } else {
             throw new InvalidTimeException();
         }
-        addEventCommand.execute();
+        return addEventCommand;
     }
 
     /**
-     * Parses and executes a 'deadline' command with a specific due date and time.
+     * Parses details of a 'deadline' command and creates a deadline task.
      *
-     * Validates the input and creates a deadline task, considering the due date and time.
-     * Throws exceptions for invalid input.
+     * Extracts the due date and time along with the deadline description from the command details.
+     * Constructs an AddCommand with the new deadline and executes it.
      *
-     * @param details The command details including deadline description and due timing.
-     * @throws AlpacaException if the deadline details are invalid.
+     * @param details Details from the user input following the 'deadline' command keyword.
+     * @throws AlpacaException If any part of the deadline details is invalid.
      */
     private void parseDeadlineCommand(String details) throws AlpacaException {
         String[] deadlineParts = details.split(" /by ", 2);
@@ -140,6 +153,20 @@ public class Parser {
         if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
             throw new EmptyTaskDescriptionException("The description of a deadline cannot be empty.");
         }
+        AddCommand addDeadlineCommand;
+        addDeadlineCommand = getAddDeadlineCommand(timeParts, deadlineParts);
+        addDeadlineCommand.execute();
+    }
+
+    /**
+     * Creates an AddCommand for a Deadline task based on the provided date-time parts and deadline details.
+     *
+     * @param timeParts Array containing the due date and optionally due time.
+     * @param deadlineParts Array containing the deadline description and due timing details.
+     * @return An AddCommand configured to add the constructed Deadline task.
+     * @throws InvalidTimeException If the due timing information is invalid or cannot be parsed.
+     */
+    private AddCommand getAddDeadlineCommand(String[] timeParts, String[] deadlineParts) throws InvalidTimeException {
         AddCommand addDeadlineCommand;
         if (timeParts.length == 2) {
             LocalDate date = LocalDate.parse(timeParts[0].strip());
@@ -155,7 +182,7 @@ public class Parser {
             }
             addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], date), tasks);
         }
-        addDeadlineCommand.execute();
+        return addDeadlineCommand;
     }
 
     /**
