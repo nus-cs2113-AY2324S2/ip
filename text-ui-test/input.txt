@@ -1,0 +1,4 @@
+mark
+mark 1
+list
+bye
