@@ -16,7 +16,7 @@ public class Ui {
             "░╚═══██╗██║░░██╗██╔══██║██║╚██╔╝██║██║██║░░██║░░░██║░░░\n" +
             "██████╔╝╚█████╔╝██║░░██║██║░╚═╝░██║██║██████╔╝░░░██║░░░\n" +
             "╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═════╝░░░░╚═╝░░░";
-    private static final String HELP_MESSAGE = "I'm sorry, but the valid commands are:\n" +
+    private static final String HELP_MESSAGE = "The valid commands you can use are:\n" +
             "\tbye\n" +
             "\tlist\n" +
             "\ttodo <description>\n" +
