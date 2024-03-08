@@ -1,25 +1,36 @@
 # User Guide
 
-## Features 
-
-### Feature- add task
-
-Qchat can add 3 different types of tasks into the list
-
-### Feature- save 
-
-Qchat can save your current tasks and read it next time user uses
-
-### Feature- find
-
-Qchat find your task that contains a given keyword
-
-### Feature- mark as done
-
-Qchat can mark users task as done or not done
-
-
-## Usage
+## Feature List
+1. Add Tasks
+   Users can add various types of tasks such as to-do, deadline, and event tasks to the task list.
+   Command: `add`
+2. View Task List
+   Users can view all tasks currently in the task list.
+   Command: `list`
+3. Mark Task as Done
+   Users can mark a task as done.
+   Command: `mark`
+4. Mark Task as Undone
+   Users can mark a completed task as not done.
+   Command: `unmark`
+5. Delete Task
+   Users can delete a task from the task list.
+   Command: `delete`
+6. Clear Task List
+   Users can clear all tasks from the task list.
+   Command: `clear`
+7. Search Tasks
+   Users can search for tasks containing specific keywords.
+   Command: `find`
+8. Save Task List
+   Users can save the current task list to a file.
+   Command: `save`
+9. Help
+   Users can view a list of supported commands for using the task manager.
+   Command: `help`
+10. Quit Task Manager
+    Users can exit the task manager application.
+    Command: `quit`
 
 
 
