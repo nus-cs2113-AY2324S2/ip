@@ -6,10 +6,10 @@ public class ListManager {
     static UI ui = new UI();
     static Parser parser = new Parser();
     static Storage storage = new Storage();
-
     static ArrayList<Todo> todolist = new ArrayList<>();
     //static boolean[] isDoneList = new boolean[MAX_LIST_LENGTH];
-
+    static final String ALL_TASKS = "Here are your current tasks in your list:" ;
+    static final String MATCHED_TASKS = "Here are the matching tasks in your list:" ;
     static Scanner in = new Scanner(System.in);
 
 
@@ -39,7 +39,7 @@ public class ListManager {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        UI.PrintList(todolist);
+        UI.PrintList(todolist,ALL_TASKS);
         ;
 
         while (!command.equals("quit")) {
@@ -53,7 +53,7 @@ public class ListManager {
                 } catch (InvalidTimeForm e) {
                     System.out.println("wrong time form, please add again");
                 }
-                UI.PrintList(todolist);
+                UI.PrintList(todolist,ALL_TASKS);
                 ;
                 break;
             case "quit":
@@ -73,10 +73,12 @@ public class ListManager {
                 SetUndone();
                 break;
             case "list":
-                UI.PrintList(todolist);
-
+                UI.PrintList(todolist,ALL_TASKS);
                 break;
             case "":
+                break;
+            case "find":
+                SearchList();
                 break;
             case "delete":
                 Deletelist();
@@ -97,8 +99,25 @@ public class ListManager {
 
     }
 
+    private static void SearchList() {
+        System.out.print("please type the key words you want to find\n");
+        String description = in.nextLine();
+        ArrayList<Todo> temp_todolist = new ArrayList<>();
+        for(Todo t:todolist){
+            if(t.description.contains(description)){
+                temp_todolist.add(t);
+            }
 
+        }
+        if(temp_todolist.isEmpty()){
+            System.out.print("no matched task found!\n");
+        }
+        else{
+            UI.PrintList(temp_todolist,MATCHED_TASKS);
+            temp_todolist.clear();
+        }
 
+    }
 
 
     private static void Deletelist() {
@@ -116,7 +135,7 @@ public class ListManager {
         todolist.remove(number - 1);
 
         System.out.println("task deleted\n");
-        UI.PrintList(todolist);
+        UI.PrintList(todolist,ALL_TASKS);
         ;
     }
 
@@ -133,7 +152,7 @@ public class ListManager {
         }
 
         System.out.println("please type the task number you want to set as done \n");
-        UI.PrintList(todolist);
+        UI.PrintList(todolist,ALL_TASKS);
         int number = in.nextInt();
 
         while (number > todolist.size()) {
@@ -158,7 +177,7 @@ public class ListManager {
         }
 
         System.out.println("please type the task number you want to set as not done \n");
-        UI.PrintList(todolist);
+        UI.PrintList(todolist,ALL_TASKS);
         ;
         int number = in.nextInt();
 
