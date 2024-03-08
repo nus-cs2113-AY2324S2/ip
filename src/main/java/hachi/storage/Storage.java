@@ -14,16 +14,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This file represents the Storage class for the chatbot Hachi.
+ * Contains methods for handling storage of save files for Hachi.
+ *
+ * @author clarencepohh
+ * @version 08/03/2024
+ */
 
 public class Storage {
     private final String filePath;
     private final TaskList tasksList;
     protected File folder = new File("hachidata");
 
+    /**
+     * The constructor for Storage.
+     * Initializes the required String filePath and TaskList.
+     *
+     * @param filePath The String that contains the relative path to the save file for Hachi.
+     */
+
     public Storage (String filePath) {
         this.filePath = filePath;
         this.tasksList = new TaskList();
     }
+
+    /**
+     * Checks if the folder for the save file for Hachi exists,
+     * and if it does not exist, creates the folder required.
+     *
+     * @throws SecurityException If there is a Security Violation.
+     */
 
     public void initializeData() throws SecurityException{
         if (!folder.exists()) {
@@ -31,13 +52,21 @@ public class Storage {
         }
     }
 
+    /**
+     * Method that handles saving files for Hachi chatbot.
+     * Writes the save file when there are changes made to the TaskList.
+     *
+     * @throws IOException If there are failed or interrupted I/O operations.
+     */
+
     public void saveHandler() throws IOException {
         initializeData();
 
         try {
+            // to clear text file
             FileWriter fw = new FileWriter(filePath, false);
             fw.write("");
-            fw.close(); // to clear text file
+            fw.close();
         } catch (IOException e) {
             System.out.println("\n\tCreating new task list save...");
         }
@@ -51,6 +80,15 @@ public class Storage {
         }
         fw.close();
     }
+
+    /**
+     * Method that finds the save file for Hachi.
+     * Attempts to find the save file, reads it and overwrites the TaskList with the
+     * Tasks in the save file.
+     *
+     * @throws FileNotFoundException If the specified save file cannot be found.
+     * @throws HachiException If the save file is corrupted.
+     */
 
     public void readFile() throws FileNotFoundException, HachiException {
         File taskFile = new File(filePath);
@@ -84,6 +122,14 @@ public class Storage {
             tasksList.add(toAdd);
         }
     }
+
+    /**
+     * Method that loads the save file and returns the TaskList after it is overwritten.
+     *
+     * @return The TaskList generated after reading the save file.
+     * @throws HachiException If the save file is corrupted.
+     * @throws FileNotFoundException If the specified save file cannot be found. 
+     */
 
     public ArrayList<Task> load() throws HachiException, FileNotFoundException {
         readFile();

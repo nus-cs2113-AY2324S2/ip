@@ -9,6 +9,7 @@ import hachi.ui.Ui;
 import java.util.ArrayList;
 
 /**
+ * This file represents the Parser class for the chatbot Hachi.
  * Parses user input in order to determine instructions for the chatbot.
  *
  * @author clarencepohh
