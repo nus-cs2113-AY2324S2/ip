@@ -35,7 +35,7 @@ public class Parser {
     }
 
     /**
-     * Parse the raw deadline description and break into its constituent parts.
+     * Parses the raw deadline description and break into its constituent parts.
      * Does not check if the deadline task has the right format (/by)
      *
      * @param rawDeadlineDescription The unformatted deadline description
@@ -56,7 +56,7 @@ public class Parser {
     }
 
     /**
-     * Parse the raw event description and break into its constituent parts.
+     * Parses the raw event description and break into its constituent parts.
      * Does not check if the event task has the right format (/from, /to).
      *
      * @param rawEventDescription The unformatted event description.

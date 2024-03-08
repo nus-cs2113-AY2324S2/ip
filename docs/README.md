@@ -19,7 +19,7 @@ Anonbot is a Command-line application that allows you to create and manage all y
   - [Deleting a task: `delete`](#deleting-a-task-delete)
   - [Exiting the program: `bye`, `exit`](#exiting-the-program-bye-exit)
   - [Saving the data file](#saving-the-data-file)
-  - [Editing the data file](#saving-the-data-file)
+  - [Editing the data file](#editing-the-data-file)
 - [FAQ](#faq)
 
 # Quick Start
@@ -29,7 +29,7 @@ Steps outlined follows https://se-education.org/addressbook-level3/UserGuide.htm
 
 Here is how to get started with running the program.
 1. Ensure you have Java `11` installed in your computer.
-2. Download the latest `anonbot.jar` from [here.](https://github.com/annoy-o-mus/ip)
+2. Download the latest `anonbot.jar` from [here.](https://github.com/annoy-o-mus/ip/releases)
 3. Copy the `.jar` file to the folder you want to execute the program from.
 4. Open a command terminal, navigate into the directory containing the `.jar` file.
 5. Type `java -jar anonbot.jar` to start running the application.
@@ -112,7 +112,7 @@ ____________________________________________________________
 Creates a new event task.
 
 Format: `event <description> [/from <start_time> [/to <end_time>]]`
-- An empty description for the deadline command will show an error, along with the correct syntax.
+- An empty description for the event command will show an error, along with the correct syntax.
 - The `/from` and `/to` fields are optional. 
   - However, if you want to use the `/to` field, you must include the `/from` field as well.
   - The `start_time` and `end_time` fields prefers a time, but any descriptive information is accepted.
@@ -121,7 +121,7 @@ Examples:
 - `event`: Errors out and provides the correct syntax.
 - `event Celebrate 2024`: Adds the event without additional information.
 - `event Move House /from Jan`: Adds the event with additional `/from` field information.
-- `event Midterms /from 1 Mar 24 2pm /to 4pm` Adds the event with `/from` and `/to` information
+- `event Midterms /from 1 Mar 24 2pm /to 4pm` Adds the event with `/from` and `/to` information.
 
 ```
 event
@@ -172,15 +172,15 @@ ____________________________________________________________
 
 
 ## Finding tasks matching keyword: `find`
-Finds all the tasks that matches the keyword or keyphrase provided
+Finds all the tasks that matches the keyword or keyphrase provided.
 
 Format: `find <keyphrase>`
 - An empty keyword or keyphrase will show an error, along with the correct syntax.
 
 Examples:
 - `find`: Errors out and provides the correct syntax.
-- `find a phrase that does not exist`: Returns empty entries (if no matches)
-- `find anon`: Returns matching tasks
+- `find a phrase that does not exist`: Returns empty entries (if no matches).
+- `find anon`: Returns matching tasks.
 
 ```
 find
@@ -279,7 +279,7 @@ ____________________________________________________________
 ```
 
 ## Deleting a task: `delete`
-Deletes a task (todo, deadline, event)
+Deletes a task (todo, deadline, event).
 
 Format: `delete <task_number>`
 - An empty `delete` argument will show an error, along with the correct syntax.
@@ -319,7 +319,7 @@ ____________________________________________________________
 ```
 
 ## Exiting the program: `bye`, `exit`
-Exits the program
+Exits the program.
 
 Format: `bye`, `exit`
 ```
@@ -334,20 +334,21 @@ ____________________________________________________________
 Anonbot data are saved to the hard disk automatically when a new entry, modification or deletion is made 
 to the task list. There is no need for you to save manually. 
 
-By default, they are saved under `./data/tasklist.txt`
+By default, they are saved under `./data/tasklist.txt`.
 
 ## Editing the data file
-Data files are saved in `./data/tasklist.txt`. Advanced users can modify the text file directly
+Data files are saved in `./data/tasklist.txt`. Advanced users can modify the text file directly.
 
 <!--
 Credit: https://raw.githubusercontent.com/se-edu/addressbook-level3/master/docs/UserGuide.md
 -->
+
 **Caution:**
 If your changes to the data file makes its format invalid, 
 anonbot will discard all data and start with an empty data file at the next run. 
 Hence, it is recommended to take a backup of the file before editing it.
 
-Furthermore, certain edits can cause the anonbot to behave in unexpected ways 
+Furthermore, certain edits can cause anonbot to behave in unexpected ways. 
 (e.g. Modifying the task number may end up with duplicate or unordered task numbers, which are not checked).
 
 Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -355,5 +356,5 @@ Therefore, edit the data file only if you are confident that you can update it c
 # FAQ
 **Q:** Can I transfer my data to another computer? If so, how?
 
-**A:** You can. You just need to make sure that the `/data` folder is at the same level with the `anon.jar` file.
+**A:** You can. You just need to make sure that the `data` folder is at the same level with the `anonbot.jar` file.
 The `tasklist.txt` file should be inside the `data` folder.

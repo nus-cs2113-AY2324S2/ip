@@ -7,7 +7,6 @@ import anonbot.task.TaskManager;
  * Provides searching functionality to identify matching tasks.
  */
 public class Finder {
-
     /**
      * Finds all available tasks that contains the specified keyword or keyphrase.
      *
