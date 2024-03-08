@@ -92,6 +92,7 @@ Furthermore, certain edits can cause the anonbot to behave in unexpected ways
 Therefore, edit the data file only if you are confident that you can update it correctly.
 
 # FAQ
+**Q:** Can I transfer my data to another computer? If so, how?
 
-# Command Summary
-
+**A:** You can. You just need to make sure that the `/data` folder is at the same level with the `anon.jar` file.
+The `tasklist.txt` file should be inside the `data` folder.
