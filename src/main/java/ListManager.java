@@ -60,7 +60,7 @@ public class ListManager {
                 System.out.println("Task change complete\n");
                 break;
             case "help":
-                System.out.print("supported commands: add , quit , help , mark, unmark ,clear, list, delete \n");
+                System.out.print("supported commands: add , quit , help , mark, unmark ,clear, list, delete, find ,save \n");
                 break;
             case "clear":
                 ClearList();
