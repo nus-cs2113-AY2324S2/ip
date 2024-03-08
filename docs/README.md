@@ -145,8 +145,8 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       OK, I've marked this task as not done yet:
       [T][ ] eat
       ```
+      
 ### List all tasks
-
 #### List - `list`
 - Example: `list`
     - Expected outcome:
@@ -156,6 +156,7 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       2. [D][ ] submit ip (by: 08 Mar 2024 23:59)
       3. [E][ ] cs2113 ip (from: 20 Jan 2024 11:00 to: 08 Mar 2024 12:00)
       ```
+      
 #### Delete - `delete <task number>`
 - Example: `delete 1`
     - Expected outcome:
@@ -164,8 +165,8 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       1. [T][ ] eat
       Now you have 2 tasks in the list.
       ```
+      
 ### Find a task
-
 #### Using keyword - `find <keyword>`
 - Example: `find ip`
     - Expected outcome:
@@ -174,14 +175,15 @@ Chris is a ChatBot that acts as a task handler in CLI(Command Line Interface).
       1. [D][X] submit ip (by: 20 Sep 2021 23:59)
       2. [E][ ] cs2113 ip (from: 20 Jan 2024 11:00 to: 08 Mar 2024 12:00)
       ```
+      
 ### Exit the program
-
 #### Bye - `bye`
 - Example: `bye`
     - Expected outcome:
       ```plaintext
       Bye. Hope to see you again soon!
       ```
+
 ## Extra Questions
 #### Q  -  How do I transfer my data to another computer?
 - Download the `chris.jar` file in the new computer and copy the `data` folder on your original directory

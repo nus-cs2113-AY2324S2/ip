@@ -2,11 +2,10 @@ package task;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.io.Serializable;
 
 import userInterface.Message;
 
-public class TaskLists implements Serializable{
+public class TaskLists {
     /** All the tasks stored */
     private final List<Tasks> tasksList;
 
@@ -115,14 +114,6 @@ public class TaskLists implements Serializable{
             System.out.println(Message.NO_RESULT);
         }
         System.out.print(Message.DASH);
-    }
-
-    public String print() {
-        String output = "";
-        for (int i = 0; i < this.tasksList.size(); i++) {
-            output = output + (i + 1) + ". " + this.tasksList.get(i).toString() + '\n';
-        }
-        return output;
     }
 
     /**
