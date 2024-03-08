@@ -13,6 +13,7 @@ public class Command {
     {
         this.fullCommand=fullCommand;
     }
+
     public void execute(TaskList tasks,Ui ui,Storage storage)throws BotException
     {
         String[] parts = fullCommand.split(" ", 2);
