@@ -21,7 +21,6 @@ Anonbot is a Command-line application that allows you to create and manage all y
   - [Saving the data file](#saving-the-data-file)
   - [Editing the data file](#saving-the-data-file)
 - [FAQ](#faq)
-- [Command Summary](#command-summary)
 
 # Quick Start
 <!--
