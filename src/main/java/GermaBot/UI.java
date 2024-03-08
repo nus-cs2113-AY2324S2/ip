@@ -12,7 +12,7 @@ public class UI {
     static final String LINE= "____________________________________________";
     static final String WELCOME_MESSAGE = "Hei...! GermaBot here! \n"
             + "Let me load your saved To Do List first...";
-    static final String GOODBYE_MESSAGE = "Thanks for using me! Hope to see you again soon~!";
+    static final String GOODBYE_MESSAGE = "Thanks you for using me!!!! See you soon~! ^^";
     static final String LOAD_COMPLETE = "Loading complete!";
 
     private static final Scanner scanner = new Scanner(System.in);;

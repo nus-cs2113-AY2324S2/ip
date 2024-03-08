@@ -2,7 +2,7 @@
 
 GermaBot is a task list bot. You can add, delete, find and list the stored tasks. GermaBot recognizes 3 different type 
 of tasks: Todo tasks, deadline tasks and event tasks. 
-GermaBot is also capable of saving files to your local hard disk, to the `/src/GermaBotData.txt` file.
+GermaBot is also capable of saving files to your local hard disk, to the `/src/data/GermaBotData.txt` file.
 
 ## Features 
 
