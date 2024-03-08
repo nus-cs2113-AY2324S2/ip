@@ -6,5 +6,3 @@
 6. [D][0] item10 (by:  2019 / 8 /20)
 7. [D][1] item11 (by: Aug 20 2019)
 8. [D][1] deadline1 (by:  2019/8/20)
-9. [E][1] klsdj (from: ds sdto  )
-10. [D][0] something (by: Aug 20 2019)

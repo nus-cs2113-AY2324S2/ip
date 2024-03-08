@@ -198,12 +198,12 @@ public class TaskList {
      * Marks a Task or unmarks a task
      *
      * @param userInputInParts separates each word in userInput
-     * @param isMark if true, marks task, else unmarks it
+     * @param isMarked if true, marks task, else unmarks it
      * @param FILE_NAME to store tasks in
      * @param isReadMode specifies if reading from FILE_NAME or writing to it
      * @throws InvalidParamsException if invalid/ missing mark arguments
      */
-    protected void markOperation(String[] userInputInParts, boolean isMark, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
+    protected void markOperation(String[] userInputInParts, boolean isMarked, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
         final int CORRECT_LENGTH = 2; // arguments: 1 mark command + 1 taskIndex
         // check for input validity
         if (userInputInParts.length < CORRECT_LENGTH) {
@@ -220,7 +220,7 @@ public class TaskList {
         }
 
         // process input
-        if (isMark) { // (isMark = true) == mark as done
+        if (isMarked) { // (isMark = true) == mark as done
             tasks.get(taskNum - ZERO_INDEX).markAsDone();
         } else {
             tasks.get(taskNum - ZERO_INDEX).markAsNotDone();
@@ -231,7 +231,7 @@ public class TaskList {
         }
         // mark tasks
         Storage.writeToFile(FILE_NAME, displayList());
-        String mark = isMark ? "marked" : "unmarked";
+        String mark = isMarked ? "marked" : "unmarked";
         System.out.println("Has " + mark + " task" + taskNum + ":");
         System.out.print(displayListItem(taskNum - ZERO_INDEX));
     }
