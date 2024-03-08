@@ -19,6 +19,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
