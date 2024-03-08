@@ -47,11 +47,7 @@ public class Parser {
             // Decode the details based on the command type
             switch (command) {
             case "todo":
-                if (details.trim().isEmpty()) {
-                    throw new EmptyTaskDescriptionException("The description of a todo cannot be empty.");
-                }
-                AddCommand addTodoCommand = new AddCommand(new Todo(details), tasks);
-                addTodoCommand.execute();
+                parseTodoCommand(details);
                 break;
             case "deadline":
                 parseDeadlineCommand(details);
@@ -68,6 +64,23 @@ public class Parser {
             Ui.printErrorMessage(e.toString());
         }
         Storage.startFileWriter(tasks.saveTask());
+    }
+
+    /**
+     * Parses and executes a 'todo' command by creating a new Todo task.
+     *
+     * Extracts the task description from the command details. If the description is empty,
+     * throws an EmptyTaskDescriptionException. Otherwise, creates a new Todo task and adds it to the task list.
+     *
+     * @param details The command details containing the description of the todo task.
+     * @throws EmptyTaskDescriptionException if the todo description is empty.
+     */
+    private void parseTodoCommand(String details) throws EmptyTaskDescriptionException {
+        if (details.trim().isEmpty()) {
+            throw new EmptyTaskDescriptionException("The description of a todo cannot be empty.");
+        }
+        AddCommand addTodoCommand = new AddCommand(new Todo(details), tasks);
+        addTodoCommand.execute();
     }
 
     /**
@@ -122,26 +135,26 @@ public class Parser {
      * @throws AlpacaException if the deadline details are invalid.
      */
     private void parseDeadlineCommand(String details) throws AlpacaException {
-    String[] deadlineParts = details.split(" /by ", 2);
-    String[] timeParts = deadlineParts[1].split(" ");
-    if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
-        throw new EmptyTaskDescriptionException("The description of a deadline cannot be empty.");
-    }
-    AddCommand addDeadlineCommand;
-    if (timeParts.length == 2) {
-        LocalDate date = LocalDate.parse(timeParts[0].strip());
-        LocalTime minute = LocalTime.parse(timeParts[1].strip());
-        if (!LocalDateTime.of(date, minute).isAfter(LocalDateTime.now())) {
-            throw new InvalidTimeException();
+        String[] deadlineParts = details.split(" /by ", 2);
+        String[] timeParts = deadlineParts[1].split(" ");
+        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty()) {
+            throw new EmptyTaskDescriptionException("The description of a deadline cannot be empty.");
         }
-        addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], date, minute), tasks);
-    } else {
-        LocalDate date = LocalDate.parse(timeParts[0].strip());
-        if (!date.isAfter(LocalDate.now())) {
-            throw new InvalidTimeException();
+        AddCommand addDeadlineCommand;
+        if (timeParts.length == 2) {
+            LocalDate date = LocalDate.parse(timeParts[0].strip());
+            LocalTime minute = LocalTime.parse(timeParts[1].strip());
+            if (!LocalDateTime.of(date, minute).isAfter(LocalDateTime.now())) {
+                throw new InvalidTimeException();
+            }
+            addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], date, minute), tasks);
+        } else {
+            LocalDate date = LocalDate.parse(timeParts[0].strip());
+            if (!date.isAfter(LocalDate.now())) {
+                throw new InvalidTimeException();
+            }
+            addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], date), tasks);
         }
-        addDeadlineCommand = new AddCommand(new Deadline(deadlineParts[0], date), tasks);
-    }
         addDeadlineCommand.execute();
     }
 
