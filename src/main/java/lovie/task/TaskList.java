@@ -92,4 +92,18 @@ public class TaskList {
         Task selectedTask = tasksList.get(index);
         selectedTask.markAsDone();
     }
+
+    public void find(String keyword) {
+        TaskList matchedList = new TaskList();
+        if (tasksList.isEmpty()) {
+            ui.emptyListPrinter();
+        } else {
+            for (int i = 0; i < tasksList.size(); i += 1) {
+                if (tasksList.get(i).getDescription().contains(keyword)) {
+                    matchedList.addTask(tasksList.get(i));
+                }
+            }
+            ui.findPrinter(matchedList); 
+        }
+    }
 }

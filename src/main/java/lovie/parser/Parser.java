@@ -44,70 +44,73 @@ public class Parser {
      */
     public boolean inputSorter() {
         switch (firstCommand) {
-            case "bye":
+        case "bye":
+            storage.saveTasks(tasksList);
+            ui.goodbyePrinter();
+            return true;
+        case "list":
+            tasksList.printTasks();
+            break;
+        case "unmark":
+            unmarkTaskHelper(line);
+            storage.saveTasks(tasksList);
+            break;
+        case "mark":
+            markTaskHelper(line);
+            storage.saveTasks(tasksList);
+            break;
+        case "delete":
+            tasksList.deleteTask(line);
+            storage.saveTasks(tasksList);
+            break;
+        case "find":
+            findHelper(line);
+            break;
+        default:
+            String taskType = processedInput.split(" ")[0];
+            Task newTask;
+
+            // Switch statement to keep track of taskType + default of incorrect input
+            switch (taskType) {
+            case "event":
+                try {
+                    eventFormatChecker(line);
+                } catch (LovieException e) {
+                    ui.print(e.getMessage());
+                    break;
+                }
+                newTask = new Event(line);
+                tasksList.addTask(newTask);
+                ui.addTaskPrinter(newTask);
                 storage.saveTasks(tasksList);
-                ui.goodbyePrinter();
-                return true;
-            case "list":
-                tasksList.printTasks();
                 break;
-            case "unmark":
-                unmarkTaskHelper(line);
+            case "deadline":
+                try {
+                    deadlineFormatChecker(line);
+                } catch (LovieException e) {
+                    ui.print(e.getMessage());
+                    break;
+                }
+                newTask = new Deadline(line);
+                tasksList.addTask(newTask);
+                ui.addTaskPrinter(newTask);
                 storage.saveTasks(tasksList);
                 break;
-            case "mark":
-                markTaskHelper(line);
-                storage.saveTasks(tasksList);
-                break;
-            case "delete":
-                tasksList.deleteTask(line);
+            case "todo":
+                try {
+                    todoFormatChecker(line);
+                } catch (LovieException e) {
+                    ui.print(e.getMessage());
+                    break;
+                }
+                newTask = new ToDo(line);
+                tasksList.addTask(newTask);
+                ui.addTaskPrinter(newTask);
                 storage.saveTasks(tasksList);
                 break;
             default:
-                String taskType = processedInput.split(" ")[0];
-                Task newTask;
-
-                // Switch statement to keep track of taskType + default of incorrect input
-                switch (taskType) {
-                    case "event":
-                        try {
-                            eventFormatChecker(line);
-                        } catch (LovieException e) {
-                            ui.print(e.getMessage());
-                            break;
-                        }
-                        newTask = new Event(line);
-                        tasksList.addTask(newTask);
-                        ui.addTaskPrinter(newTask);
-                        storage.saveTasks(tasksList);
-                        break;
-                    case "deadline":
-                        try {
-                            deadlineFormatChecker(line);
-                        } catch (LovieException e) {
-                            ui.print(e.getMessage());
-                            break;
-                        }
-                        newTask = new Deadline(line);
-                        tasksList.addTask(newTask);
-                        ui.addTaskPrinter(newTask);
-                        storage.saveTasks(tasksList);
-                        break;
-                    case "todo":
-                        try {
-                            todoFormatChecker(line);
-                        } catch (LovieException e) {
-                            ui.print(e.getMessage());
-                            break;
-                        }
-                        newTask = new Todo(line);
-                        tasksList.addTask(newTask);
-                        ui.addTaskPrinter(newTask);
-                        storage.saveTasks(tasksList);
-                        break;
-                    default:
-                        ui.invalidCommandPrinter();
-                }
+                ui.invalidCommandPrinter();
+            }
         }
         return false;
     }
@@ -126,6 +129,23 @@ public class Parser {
             ui.markTaskPrinter(tasksList.get(taskNumber));
         }
     }
+
+    /**
+     * Helper method to find a task using user-given keyword.
+     *
+     * @param input The input from the user.
+     */
+  
+    public void findHelper(String input) {
+        String[] inputParts = input.split(" ");
+        if (inputParts.length < 2) {
+            ui.noValidFindPrinter();
+        } else {
+           String keyword = inputParts[1];
+           tasksList.find(keyword);
+        }
+    }
+
 
     /**
      * Helper method to unmark a task.
