@@ -138,7 +138,7 @@ public class Parser {
         } else {
             tasksList.markTask(taskNumber);
             ui.markTaskPrinter(tasksList.get(taskNumber));
-        }S
+        }
     }
 
     /**

@@ -39,6 +39,15 @@ public class Ui {
     public static final String OPEN_CLOSE_BRACKETS = "] [";
     public static final String CLOSE_BRACKET = "] ";
     public static final String NEW_LINE = "\n";
+    public static final String MARK_TASK_MESSAGE = "Woo hoo! Good job cutie. Way to go. I've marked this task as done:";
+    public static final String OPEN_BRACKET = "[";
+    public static final String EMPTY_BRACKETS = "[ ] ";
+    public static final String INVALID_COMMAND_MESSAGE = "Sorry, I can't understand what you are saying.\n" +
+            "Please try again!";
+    public static final String SUPPORT_MESSAGE = "Of course girlie <3 ";
+    public static final String HAVE_MESSAGE = "You now have ";
+    public static final String HAVE_MESSAGE_PART_TWO = " tasks in the list.\n";
+    public static final String UNMARK_MESSAGE = "I've unmarked this task for you:";
 
     /**
      * Constructor for Ui (empty).
@@ -86,8 +95,8 @@ public class Ui {
      * @param selectedTask The task the user wanted unmarked.
      */
     public void unmarkTaskPrinter(Task selectedTask) {
-        print("Okay, no worries. I've unmarked this task for you: \n" + "[" + selectedTask.getTaskIcon() + "] [" +
-                selectedTask.getStatusIcon() + "] " + selectedTask.getDescription() +
+        print(SUPPORT_MESSAGE + UNMARK_MESSAGE + NEW_LINE + OPEN_BRACKET + selectedTask.getTaskIcon() +
+                OPEN_CLOSE_BRACKETS + selectedTask.getStatusIcon() + CLOSE_BRACKET + selectedTask.getDescription() +
                 selectedTask.getTimespan() + FURTHER_HELP_MESSAGE);
     }
   
@@ -106,9 +115,9 @@ public class Ui {
      * @param tasksList The list of tasks.
      */
     public void deleteTaskPrinter(Task selectedTask, ArrayList<Task> tasksList) {
-        print("Okay, no worries. I've deleted this task for you: \n" + "[" + selectedTask.getTaskIcon() + "] [" +
-                selectedTask.getStatusIcon() + "] " + selectedTask.getDescription() +
-                selectedTask.getTimespan() + "\n" + "You now have " + tasksList.size() + " tasks in the list.\n" +
+        print(SUPPORT_MESSAGE + NEW_LINE + OPEN_BRACKET + selectedTask.getTaskIcon() + OPEN_CLOSE_BRACKETS +
+                selectedTask.getStatusIcon() + CLOSE_BRACKET + selectedTask.getDescription() +
+                selectedTask.getTimespan() + NEW_LINE + HAVE_MESSAGE + tasksList.size() + HAVE_MESSAGE_PART_TWO +
                 FURTHER_HELP_MESSAGE);
     }
 
@@ -116,15 +125,14 @@ public class Ui {
      * Prints the invalid command message.
      */
     public void invalidCommandPrinter() {
-        print("Sorry, I can't understand what you are saying.\n" +
-                "Please try again!" + ALL_COMMANDS_MESSAGE);
+        print(INVALID_COMMAND_MESSAGE + ALL_COMMANDS_MESSAGE);
     }
 
     /**
      * Prints all possible user commands.
      */
     public void commandPrinter() {
-        print("Of course girlie <3 " + ALL_COMMANDS_MESSAGE);
+        print(SUPPORT_MESSAGE + ALL_COMMANDS_MESSAGE);
     }
 
     /**
@@ -133,8 +141,8 @@ public class Ui {
      * @param newTask The task the user wanted added.
      */
     public void addTaskPrinter(Task newTask) {
-        print(ADD_TASK_MESSAGE + " [" + newTask.getTaskIcon() + "] [ ] " + newTask.getDescription() +
-                newTask.getTimespan());
+        print(ADD_TASK_MESSAGE + SPACE + OPEN_BRACKET + newTask.getTaskIcon() + CLOSE_BRACKET + EMPTY_BRACKETS +
+                newTask.getDescription() + newTask.getTimespan());
     }
 
     /**
@@ -143,9 +151,9 @@ public class Ui {
      * @param selectedTask The task the user wanted marked.
      */
     public void markTaskPrinter(Task selectedTask) {
-        print("Woo hoo! Good job cutie. Way to go. I've marked this task as done: \n" + "[" + selectedTask.getTaskIcon() + "] " +
-                "[" + selectedTask.getStatusIcon() + "] " + selectedTask.getDescription() +
-                selectedTask.getTimespan() + "\n" + "What else can I do for you today?");
+        print(MARK_TASK_MESSAGE + SPACE + NEW_LINE + OPEN_BRACKET + selectedTask.getTaskIcon() + CLOSE_BRACKET +
+                OPEN_BRACKET + selectedTask.getStatusIcon() + CLOSE_BRACKET + selectedTask.getDescription() +
+                selectedTask.getTimespan() + NEW_LINE + FURTHER_HELP_MESSAGE);
     }
 
     /**
