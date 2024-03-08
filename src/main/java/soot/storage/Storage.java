@@ -61,7 +61,7 @@ public class Storage {
     public static ArrayList<String> readSavedFile(String filePath) throws FileNotFoundException {
         ArrayList<String> readFile = new ArrayList<>();
         File savedFile = new File(filePath);
-        System.out.println(savedFile.getAbsolutePath());
+
         Scanner s = new Scanner(savedFile);
         while (s.hasNext()) {
             readFile.add(s.nextLine());

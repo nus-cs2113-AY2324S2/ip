@@ -80,7 +80,7 @@ public class Parser {
      * @throws EmptyTaskException If user input only contains one word that is not "list".
      */
     private static String getCommandAction(String userInput) throws EmptyTaskException {
-        if (userInput.equals("list") || userInput.equals("bye")) {
+        if (userInput.contains("list") || userInput.contains("bye")) {
             return userInput;
         }
 
