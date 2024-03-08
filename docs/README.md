@@ -6,11 +6,6 @@ Chatbot Apple is an app to manage tasks, optimised for use through a Command Lin
 1. Ensure Java 11 or above is installed in your computer
 2. Download `ip.jar` from [here](https://github.com/hongyijie06/ip/releases/tag/A-Release)
 3. Open a command terminal, `cd` into the folder with the jar file and use the `java -jar ip.jar` command to run the application.
-
-A CLI similar to the picture below should appear in a few seconds. Note how the app returns the path to which the list of tasks is saved on the local computer.
-
-![welcome](welcome_screen.png)
-
 4. Type the command into the command line and press Enter to execute it. e.g. typing list and pressing Enter will list the current tasks.
    Some example commands you can try:
 
@@ -36,9 +31,6 @@ Examples:
 - `todo tutorial` Adds task `tutorial` to the list of tasks
 - `todo watch lecture` Adds task `watch lecture` to the list of tasks
 
-The picture below shows the expected output.
-![todo](add_todo.png)
-
 ### Add deadline: `deadline`
 Adds task of type deadline to the list of tasks
 
@@ -47,9 +39,6 @@ Format: `deadline DESCRIPTION by DEADLINE`
 Examples:
 - `deadline return book by 4pm` Adds task `return book` with deadline `4pm` to the list of tasks
 - `deadline submit group report by 7pm` Adds task `submit group report` with deadline `7pm` to the list of tasks
-
-The picture below shows the expected output.
-![deadline](add_deadline.png)
 
 ### Add event: `event`
 Adds task of type event to the list of tasks
@@ -60,16 +49,10 @@ Examples:
 - `event Math exam from 2pm to 4pm` Adds task `Math exam` with timeline `2pm` to `4pm` to the list of tasks
 - `event project group meeting from 11am to 1pm` Adds task `project group meeting` with timeline `11am` to `1pm` to the list of tasks
 
-The picture below shows the expected output.
-![event](add_event.png)
-
 ## Listing tasks: `list`
 Lists all tasks in the task list.
 
 Format: `list`
-
-The picture below shows the expected output.
-![list](list.png)
 
 ## Mark tasks as done: `mark`
 Marks tasks as completed
@@ -83,9 +66,6 @@ Format: `mark INDEX`
 Examples: 
 - `mark 1` Marks first task in the list as done
 - `mark 3` Marks sixth task in the list as done
-
-The picture below shows the expected output.
-![mark](mark.png)
 
 ## Unmark tasks: `unmark`
 Marks tasks as undone
@@ -109,9 +89,6 @@ Examples:
 - `find book` CLI returns a list with all the tasks with the `KEYWORD` `book`.
 - `find group` CLI returns a list with all the tasks with the `KEYWORD` `group`.
 
-The picture below shows the expected output.
-![find](find.png)
-
 ## Delete tasks: `delete`
 Deletes task from the list of tasks
 
@@ -125,16 +102,10 @@ Examples:
 - `delete 3` Deletes third task in the list
 - `delete 5` Deletes fifth task in the list
 
-The picture below shows the expected output.
-![delete](delete.png)
-
 ## Exit app: `bye`
 Exits the chatbot
 
 Format: `bye`
-
-The picture below shows the expected output.
-![bye](bye.png)
 
 ## Command Summary
 
