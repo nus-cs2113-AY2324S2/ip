@@ -11,6 +11,9 @@ public class CommandProcessor {
         String argument = parts.length > 1 ? parts[1].trim() : "";
 
         switch (command) {
+            case "find":
+                taskManager.findTaskByKeyword(argument);
+                break;
             case "todo":
                 if (argument.isEmpty()) {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");

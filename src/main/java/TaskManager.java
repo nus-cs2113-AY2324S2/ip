@@ -110,4 +110,16 @@ public class TaskManager {
     private void saveTasksToFile() {
         Storage.saveTasksToFile(tasks);
     }
+    public void findTaskByKeyword(String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 0;
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println((++count) + ". " + task);
+            }
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found.");
+        }
+    }
 }
