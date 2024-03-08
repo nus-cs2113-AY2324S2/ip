@@ -160,4 +160,25 @@ The list will now be
 --------------------------------------
 ```
 
+### `find KEYWORD` - Find a task (case-sensitive)
+
+`KEYWORD`: the keyword that the user wants to search for.
+
+For example:
+We have a list as follows.
+```
+--------------------------------------
+1.[T][ ] sleep
+2.[D][ ] CS2113 Weekly Quiz (do by: 3/7/2024 1159)
+3.[E][ ] The Eras Tour (from: 2/3/2024 to: 9/3/2024)
+--------------------------------------
+```
+`find sl` will result in
+```
+--------------------------------------
+Here are the matching tasks in your list:
+1. [T][ ] sleep
+--------------------------------------
+```
+
 ### `bye` - Exit from Stella.
