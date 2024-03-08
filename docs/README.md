@@ -9,15 +9,15 @@ Chatbot Apple is an app to manage tasks, optimised for use through a Command Lin
 
 A CLI similar to the picture below should appear in a few seconds. Note how the app returns the path to which the list of tasks is saved on the local computer.
 
-!("C:\Users\User\Documents\CS2113\ip\docs\welcome_screen.png")
+![welcome](welcome_screen.png)
 
 4. Type the command into the command line and press Enter to execute it. e.g. typing list and pressing Enter will list the current tasks.
-Some example commands you can try:
+   Some example commands you can try:
 
-- `todo tutorial`: Adds task "tutorial" to the list
-- `deadline return book by 4pm`: Adds task "return book" nd deadline "4pm" to the list
-- `list`: Lists all tasks
-- `bye`: Exits the app
+    - `todo tutorial`: Adds task "tutorial" to the list
+    - `deadline return book by 4pm`: Adds task "return book" nd deadline "4pm" to the list
+    - `list`: Lists all tasks
+    - `bye`: Exits the app
 
 5. Refer to the Features below for more details on each command.
 
@@ -37,7 +37,7 @@ Examples:
 - `todo watch lecture` Adds task `watch lecture` to the list of tasks
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\add_todo.png")
+![todo](add_todo.png)
 
 ### Add deadline: `deadline`
 Adds task of type deadline to the list of tasks
@@ -49,7 +49,7 @@ Examples:
 - `deadline submit group report by 7pm` Adds task `submit group report` with deadline `7pm` to the list of tasks
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\add_deadline.png")
+![deadline](add_deadline.png)
 
 ### Add event: `event`
 Adds task of type event to the list of tasks
@@ -61,7 +61,7 @@ Examples:
 - `event project group meeting from 11am to 1pm` Adds task `project group meeting` with timeline `11am` to `1pm` to the list of tasks
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\add_event.png")
+![event](add_event.png)
 
 ## Listing tasks: `list`
 Lists all tasks in the task list.
@@ -69,7 +69,7 @@ Lists all tasks in the task list.
 Format: `list`
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\list.png")
+![list](list.png)
 
 ## Mark tasks as done: `mark`
 Marks tasks as completed
@@ -85,7 +85,7 @@ Examples:
 - `mark 3` Marks sixth task in the list as done
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\mark.png")
+![mark](mark.png)
 
 ## Unmark tasks: `unmark`
 Marks tasks as undone
@@ -110,7 +110,7 @@ Examples:
 - `find group` CLI returns a list with all the tasks with the `KEYWORD` `group`.
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\find.png")
+![find](find.png)
 
 ## Delete tasks: `delete`
 Deletes task from the list of tasks
@@ -126,7 +126,7 @@ Examples:
 - `delete 5` Deletes fifth task in the list
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\delete.png")
+![delete](delete.png)
 
 ## Exit app: `bye`
 Exits the chatbot
@@ -134,7 +134,7 @@ Exits the chatbot
 Format: `bye`
 
 The picture below shows the expected output.
-!("C:\Users\User\Documents\CS2113\ip\docs\bye.png")
+![bye](bye.png)
 
 ## Command Summary
 
