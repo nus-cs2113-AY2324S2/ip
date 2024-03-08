@@ -46,7 +46,10 @@ public abstract class Task {
         this.isComplete=false;
     }
 
-
+    /**
+     * transfer task to String
+     * @return
+     */
     public String toString() {
         return "[" + (this.isComplete ? "X" : " ") + "] " + this.task;
     }

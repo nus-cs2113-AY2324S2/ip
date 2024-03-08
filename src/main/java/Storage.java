@@ -13,6 +13,10 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * save taskList in bot to txt file whenever taskList changes
+     * @param taskList: taskList changed
+     */
     public void saveTasksToFile(ArrayList<Task> taskList) {
         try (FileWriter writer = new FileWriter(this.filePath)) {
             for (Task task : taskList) {
@@ -23,6 +27,10 @@ public class Storage {
         }
     }
 
+    /**
+     * load Tasks in the txt file to bot
+     * @return arrayList of tasks
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> taskList=new ArrayList<>();
         try {
@@ -48,6 +56,9 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * when the txt file did not exist create a file
+     */
     public void createFileIfNotExist() {
         try {
             File file = new File(filePath);
