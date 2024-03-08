@@ -3,7 +3,6 @@ package util;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
-
 import java.util.Scanner;
 
 public class Parser {
@@ -44,6 +43,9 @@ public class Parser {
                             eventSplit[1].substring(5).trim(),
                             eventSplit[2].substring(3).trim()));
                     break;
+                case "find":
+                    tasks.findTask(task);
+                    break;
                 case "delete":
                     tasks.deleteTask(Integer.parseInt(task));
                     break;
@@ -51,9 +53,11 @@ public class Parser {
                     System.out.println("Your command is invalid, invalid. Try again.");
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("You are missing a /. Do not let this happen again.");
-        }
 
+            Ui.missingSlashMessage();
+        } catch (NumberFormatException e) {
+            System.out.println("Ensure that you include a number after your delete/find/mark command.");
+        }
     }
 
     public static void getInput(TaskList tasks) {

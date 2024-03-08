@@ -1,13 +1,13 @@
 import exceptions.NocturneException;
 import util.Parser;
 import util.TaskList;
+import util.Ui;
 
 public class Nocturne {
-    public static void main(String[] args) throws NocturneException {
+    public static void main(String[] args) {
         TaskList list = new TaskList();
-        System.out.println("Good evening. I'm Nocturne.");
-        System.out.println("What ails you on this fine day?");
+        Ui.greetingMessage();
         Parser.getInput(list);
-        System.out.println("Farewell, and may the fortunes be ever in your favour.");
+        Ui.farewellMessage();
     }
 }
