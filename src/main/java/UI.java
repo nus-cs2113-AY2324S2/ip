@@ -25,10 +25,10 @@ public class UI {
     public void PrintListForm(){
         System.out.println(LIST_FORM);
     }
-    public static void PrintList(ArrayList todolist){
+    public static void PrintList(ArrayList todolist, String description ){
         int i=1;
         System.out.print("---------------------------------------------\n");
-        System.out.println("Here are your current tasks in your list:");
+        System.out.println(description);
         for (Object t :todolist ){
             if(t == null){
                 continue;
