@@ -7,9 +7,9 @@ This is a project building a simple chat bot to keep track of tasks. Given below
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
 1. Ensure that you have Java 11 or above installed on your computer.
-1. Download the lastest JAR file from ___
+1. Download the lastest JAR file from [here](https://github.com/SharlynLui/ip/releases/tag/A-Release)
 2. Copy the file to the folder you want to use as the home folder for DoraemonBot.
-3. Open a command terminal, `cd` into the folder where the JAR file is placed in and use `java -jar CS2113_IP_New.jar` command to run the programme.
+3. Open a command terminal, `cd` into the folder where the JAR file is placed in and use `java -jar CS2113_IP_new.jar` command to run the programme.
 
 ## Add
 To Add Tasks: Use the `todo` command and type in the name of the task and it will be added.
@@ -42,6 +42,13 @@ To Mark tasks completed, type the command `mark` followed by the task number of 
 Example:
 ```
 mark 3
+```
+
+## Delete
+To Delete tasks from the list, type the command `delete` followed by the task number of the task.
+Example:
+```
+delete 3
 ```
 
 
