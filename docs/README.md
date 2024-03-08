@@ -116,7 +116,7 @@ and when the chatbot is exited.
 - Example of usage: `todo one hour running`
     - Expected outcome:
       ```plaintext
-      Got it. I've added this task:
+      Great! I've added this task:
       [T][ ] one hour running
       Now you have 1 task in the list.
       ```
@@ -125,7 +125,7 @@ and when the chatbot is exited.
 - Example of usage: `deadline submit report /by 20/09/2021 2359`
     - Expected outcome:
       ```plaintext
-      Got it. I've added this task:
+      Great! I've added this task:
       [D][ ] submit report (by: Sep 20 2021 23:59 pm)
       Now you have 2 tasks in the list.
       ```
@@ -135,16 +135,16 @@ and when the chatbot is exited.
 > * The parameter for event can be in any order. <br>E.g. `/from <time> /to <time>` or `/to <time> /from <time>`.
 
 - Example of usage: `event cs2113 iP /from 20/01/2024 /to 08/03/2024`
-    - Expected outcome:
-      ```plaintext
-      Got it. I've added this task:
-      [E][ ] cs2113 iP (from: Jan 20 2024 0921 am to: Mar 08 2024 1159 pm)
-      Now you have 3 tasks in the list.
-      ```
+  - Expected outcome:
+    ```plaintext
+    Great! I've added this task:
+    [E][ ] cs2113 iP (from: Jan 20 2024 0921 am to: Mar 08 2024 1159 pm)
+    Now you have 3 tasks in the list.
+    ```
 - Example of usage: `event cs2113 tp meeting /from 1900 /to 2100`
   - Expected outcome:
     ```plaintext
-    Got it. I've added this task:
+    Great! I've added this task:
     [E][ ] cs2113 tp meeting (from: Mar 08 2024 0700 pm to: Mar 08 2024 0900 pm)
     Now you have 4 tasks in the list.
     ```
@@ -155,13 +155,13 @@ and when the chatbot is exited.
 - Example of usage: `mark 1`
     - Expected outcome:
       ```plaintext
-      Nice! I've marked this task as done:
+      Good job! I've marked this task as done:
       [T][X] one hour running
       ```
 - Example of usage: `mark 2`
     - Expected outcome:
       ```plaintext
-      Nice! I've marked this task as done:
+      Good job! I've marked this task as done:
       [D][X] submit report (by: Sep 20 2021 23:59)
       ```
 
@@ -169,7 +169,7 @@ and when the chatbot is exited.
 - Example of usage: `unmark 1`
     - Expected outcome:
       ```plaintext
-      Nice! I've unmarked this task as not done:
+      Haiz, I've unmarked this task as not done:
       [T][ ] one hour running
       ```
 
@@ -193,7 +193,7 @@ and when the chatbot is exited.
 - Example of usage: `delete 1`
     - Expected outcome:
       ```plaintext
-      Noted. I've removed this task:
+      Alright. I've removed this task:
       [T][ ] one hour running
       Now you have 3 tasks in the list.
       ```
@@ -250,6 +250,7 @@ and when the chatbot is exited.
     - Expected outcome:
       ```plaintext
       Bye. Hope to see you again soon!
+      Don't miss me~
       ```
 
 ## FAQ
