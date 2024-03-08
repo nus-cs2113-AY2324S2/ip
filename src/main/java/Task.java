@@ -29,6 +29,9 @@ public class Task {
     public String getType() {
         return type;
     }
+    public String getDescription() {
+        return description;
+    }
 
     @Override
     public String toString() {

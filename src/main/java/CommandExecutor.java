@@ -61,6 +61,9 @@ public class CommandExecutor {
                 userSelectedIndex = CommandList.executeDelete(userCommandReader);
                 CacheManager.updateCache();
                 break;
+            case FIND:
+                CommandList.executeFind(userCommandReader);
+                break;
             default:
                 Formatter.printErrorUnknown();
         }

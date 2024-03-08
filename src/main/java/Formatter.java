@@ -112,4 +112,14 @@ public class Formatter {
         System.out.println("Failed to load cache");
         System.out.println("Program will start with empty list");
     }
+    public static void printMatches(String userQuery) {
+        printWrapper("〓");
+        System.out.println("\t Here are the matching tasks in your list:");
+        for (int i = 0; i < CommandExecutor.tasks.size(); i++) {
+            if (CommandExecutor.tasks.get(i).getDescription().contains(userQuery)) {
+                System.out.printf(" \t%d. %s\n", (i + 1), CommandExecutor.tasks.get(i));
+            }
+        }
+        printWrapper("〓");
+    }
 }
