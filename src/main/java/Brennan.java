@@ -54,6 +54,6 @@ public class Brennan {
      * @param args Command line arguments (not used in this implementation).
      */
     public static void main(String[] args) {
-        new Brennan("data/taskCategory.txt").run();
+        new Brennan("./data/taskCategory.txt").run();
     }
 }
