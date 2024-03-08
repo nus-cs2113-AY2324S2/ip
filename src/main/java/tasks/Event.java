@@ -45,7 +45,8 @@ public class Event extends Task {
         } else {
             additionalInfo = "";
         }
-        super.print();
+        System.out.print('[' + getTaskType() + ']');
+        System.out.print(isMarked() ? "[X] " : "[ ] ");
         System.out.println(getTaskDescription() + additionalInfo);
     }
 }
