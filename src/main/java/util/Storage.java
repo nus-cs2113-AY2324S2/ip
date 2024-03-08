@@ -11,9 +11,16 @@ import tasks.Task;
 import tasks.Todo;
 
 public class Storage {
+    /**
+     * Directory constant.
+     */
     private final String PATH = "./data/nocturne.txt";
     private File f;
 
+    /**
+     * Constructor for the Storage, creating the directory and file that
+     * Nocturne will read and write to.
+     */
     public Storage() {
         File dir = new File("./data");
         if (!dir.exists()) {
@@ -27,6 +34,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to the file specified above.
+     *
+     * @param taskList The list of tasks that will be updated on call.
+     * @throws IOException if the file cannot be access or written to.
+     */
     public void saveToFile(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.f);
@@ -40,12 +53,21 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads from the file in the directory specified above.
+     *
+     * @param tasks The new instance of the list of tasks that will be shown when
+     *              list is called.
+     */
     public void readFromFile(TaskList tasks) {
         try {
             Scanner sc = new Scanner(this.f);
 
             while(sc.hasNextLine()) {
                 String data = sc.nextLine();
+
+                //Deserialization of the strings in the file occur here.
+
                 String task = data.substring(6);
                 task = task.replace('(', ' ');
                 task = task.replace(')', ' ');
