@@ -9,6 +9,8 @@ Schmidt is a task manager CLI application that helps you to keep track of your t
     * [Adding an event task:](#adding-an-event-task-event) `event`
   * [Listing all tasks:](#listing-all-tasks-list) `list`
   * [Marking a task as done or undone:](#marking-a-task-as-done-or-undone-mark-unmark) `mark`, `unmark`
+    * [Marking a task as done:](#marking-a-task-as-done-mark) `mark`
+    * [Marking a task as undone:](#marking-a-task-as-undone-unmark) `unmark`
   * [Deleting a task:](#deleting-a-task-delete) `delete`
   * [Finding a task:](#finding-a-task-find) `find`
   * [Exiting the program:](#exiting-the-program-bye) `bye`
