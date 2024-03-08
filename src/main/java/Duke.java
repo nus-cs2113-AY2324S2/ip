@@ -45,7 +45,7 @@ public class Duke {
                 Parser parser = new Parser(ui, list);
                 Command c = parser.parse(line);
                 if (c != null) {
-                    c.execute(list, storageHandler);
+                    c.execute(list, ui, storageHandler);
                 }
             } catch (IncompletePromptException e) {
                 if (!line.equals("list") && e.isPrintMessage()) {
@@ -55,12 +55,6 @@ public class Duke {
                 System.out.println("Sorry, I do not understand what you're saying.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Sorry, the number you inputted exceeded the file size.");
-            }
-
-            try {
-                storageHandler.saveToFile("./data/list.txt", list);
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
             }
         }
         ui.exit();

@@ -16,17 +16,17 @@ Hello from
 Get the latest release [here](https://github.com/ChongXern/ip/releases).
 
 ## Features  
-- Adding new task: ```todo```, ```deadline``` or ```event```
-- Deleting task: ```delete```
-- Showing task list: ```list```
-- Marking or unmarking a task: ```mark``` or ```unmark```
-- Finding for task: ```find```
-- Renaming chatbot: ```rename```
-- Repeating user input: ```echo```
-- Saving to file
-- Command Typo detection 
-- Exiting the program: ```bye```
-- Undo previous command: ```Coming in v3.0```
+- [Adding new task](#adding-new-task): ```todo```, ```deadline``` or ```event```
+- [Deleting task](#deleting-a-task): ```delete```
+- [Showing task list](#show-list): ```list```
+- [Marking or unmarking a task](#mark-or-unmark-a-task): ```mark``` or ```unmark```
+- [Finding for task](#finding-for-a-task): ```find```
+- [Renaming chatbot](#rename-chatbot): ```rename```
+- [Repeating user input](#repeating-user-input): ```echo```
+- [Saving to file](#saving-to-file)
+- [Command Typo detection](#command-typo-detection)
+- [Exiting the program](#exiting-the-program): ```bye```
+- Undo previous command: ```Upcoming in v2.0```
 
 ### Adding new task
 
@@ -232,7 +232,7 @@ _Expected outcome_:
    ```
 
 ### Saving to file
-Saves the task list to a file under the ```data``` folder in txt format. The file is written every time a task is added, marked or deleted.
+Saves the task list to a txt file `list.txt`. The file is written every time a task is added, marked or deleted. This file can be accessed next to the app or jar file used. 
 
 _Example of usage_: 
 

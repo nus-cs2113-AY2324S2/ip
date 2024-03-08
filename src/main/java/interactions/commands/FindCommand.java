@@ -1,6 +1,7 @@
 package interactions.commands;
 
 import interactions.Storage;
+import interactions.Ui;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -25,7 +26,8 @@ public class FindCommand extends Command {
         ArrayList<Task> list = taskList.getList();
         for (Task task : list) {
             String taskDescription = task.getTaskDescription();
-            if (taskDescription.contains(keyword)) {
+            boolean isSubstring = taskDescription.toLowerCase().contains(keyword.toLowerCase());
+            if (isSubstring) {
                 matchedTasks.addToList(task);
                 tasksFound++;
             }
@@ -39,10 +41,11 @@ public class FindCommand extends Command {
      * Finds for occurences of tasks in a task list, given the keyword.
      *
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param ui UI that records every task description chatbot session.
      * @param storage Storage handler that saves to file.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         System.out.println("Here are the matching tasks in your list:");
         findKeyword(taskDescription, taskList);
     }

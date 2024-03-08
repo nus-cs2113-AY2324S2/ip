@@ -37,9 +37,10 @@ public class Storage {
     }
 
     /**
-     * Saves all tasks in the task list to a txt file, given the file path
+     * Saves all tasks in the task list to a txt file, given the file path.
+     * If the file path does not exist, a new file path will be created
      *
-     * @param filePath File path where the file being written is located.
+     * @param filePath File path where the file being written is or will be located.
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
      * @throws IOException If failed to perform file writing.
      */
@@ -47,14 +48,15 @@ public class Storage {
         ArrayList<Task> list = taskList.getList();
         File f = new File(filePath);
         if (!f.exists()) {
-            throw new FileNotFoundException();
+            f.createNewFile();
         }
-        FileWriter fw = new FileWriter(filePath);
-        for (Task task : list) {
-            fw.write(writeLine(task) + System.lineSeparator());
+        try (FileWriter fw = new FileWriter(filePath)) {
+            for (Task task : list) {
+                fw.write(writeLine(task) + System.lineSeparator());
+            }
         }
-        fw.close();
     }
+
     public Storage() {
 
     }

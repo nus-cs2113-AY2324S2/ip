@@ -43,19 +43,20 @@ public class MarkCommand extends Command {
      * Updates and saves any changes to file.
      *
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param ui UI that records every task description chatbot session.
      * @param storage Storage handler that saves to file.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             mark(taskList);
         } catch (NumberFormatException e) {
             System.out.println("Sorry, please input an integer instead.");
         }
         try {
-            storage.saveToFile("data/list.txt", taskList);
+            storage.saveToFile("list.txt", taskList);
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong when marking task: " + e.getMessage());
         }
     }
 }

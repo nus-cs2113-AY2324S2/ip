@@ -1,8 +1,7 @@
 package interactions.commands;
 
-import customexceptions.IncompletePromptException;
-import customexceptions.UnknownPromptException;
 import interactions.Storage;
+import interactions.Ui;
 import tasks.TaskList;
 
 import java.io.IOException;
@@ -32,19 +31,22 @@ public class DeleteCommand extends Command {
      * Updates the file by removing the task from the file.
      *
      * @param taskList List of tasks.
+     * @param ui UI that records every task description chatbot session.
      * @param storage Storage handler that writes task lists to file.
      */
-    public void execute(TaskList taskList, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.deleteTask(parseIndex(line, firstWord));
         } catch (NumberFormatException e) {
             System.out.println("Sorry, please input an integer instead.");
         }
-
         try {
-            storage.saveToFile("data/list.txt", taskList);
+            storage.saveToFile("list.txt", taskList);
+            if (!ui.isTextFileSavedMentioned()) {
+                ui.setTextFileSavedMentionedTrue();
+            }
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong when deleting task: " + e.getMessage());
         }
     }
 }

@@ -5,7 +5,7 @@ import tasks.TaskList;
 
 /** Handles interface between user and UI chatbot */
 public class Ui {
-    // Sorted instructions
+    // Sorted command instructions
     public static final String[] INSTRUCTIONS = {"bye", "deadline", "delete", "event", "find", "list",
             "mark", "rename", "todo"};
     public String getName() {
@@ -15,7 +15,29 @@ public class Ui {
         this.name = name;
     }
 
-    private String name;
+    protected String name;
+
+    /**
+     * Boolean flag to identify whether the file which saves the list of tasks have been saved.
+     * This file is called {@code file.txt} and can be found under the same directory as the
+     * app, jar file or main java file.
+     */
+    protected boolean isTextFileSavedMentioned = false;
+
+    public boolean isTextFileSavedMentioned() {
+        return isTextFileSavedMentioned;
+    }
+
+    /**
+     * Sets the boolean flag that indicates if a first instance of the saving of a task list
+     * is mentioned to be true, but only once for each session.
+     */
+    public void setTextFileSavedMentionedTrue() {
+        isTextFileSavedMentioned = true;
+        System.out.println("      This task has been saved! " +
+                "You may access the saved tasks in list.txt file under the same directory");
+    }
+
     public Ui() {
         name = "MOBY";
     }

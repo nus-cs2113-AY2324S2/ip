@@ -7,25 +7,19 @@ import interactions.Ui;
 import tasks.TaskList;
 
 public class RenameCommand extends Command {
-    Ui ui;
 
-    /**
-     * Sets the UI object to the name of the inputted UI's name.
-     *
-     * @param ui Chatbot UI object with name.
-     */
-    public RenameCommand(Ui ui) {
-        this.ui = ui;
+    public RenameCommand() {
     }
 
     /**
      * Changes the name of the chatbot UI to a new name.
      *
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param ui UI that records every task description chatbot session.
      * @param storage Storage handler that saves to file.
      */
     @Override
-    public void execute(TaskList taskList, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         String oldName = ui.getName().toUpperCase();
         String newName = taskDescription.toUpperCase();
         if (oldName.equalsIgnoreCase(newName)) {

@@ -3,9 +3,9 @@ package interactions.commands;
 import customexceptions.IncompletePromptException;
 import customexceptions.UnknownPromptException;
 import interactions.Storage;
+import interactions.Ui;
 import tasks.TaskList;
 import tasks.*;
-import interactions.Ui;
 
 import java.io.IOException;
 
@@ -70,20 +70,24 @@ public class AddCommand extends Command {
      * Executes command of adding task to task list. Saves to file by writing the task to file.
      *
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param ui UI that records every task description chatbot session.
      * @param storage Storage handler that saves to file.
      * @throws IncompletePromptException If prompt is lacking required information.
      * @throws UnknownPromptException If inputted prompt does not match commands
      */
     @Override
-    public void execute(TaskList taskList, Storage storage)
+    public void execute(TaskList taskList, Ui ui, Storage storage)
             throws IncompletePromptException, UnknownPromptException {
         System.out.println("Got it. I've added this task:");
         System.out.print(INDENT);
         addNewTask(taskList);
         try {
-            storage.saveToFile("data/list.txt", taskList);
+            storage.saveToFile("list.txt", taskList);
+            if (!ui.isTextFileSavedMentioned()) {
+                ui.setTextFileSavedMentionedTrue();
+            }
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong when adding task: " + e.getMessage());
         }
     }
 }

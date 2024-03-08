@@ -64,7 +64,7 @@ public class Parser {
             command = new EchoCommand();
             break;
         case "rename":
-            command = new RenameCommand(ui);
+            command = new RenameCommand();
             break;
         case "find":
             command = new FindCommand();

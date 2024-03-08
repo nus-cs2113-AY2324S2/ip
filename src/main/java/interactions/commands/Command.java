@@ -3,6 +3,7 @@ package interactions.commands;
 import customexceptions.IncompletePromptException;
 import customexceptions.UnknownPromptException;
 import interactions.Storage;
+import interactions.Ui;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -78,11 +79,12 @@ public abstract class Command {
      * Executes the command, such as adding or deleting, given the task list and storage handler.
      *
      * @param taskList List of tasks containing ToDo's, Events and Deadlines.
+     * @param ui UI that records every task description chatbot session.
      * @param storage Storage handler that saves to file.
      * @throws IncompletePromptException If the information given from the line is incomplete.
      * @throws UnknownPromptException If the prompt line inputted does not match the commands.
      */
-    public abstract void execute(TaskList taskList, Storage storage) throws IncompletePromptException, UnknownPromptException;
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws IncompletePromptException, UnknownPromptException;
     public Command(){
 
     }
