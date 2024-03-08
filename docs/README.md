@@ -1,4 +1,6 @@
-# Chatbot User Guide
+# Chandler Chat Bot User Guide
+
+This is a user guide for using Chandler Chat Bot - a simple task management CLI App
 
 ## Features 
 
