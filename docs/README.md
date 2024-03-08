@@ -37,9 +37,16 @@ Here is how to get started with running the program.
 
 # Features
 ## Showing the list of supported commands: `help`
-Shows the list of commands supported by anonBot.
+Shows the list of commands supported by anonbot.
 
 Format: `help`
+```
+help
+____________________________________________________________
+List of Supported commands:
+bye, exit, list, mark, unmark, todo, deadline, event, delete, find, help, 
+____________________________________________________________
+```
 
 
 ## Creating a new todo task: `todo`
