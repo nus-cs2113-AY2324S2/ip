@@ -1,5 +1,6 @@
 package command;
 
+import exception.ZukeException;
 import task.TaskList;
 import ui.ResponseManager;
 
@@ -32,17 +33,23 @@ public class FindCommand implements Command {
      *
      * @param tasks the task list.
      */
-    public void run(TaskList tasks) {
+    public void run(TaskList tasks) throws ZukeException {
         if (tasks.getSize() == 0) {
             ResponseManager.sendEmptyListMsg();
             return;
         }
         switch (type) {
         case FIND_TIME:
+            if (tasks.findTime(keyword).isEmpty()) {
+                throw new ZukeException(ResponseManager.NO_TASKS_FOUND_MSG);
+            }
             ResponseManager.printActionOnTasks(CommandType.FIND, tasks.findTime(keyword));
             break;
 
         case FIND_WORD:
+            if (tasks.findTime(keyword).isEmpty()) {
+                throw new ZukeException(ResponseManager.NO_TASKS_FOUND_MSG);
+            }
             ResponseManager.printActionOnTasks(CommandType.FIND, tasks.findTask(keyword));
             break;
 

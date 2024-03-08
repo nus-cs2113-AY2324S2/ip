@@ -19,26 +19,28 @@ public class ResponseManager {
     private static final String INDENTATION_LINE =
             "____________________________________________________________";
     private static final String BYE_MESSAGE =
-            "Bye. Hope to see you again soon!\n";
+            "Bye. Hope to see you again soon!\n"
+            + "Don't miss me~\n";
     private static final String TASK_ADDED_MESSAGE =
-            "Got it. I've added this task:\n";
+            "Great! I've added this task:\n";
     public static final String INDEX_ERROR_MESSAGE =
             "please enter a valid index!\n";
     public static final String COMMAND_ERROR =
-            "please enter a valid command\n";
+            "please enter a valid command\n" +
+            "type help for the manual if needed :)\n";
     public static final String FORMAT_ERROR_MESSAGE =
             "please follow the valid format for ";
     public static final String BLANK_MSG_ERROR =
-            "make sure the required field is not empty.\n hit /h for help\n";
+            "make sure the required field is not empty.\n type HELP for help\n";
     private static final String LIST_TASK_MESSAGE =
             "Here are the tasks in your list:\n";
     private static final String UNMARKED_MESSAGE =
-            "OK, I've marked this task as not done yet:\n";
+            "Haiz, I've marked this task as not done yet:\n";
     private static final String MARKED_MESSAGE =
-            "Nice! I've marked this task as done:\n";
+            "Good job! I've marked this task as done for you:\n";
     private static final String END_LINE = System.lineSeparator();
     private static final String DELETE_MESSAGE =
-            "Noted. I've removed the task:\n";
+            "Alright. I've removed the task:\n";
     public static final String SAVE_FILE_ERROR =
             "OOPs, something wrong with file saving :(\n";
     public static final String LOAD_FILE_ERROR =
@@ -79,6 +81,9 @@ public class ResponseManager {
     public static final String GREET_MSG = "Hello! I'm Zuke\n" +
             "What can I do for you?\n" +
             "\nNeed help? Command help for the manual :>\n";
+    public static final String NO_TASKS_FOUND_MSG =
+            "Sorry, I can't find any tasks in the task list contains the\n" +
+            " input information :(\n";
 
     /**
      * Prints the response to the user with indentation line.
