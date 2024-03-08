@@ -22,28 +22,18 @@ With its intuitive Command Line Interface (CLI), Adam offers a seamless and effi
 This user guide provides a comprehensive overview of Adam's features and commands, as well as a quick start guide to get you up and running in no time.
 
 ## Quick Start
-    1. Ensure you have `Java 11` or above installed in your Computer.
-    2. Download the latest `adam.jar` from [here](https://github.com/adamzzq/ip/releases/download/A-UserGuide/adam.jar)
-    3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
-    4. Start a terminal and navigate to the folder where `adam.jar` is located.
-    5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
-
-```
- Hello from
-               _
-      /\      | |
-     /  \   __| | __ _ _ __ ___
-    / /\ \ / _` |/ _` | '_ ` _ \
-   / ____ \ (_| | (_| | | | | | |
-  /_/    \_\__,_|\__,_|_| |_| |_|
-```
-
-    6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
-    7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
-    8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
-    9. Please do not edit the `tasks.dat` file manually as it may result in the **loss of all data**.
-    10. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.<br>
-    If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
+1. Ensure you have `Java 11` or above installed in your Computer.
+2. Download the latest `adam.jar` from [here](https://github.com/adamzzq/ip/releases/download/A-UserGuide/adam.jar)
+3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
+4. Start a terminal and navigate to the folder where `adam.jar` is located.
+5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
+![img.png](img.png)
+6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
+7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
+8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
+9. Please do not edit the `tasks.dat` file manually as it may result in the **loss of all data**.
+10. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.<br>
+If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
 
 > [!NOTE]\

@@ -1,6 +1,7 @@
 ---
 ---
 
+@import "{{ site.theme }}";
 section {
   width:800px;
   padding: 30px 30px 50px 30px;
@@ -20,5 +21,3 @@ section {
   margin: 190px auto 20px;
   max-width: 900px;
 }
-
-@import 'jekyll-theme-leap-day';
