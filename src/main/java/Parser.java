@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -34,6 +35,19 @@ public class Parser {
                     TaskList.operateTask(userInput, TaskList.taskStatus.UNMARK);
                 } else if (userInput.startsWith("delete")) {
                     TaskList.operateTask(userInput, TaskList.taskStatus.DELETE);
+
+                } else if (userInput.startsWith("find")) {
+                    ArrayList<Task> tasksWithKeyword = TaskList.findTasks(userInput);
+                    System.out.println(LINE);
+                    System.out.println("Here are the tasks found:");
+                    int displayedTaskNum;
+                    for (int index = 0; index < tasksWithKeyword.size(); index += 1) {
+                        displayedTaskNum = index + 1;
+                        Task displayedTask = tasksWithKeyword.get(index);
+                        System.out.println(displayedTaskNum + " " + displayedTask);
+                    }
+                    System.out.println(LINE);
+
                 } else if (userInput.equalsIgnoreCase("/help")) {
                     printHelpMessage();
                 } else {
@@ -50,6 +64,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Parses the input to create a Task object based on the input type.
      *
@@ -57,7 +72,9 @@ public class Parser {
      * @param taskToParse The task object to be parsed or initialized based on the user input.
      * @return A Task object parsed from the user input, or null if the input is invalid.
      */
-    public static Task parseTask(String userInput, Task taskToParse) {
+
+    public static Task parseTask(String userInput) {
+        Task taskToParse;
         try {
             if (userInput.startsWith("todo")) {
                 taskToParse = new Todo(userInput);
@@ -92,8 +109,15 @@ public class Parser {
         System.out.println("To create an event, type");
         System.out.println("event (the event) /from (start date/time) /to (end date/time)");
         System.out.println();
-        System.out.println("Other things you can type include list for a list of tasks and others to be added");
+        System.out.println("Other things you can type include:");
+        System.out.println("(list) for a list of tasks");
+        System.out.println("(mark) to mark the task as done");
+        System.out.println("(unmark) to unmark the task");
+        System.out.println("(delete) to delete a task");
+        System.out.println("and");
+        System.out.println("(find) to look for keywords in your tasks");
         System.out.println();
+        System.out.println(LINE);
         System.out.println("Eln hopes that this has been of help. If not there's nothing else Eln can do.");
         System.out.println(LINE);
     }
