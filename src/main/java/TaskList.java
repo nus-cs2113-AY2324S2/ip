@@ -17,11 +17,6 @@ public class TaskList {
         return listSize;
     }
 
-    // Get the task list
-    public ArrayList<Task> getTaskList() {
-        return taskList;
-    }
-
     // Get the task
     public Task getTask(int index) {
         return taskList.get(index);
@@ -81,11 +76,7 @@ public class TaskList {
         Event taskEvent = new Event(task, from, to);
         addTask(taskEvent);
         System.out.println(
-<<<<<<< HEAD
-                OUTPUT_INDENTATION + "Event... yay.\n" +
-=======
                 OUTPUT_INDENTATION + "Event... yeay.\n" +
->>>>>>> master
                         OUTPUT_INDENTATION + "  " + taskEvent + "\n" +
                         OUTPUT_INDENTATION + "Can it BE any more fun?");
     }

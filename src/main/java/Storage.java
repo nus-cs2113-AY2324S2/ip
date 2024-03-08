@@ -1,16 +1,20 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class ChandlerFileManager extends Chandler {
+public class Storage{
 
     private File file;
-    private final static String STORAGE_FOLDER_PATH = "./data";
-    private final static String FILE_PATH = STORAGE_FOLDER_PATH + "/chandler.txt";
+    private Parser parser;
+    private static final String FILE_PATH = "./data/chandler.txt";
 
     // Load the task list from the task file
-    public void loadTaskListFromFile(TaskList taskList) throws ChandlerException {
+    public void loadTaskListFromFile(TaskList taskList, String filePath) throws ChandlerException {
         try {
-            file = new File(FILE_PATH);
+            file = new File(filePath);
+            parser = new Parser();
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -18,7 +22,7 @@ public class ChandlerFileManager extends Chandler {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
-                parseLineFromFile(line, taskList);
+                parser.parseLineFromFile(line, taskList);
             }
             fileScanner.close();
         } catch (FileNotFoundException e) {
@@ -30,22 +34,6 @@ public class ChandlerFileManager extends Chandler {
         }
     }
 
-    // Parse the line
-    public void parseLineFromFile (String line, TaskList taskList) throws ChandlerException {
-        String[] parts = line.split(" \\| "); // Assuming the format is: Type | Status | Description | Additional Info (optional)
-        String taskType = parts[0];
-        if (parts.length >= 3) {
-            Integer doneStatus = Integer.parseInt(parts[1]);
-            String description = parts[2];
-            String additionalInfo = parts.length > 3 ? parts[3] : "";
-            createTaskFromParsedLine(taskType, doneStatus, description, additionalInfo, taskList);
-        } else {
-            // Handle unexpected format (corrupted data)
-            System.err.println("Corrupted data: Unexpected format in the file.");
-        }
-    }
-
-    // Create the tasks based on the type indicator
     public void createTaskFromParsedLine(String taskType, int doneStatus, String description, String additionalInfo, TaskList taskList) {
         switch (taskType) {
             case "T":
@@ -78,7 +66,6 @@ public class ChandlerFileManager extends Chandler {
     // Save the task list to the file (make it in the format of |)
     public void saveTaskListToFile(TaskList taskList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
-
             for (int i = 0; i < taskList.getListSize(); i++) {
                 Task currentTask = taskList.getTask(i);
                 String taskType = currentTask.getTaskType();
