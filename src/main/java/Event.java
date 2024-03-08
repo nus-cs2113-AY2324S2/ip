@@ -44,6 +44,10 @@ public class Event extends Task {
             throw new NoSuchElementException("Invalid event format: missing '/from' keyword.");
         }
         parts = parts[1].split(" /to ", 2);
+        // Check if the parts array length is not equal to 2 after splitting by "/to"
+        if (parts.length != 2) {
+            throw new NoSuchElementException("Invalid event format: missing '/to' keyword.");
+        }
 
         this.from = parts[0];
         this.to = parts[1];

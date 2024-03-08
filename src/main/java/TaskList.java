@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
  * The TaskList class represents an ArrayList of tasks and its methods.
  */
 public class TaskList {
-    private static final String LINE = "____________________________________________________________";
+    private static final String LINE = "________________________________________________________________________________";
     private static Ui ui = new Ui();
     private final ArrayList<Task> tasks;
 
