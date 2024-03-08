@@ -33,11 +33,14 @@ public class MimiException {
     public final static String INSUFFICIENT_INDEX_PARAMETERS_MSG = "delete/mark/unmark parameters is incomplete. " +
             "Proper syntax: delete/mark/unmark [task number]";
 
+    public final static String INSUFFICIENT_FIND_PARAMETERS_MSG = "find parameters is incomplete. " +
+            "Proper syntax: find [keyword]";
+
     public final static String TASK_NOT_FOUND_MSG = "task not found. " + "Please check the task number again.";
 
     public final static String FILE_CORRUPTED_MSG = "file is corrupted. " + "Please check the file again.";
 
-    public final static String LOAD_ERROR_MSG = "Unable to load file. Please ensure /data/mimi.logs exists.";
+    public final static String LOAD_ERROR_MSG = "Unable to load file. Creating mimi.logs in ./data in the root directory now :)";
 
 
     public static class InsufficientParameters extends Exception {

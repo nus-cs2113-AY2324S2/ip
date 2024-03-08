@@ -45,8 +45,8 @@ public class Storage {
             fileScanner.useDelimiter("\n");
             return fileScanner;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw new MimiException.LoadError(MimiException.LOAD_ERROR_MSG);
+
         }
     }
 
@@ -86,7 +86,12 @@ public class Storage {
      **/
     public void loadFile() throws MimiException.FileCorrupted {
         try {
+            if(!new File(this.filePath).exists()){
+                throw new MimiException.LoadError(MimiException.LOAD_ERROR_MSG);
+            }
+
             Scanner fileScanner = createFileScanner(this.filePath);
+
 
             while (fileScanner.hasNext()) {
                 String[] task = fileScanner.next().split("\\" + FILE_DELIMITER);
@@ -118,8 +123,13 @@ public class Storage {
             }
             this.saveFile(TaskList.getTaskList(), filePath);
 
-        } catch (MimiException.LoadError | MimiException.IncorrectFormat | MimiException.InsufficientParameters | ArrayIndexOutOfBoundsException e) {
+        } catch (MimiException.IncorrectFormat | MimiException.InsufficientParameters | ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
+        } catch (MimiException.LoadError e){
+            new File("data").mkdir();
+            new File("data/mimi.logs");
+            System.out.println(e.getMessage());
+            // repeat the load file process
         }
     }
 
@@ -131,6 +141,7 @@ public class Storage {
      * @param filePath  the path of the file to be saved
      */
     public void saveFile(ArrayList<Task> taskList, String filePath) {
+
         try {
             File file = new File(filePath);
             FileWriter writer = new FileWriter(file);
@@ -139,6 +150,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
+
             System.out.println("\u001B[31mError:Unable to save file as " + filePath + " does not exists. Please create a " +
                     "/data folder in the root directory first.\u001B[0m");
         }
