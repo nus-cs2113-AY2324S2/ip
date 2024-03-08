@@ -13,7 +13,7 @@ public class Parser {
         try {
             parseInput(input);
         } catch (PythiaException pe) {
-            System.out.println("Not a valid command\n" + MoodSprite.getLineBreak());
+            System.out.println(MoodSprite.getAngry() + "Not a valid command\n" + MoodSprite.getLineBreak());
         }
     }
 
@@ -36,6 +36,10 @@ public class Parser {
             Command.delete(input);
         } else if (input.contains("find ")) {
             Command.find(input);
+        } else if (input.contains("help")) {
+            Command.help();
+        } else if (input.contains("bye")) {
+            return;
         } else {
             throw new PythiaException();
         }

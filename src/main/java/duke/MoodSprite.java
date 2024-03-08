@@ -19,6 +19,17 @@ public class MoodSprite {
                                         + "   ██                  ██\n"
                                         + "     ██████████████████ \n\n";
 
+    private static final String ANGRY =   "       ███       ███    \n"
+                                        + "      ██  ██   ███ ██ \n"
+                                        + "      ██   █████   ██   \n"
+                                        + "      ██   █████   ██   \n"
+                                        + "      ██           ██   \n"
+                                        + "       █████████████    \n"
+                                        + "                        \n"
+                                        + "      ███████████████   \n"
+                                        + "    ███             ███ \n"
+                                        + "    ██               ██\n\n";
+
     private static final String LINEBREAK = "----------------------------------------------------------";
 
     public static String getHappy() {
@@ -29,5 +40,11 @@ public class MoodSprite {
         return IDLE;
     }
 
-    public static String getLineBreak() {return LINEBREAK;}
+    public static String getLineBreak() {
+        return LINEBREAK;
+    }
+
+    public static String getAngry() {
+        return ANGRY;
+    }
 }

@@ -19,8 +19,8 @@ public class Duke {
      * Main logic flow of the programme
      */
     public void run() {
-        System.out.println(MoodSprite.getIdle() + "Hello, Im Pythia, how may I help you today?\n"+ MoodSprite.getLineBreak());
         storage.tryRetrieveList();
+        System.out.println(MoodSprite.getIdle() + "Hello, Im Pythia, input 'help' if you would like to know what I can do!\n"+ MoodSprite.getLineBreak());
         input.mainLoop();
         System.out.println(MoodSprite.getHappy()+"Happy to help, have a great day.\n"+ MoodSprite.getLineBreak());
     }

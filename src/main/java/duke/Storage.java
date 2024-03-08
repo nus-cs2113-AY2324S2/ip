@@ -43,7 +43,7 @@ public class Storage {
         try {
             retrieveList();
         } catch (FileNotFoundException e) {
-            System.out.println("Saved list not found, creating now");
+            System.out.println(MoodSprite.getHappy() + "Saved list not found, creating now\n" + MoodSprite.getLineBreak());
         }
     }
 

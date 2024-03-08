@@ -4,7 +4,31 @@ package duke;
  * Class that contains the executions for all possible commands
  */
 public class Command {
+
+    private static final String HELP_TEXT =  "list\n"
+                                    + " - prints all items in list\n"
+                                    + " - Format: list\n"
+                                    + "mark/unmark\n"
+                                    + " - marks/unmarks an item in the list\n"
+                                    + " - Format: mark/unmark [INDEX]\n"
+                                    + "delete\n"
+                                    + " - deletes an item in the list\n"
+                                    + " - Format: delete [INDEX]\n"
+                                    + "find\n"
+                                    + " - finds all task descriptions that contain a keyword\n"
+                                    + " - Format: find [KEYWORD]\n"
+                                    + "todo\n"
+                                    + " - creates a todo task with no deadline\n"
+                                    + " - Format: todo [TASK]"
+                                    + "deadline\n"
+                                    + " - creates a task with a deadline\n"
+                                    + " - Format: deadline [TASK] /[DUEDATE]\n"
+                                    + "event\n"
+                                    + " - creates a task with start and end time/date\n"
+                                    + " - Format: event [TASK] /[STARTTIME] /[ENDTIME]\n";
+
     private static TaskList taskList = new TaskList();
+
     private static UnparsedTaskList inputList = new UnparsedTaskList();
 
     /**
@@ -133,5 +157,12 @@ public class Command {
         if (!isFound) {
             System.out.println("No such keyword exists");
         }
+    }
+
+    /**
+     * Prints out a list of commands that the user can perform
+     */
+    public static void help() {
+        System.out.print(HELP_TEXT);
     }
 }
