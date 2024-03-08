@@ -12,18 +12,6 @@ public class Todo {
         type = "[T]";
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getType() {
-        return type;
-    }
-
     public String formatTask() {
         return (type + status + description);
     }

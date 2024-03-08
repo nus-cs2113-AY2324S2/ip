@@ -1,4 +1,3 @@
-import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 import parser.Parser;
@@ -9,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         Ui ui = new Ui();
         TaskList tasklist = new TaskList();
-        Storage storage = new Storage(PATHNAME);
         Parser parser = new Parser(tasklist.getList(), tasklist.taskNum);
         ui.printGreetings();
         try {

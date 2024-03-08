@@ -13,14 +13,6 @@ public class Event extends Todo {
         type = "[E]";
     }
 
-    public String getStart() {
-        return start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
     public String formatTask() {
 
         return (type + status + description + "(from:" + start + "to:" + end + ")");
