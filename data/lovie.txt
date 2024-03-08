@@ -1,4 +1,6 @@
-todo hi hi hi  | 0
+todo hi hi hi  | 1
 deadline deadline /by deadline | 0
 todo todo todo | 1
 event event event /from event /to event | 0
+todo read book | 1
+deadline return book /by tuesday | 0
