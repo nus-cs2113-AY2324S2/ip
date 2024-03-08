@@ -1,3 +1,16 @@
+/**
+ * Represents a task management program that allows users to manage their tasks.
+ *
+ * <p>Users can add different types of tasks including todos, deadlines, and events.
+ * They can also mark tasks as done, delete tasks, and search for tasks by keyword.
+ *
+ * @param FILE_PATH the file path where tasks are stored
+ * @param ui the user interface for displaying messages
+ * @param tasks the list of tasks currently managed by the program
+ *
+ * @throws DukeException if there is an error in processing user commands
+ * @throws IOException if there is an error in loading or saving tasks from/to file
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
