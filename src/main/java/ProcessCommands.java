@@ -11,8 +11,7 @@ public class ProcessCommands {
      * identifies the command type and passes the command
      * to the relevant method in TaskList
      * @param command user command to handle
-     * @throws ArrayIndexOutOfBoundsException if command format is invalid
-     * @throws NumberFormatException if a number in a command is invalid
+     *
      */
     private void processTaskCommand(String command) {
         try {
@@ -21,6 +20,10 @@ public class ProcessCommands {
 
             switch (taskType) {
             case "todo":
+                if (commandParts[1].trim().isEmpty()) {
+                    System.out.println("Invalid command format for 'todo'. Provide a description.");
+                    return;
+                }
                 taskList.addTask(new Task(commandParts[1]), true);
                 break;
             case "deadline":
@@ -46,11 +49,11 @@ public class ProcessCommands {
                 break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid command format. Provide valid input");
-            throw e;
+            System.out.println("Invalid command format. Provide valid input: <Task type> <Description> ");
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid command format. Input a valid number");
-            throw e;
+
         }
     }
 

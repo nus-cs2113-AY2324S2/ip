@@ -50,6 +50,7 @@ public class TaskList {
      *
      **/
     public void addEvent(String[] commandParts, boolean userAdded) {
+
         String[] eventparts = commandParts[1].split("/from", 2);
         if (eventparts.length != 2) {
             System.out.println("Invalid deadline format! Use: deadline <<description>> /by <<deadline>>.");
