@@ -4,20 +4,15 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     private String task;
     private boolean isComplete;
-    protected static int number=0;
     public Task(String task)
     {
         this.task=task;
         this.isComplete=false;
-        number++;
-        System.out.println("Now you have "+number+" tasks in the list.");
     }
     public Task(String task,boolean isComplete)
     {
         this.task=task;
         this.isComplete=isComplete;
-        number++;
-        System.out.println("Now you have "+number+" tasks in the list.");
     }
 
     public String getTask() {
@@ -51,7 +46,6 @@ public abstract class Task {
         this.isComplete=false;
     }
 
-    public static void deleteTask() { number--; }
 
     public String toString() {
         return "[" + (this.isComplete ? "X" : " ") + "] " + this.task;
