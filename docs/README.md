@@ -58,6 +58,7 @@ Format: `todo <description>`
 Examples: 
 - `todo`: Error out and provides correct syntax.
 - `todo Test out the document`: Create a todo task with the description "Test out the document".
+
 ```
 todo
 ____________________________________________________________
@@ -85,6 +86,7 @@ Examples:
 - `deadline`: Errors out and provides the correct syntax. 
 - `deadline anonbot deployment`: Creates a deadline task without additional information.
 - `deadline anonbot deployment v2 /by today ASAP`: Creates a deadline task with `/by` information.
+
 ```
 deadline
 ____________________________________________________________
@@ -121,6 +123,7 @@ Examples:
 - `event Celebrate 2024`: Adds the event without additional information.
 - `event Move House /from Jan`: Adds the event with additional `/from` field information.
 - `event Midterms /from 1 Mar 24 2pm /to 4pm` Adds the event with `/from` and `/to` information
+
 ```
 event
 ____________________________________________________________
@@ -179,6 +182,7 @@ Examples:
 - `find`: Errors out and provides the correct syntax.
 - `find a phrase that does not exist`: Returns empty entries (if no matches)
 - `find anon`: Returns matching tasks
+
 ```
 find
 ____________________________________________________________
@@ -211,6 +215,7 @@ Examples:
 - `mark slfjsfdkljsf` Errors out as an invalid argument.
 - `mark 1`: Succeeds and return the state of the marked task.
 - `mark 775687` Errors out as the task could not be found.
+
 ```
 mark
 ____________________________________________________________
@@ -248,6 +253,7 @@ Examples:
 - `unmark slfjsfdkljsf` Errors out as an invalid argument.
 - `unmark 1`: Succeeds and return the state of the unmarked task.
 - `unmark 775687` Errors out as the task could not be found.
+
 ```
 unmark
 ____________________________________________________________
@@ -285,6 +291,7 @@ Examples:
 - `delete slfjsfdkljsf` Errors out as an invalid argument.
 - `delete 1`: Succeeds and shows the task that was deleted.
 - `delete 775687` Errors out as the task could not be found.
+
 ```
 delete
 ____________________________________________________________
