@@ -1,5 +1,19 @@
 public class DukeException extends Exception {
-
+    /**
+     * Handles exceptions that occur during Duke application operations.
+     * It prints appropriate error messages based on the type of exception.
+     * If the exception is related to array index out of bounds,
+     * it notifies the user about exceeding the task limit.
+     * If the exception is related to string index out of bounds,
+     * it identifies whether the input is incomplete or unclear,
+     * depending on the operation being performed.
+     * If the exception is an illegal argument exception,
+     * it indicates that the command provided is unfamiliar.
+     * For any other type of exception, it displays a generic unknown error message.
+     *
+     * @param exception The exception that occurred.
+     * @param input     The input string where the exception occurred.
+     */
     public static void handleException(Exception exception, String input) {
         final String SEPARATOR = "=====================================================================================================================";
 
@@ -29,4 +43,3 @@ public class DukeException extends Exception {
         System.out.println(SEPARATOR);
     }
 }
-
