@@ -18,11 +18,9 @@ public class Storage {
         try {
             File file = new File("./data.txt");
             if (file.createNewFile()) {
-                this.path = "./data.txt";
-            } else {
-                this.path = "./data.txt";
-                UI.printMessage("File already exists");
+                UI.printMessage("New task profile created.");
             }
+            this.path = "./data.txt";
         } catch (IOException ioe) {
             UI.printMessage("Something went wrong in the storage");
         }
