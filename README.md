@@ -12,8 +12,8 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 4. Run the command `java -jar ip.jar`
 5. Now you should be able to Interact with John the ChatBot!
 
-##Features
-###Add a Todo task: `Todo`
+## Features
+### Add a Todo task: `Todo`
 * Expected Format: `todo [description]`
 * Example Usage: `todo walk the dog`
 * Example Output:
@@ -24,7 +24,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   Now you have 1 tasks in the list
   ```
 
-###Add a Deadline task: `Deadline`
+### Add a Deadline task: `Deadline`
 * Expected Format: `deadline [description] /by [date]`
 * Example Usage: `deadline walk the dog /by tomorrow`
 * Example Output:
@@ -35,7 +35,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   Now you have 1 tasks in the list
   ```
 
-###Add a Event task: `Event`
+### Add a Event task: `Event`
 * Expected Format: `event [description] /from [start time] /to [end time]`
 * Example Usage: `event walk the dog /from today /to tomorrow`
 * Example Output:
@@ -46,7 +46,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   Now you have 1 tasks in the list
   ```
 
-###Mark a task as complete: `Mark`
+### Mark a task as complete: `Mark`
 * Expected Format: `mark [number]` (One indexed)
 * Example Usage: `mark 1`
 * Example Output:
@@ -55,7 +55,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   [T][X] walk the dog
   ```
 
-###Mark a task as incomplete: `Unmark`
+### Mark a task as incomplete: `Unmark`
 * Expected Format: `unmark [number]` (One indexed)
 * Example Usage: `unmark 1`
 * Example Output:
@@ -64,7 +64,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   [T][ ] walk the dog
   ```
 
-###Delete a task: `Delete`
+### Delete a task: `Delete`
 * Expected Format: `delete [number]` (One indexed)
 * Example Usage: `delete 1`
 * Example Output:
@@ -74,7 +74,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   Now you have 0 tasks in the list.
   ```
 
-###Display your Todolist: `List`
+### Display your Todolist: `List`
 * Expected Format: `list`
 * Example Usage: `list`
 * Example Output:
@@ -84,7 +84,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   3. [E][ ] walk the monkey (from: today to: tomorrow)
   ```
 
-###Exit the ChatBot: `Bye`
+### Exit the ChatBot: `Bye`
 * Expected Format: `bye`
 * Example Usage: `bye`
 * Example Output:
@@ -94,6 +94,6 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
   ______________________________________
   ```
   
-##Saving the Data
+## Saving the Data
 
 John Chatbot automatically saves the current state of your todolist to a `data.txt` that will exist in the same folder as your ip.jar file.
