@@ -14,6 +14,8 @@ Prerequisites: JDK 11, Intellij.
 6. A CLI similar to the below should appear.
 ![img.png](img.png)
 
+
+
 ## Features
 ### Adding a Todo: `todo`
 
