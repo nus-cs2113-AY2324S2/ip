@@ -67,6 +67,13 @@ public class Storage {
             Path directoryPath = Paths.get("./data");
             Files.createDirectories(directoryPath);
 
+            // Check if file exists
+            Path filePath = Paths.get(FILE_PATH);
+            if (!Files.exists(filePath)) {
+                // Create the file if it doesn't exist
+                Files.createFile(filePath);
+            }
+
             // Write tasks to file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
                 for (Task task : tasks) {
