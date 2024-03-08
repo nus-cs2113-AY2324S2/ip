@@ -25,12 +25,13 @@ public class Event extends Task {
         try {
             LocalDateTime fromDateAndTime = Time.parseDateAndTime(from);
             LocalDateTime toDateAndTime = Time.parseDateAndTime(to);
-            this.from = Time.standardize(from);
-            this.to = Time.standardize(to);
 
             if (fromDateAndTime.isAfter(toDateAndTime)) {
                 throw new AdamException(Message.EVENT_TIME_ERROR_MESSAGE);
             }
+
+            this.from = Time.standardize(from);
+            this.to = Time.standardize(to);
         } catch (IllegalArgumentException e) {
             this.from = from;
             this.to = to;
