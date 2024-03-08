@@ -23,16 +23,12 @@ public class Parser {
      */
     public void processTodo(String input) throws JaneException {
         if (input.isEmpty()) {
-            throw new JaneException("OOPS!!! The description of a todo cannot be empty.");
+            throw new JaneException(Message.TODO_EMPTY_DESCRIPTION_ERROR);
         }
         Todo todo = new Todo(input);
         this.taskList.addTask(todo);
-        System.out.println("Got it. I've added this task:\n"
-                + todo
-                + "\n"
-                + "Now you have "
-                + this.taskList.getCount()
-                + " tasks in the list.");
+        System.out.println(Message.TASK_ADDED + todo);
+        System.out.println(Message.numberOfTasks(this.taskList.getCount()));
     }
 
     /**
@@ -43,18 +39,14 @@ public class Parser {
      */
     public void processDeadline(String input) throws JaneException {
         if (input.isEmpty()) {
-            throw new JaneException("OOPS!!! The description of a deadline cannot be empty.");
+            throw new JaneException(Message.DEADLINE_EMPTY_DESCRIPTION_ERROR);
         }
         String[] deadlineInput = input.split(" /", 2);
         Deadline deadline = new Deadline(deadlineInput[0],
                 deadlineInput[1].replace("/", "").replace("by ", ""));
         this.taskList.addTask(deadline);
-        System.out.println("Got it. I've added this task:\n"
-                + deadline
-                + "\n"
-                + "Now you have "
-                + this.taskList.getCount()
-                + " tasks in the list.");
+        System.out.println(Message.TASK_ADDED + deadline);
+        System.out.println(Message.numberOfTasks(this.taskList.getCount()));
     }
 
     /**
@@ -65,19 +57,15 @@ public class Parser {
      */
     public void processEvent(String input) throws JaneException {
         if (input.isEmpty()) {
-            throw new JaneException("OOPS!!! The description of a event cannot be empty.");
+            throw new JaneException(Message.EVENT_EMPTY_DESCRIPTION_ERROR);
         }
         String[] eventInput = input.split(" /", 3);
         Event event = new Event(eventInput[0],
                 eventInput[1].replace("/", "").replace("from ", ""),
                 eventInput[2].replace("/", "").replace("to ", ""));
         this.taskList.addTask(event);
-        System.out.println("Got it. I've added this task:\n"
-                + event
-                + "\n"
-                + "Now you have "
-                + this.taskList.getCount()
-                + " tasks in the list.");
+        System.out.println(Message.TASK_ADDED + event);
+        System.out.println(Message.numberOfTasks(this.taskList.getCount()));
     }
 
     /**
@@ -88,7 +76,7 @@ public class Parser {
     public void markAsDone(int sequence) {
         Task task = this.taskList.list.get(sequence);
         task.setDone(true);
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+        System.out.println(Message.MARK_AS_DONE + task);
 
     }
 
@@ -100,7 +88,7 @@ public class Parser {
     public void markAsUndone(int sequence) {
         Task task = this.taskList.list.get(sequence);
         task.setDone(false);
-        System.out.println("OK, I've marked this task as not done yet:\n" + task);
+        System.out.println(Message.MARK_AS_UNDONE + task);
     }
 
     /**
@@ -110,7 +98,7 @@ public class Parser {
      */
     public void findWord(String word) {
         String description;
-        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(Message.MATCHING_LIST_HEADER);
         for (Task task : this.taskList.list) {
             description = task.getDescription();
             if (description.contains(word)) {

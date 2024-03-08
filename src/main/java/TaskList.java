@@ -59,19 +59,15 @@ public class TaskList {
     public void removeTask(int sequence) {
         Task task = this.list.get(sequence);
         this.list.remove(sequence);
-        System.out.println("Noted. I've removed this task:\n"
-                + task
-                + "\n"
-                + "Now you have "
-                + getCount()
-                + " tasks in the list.");
+        System.out.println(Message.TASK_REMOVED + task);
+        System.out.println(Message.numberOfTasks(getCount()));
     }
 
     /**
      * Prints the list of tasks with their respective sequence numbers.
      */
     public void printList() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println(Message.LIST_HEADER);
         for (int i = 0; i < getCount(); i++) {
             System.out.println(i+1 + "." + this.list.get(i));
         }

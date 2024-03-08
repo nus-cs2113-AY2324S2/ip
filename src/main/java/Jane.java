@@ -28,11 +28,9 @@ public class Jane {
                 + "| |_| |  | | | |  | |  | |  | |___ \n"
                 + "|_____|  |_| |_|  |_| ___|  |_____|\n";
         String Separator = "____________________________________________________________\n";
-        String Greet_Message = "Hello! I am Jane.\nWhat can I do for you?\n";
-        String Exit_Message = "Bye. Hope to see you again soon!\n";
 
         System.out.print(Logo + Separator);
-        System.out.print(Greet_Message + Separator);
+        System.out.print(Message.GREET + Separator);
 
         try {
             // Initialize storage and load existing files
@@ -58,14 +56,14 @@ public class Jane {
             // Save tasks to file before exiting
             try {
                 storage.saveTasksToFile(taskList);
-                System.out.print(Separator + Exit_Message + Separator);
+                System.out.print(Separator + Message.EXIT + Separator);
             } catch (IOException e) {
-                System.out.println("File does not exist");
+                System.out.println(Message.INEXISTENT_FILE);
             }
         } catch (IOException e) {
-            System.out.println("File does not exist");
+            System.out.println(Message.INEXISTENT_FILE);
         } catch (JaneDataCorruptedException e) {
-            System.out.println("File does not exist");
+            System.out.println(Message.CORRUPTED_FILE);
         }
     }
 }

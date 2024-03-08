@@ -39,7 +39,7 @@ public class Ui {
                 case "todo" :
                 case "deadline" :
                 case "event" :
-                    throw new JaneException("Description for a " + inputPart[0] + " cannot be empty");
+                    throw new JaneException(Message.emptyDescriptionError(inputPart[0]));
                 }
             }
 
@@ -71,7 +71,7 @@ public class Ui {
                 parser.findWord(inputPart[1]);
                 break;
             default:
-                throw new JaneException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new JaneException(Message.INPUT_NOT_UNDERSTOOD_ERROR);
             }
         } catch (JaneException e) {
             throw new JaneException(e.getMessage());
