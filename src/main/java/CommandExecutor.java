@@ -7,9 +7,18 @@ public class CommandExecutor {
     static Scanner in = new Scanner(System.in);
     static String userInput;
     static CommandParser userCommandReader;
+    /**
+     * Reads user input and stores it
+     *
+     */
     public static void beginListening() {
         userInput = in.nextLine();
     }
+    /**
+     * Parses read input into its parameters
+     *
+     * @throws ProcessInputException If command read from input is invalid
+     */
     public static void processInput() throws ProcessInputException{
         try {
             userCommandReader = new CommandParser(userInput);
@@ -27,6 +36,10 @@ public class CommandExecutor {
         }
     }
 
+    /**
+     * Runs command based on parsed input
+     *
+     */
     public static void executeCommand() {
             CommandList selectedCommand = CommandList.valueOf(userCommandReader.getCommandName());
             int userSelectedIndex;
