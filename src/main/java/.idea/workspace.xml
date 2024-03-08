@@ -10,21 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/main_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/main_jar2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/tasks.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/main_jar/main.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/main_jar2/main.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/artifacts/main_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/.idea/artifacts/main_jar2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/main/data/tasks.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/Duke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Storage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/main/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/main/Duke.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/Duke.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/main/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/Storage.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +20,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -49,7 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/untitled/src",
+    "last_opened_file_path": "C:/Users/nikhi/OneDrive/Desktop/cs2113",
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"

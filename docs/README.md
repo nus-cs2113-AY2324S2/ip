@@ -117,7 +117,7 @@ Confirms the addition and displays the updated number of tasks.
 
 ```
 Got it. I've added this task:
-  [ ] Submit project report (by: Mar 5, 2024 23:59)
+[D][ ] Submit project report (by: Mar 5, 2024 23:59)
 Now you have 5 tasks in the list.
 ```
 ### `event` - Add an event with a specified duration
@@ -134,7 +134,7 @@ Confirms the addition and displays the updated number of tasks.
 
 ```
 Got it. I've added this task:
-  [ ] Team meeting (from: Mar 8, 2024 14:00, to: Mar 8, 2024 16:00)
+[E][ ] Team meeting (from: Mar 8, 2024 14:00, to: Mar 8, 2024 16:00)
 Now you have 6 tasks in the list.
 ```
 ### `delete` - Delete a specific task
@@ -151,7 +151,7 @@ Provides confirmation and displays the updated number of tasks.
 
 ```
 Noted. I've removed this task: 
-  [ ] Incomplete Event Task (from: Mar 1, 2024 12:00, to: Mar 1, 2024 15:00)
+[E][ ] Incomplete Event Task (from: Mar 1, 2024 12:00, to: Mar 1, 2024 15:00)
 Now you have 5 tasks in the list.
 ```
 ### `find` - Search for tasks
@@ -169,7 +169,7 @@ Upon using the find command with the keyword "assignment," the expected outcome 
 ```
 ____________________________________________________________
 Here are the matching tasks in your list:
-1.[ ] Complete Java assignment
+1.[T][ ] Complete Java assignment
 ____________________________________________________________
 ```
 

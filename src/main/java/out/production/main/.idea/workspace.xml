@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="main:jar" />
+      <artifact name="main:jar2" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -11,11 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c203ce57-81bc-4b7c-b337-08a27c5340fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/Duke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Storage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/main/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/main/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/main/Storage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/tasks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/tasks.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
