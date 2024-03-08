@@ -55,7 +55,9 @@ public abstract class Task {
     }
 
     public abstract String toFileFormat();
+
     protected abstract String getTaskType();
+
     public String toStringSave() { return this.toString() ;}
 
 
