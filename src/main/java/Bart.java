@@ -58,7 +58,7 @@ public class Bart {
                     tasksList.addNewTask(command);
                 }
             } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
-                System.out.println(LINE + "\nERROR! Needs number input after: " + command + "\n" + LINE);
+                System.out.println(LINE + "\nERROR! Wrong input: " + command + "\n" + LINE);
             }
         }
     }
