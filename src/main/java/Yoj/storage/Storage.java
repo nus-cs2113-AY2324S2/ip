@@ -1,17 +1,40 @@
 package Yoj.storage;
+
 import Yoj.tasks.*;
 import Yoj.ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Storage {
-    private static final String FILE_PATH = "src/data/Yojdata.txt";
+    private static final String FILE_PATH = makeFilePath();
+
+    private static String makeFilePath() {
+        String userHome = System.getProperty("user.home");
+        String separator = FileSystems.getDefault().getSeparator();    // Construct the directory path separately
+        String directoryPath = userHome + separator + "Desktop" + separator + "Yoj";
+        File YojDirectory = new File(directoryPath);
+        // Ensure the directory exists
+        if (!YojDirectory.exists()) {
+            boolean wasSuccessful = YojDirectory.mkdirs(); // Create the directory if it doesn't exist
+            if (wasSuccessful) {
+                Ui.printCreateFile();
+            } else {
+                Ui.printFileCreationFailed();
+            }
+        }
+        String filePath = directoryPath + separator + "Yojdata.txt";
+        return filePath;
+    }
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         try {
@@ -59,7 +82,12 @@ public class Storage {
         }
         return loadedTasks;
     }
-
+    /**
+     * Saves the current tasks to the storage file.
+     *
+     * @param tasks The ArrayList of Task objects to be saved.
+     * @throws IOException If there is an error writing to the file.
+     */
     public static void save(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH); // create a FileWriter in append mode
         try {

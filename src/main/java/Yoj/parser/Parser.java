@@ -5,12 +5,21 @@ import Yoj.exception.InvalidCommandException;
 import Yoj.exception.YojException;
 import Yoj.storage.Storage;
 import Yoj.ui.Ui;
-
 import java.io.IOException;
-
 import static Yoj.taskList.List.tasks;
 
+/**
+ * This class is responsible for parsing the user input and managing the corresponding actions.
+ */
 public class Parser {
+    /**
+     * Parses the user input and invokes the appropriate action based on the command.
+     *
+     * @param userInput The full line of input entered by the user.
+     * @throws YojException If there's a problem specific to Yoj's functionality.
+     * @throws InvalidCommandException If the entered command is not recognized.
+     * @throws IOException If there is an input/output error during task handling.
+     */
     public static void manageUserInput(String userInput) throws YojException, InvalidCommandException, IOException {
         if (userInput.equals("list")) {
             Ui.printList();
@@ -34,6 +43,6 @@ public class Parser {
         } else if(userInput.equals("bye")){
             Ui.byeMessage();
             Storage.save(tasks);
-        } else throw new InvalidCommandException("command not recognised :<");
+        } else throw new InvalidCommandException("unfortunately im not sure what u mean... :<");
     }
 }
