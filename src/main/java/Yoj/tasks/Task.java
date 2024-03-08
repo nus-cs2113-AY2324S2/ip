@@ -15,7 +15,6 @@ public class Task {
     public void markUndone() {
         this.isDone = false;
     }
-
     public String isCompleted() {
         return (isDone ? "1" : "0");
     }

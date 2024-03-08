@@ -1,6 +1,5 @@
 [T] | 1 | ok
-[T] | 0 | trial
+[T] | 1 | trial
 [T] | 1 | lol
 [T] | 0 | add book
-[T] | 1 | return book
-[D] | 0 | read book
+[D] | 0 | finidh code
