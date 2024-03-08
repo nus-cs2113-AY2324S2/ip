@@ -9,6 +9,7 @@ public class Command {
     {
         this.fullCommand=null;
     }
+
     public void setCommand(String fullCommand)
     {
         this.fullCommand=fullCommand;
