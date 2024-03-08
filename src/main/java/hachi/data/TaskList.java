@@ -30,8 +30,8 @@ public class TaskList {
      */
 
     public TaskList () {
-        tasksArrayList = new ArrayList<>();
-        ui = new Ui();
+        this.tasksArrayList = new ArrayList<>();
+        this.ui = new Ui();
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList {
 
     public TaskList (ArrayList<Task> tasksArrayList) {
         this.tasksArrayList = tasksArrayList;
-        ui = new Ui();
+        this.ui = new Ui();
     }
 
     /**

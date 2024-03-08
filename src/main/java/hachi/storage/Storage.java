@@ -40,6 +40,16 @@ public class Storage {
     }
 
     /**
+     * Getter for TaskList of Storage class.
+     *
+     * @return The TaskList currently stored.
+     */
+
+    public TaskList getTasksList() {
+        return tasksList;
+    }
+
+    /**
      * Checks if the folder for the save file for Hachi exists,
      * and if it does not exist, creates the folder required.
      *
@@ -71,13 +81,13 @@ public class Storage {
             System.out.println("\n\tCreating new task list save...");
         }
 
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(filePath, true);
 
-        if (tasksList != null) {
-            for (int i = 0; i < tasksList.getSize(); i++) {
-                fw.write((tasksList.getSpecifiedTask(i).getSaveFormat()) + "\n");
-            }
+        for (int i = 0; i < tasksList.getSize(); i++) {
+            fw.write((tasksList.getSpecifiedTask(i).getSaveFormat()) + "\n");
+            System.out.println(tasksList.getSpecifiedTask(i).getSaveFormat() + "\n");
         }
+
         fw.close();
     }
 
