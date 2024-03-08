@@ -1,6 +1,8 @@
 package ui;
 import tasklist.todo.Todo;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     public Ui() {}
@@ -21,6 +23,13 @@ public class Ui {
         printLine();
     }
 
+    public void printList(ArrayList<Todo> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + "." + list.get(i).formatTask());
+        }
+        printLine();
+    }
+
     public void printDelMessage(Todo task, int taskNum) {
         System.out.println("Got it. I've deleted this task:");
         System.out.println("  " + task.formatTask());
@@ -34,6 +43,19 @@ public class Ui {
 
     public void printExit() {
         System.out.println("Bye. Have a great day!");
+        printLine();
+    }
+
+    public void printFoundTaskHeader() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+    public void printFoundTask(Todo task, int index) {
+        System.out.println((index + 1) + "." + task.formatTask());
+    }
+
+    public void printNotFound() {
+        System.out.println("No task found!");
         printLine();
     }
 
