@@ -7,6 +7,7 @@ import vibes.task.type.Deadline;
 import vibes.task.type.Event;
 import vibes.task.type.Task;
 import vibes.task.type.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -41,7 +42,7 @@ public class Storage {
      * Constructs a Storage object.
      * Initializes the file and its containing folder if they don't exist.
      */
-    public Storage(){
+    public Storage() {
         File folder = new File(DATA_FOLDER);
         file = new File(folder, DATA_FILE);
 
@@ -80,15 +81,15 @@ public class Storage {
             case TaskTypes.TODO_TYPE:
                 assert task instanceof Todo;
                 Todo todoTask = (Todo) task;
-                textToWrite = todoTask.getTaskType() + PARAM_SEPARATOR + (todoTask.isDone() ? MARKED_INT : UNMARKED_INT)
-                        + PARAM_SEPARATOR + todoTask.getDescription();
+                textToWrite = todoTask.getTaskType() + PARAM_SEPARATOR + (todoTask.isDone() ? MARKED_INT :
+                        UNMARKED_INT) + PARAM_SEPARATOR + todoTask.getDescription();
                 break;
             case TaskTypes.DEADLINE_TYPE:
                 assert task instanceof Deadline;
                 Deadline deadlineTask = (Deadline) task;
                 textToWrite = deadlineTask.getTaskType() + PARAM_SEPARATOR + (deadlineTask.isDone() ? MARKED_INT :
-                        UNMARKED_INT) + PARAM_SEPARATOR + deadlineTask.getDescription() + PARAM_SEPARATOR +
-                        deadlineTask.getBy();
+                        UNMARKED_INT) + PARAM_SEPARATOR + deadlineTask.getDescription() + PARAM_SEPARATOR
+                        + deadlineTask.getBy();
                 break;
             case TaskTypes.EVENT_TYPE:
                 assert task instanceof Event;
@@ -132,12 +133,12 @@ public class Storage {
     /**
      * Reads a task from a text line and adds it to the task list.
      *
-     * @param taskList  the task list to which the task will be added
-     * @param textLine  the text line representing the task
+     * @param taskList the task list to which the task will be added
+     * @param textLine the text line representing the task
      */
     private void readTask(TaskList taskList, String textLine) {
         String[] parsedInput = textLine.trim().split(PARAM_SEPARATOR);
-        switch (parsedInput[TASK_TYPE_INDEX]){
+        switch (parsedInput[TASK_TYPE_INDEX]) {
         case TaskTypes.TODO_TYPE:
             taskList.addTodo(parsedInput[DESCRIPTION_INDEX]);
             break;

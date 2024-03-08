@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class TextUi {
     private static final String CHATBOT_NAME = "Vibes";
     public static final String GREETING_MESSAGE = "\t Hello! I'm " + CHATBOT_NAME + "\n\t What can I do for you?";
-    public static final String DASHED_LINE = "\t---------------------------------------------------------------------------------------";
+    public static final String DASHED_LINE = "\t-------------------------------------------------------------------"
+            + "--------------------";
     public static final String INDENTED_TAB = "\t   ";
     public static final int TASKS_SIZE_OFFSET = 1;
     public static final String PRINT_TASK_COUNT_FORMAT = "\t Now you have %d tasks in the list.";
@@ -59,7 +60,7 @@ public class TextUi {
     /**
      * Displays a message indicating a task has been marked as done.
      *
-     * @param tasks the list of tasks
+     * @param tasks      the list of tasks
      * @param taskNumber the index of the task marked as done
      */
     public void showMarkedMessage(ArrayList<Task> tasks, int taskNumber) {
@@ -70,7 +71,7 @@ public class TextUi {
     /**
      * Displays a message indicating a task has been marked as not done.
      *
-     * @param tasks the list of tasks
+     * @param tasks      the list of tasks
      * @param taskNumber the index of the task marked as not done
      */
     public void showUnmarkedMessage(ArrayList<Task> tasks, int taskNumber) {
@@ -81,7 +82,7 @@ public class TextUi {
     /**
      * Displays a message indicating a task has been deleted.
      *
-     * @param tasks the list of tasks
+     * @param tasks        the list of tasks
      * @param taskToDelete the task that has been deleted
      */
     public void showDeletedMessage(ArrayList<Task> tasks, Task taskToDelete) {
@@ -121,9 +122,9 @@ public class TextUi {
     public void listMatchedTasks(String keyword, ArrayList<Task> tasks) {
         int matchIndex = 1;
         System.out.println(Messages.LIST_MATCHED_TASKS_MESSAGE);
-        for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(keyword)){
-                System.out.printf((PRINT_TASK_ITEM_FORMAT) + "%n", matchIndex, tasks.get(i));
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                System.out.printf((PRINT_TASK_ITEM_FORMAT) + "%n", matchIndex, task);
                 matchIndex++;
             }
         }

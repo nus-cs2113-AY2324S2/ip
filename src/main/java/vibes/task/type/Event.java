@@ -3,7 +3,7 @@ package vibes.task.type;
 /**
  * Represents an Event task.
  */
-public class Event extends Task{
+public class Event extends Task {
     private final static String TASK_TYPE = "E";
     public static final String PRINT_FORMAT = "[E]%s (from: %s to: %s)";
     protected String from;
@@ -13,10 +13,10 @@ public class Event extends Task{
      * Constructs an Event object with the given description, starting date, and ending date.
      *
      * @param description the description of the event
-     * @param from the starting date of the event
-     * @param to the ending date of the event
+     * @param from        the starting date of the event
+     * @param to          the ending date of the event
      */
-    public Event(String description, String from, String to){
+    public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -59,7 +59,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String getTaskType(){
+    public String getTaskType() {
         return TASK_TYPE;
     }
 

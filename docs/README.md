@@ -1,41 +1,51 @@
 # Vibes Chatbot User Guide
 
-Welcome to **Vibes** - Your personal assistant chatbot designed to help you manage tasks efficiently, including todos, 
+Welcome to **Vibes** - Your personal assistant chatbot designed to help you manage tasks efficiently, including todos,
 deadlines, and events.
 
 ## Features
 
 ### Add Task
+
 You can add three types of tasks:
+
 1. Todos - description only
 2. Deadlines - description with a by date
 3. Events - description with from and to dates
 
 ### List Tasks
-Display all tasks, encompassing todos, deadlines, and events, along with their respective statuses denoting completion 
+
+Display all tasks, encompassing todos, deadlines, and events, along with their respective statuses denoting completion
 or pending. Deadline tasks includes the due date, while event tasks displays both the start and end dates.
 
 ### Mark Task as Done
+
 Mark any task as completed based on its list number.
 
 ### Mark Task as Incomplete
+
 Restore any completed task to pending status based on its list number.
 
 ### Delete Task
+
 Remove any task in the task list based on its list number.
 
 ### Find Tasks
+
 Search for tasks by keywords, in the task list.
 
 ### Save Data
+
 All tasks are automatically saved as you add tasks. They will be loaded when you start the program again.
 
 ## Getting Started
 
 ### Prerequisites
+
 Make sure you have Java 11 installed on your computer.
 
 ### Installation
+
 1. Download the latest release of Vibes from the releases page.
 2. Extract the downloaded zip file to a folder on your computer.
 3. Open a terminal and navigate to the folder where you extracted the zip file.
@@ -44,8 +54,8 @@ Make sure you have Java 11 installed on your computer.
     ```bash
     java -jar vibes.jar
     ```
-    If the chatbot starts successfully, it will display the following welcome message:
-    
+   If the chatbot starts successfully, it will display the following welcome message:
+
     ```plaintext
         ---------------------------------------------------------------------------------------
          Hello! I'm Vibes
@@ -56,6 +66,7 @@ Make sure you have Java 11 installed on your computer.
 ## Usage
 
 ### `todo` - Add a Todo Task
+
 Adds a simple task with no additional information.
 
 **Example of usage:**
@@ -63,6 +74,7 @@ Adds a simple task with no additional information.
 ```plaintext
 todo Clean the Garage
 ```
+
 A new Todo task "Clean the Garage" is added to your task list.
 
 **Expected Outcome:**
@@ -75,8 +87,8 @@ A new Todo task "Clean the Garage" is added to your task list.
 	---------------------------------------------------------------------------------------
 ```
 
-
 ### `deadline` - Add a Deadline Task
+
 Adds a task with a by date which is the task's deadline.
 
 **Example of usage:**
@@ -97,6 +109,7 @@ A new Deadline task "Submit Report" with the deadline "03/15/2024 5:00 PM" is ad
 ```
 
 ### `event` - Add an Event Task
+
 Adds a task with from and to dates, indicating the period of time.
 
 **Example of usage:**
@@ -117,6 +130,7 @@ A new Event task "Team Meeting" from "03/10/2024 3:00 PM" to "03/10/2024 4:00 PM
 ```
 
 ### `list` - List all Tasks
+
 Displays all your tasks, including todos, deadlines, and events, along with their status (completed or pending).
 
 **Example of usage:**
@@ -138,6 +152,7 @@ All your tasks are displayed in a list format.
 ```
 
 ### `mark` - Mark Task as Completed
+
 Marks a specific task as completed based on the list number provided.
 
 **Example of usage:**
@@ -157,6 +172,7 @@ The first task in your list is marked as completed.
 ```
 
 ### `unmark` - Mark Completed Task as Incomplete
+
 Restores a completed task to pending status based on the list number provided.
 
 **Example of usage:**
@@ -176,6 +192,7 @@ The first task in your list is restored as pending.
 ```
 
 ### `delete` - Remove Task
+
 Removes a specific task from the list based on the list number provided.
 
 **Example of usage:**
@@ -196,6 +213,7 @@ delete 2
 ```
 
 ### `find` - Find Tasks
+
 Search for tasks by keywords, in the task list.
 
 **Example of usage:**
@@ -215,6 +233,7 @@ All tasks containing the keyword “Meeting” are displayed.
 ```
 
 ### `bye` - Exit the Program
+
 Exits the program.
 
 **Example of usage:**

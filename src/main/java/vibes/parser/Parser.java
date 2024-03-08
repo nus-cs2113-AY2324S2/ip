@@ -54,7 +54,7 @@ public class Parser {
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
         if (parts.length == SPLIT_TO_TWO_LENGTH) {
             String[] taskParts = parts[SECOND_PART_INDEX].split(SPLIT_BY, SPLIT_TO_TWO);
-            if(taskParts.length == SPLIT_TO_TWO_LENGTH) {
+            if (taskParts.length == SPLIT_TO_TWO_LENGTH) {
                 String description = taskParts[DEADLINE_DESC_INDEX];
                 String by = taskParts[DEADLINE_BY_INDEX];
                 return new String[]{description, by};
@@ -70,7 +70,8 @@ public class Parser {
      * Parses the full user input for an "Event" task.
      *
      * @param userInput the full user input to be parsed
-     * @return an array containing the description, starting date, and ending date of the "Event" task extracted from the user input
+     * @return an array containing the description, starting date, and ending date of the "Event" task extracted from
+     * the user input
      * @throws InvalidArgumentException if the user input does not contain the expected format or is empty
      */
     public static String[] parseEvent(String userInput) throws InvalidArgumentException {
@@ -97,9 +98,9 @@ public class Parser {
      * @return the parsed task number
      * @throws InvalidArgumentException if the user input does not contain the task number
      */
-    public static int parseTaskNumber(String userInput) throws InvalidArgumentException{
+    public static int parseTaskNumber(String userInput) throws InvalidArgumentException {
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
-        if (parts.length == SPLIT_TO_TWO_LENGTH){
+        if (parts.length == SPLIT_TO_TWO_LENGTH) {
             return Integer.parseInt(parts[TASK_NUMBER_INDEX]) - TASK_NUMBER_OFFSET;
         } else {
             throw new InvalidArgumentException(ErrorMessages.TASK_NUMBER_NOT_FOUND);
@@ -118,7 +119,7 @@ public class Parser {
 
     public static String parseKeyword(String userInput) throws InvalidArgumentException {
         String[] parts = userInput.split(SPACE_CHAR, SPLIT_TO_TWO);
-        if (parts.length == SPLIT_TO_TWO_LENGTH){
+        if (parts.length == SPLIT_TO_TWO_LENGTH) {
             return parts[KEYWORD_INDEX];
         } else {
             throw new InvalidArgumentException(ErrorMessages.KEYWORD_NOT_FOUND);

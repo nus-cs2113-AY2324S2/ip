@@ -5,6 +5,7 @@ import vibes.task.type.Event;
 import vibes.task.type.Task;
 import vibes.task.type.Todo;
 import vibes.ui.TextUi;
+
 import java.util.ArrayList;
 
 /**
@@ -65,7 +66,7 @@ public class TaskList {
      * Marks a task as done.
      *
      * @param taskNumber the index of the task to be marked as done
-     * @param ui the TextUi object for displaying messages
+     * @param ui         the TextUi object for displaying messages
      */
     public void setAsDone(int taskNumber, TextUi ui) {
         tasks.get(taskNumber).setDone(true);
@@ -76,7 +77,7 @@ public class TaskList {
      * Marks a task as not done.
      *
      * @param taskNumber the index of the task to be marked as not done
-     * @param ui the TextUi object for displaying messages
+     * @param ui         the TextUi object for displaying messages
      */
     public void setAsNotDone(int taskNumber, TextUi ui) {
         tasks.get(taskNumber).setDone(false);
@@ -87,7 +88,7 @@ public class TaskList {
      * Deletes a task from the list of tasks.
      *
      * @param taskNumber the index of the task to be deleted
-     * @param ui the TextUi object for displaying messages
+     * @param ui         the TextUi object for displaying messages
      */
     public void deleteTask(int taskNumber, TextUi ui) {
         Task taskToDelete = tasks.get(taskNumber);

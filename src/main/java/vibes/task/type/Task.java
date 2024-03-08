@@ -35,7 +35,7 @@ public abstract class Task {
      * @return 'X' if the task is done, ' ' otherwise
      */
     public char getStatusIcon() {
-        if(isDone){
+        if (isDone) {
             return MARKED;
         }
         return UNMARKED;
@@ -60,15 +60,6 @@ public abstract class Task {
     }
 
     /**
-     * Sets the description of the task.
-     *
-     * @param description the description to be set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * Gets the type of the task.
      *
      * @return the type of the task
@@ -76,7 +67,7 @@ public abstract class Task {
     public abstract String getTaskType();
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format(PRINT_FORMAT, this.getStatusIcon(), this.getDescription());
     }
 }
