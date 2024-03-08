@@ -58,7 +58,7 @@ public class Ui {
      * Prints "*" as line-separator
      */
     public static void printLine() {
-        final int CHARS_IN_LINE = 40;
+        final int CHARS_IN_LINE = 40; // an estimate
         for (int i = 0; i < CHARS_IN_LINE; i++) {
             System.out.print("*");
         }

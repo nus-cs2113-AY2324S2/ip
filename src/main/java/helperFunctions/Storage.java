@@ -160,10 +160,14 @@ public class Storage {
      */
     private static boolean isIndexesValid(String currentLineInFile, int START_INDEX_OF_TYPE,
             int START_INDEX_OF_MARK, int START_INDEX_OF_DESCRIPTION) {
-        return !(currentLineInFile.indexOf('[') == -1) ||
-                (START_INDEX_OF_TYPE + 1 > currentLineInFile.length()) ||
-                (START_INDEX_OF_MARK + 1 > currentLineInFile.length()) ||
-                (START_INDEX_OF_DESCRIPTION + 1 > currentLineInFile.length());
+        final int NOT_FOUND = -1;
+        final int ZERO_INDEX = 1;
+        int currentLineLength = currentLineInFile.length();
+
+        return !(currentLineInFile.indexOf('[') == NOT_FOUND) ||
+                ((START_INDEX_OF_TYPE + ZERO_INDEX) > currentLineLength) ||
+                ((START_INDEX_OF_MARK + ZERO_INDEX) > currentLineLength) ||
+                ((START_INDEX_OF_DESCRIPTION + ZERO_INDEX) > currentLineLength);
     }
 
     /**
@@ -209,6 +213,8 @@ public class Storage {
      * @return taskDescription
      */
     private static String getDescriptionCommand(char type, int START_INDEX_OF_DESCRIPTION, String currentLineInFile) {
+
+
         String taskDescription = "";
 
         if (type == 'D') {
@@ -216,6 +222,7 @@ public class Storage {
             int endIndexToChange = currentLineInFile.lastIndexOf(")"); // change ")" to ""
             taskDescription += currentLineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
             taskDescription += "/";
+            // length of "(by: " is 5
             taskDescription += currentLineInFile.substring(startIndexToChange + 5, endIndexToChange);
         } else if (type == 'E') { // process input for event params
             int midIndexToChange = currentLineInFile.lastIndexOf("to "); // change "to " to "/"
@@ -223,8 +230,10 @@ public class Storage {
             int endIndexToChange = currentLineInFile.lastIndexOf(')'); // change ")" to "" ie last elem
             taskDescription += currentLineInFile.substring(START_INDEX_OF_DESCRIPTION, startIndexToChange);
             taskDescription += "/";
+            // length of "(from: " is 7
             taskDescription += currentLineInFile.substring(startIndexToChange + 7, midIndexToChange);
             taskDescription += "/";
+            // length of ')' is 3
             taskDescription += currentLineInFile.substring(midIndexToChange + 3, endIndexToChange);
         } else { // type == 'T'
             taskDescription = currentLineInFile.substring(START_INDEX_OF_DESCRIPTION);
@@ -244,7 +253,7 @@ public class Storage {
             throws InvalidParamsException {
         char mark = currentLineInFile.charAt(START_INDEX_OF_MARK);
 
-        if (mark != '0' && mark != '1') {
+        if (mark != '0' && mark != '1') { // mark = 0, unmark = 1
             throw new InvalidParamsException("invalid mark");
         }
         return mark;
