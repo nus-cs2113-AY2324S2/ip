@@ -1,2 +1,3 @@
-public class EmptyLineException extends Exception{
+public class EmptyLineException extends Exception {
+
 }

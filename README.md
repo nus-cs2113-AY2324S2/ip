@@ -24,7 +24,7 @@ Some example commands you can try:
 [!NOTE]
 > Words in `UPPER_CASE` are parameters to be supplied by the user. e.g. in `delete INDEX`, `INDEX` is a parameter which can be used as `delete 3`
 
-##Listing tasks: `list`
+## Listing tasks: `list`
 Lists all tasks in the task list.
 
 Format: `list`
@@ -118,12 +118,12 @@ Format: `bye`
 
 ## Command Summary
 
-| Command | Format,Examples |
+| Command | Format, Examples |
 | ------- | --------------- |
 | `list` | `list` |
 | `todo` | `todo DESCRIPTION` e.g. `todo tutorial` |
 | `deadline` | `deadline DESCRIPTION by DEADLINE` e.g. `deadline return book by 4pm` |
-| `event` | `event DESCRIPTION from START to END` e.g. event Math exam from 2pm to 4pm` |
+| `event` | `event DESCRIPTION from START to END` e.g. `event Math exam from 2pm to 4pm` |
 | `delete` | `delete INDEX` e.g. `delete 3` |
 | `mark` | `mark INDEX` e.g. `mark 2` |
 | `unmark` | `unmark INDEX` e.g. `unmark 1` |

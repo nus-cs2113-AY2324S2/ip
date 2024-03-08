@@ -6,15 +6,9 @@ import java.util.Scanner;
  * deals with making sense of the user command
  */
 public class Parser {
-    protected static String from;
-    protected static String to;
-    public static String description;
-    protected static String by;
     private static Ui ui;
     private static Storage storage;
     private static TaskList tasklist;
-
-    public String findInput;
 
     /**
      * marks task as done
@@ -22,20 +16,22 @@ public class Parser {
      * @param tasks the array of tasks
      * @param index the number of tasks in the array of tasks
      * @param isValidCommand boolean is true if the command from the user is a valid action
-     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IOException exception when there is an I/O error
      */
-    private void dealWithMark(String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
+    private void dealWithMark (String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
         isValidCommand = true;
-        try {
-            int idx = Integer.parseInt(inputs[1]);
-            tasks.get(idx - 1).markAsDone();
-            System.out.println("Nice! I've marked this task as done: ");
-            System.out.println(tasks.get(idx - 1));
-            storage.saveToFile(tasks, index);
-        } catch (IndexOutOfBoundsException e){
-            ui.errorMessage("did not indicate which task to mark");
-        }
+        String errorDescription;
 
+        try {
+            int markIdx = Integer.parseInt(inputs[1]) - 1; //index to mark as done
+            tasks.get(markIdx).markAsDone();
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println(tasks.get(markIdx));
+            storage.saveToFile(tasks, index);
+        } catch (IndexOutOfBoundsException e) {
+            errorDescription = "did not indicate which task to mark";
+            ui.errorMessage(errorDescription);
+        }
     }
 
     /**
@@ -44,18 +40,21 @@ public class Parser {
      * @param tasks the array of tasks
      * @param index the number of tasks in the array of tasks
      * @param isValidCommand boolean is true if the command from the user is a valid action
-     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IOException exception when there is an I/O error
      */
-    private void dealWithUnmark(String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
+    private void dealWithUnmark (String[] inputs, ArrayList<Task> tasks, int index, boolean isValidCommand) throws IOException {
         isValidCommand = true;
+        String errorDescription;
+
         try {
-            int idx = Integer.parseInt(inputs[1]);
-            tasks.get(idx - 1).unmarkDone();
+            int unmarkIdx = Integer.parseInt(inputs[1]) - 1; //index of task to unmark
+            tasks.get(unmarkIdx).unmarkDone();
             System.out.println("OK, I've marked this task as not done yet: ");
-            System.out.println(tasks.get(idx - 1));
+            System.out.println(tasks.get(unmarkIdx));
             storage.saveToFile(tasks, index);
-        } catch (IndexOutOfBoundsException e){
-            ui.errorMessage("did not indicate which task to unmark");
+        } catch (IndexOutOfBoundsException e) {
+            errorDescription = "did not indicate which task to unmark";
+            ui.errorMessage(errorDescription);
         }
     }
 
@@ -65,12 +64,12 @@ public class Parser {
      * @param index the number of tasks in the array of tasks
      * @param isValidCommand boolean is true if the command from the user is a valid action
      */
-    private void listTasks(ArrayList<Task> tasks, int index, boolean isValidCommand){
+    private void listTasks (ArrayList<Task> tasks, int index, boolean isValidCommand) {
         isValidCommand = true;
         System.out.println("Here are the tasks in your list: ");
 
-        for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+        for (int taskNumber = 0; taskNumber < index; taskNumber++) {
+            System.out.println((taskNumber + 1) + ". " + tasks.get(taskNumber));
         }
     }
 
@@ -82,9 +81,9 @@ public class Parser {
      * @param isValidCommand boolean is true if the command from the user is a valid action
      * @return the number of tasks in the array of tasks after deletion
      * @throws UnexpectedCommandException exception when the format or details of the tasks are not followed and provided respectively
-     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IOException exception when there is an I/O error
      */
-    private int deleteTask(ArrayList<Task> tasks, String[] inputs, int index, boolean isValidCommand) throws UnexpectedCommandException, IOException {
+    private int deleteTask (ArrayList<Task> tasks, String[] inputs, int index, boolean isValidCommand) throws UnexpectedCommandException, IOException {
         isValidCommand = true;
         Storage.fillFileContents(tasks, "TaskList.txt", index);
         TaskList.dealWithDelete(inputs, inputs[1], tasks);
@@ -100,15 +99,15 @@ public class Parser {
      * @param tasks the array of tasks
      * @param index the number of tasks in the array of tasks
      */
-    private void dealWithFind(String findInput, ArrayList<Task> tasks, int index){
+    private void dealWithFind (String findInput, ArrayList<Task> tasks, int index) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         int matchingTasksIndex = 1;
         System.out.println("Here are the matching tasks in your list: ");
-        for (int i = 0; i < index; i ++){
-            String xline = tasks.get(i).toString();
-            if (xline.contains(findInput)){
+        for (int taskNumber = 0; taskNumber < index; taskNumber ++){
+            String taskString = tasks.get(taskNumber).toString();
+            if (taskString.contains(findInput)) {
                 System.out.print(matchingTasksIndex + ". ");
-                matchingTasks.add(tasks.get(i));
+                matchingTasks.add(tasks.get(taskNumber));
                 System.out.println(matchingTasks.get(matchingTasksIndex - 1));
                 matchingTasksIndex ++;
             }
@@ -116,13 +115,13 @@ public class Parser {
     }
 
 
-    private void handleUnexpectedCommand(boolean isValidCommand) throws UnexpectedCommandException {
+    private void handleUnexpectedCommand (boolean isValidCommand) throws UnexpectedCommandException {
         if (!isValidCommand) {
             throw new UnexpectedCommandException();
         }
     }
 
-    private void handleEmptyInput(String line) throws EmptyLineException {
+    private void handleEmptyInput (String line) throws EmptyLineException {
         if (line.isEmpty()) {
             throw new EmptyLineException();
         }
@@ -133,15 +132,16 @@ public class Parser {
      * @param tasks the array of tasks
      * @param index the number of tasks in the array of tasks
      * @param line the user input
-     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IOException exception when there is an I/O error
      * @throws IndexOutOfBoundsException exception when there is missing required details in the input
      * @throws UnexpectedCommandException exception when the format or details of the tasks are not followed and provided respectively
      */
-    public Parser(ArrayList<Task> tasks, int index, String line) throws IOException, IndexOutOfBoundsException, UnexpectedCommandException {
+    public Parser (ArrayList<Task> tasks, int index, String line) throws IOException, IndexOutOfBoundsException, UnexpectedCommandException {
         boolean isInTxt = true;
         index = Storage.fillFileContents(tasks, "TaskList.txt", index);
         isInTxt = false;
         ui = new Ui();
+        String errorDescription;
 
         while (!line.equals("bye")) {
             ui.readCommand();
@@ -151,11 +151,13 @@ public class Parser {
 
             Task t = new Task(line);
             String[] inputs = line.split(" ");
+
+            final String commandType = inputs[0];
             
-            if (inputs[0].equals("mark")) {//mark as done
+            if (commandType.equals("mark")) {//mark as done
                 dealWithMark(inputs, tasks, index, isValidCommand);
                 Storage.saveToFile(tasks, index);
-            } else if (inputs[0].equals("unmark")) {//unmark done
+            } else if (commandType.equals("unmark")) {//unmark done
                 dealWithUnmark(inputs, tasks, index, isValidCommand);
                 Storage.saveToFile(tasks, index);
             } else if (line.equals("list")) {//lists tasks
@@ -164,16 +166,16 @@ public class Parser {
                 isValidCommand = true;
                 Storage.saveToFile(tasks, index);
                 break;
-            } else if (inputs[0].equals("event") || inputs[0].equals("todo") || inputs[0].equals("deadline")) {//add items
+            } else if (commandType.equals("event") || commandType.equals("todo") || commandType.equals("deadline")) {//add items
                 try {
-                    if (inputs[0].equals("event")) {
+                    if (commandType.equals("event")) {
                         isValidCommand = true;
                         TaskList.dealWithEvent(tasks, index, line, isInTxt);
                         Storage.writeToFile("TaskList.txt", tasks.get(index));
                         System.out.println("Got it. I've added this task: ");
                         System.out.println(tasks.get(index));
                         index++;
-                    } else if (inputs[0].equals("deadline")) {
+                    } else if (commandType.equals("deadline")) {
                         isValidCommand = true;
                         TaskList.dealWithDeadline(tasks, index, line, isInTxt);
                         Storage.writeToFile("TaskList.txt", tasks.get(index));
@@ -192,26 +194,30 @@ public class Parser {
                 }
                 System.out.println("Now you have " + index + " tasks in the list.");
 
-            } else if (inputs[0].equals("delete")) {
+            } else if (commandType.equals("delete")) {
                 try {
                     index = deleteTask(tasks, inputs, index, isValidCommand);
-                } catch (ArrayIndexOutOfBoundsException e){
-                    System.out.println("please specify which task you want to delete");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    errorDescription = "please specify which task you want to delete";
+                    ui.errorMessage(errorDescription);
                 }
-            } else if (inputs[0].equals("find")){
+            } else if (commandType.equals("find")) {
                 try {
                     dealWithFind(inputs[1], tasks, index);
-                } catch (ArrayIndexOutOfBoundsException e){
-                    System.out.println("please state what you would like to find");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    errorDescription = "please state what you would like to find";
+                    ui.errorMessage(errorDescription);
                 }
             } else {
                 try {
                     handleEmptyInput(line);
                     handleUnexpectedCommand(isValidCommand);
                 } catch (UnexpectedCommandException e) {
-                    ui.errorMessage("Please enter a valid command");
+                    errorDescription = "Please enter a valid command";
+                    ui.errorMessage(errorDescription);
                 } catch (EmptyLineException e) {
-                    ui.errorMessage("No input detected. Please enter a task");
+                    errorDescription = "No input detected. Please enter a task";
+                    ui.errorMessage(errorDescription);
                 }
             }
         }

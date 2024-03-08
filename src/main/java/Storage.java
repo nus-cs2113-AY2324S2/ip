@@ -17,13 +17,12 @@ public class Storage {
      * @throws IOException exception when local TaskList.txt file does not exist
      * @throws UnexpectedCommandException exception when the format or details of the tasks are not followed and provided respectively
      */
-    public static int fillFileContents(ArrayList<Task> tasks, String filePath, int index) throws IOException, UnexpectedCommandException {//updates index
+    public static int fillFileContents (ArrayList<Task> tasks, String filePath, int index) throws IOException, UnexpectedCommandException {//updates index
         File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        Scanner taskLine = new Scanner(f); // create a Scanner using the File as the source
 
-        while (s.hasNext()) {
-
-            String sLine = s.nextLine();
+        while (taskLine.hasNext()) {
+            String sLine = taskLine.nextLine();
 
             if (sLine.contains("[E]")) {
                 TaskList.dealWithEvent(tasks, index, sLine, true);
@@ -32,7 +31,6 @@ public class Storage {
             } else if (sLine.contains("[T]")) {
                 TaskList.dealWithTodo(tasks, index, sLine, true);
             }
-
             index++;
         }
         boolean isInTxt = false;
@@ -43,9 +41,9 @@ public class Storage {
      * saves the updated tasks list onto TaskList.txt in the local machine
      * @param tasks the array of tasks
      * @param index the nymber of tasks in array of tasks
-     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IOException exception when there is an I/O error
      */
-    protected static void saveToFile(ArrayList<Task> tasks, int index) throws IOException{
+    protected static void saveToFile (ArrayList<Task> tasks, int index) throws IOException {
         new FileWriter("TaskList.txt", false).close();
         for (int TaskIndex = 0; TaskIndex < index; TaskIndex ++) {
             writeToFile("TaskList.txt", tasks.get(TaskIndex));
@@ -56,9 +54,9 @@ public class Storage {
      * adds additional tasks into TaskList.txt
      * @param filePath the path to TaskList.txt saved on the local machine
      * @param textToAdd the new task to add
-     * @throws IOException exception when local TaskList.txt file does not exist
+     * @throws IOException exception when there is an I/O error
      */
-    static void writeToFile(String filePath, Task textToAdd) throws IOException{
+    static void writeToFile (String filePath, Task textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd + "\n");
         fw.close();

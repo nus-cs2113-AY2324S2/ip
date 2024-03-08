@@ -12,7 +12,7 @@ public class Duke {
      * @param filePath the path to the local TaskList.txt file
      * @throws FileNotFoundException exception when local TaskList.txt file does not exist
      */
-    private static void printFileContents(String filePath) throws FileNotFoundException {
+    private static void printFileContents (String filePath) throws FileNotFoundException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
@@ -21,33 +21,38 @@ public class Duke {
     }
 
     private static Ui ui;
-    public static void main(String[] args) throws UnexpectedCommandException, EmptyLineException, IOException, FileNotFoundException {
+    public static void main (String[] args) throws UnexpectedCommandException, EmptyLineException, IOException, FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<Task>();
+        String errorDescription;
+        int index = 0;//number of items in the list
+        String line = " ";
+        File file = new File("TaskList.txt");
+
         ui = new Ui();
         ui.sayHi();
         try {
             System.out.println("Here are the items in your task list: ");
             printFileContents("TaskList.txt");
-
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            errorDescription = "File not found";
+            ui.errorMessage(errorDescription);
         }
-        int index = 0;//number of items in the list
-        String line = " ";
-        File f = new File("TaskList.txt");
-        if (!f.exists()) {
+
+        if (!file.exists()) {
             try {
-                if (f.createNewFile()) {
-                    System.out.println("File created: " + f.getAbsolutePath());
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getAbsolutePath());
                 } else {
-                    System.out.println("File creation failed.");
+                    errorDescription = "File creation failed.";
+                    ui.errorMessage(errorDescription);
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred.");
+                errorDescription = "An I/O error occurred.";
+                ui.errorMessage(errorDescription);
                 e.printStackTrace();
             }
         } else {
-            System.out.println("File already exists: " + f.getAbsolutePath());
+            System.out.println("File already exists: " + file.getAbsolutePath());
         }
 
         new Parser(tasks, index, line);
