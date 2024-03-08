@@ -11,9 +11,11 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private static ArrayList<Task> taskList;
+    protected static int countDoneTasks;
 
     public TaskList() {
         taskList = new ArrayList<>();
+        countDoneTasks = 0;
     }
 
     /**
@@ -137,6 +139,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the number of tasks marked as done in task list.
+     *
+     * @return number of tasks marked as done.
+     */
+    public static int getCountDoneTasks() {
+        return countDoneTasks;
+    }
+
+    /**
      * Mark the task at the specified index completed.
      *
      * @param taskIndex index of task in the task list.
@@ -168,7 +179,11 @@ public class TaskList {
     public static void deleteTask(int listIndex) {
         Task tempTask = taskList.get(listIndex);
         taskList.remove(taskList.get(listIndex));
+
         tempTask.printRespondWhenDeleteTask();
+        if (tempTask.isDone) {
+            countDoneTasks--;
+        }
         UserUi.displayDividerLine();
     }
 
@@ -181,6 +196,7 @@ public class TaskList {
      */
     public static void addSavedTodoTask(String taskName, boolean isTaskDone) {
         taskList.add(new Todo(taskName, isTaskDone));
+        incrementCountDone(isTaskDone);
     }
 
     /**
@@ -193,6 +209,7 @@ public class TaskList {
      */
     public static void addSavedDeadlineTask(String taskName, boolean isTaskDone, String taskDeadline) {
         taskList.add(new Deadline(taskName, isTaskDone, taskDeadline));
+        incrementCountDone(isTaskDone);
     }
 
     /**
@@ -206,6 +223,19 @@ public class TaskList {
      */
     public static void addSavedEventTask(String taskName, boolean isTaskDone, String taskStart, String taskEnd) {
         taskList.add(new Event(taskName, isTaskDone, taskStart, taskEnd));
+        incrementCountDone(isTaskDone);
+    }
+
+    /**
+     * Increments counter for number of done tasks, after checking if task was marked done.
+     * This is used for when adding a saved task to the list.
+     *
+     * @param isTaskDone done state of task.
+     */
+    public static void incrementCountDone(boolean isTaskDone) {
+        if (isTaskDone) {
+            countDoneTasks++;
+        }
     }
 
     /**
@@ -277,5 +307,6 @@ public class TaskList {
      */
     public static void clearTaskList() {
         taskList.clear();
+        countDoneTasks = 0;
     }
 }

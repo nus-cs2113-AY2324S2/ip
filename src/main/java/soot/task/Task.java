@@ -1,6 +1,7 @@
 package soot.task;
 
 import soot.exceptions.SavedFileErrorTypeException;
+import soot.ui.UserUi;
 
 /**
  * Class Task has 3 members: taskName, isDone and taskType.
@@ -53,9 +54,15 @@ public class Task {
      * Chatbot to print out the name of this completed task.
      */
     public void markTaskDone() {
+        if (this.isDone) {
+            System.out.println("this task (" + this.taskName + ") was already marked done, wrong one?");
+            return;
+        }
         this.isDone = true;
+        TaskList.countDoneTasks++;
         System.out.println("good job! this task is marked as done now: ");
         System.out.println(" >> " + this.taskName);
+        UserUi.printUndoneTasksCount();
     }
 
     /**
@@ -71,8 +78,10 @@ public class Task {
             return;
         }
         this.isDone = false;
+        TaskList.countDoneTasks--;
         System.out.println("This task is now marked undone: ");
         System.out.println("  >> " + this.taskName);
+        UserUi.printUndoneTasksCount();
     }
 
     /**
