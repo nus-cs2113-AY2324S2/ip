@@ -85,7 +85,6 @@ public class Storage {
 
         for (int i = 0; i < tasksList.getSize(); i++) {
             fw.write((tasksList.getSpecifiedTask(i).getSaveFormat()) + "\n");
-            System.out.println(tasksList.getSpecifiedTask(i).getSaveFormat() + "\n");
         }
 
         fw.close();
