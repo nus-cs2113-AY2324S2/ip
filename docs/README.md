@@ -260,7 +260,7 @@ Exits from Zoro program.
 
 ### Command tips:
 
- Format | Exception | Taken as |
+|Format | Exception | Taken as |
 |--|--|--|
 | todo [name] | nil | nil |
 | deadline [name] /by [DD/MM/YYYY **HH:MM**]  | deadline [name] /by [DD/MM/YYYY] | deadline [name] /by [DD/MM/YYYY **00:00**]|
