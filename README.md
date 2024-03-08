@@ -22,7 +22,7 @@ and deleting tasks.
 ## Getting Started
 
 To start using Lovie, ensure Java 11 is installed on your machine. Lovie specifically uses Java 11. 
-Download Lovie and run it using the Java command:
+Download Lovie from [here](https://github.com/nidhi-nayak/ip/releases/tag/A-Release) and run it using the Java command:
 
 ```
 java -jar ip.jar
