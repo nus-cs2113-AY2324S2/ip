@@ -5,16 +5,40 @@ import tasks.Event;
 import tasks.Todo;
 import java.util.Scanner;
 
+/**
+ * The class that handles user input and processes for the commands.
+ */
 public class Parser {
+
+    /**
+     * Takes the first word of any input as the command.
+     *
+     * @param input The user's line input.
+     * @return Command string.
+     */
     public static String getCommand(String input) {
         return input.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Obtains the non-command part of the input, which contains both
+     * the description and the timings for deadline and event.
+     *
+     * @param input The user's line input.
+     * @return Non-command string.
+     */
     public static String getTask(String input) {
         String[] splitInput = input.split(" ", 2);
         return splitInput.length > 1 ? splitInput[1] : "";
     }
 
+    /**
+     * Generates a response based on the user's input.
+     *
+     * @param input The user's line input.
+     * @param tasks The array list of tasks that will be modified
+     *              based on the command.
+     */
     private static void getResponse(String input, TaskList tasks) {
         String command = getCommand(input);
         String task = getTask(input);
@@ -60,6 +84,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in the user's input from the command line interface,
+     * running it through the response method.
+     *
+     * @param tasks The array list of tasks that will be modified.
+     */
     public static void getInput(TaskList tasks) {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
