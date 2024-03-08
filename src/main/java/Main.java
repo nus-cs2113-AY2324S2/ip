@@ -1,40 +1,23 @@
 import doraemonexceptions.EmptyListException;
 import doraemonexceptions.InValidCommandException;
 import doraemonexceptions.IsEmptyException;
-import todo.Todo;
+import tasklist.TaskList;
+import tasklist.todo.Todo;
 import ui.Ui;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static tasklist.TaskList.*;
+
 
 public class Main {
     public static final String PATHNAME = "src/data/prevData";
 
-    private static void addTodo(ArrayList<Todo> list, String task, int taskNum) {
-        list.add(taskNum, new Todo(task));
-    }
-    private static void addDeadline(ArrayList<Todo> list, String task, int taskNum) {
-            int pos = task.indexOf("/");
-            String description = task.substring(0, pos);
-            String date = task.substring(pos + 3);
-            list.add(taskNum, new Deadline(description, date));
-    }
-
-    private static void addEvent(ArrayList<Todo> list, String task, int taskNum) {
-        int pos = task.indexOf("/");
-        String description = task.substring(0, pos);
-        task = task.substring(pos + 5);
-        pos = task.indexOf("/");
-        String start = task.substring(0, pos);
-        String end = task.substring(pos + 3);
-        list.add(taskNum, new Event(description, start, end)) ;
-    }
-
     public static int loadData(ArrayList<Todo> list, Ui ui) throws IOException {
+        TaskList tasklist = new TaskList();
         File storedFile = new File(PATHNAME);
         int taskNum = 0;
         if (!storedFile.exists()) {
@@ -49,13 +32,13 @@ public class Main {
                 currTask = currTask.substring(6); //trim off [T][ ]
                 switch (type) {
                 case "T":
-                    addTodo(list, currTask, taskNum);
+                    tasklist.addTodo(list, currTask, taskNum);
                     break;
                 case "D":
-                    addDeadline(list, currTask, taskNum);
+                    tasklist.addDeadline(list, currTask, taskNum);
                     break;
                 case "E":
-                    addEvent(list, currTask, taskNum);
+                    tasklist.addEvent(list, currTask, taskNum);
                     break;
                 default:
                     //if it is none of the valid types, do not add task
@@ -75,6 +58,7 @@ public class Main {
 
     public static void main(String[] args) {
         Ui ui = new Ui();
+        TaskList tasklist = new TaskList();
         ArrayList<Todo> list = new ArrayList<>();
         int taskNum = 0;
         Scanner in = new Scanner(System.in);

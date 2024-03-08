@@ -1,5 +1,5 @@
 package ui;
-import todo.Todo;
+import tasklist.todo.Todo;
 
 public class Ui {
 

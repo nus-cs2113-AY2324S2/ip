@@ -1,4 +1,5 @@
-import todo.Todo;
+package tasklist.deadline;
+import tasklist.todo.Todo;
 
 public class Deadline extends Todo {
     protected String date;
@@ -22,3 +23,4 @@ public class Deadline extends Todo {
         return (type + status + description + "/by" + date);
     }
 }
+

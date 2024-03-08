@@ -1,4 +1,4 @@
-package todo;
+package tasklist.todo;
 
 public class Todo {
     protected String description;
