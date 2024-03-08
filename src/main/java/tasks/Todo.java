@@ -1,6 +1,7 @@
 package tasks;
 
 public class Todo extends Task {
+
     public Todo(String description) {
         super(description);
         this.isDone = false;
@@ -11,7 +12,10 @@ public class Todo extends Task {
         this.isDone = isDone;
     }
 
+
+    @Override
     public String toString() {
-        return "[T][" + super.getStatusIcon() + "] " + this.description;
+        return "[T]" + "[" + super.getStatusIcon() + "] " + description;
+
     }
 }

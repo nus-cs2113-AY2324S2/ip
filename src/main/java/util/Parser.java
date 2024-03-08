@@ -1,14 +1,11 @@
 package util;
 
-import java.util.Scanner;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Todo;
+import java.util.Scanner;
 
 public class Parser {
-    public Parser() {
-    }
-
     public static String getCommand(String input) {
         return input.split(" ")[0].toLowerCase();
     }
@@ -56,6 +53,7 @@ public class Parser {
                     System.out.println("Your command is invalid, invalid. Try again.");
             }
         } catch (IndexOutOfBoundsException e) {
+
             Ui.missingSlashMessage();
         } catch (NumberFormatException e) {
             System.out.println("Ensure that you include a number after your delete/find/mark command.");
@@ -64,8 +62,10 @@ public class Parser {
 
     public static void getInput(TaskList tasks) {
         Scanner in = new Scanner(System.in);
-        for(String line = in.nextLine(); !line.equals("bye"); line = in.nextLine()) {
+        String line = in.nextLine();
+        while (!line.equals("bye")) {
             getResponse(line, tasks);
+            line = in.nextLine();
         }
     }
 }
