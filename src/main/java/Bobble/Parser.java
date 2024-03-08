@@ -41,4 +41,15 @@ public class Parser {
         String[] duration = parts[1].split("/to");
         return new Event(parts[0], duration[0], duration[1]);
     }
+
+
+    /**
+     * Retrieves the index of the task in the task list.
+     *
+     * @param input The input String to retrieve the index from
+     * @return Index of the task.
+     */
+    static int getTaskNumber(String input) {
+        return Integer.parseInt(input.trim()) - 1;
+    }
 }

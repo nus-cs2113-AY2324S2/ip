@@ -56,19 +56,19 @@ public class Bobble {
                     storage.saveAddedTask(tasks.taskList);
                     break;
                 case "mark":
-                    int taskNumber = Integer.parseInt(userInputs[1]) - 1;
+                    int taskNumber = Parser.getTaskNumber(userInputs[1]);
                     tasks.markTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
                     ui.printMarkResponse(tasks.taskList.get(taskNumber).toString());
                     break;
                 case "unmark":
-                    taskNumber = Integer.parseInt(userInputs[1]) - 1;
+                    taskNumber = Parser.getTaskNumber(userInputs[1]);
                     tasks.unmarkTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
                     ui.printUnmarkResponse(tasks.taskList.get(taskNumber));
                     break;
                 case "delete":
-                    taskNumber = Integer.parseInt(userInputs[1]) - 1;
+                    taskNumber = Parser.getTaskNumber(userInputs[1]);
                     ui.printDeleteResponse(tasks.taskList, tasks.taskList.get(taskNumber));
                     tasks.deleteTask(taskNumber);
                     storage.saveWholeList(tasks.taskList);
@@ -82,7 +82,7 @@ public class Bobble {
                 }
             } catch (BobbleExceptionCommand e) {
                 ui.printErrorMessage();
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 ui.printEmptyFieldErrorMessage(command);
             }
             userInput = input.nextLine();
