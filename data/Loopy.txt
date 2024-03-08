@@ -1,0 +1,3 @@
+T | 0 | swimming
+D | 0 | CS2113  | 8 mar
+E | 0 | interview  | 2 pm  | 4 pm
