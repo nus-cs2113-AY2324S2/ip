@@ -1,9 +1,7 @@
-# Duke project template
-
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+# Anonbot 
+This is a project using the template for a greenfield Java project. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
-
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
 1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)

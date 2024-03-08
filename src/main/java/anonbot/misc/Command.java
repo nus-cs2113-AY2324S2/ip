@@ -1,5 +1,8 @@
 package anonbot.misc;
 
+/**
+ * Command class related to the handling of supported commands.
+ */
 public final class Command {
     /**
      * List of possible commands supported by this program (except UNKNOWN).
@@ -14,8 +17,8 @@ public final class Command {
      * 6. `deadline` - Creates a new deadline task.
      * 7. `event` - Creates a new event task.
      * 8. `delete` - Deletes the specific task.
-     * 9. `find` - Finds Keywords or Keyphrases to search the task list.
-     * 10. `help` - Shows the list of supported command.
+     * 9. `find` - Finds Keyword or Keyphrase to search the task list.
+     * 10. `help` - Shows the list of supported commands.
       */
     public enum CommandType {
         BYE, EXIT,
@@ -28,14 +31,30 @@ public final class Command {
         UNKNOWN // Catch-all Type, Not a valid command
     }
 
+    /**
+     * Describes the status of the program after a command has been run.
+     * Used to indicate whether the program should continue to run or terminate gracefully.
+     */
     public enum CommandStatus {
         STATUS_OK, STATUS_EXIT
     }
 
+    /**
+     * Gets the corresponding command in string form based on the command type.
+     *
+     * @param commandType The command type.
+     * @return The command of type String.
+     */
     private static String getCommandStringFromCommandType(CommandType commandType) {
         return commandType.name().toLowerCase();
     }
 
+    /**
+     * Gets the corresponding command typed based on the command string.
+     *
+     * @param commandString The command in string format.
+     * @return The associated command type.
+     */
     public static CommandType getCommandTypeFromCommandString(String commandString) {
         try {
             return CommandType.valueOf(commandString.toUpperCase());
@@ -55,6 +74,12 @@ public final class Command {
         }
     }
 
+    /**
+     * Generates the corresponding command syntax for the supported command.
+     *
+     * @param command The command to generate the syntax for.
+     * @return The full syntax of the command, including the argument(s).
+     */
     public static String getAssociatedCommandArgumentSyntax(String command) {
         Command.CommandType commandType = Command.getCommandTypeFromCommandString(command);
         switch (commandType) {

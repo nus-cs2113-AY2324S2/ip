@@ -1,15 +1,26 @@
 package anonbot.data;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import anonbot.exception.ImportDataException;
 import anonbot.misc.ImportParser;
 import anonbot.task.Task;
 import anonbot.task.TaskManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
+/**
+ * A static class to help read and populate tasks from file.
+ */
 public class AnonBotFileReader extends AnonBotFile {
+    /**
+     * Gets the most recent task number from the save file.
+     * The task number represents the number of tasks that has been created to date.
+     *
+     * @param fileReader Valid Scanner for the file that is to be read.
+     * @return The most recent task number which also serves as a unique task ID.
+     * @throws ImportDataException If the task number read is not numeric; or if the file is empty.
+     */
     private static int getMostRecentTaskNumber(Scanner fileReader) throws ImportDataException {
         if (!fileReader.hasNextLine()) {
             throw new ImportDataException("File is empty");
@@ -22,6 +33,11 @@ public class AnonBotFileReader extends AnonBotFile {
         }
     }
 
+    /**
+     * Populate tasks in the task list by reading from the save file.
+     *
+     * @param fileReader Valid Scanner for the file that is to be read.
+     */
     private static void populateTasks(Scanner fileReader) {
         while (fileReader.hasNextLine()) {
             String rawData = fileReader.nextLine();
@@ -54,6 +70,9 @@ public class AnonBotFileReader extends AnonBotFile {
         }
     }
 
+    /**
+     * Reads the save file from the default location and populate tasks based on the file.
+     */
     public static void loadAnonBotData() {
         File f = new File(getDefaultFileName());
         try {

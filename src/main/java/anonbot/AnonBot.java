@@ -4,9 +4,12 @@ import anonbot.data.AnonBotFile;
 import anonbot.data.AnonBotFileReader;
 import anonbot.exception.InitialisationException;
 import anonbot.exception.InvalidCommandException;
-import anonbot.misc.CommandManager;
 import anonbot.misc.Command.CommandStatus;
+import anonbot.misc.CommandManager;
 
+/**
+ * The main class for the program. Create, update and delete tasks on the go.
+ */
 public class AnonBot {
     private static void runMainLoop() {
         CommandStatus commandStatus = CommandStatus.STATUS_OK;

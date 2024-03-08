@@ -1,5 +1,8 @@
 package anonbot.exception;
 
+/**
+ * Exception class relating to issues creating the (default) directories needed to hold the save file.
+ */
 public class InitialisationException extends Exception implements AnonbotExceptionHandler {
     private String errorDescription;
 

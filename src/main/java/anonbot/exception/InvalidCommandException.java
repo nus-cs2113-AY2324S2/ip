@@ -2,6 +2,9 @@ package anonbot.exception;
 
 import anonbot.misc.Command;
 
+/**
+ * Exception class that handles commands that are not supported.
+ */
 public class InvalidCommandException extends Exception implements AnonbotExceptionHandler {
     private String invalidCommand;
 

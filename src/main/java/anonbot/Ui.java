@@ -2,6 +2,9 @@ package anonbot;
 
 import java.util.Scanner;
 
+/**
+ * Provides User Interface related functionalities, such as printing welcome messages and getting user input.
+ */
 public class Ui {
     // ASCII Art Generated from: https://patorjk.com/software/taag/#p=display&f=Big&t=anonBot
     private static final String LOGO = "                          ____        _   " + System.lineSeparator()
@@ -32,6 +35,11 @@ public class Ui {
         System.out.println("See ya!");
     }
 
+    /**
+     * Prints the horizontal bar, with the option to add a line feed.
+     *
+     * @param withLineTerminator Whether the section bar should also be printed with a line terminator.
+     */
     public static void printSectionBar(boolean withLineTerminator) {
         if (withLineTerminator) {
             System.out.println(SECTION_BAR + System.lineSeparator());
@@ -40,6 +48,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Gets the user input from the console.
+     *
+     * @return The raw string input from the user.
+     */
     public static String getUserInput() {
         // Adapted from: https://stackoverflow.com/questions/13729294/nosuchelementexception-with-java-util-scanner
         if (userInput.hasNextLine()) {
