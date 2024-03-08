@@ -73,7 +73,7 @@ public class Duke {
      * @throws IllegalShapeException when user tries to mark a task index that does not exist or is out of bounds.
      */
     public static void markTask(String line) throws IllegalShapeException {
-        if (Integer.parseInt(line.substring(5)) >= tasks.size() ) {
+        if (Integer.parseInt(line.substring(5)) > tasks.size() ) {
             throw new IllegalShapeException(); //Throws exception for marking out of bounds
         }
         tasks.get(Integer.parseInt(line.substring(5)) - 1).markAsDone();
