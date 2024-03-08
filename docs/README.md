@@ -15,7 +15,14 @@ Examples:
 - `todo read book`
 
 Expected outcome:
-![](/pictures/todo.png)
+```
+todo read book
+    ________________________________________________
+    Got it. I've added this task:
+      [T][ ] read book
+    Now you have 1 task in the list.
+    ________________________________________________
+```
 
 ### Adding a Deadline task: `deadline`
 
