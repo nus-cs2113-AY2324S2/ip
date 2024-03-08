@@ -32,7 +32,7 @@ initial execution is successful.
    ____________________________________
    ```
 
-## List of Operations
+## List of Features
 * Notes about the command  format:
   * Values field within the <> symbol are required user defined parameters.
   * Keywords starting with the / symbol are important formatting keywords used to separate parameters.
