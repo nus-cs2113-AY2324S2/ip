@@ -1,6 +1,5 @@
 package soot.ui;
 
-import soot.parser.Parser;
 import soot.task.Task;
 import soot.task.TaskList;
 
@@ -11,7 +10,9 @@ import java.util.ArrayList;
  * This includes display of user interfaces, such as displaying the divider line.
  */
 public class UserUi {
-    public static final String INDENT = "  ";
+    private static final String INDENT = "  ";
+    private static final int DIVIDER_LENGTH = 60;
+
 
     /**
      * Prints a greeting to the user when the chatbot is first run.
@@ -38,8 +39,7 @@ public class UserUi {
      * Divider Line will be displayed after the user input before the chatbot speaks.
      */
     public static void displayDividerLine() {
-        int LINE_LENGTH = 60;
-        for (int i = 0; i < LINE_LENGTH; i++) {
+        for (int i = 0; i < DIVIDER_LENGTH; i++) {
             System.out.print("_");
         }
         System.out.println("");
@@ -87,6 +87,38 @@ public class UserUi {
      */
     public static void printMessageWithDivider(String messageToPrint) {
         System.out.println(messageToPrint);
+        UserUi.displayDividerLine();
+    }
+
+    /**
+     * Prints to user how many tasks they have left to do.
+     * Method is called only when "done" or "unmark" is called.
+     */
+    public static void printUndoneTasksCount() {
+        int undoneCounter = TaskList.getSize() - TaskList.getCountDoneTasks();
+        System.out.println("you now have " + undoneCounter + " tasks left to do!");
+    }
+
+    public static void printAllCommands() {
+        System.out.println("here's all the commands i recognise: ");
+        System.out.println("    ~~~    ");
+        System.out.println("to add a task, remember to specify the task type");
+        System.out.println("1. todo TASK_NAME");
+        System.out.println("2. deadline TASK_NAME /by DUE_DATE");
+        System.out.println("3. event TASK_NAME /from START_DATE /to END_DATE");
+
+        System.out.println("    ~~~    ");
+        System.out.println("to modify ur task list: ");
+        System.out.println("- list (to view you list)");
+        System.out.println("- done TASK_INDEX_IN_LIST (mark a task as done)");
+        System.out.println("- unmark TASK_INDEX_IN_LIST (mark a task as undone)");
+        System.out.println("- delete TASK_INDEX_IN_LIST (delete a task from your list)");
+        System.out.println("- find KEYWORD_TO_FIND (find a specific word in your task list)");
+        System.out.println("- help (to view all valid commands i recognise");
+
+        System.out.println("    ~~~    ");
+        System.out.println("still lost? don't worry, visit this link for more info");
+        System.out.println("    https://claribelho.github.io/ip/");
         UserUi.displayDividerLine();
     }
 }

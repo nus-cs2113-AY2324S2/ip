@@ -57,6 +57,9 @@ public class Parser {
             case "bye":
                 handleByeCommand();
                 break;
+            case "help":
+                handleHelpCommand();
+                break;
             default:
                 throw new UnknownCommandException();
             }
@@ -64,7 +67,7 @@ public class Parser {
             UserUi.printMessageWithDivider("  !! hmmm, no task was specified.");
         } catch (UnknownCommandException e) {
             UserUi.printMessageWithDivider("  !! this isn't a command i recognise...\n"
-                    + "sorry, pls try again");
+                    + "sorry, pls try again. enter 'help' to view all commands i know");
         } catch (MissingTaskDetailException e) {
             UserUi.printMessageWithDivider("i need more details about the task from you.");
         }
@@ -72,7 +75,7 @@ public class Parser {
 
     /**
      * Returns the command action word, i.e. the first word of the user input.
-     * Method first handles the cases where the user input only contains one word.
+     * Method first handles the cases where the user input only contains one word, ie is the command action word.
      * Else, an EmptyTaskException is thrown to indicate to the user that the user input was incomplete.
      *
      * @param userInput command inputted by the user.
@@ -80,7 +83,7 @@ public class Parser {
      * @throws EmptyTaskException If user input only contains one word that is not "list".
      */
     private static String getCommandAction(String userInput) throws EmptyTaskException {
-        if (userInput.contains("list") || userInput.contains("bye")) {
+        if (userInput.contains("list") || userInput.contains("bye") || userInput.contains("help")) {
             return userInput;
         }
 
@@ -151,10 +154,21 @@ public class Parser {
         UserUi.printKeywordList(foundKeywordList);
     }
 
-
+    /**
+     * Handles when user wants to close the chatbot.
+     * Saving of tasks is called here.
+     */
     private static void handleByeCommand() {
         Soot.hasEnd = true;
         Storage.tryToSaveFile();
         UserUi.showGoodbyeMessage();
+    }
+
+
+    /**
+     * Handles when user would like to see all valid commands for the chatbot.
+     */
+    private static void handleHelpCommand() {
+        UserUi.printAllCommands();
     }
 }
