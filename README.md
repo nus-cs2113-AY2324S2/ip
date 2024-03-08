@@ -6,7 +6,7 @@ This is the IP for John Nguyen for CS2113 at National University of Singapore. T
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Download the ip.jar file found in the repo at out/artifacts/ip_jar/ip.jar
+1. Download the ip.jar file found [here](ip.jar)
 2. Move the jar file to your desired folder.
 3. Open your terminal or command line and `cd` into the folder you put the ip.jar file.
 4. Run the command `java -jar ip.jar`
