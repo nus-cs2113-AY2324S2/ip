@@ -1,6 +1,6 @@
 /**
  * Represents a task in the task list.
- * A <code>Task</code> object represents a task with a description and a status.
+ * A <code>Task</code> object corresponds to a task with a description and a status.
  */
 public class Task {
 
