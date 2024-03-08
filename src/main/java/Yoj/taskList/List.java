@@ -63,4 +63,18 @@ public class List {
         }
     }
 
+    public static void findTask(String userInput) {
+        ArrayList<Task> tasksFound = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(userInput)) {
+                tasksFound.add(task);
+            }
+        }
+        if (tasksFound.isEmpty()){
+            Ui.printNoTaskFound();
+        } else {
+            Ui.printTaskFound(tasksFound);
+        }
+    }
+
 }
