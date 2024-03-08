@@ -1,3 +1,5 @@
+import todo.Todo;
+
 public class Deadline extends Todo {
     protected String date;
 

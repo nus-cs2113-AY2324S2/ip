@@ -1,3 +1,5 @@
+import todo.Todo;
+
 public class Event extends Todo {
     protected String start;
     protected String end;

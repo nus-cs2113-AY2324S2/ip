@@ -1,3 +1,5 @@
+package todo;
+
 public class Todo {
     protected String description;
     protected String status;
