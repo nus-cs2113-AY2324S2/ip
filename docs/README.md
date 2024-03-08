@@ -70,8 +70,25 @@ Examples:
 ## Exiting the program: `bye`, `exit`
 
 ## Saving the data file
+Anonbot data are saved to the hard disk automatically when a new entry, modification or deletion is made 
+to the task list. There is no need for you to save manually. 
+
+By default, they are saved under `./data/tasklist.txt`
 
 ## Editing the data file
+Data files are saved in `./data/tasklist.txt`. Advanced users can modify the text file directly
+
+<!--
+Credit: https://raw.githubusercontent.com/se-edu/addressbook-level3/master/docs/UserGuide.md
+-->
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, 
+anonbot will discard all data and start with an empty data file at the next run. 
+Hence, it is recommended to take a backup of the file before editing it.<br><br>
+Furthermore, certain edits can cause the anonbot to behave in unexpected ways 
+(e.g. Modifying the task number may end up with duplicate or unordered task numbers, which are not checked).<br><br>
+Therefore, edit the data file only if you are confident that you can update it correctly.
+</div>
 
 # FAQ
 
