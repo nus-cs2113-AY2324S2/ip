@@ -83,24 +83,39 @@ public class Parser {
     /**
      * Marks a task as done in the TaskList based on the provided sequence number.
      *
-     * @param sequence The sequence number of the task to be marked as done.
+     * @param input The sequence number of the task to be marked as done in String.
+     * @throws JaneException If the input cannot be converted to an Integer or sequence number out of bounds.
      */
-    public void markAsDone(int sequence) {
-        Task task = this.taskList.list.get(sequence);
-        task.setDone(true);
-        System.out.println(Message.MARK_AS_DONE + task);
-
+    public void markAsDone(String input) throws JaneException {
+        try {
+            int sequence = Integer.parseInt(input) - 1;
+            Task task = this.taskList.list.get(sequence);
+            task.setDone(true);
+            System.out.println(Message.MARK_AS_DONE + task);
+        } catch (NumberFormatException e) {
+            throw new JaneException(Message.INTEGER_NUMBER_REQUIRED);
+        } catch (IndexOutOfBoundsException e) {
+        throw new JaneException(Message.INDEX_OUT_OF_BOUNDS);
+        }
     }
 
     /**
      * Marks a task as undone in the TaskList based on the provided sequence number.
      *
-     * @param sequence The sequence number of the task to be marked as undone.
+     * @param input The sequence number of the task to be marked as undone in String.
+     * @throws JaneException If the input cannot be converted to an Integer or sequence number out of bounds.
      */
-    public void markAsUndone(int sequence) {
-        Task task = this.taskList.list.get(sequence);
-        task.setDone(false);
-        System.out.println(Message.MARK_AS_UNDONE + task);
+    public void markAsUndone(String input) throws JaneException {
+        try {
+            int sequence = Integer.parseInt(input) - 1;
+            Task task = this.taskList.list.get(sequence);
+            task.setDone(false);
+            System.out.println(Message.MARK_AS_UNDONE + task);
+        } catch (NumberFormatException e) {
+            throw new JaneException(Message.INTEGER_NUMBER_REQUIRED);
+        } catch (IndexOutOfBoundsException e) {
+            throw new JaneException(Message.INDEX_OUT_OF_BOUNDS);
+        }
     }
 
     /**

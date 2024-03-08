@@ -54,13 +54,22 @@ public class TaskList {
     /**
      * Removes a task from the TaskList based on the specified sequence number.
      *
-     * @param sequence The sequence number of the task to be removed.
+     * @param input The sequence number of the task to be removed in String.
+     * @throws JaneException If input cannot be converted to Integer or sequence number out of bounds.
      */
-    public void removeTask(int sequence) {
-        Task task = this.list.get(sequence);
-        this.list.remove(sequence);
-        System.out.println(Message.TASK_REMOVED + task);
-        System.out.println(Message.numberOfTasks(getCount()));
+    public void removeTask(String input) throws JaneException {
+        try {
+            int sequence = Integer.parseInt(input) - 1;
+            Task task = this.list.get(sequence);
+            this.list.remove(sequence);
+            System.out.println(Message.TASK_REMOVED + task);
+            System.out.println(Message.numberOfTasks(getCount()));
+        } catch (NumberFormatException e) {
+            throw new JaneException(Message.INTEGER_NUMBER_REQUIRED);
+        } catch (IndexOutOfBoundsException e) {
+            throw new JaneException(Message.INDEX_OUT_OF_BOUNDS);
+        }
+
     }
 
     /**
