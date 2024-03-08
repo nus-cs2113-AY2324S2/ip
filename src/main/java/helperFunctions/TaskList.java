@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+    private final int ZERO_INDEX = 1;
 
     /**
      * Initializes ArrayList of Task objects
@@ -42,7 +43,7 @@ public class TaskList {
      * @param index index of specific task (zero-indexed)
      */
     private String displayListItem(int index) {
-        return ((index + 1) + ". [" + tasks.get(index).getType() + "]["
+        return ((index + ZERO_INDEX) + ". [" + tasks.get(index).getType() + "]["
                 + tasks.get(index).getStatus() + "] "
                 + tasks.get(index).getDescription()
                 + System.lineSeparator());
@@ -58,21 +59,22 @@ public class TaskList {
      * @throws InvalidParamsException if invalid/ missing event arguments
      */
     protected void addEventTask(String[] userInputInParts, String userInput, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
-        final int startIndexOfDescription = userInputInParts[0].length() + 1; // userInputInParts[0].equals(event)
+        final int startIndexOfDescription = userInputInParts[0].length() + ZERO_INDEX; // userInputInParts[0].equals(event)
+        final int NOT_FOUND = -1;
 
         int indexTo = userInput.lastIndexOf('/');
-        int indexFrom = userInput.lastIndexOf('/', indexTo - 1); // counts from back
+        int indexFrom = userInput.lastIndexOf('/', indexTo - ZERO_INDEX); // counts from back
         // checks for invalid input
-        if (indexFrom == -1 || indexTo == -1) {
+        if (indexFrom == NOT_FOUND || indexTo == NOT_FOUND) {
             throw new InvalidParamsException("No event arguments: Add a '/', then the startTime, followed by a '/' and the endTime");
         }
-        if (startIndexOfDescription > indexFrom - 1) {
+        if (startIndexOfDescription > indexFrom - ZERO_INDEX) {
             throw new InvalidParamsException(("no event description"));
         }
         // process input as Event object
-        String description = userInput.substring(startIndexOfDescription, indexFrom - 1);
-        String timeRange = " (from: " + userInput.substring(indexFrom + 1, indexTo) +
-                "to " + userInput.substring(indexTo + 1) + ")";
+        String description = userInput.substring(startIndexOfDescription, indexFrom - ZERO_INDEX);
+        String timeRange = " (from: " + userInput.substring(indexFrom + ZERO_INDEX, indexTo) +
+                "to " + userInput.substring(indexTo + ZERO_INDEX) + ")";
         // add to tasks
         Task newTask = new Event(description, timeRange);
         tasks.add(newTask);
@@ -81,7 +83,7 @@ public class TaskList {
         }
         Storage.appendToFile(FILE_NAME, displayListItem(tasks.indexOf(newTask)));
         System.out.println("Event added!");
-        System.out.println(displayListItem(tasks.size() - 1));
+        System.out.println(displayListItem(tasks.size() - ZERO_INDEX));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
@@ -96,22 +98,22 @@ public class TaskList {
      * @throws InvalidParamsException if invalid/ missing deadline arguments
      */
     protected void addDeadlineTask(String[] userInputInParts, String userInput, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
-        final int startIndexOfDescription = userInputInParts[0].length() + 1; // userInputInParts[0].equals(deadline);
-
+        final int startIndexOfDescription = userInputInParts[0].length() + ZERO_INDEX; // userInputInParts[0].equals(deadline);
+        final int NOT_FOUND = -1;
         int indexDeadline = userInput.indexOf('/');
         // checks for invalid input
-        if (indexDeadline == -1) {
+        if (indexDeadline == NOT_FOUND) {
             throw new InvalidParamsException("No deadline argument: Add a parameter '/' followed by the deadline");
         }
-        if (startIndexOfDescription > indexDeadline - 1) {
+        if (startIndexOfDescription > indexDeadline - ZERO_INDEX) {
             throw new InvalidParamsException("No deadline description");
         }
         // process input as Deadline object
         String deadline = "(by: ";
-        if (Parser.isValidDeadline(userInput.substring(indexDeadline + 1))) {
-            deadline += Parser.formatDeadline(userInput.substring(indexDeadline + 1));
+        if (Parser.isValidDeadline(userInput.substring(indexDeadline + ZERO_INDEX))) {
+            deadline += Parser.formatDeadline(userInput.substring(indexDeadline + ZERO_INDEX));
         } else {
-            deadline += userInput.substring(indexDeadline + 1);
+            deadline += userInput.substring(indexDeadline + ZERO_INDEX);
         }
         deadline += ")";
         String description = userInput.substring(startIndexOfDescription, indexDeadline);
@@ -124,7 +126,7 @@ public class TaskList {
         }
         Storage.appendToFile(FILE_NAME, displayListItem(tasks.indexOf(newTask)));
         System.out.println("Deadline added!");
-        System.out.println(displayListItem(tasks.size() - 1));
+        System.out.println(displayListItem(tasks.size() - ZERO_INDEX));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
@@ -137,10 +139,10 @@ public class TaskList {
      * @throws InvalidParamsException if invalid/ missing t0do arguments
      */
     protected void addTodoTask(String[] userInputInParts, String userInput, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
-        final int startIndexOfDescription = userInputInParts[0].length() + 1; // userInputInParts[0].equals(TODO);
+        final int startIndexOfDescription = userInputInParts[0].length() + ZERO_INDEX; // userInputInParts[0].equals(TODO);
 
         // checks for invalid input
-        if (startIndexOfDescription > userInput.length() - 1) {
+        if (startIndexOfDescription > userInput.length() - ZERO_INDEX) {
             throw new InvalidParamsException("No task description");
         }
         // process input
@@ -155,7 +157,7 @@ public class TaskList {
         Storage.appendToFile(FILE_NAME, displayListItem(tasks.indexOf(newTask)));
 
         System.out.println("Todo added!");
-        System.out.println(displayListItem(tasks.size() - 1));
+        System.out.println(displayListItem(tasks.size() - ZERO_INDEX));
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
 
@@ -167,24 +169,26 @@ public class TaskList {
      * @throws InvalidParamsException if invalid/ missing delete arguments
      */
     protected void deleteOperation(String[] userInputInParts, String FILE_NAME) throws InvalidParamsException {
+        final int CORRECT_LENGTH = 2; // arguments: 1 delete command + 1 taskIndex
+
         // check for input validity
-        if (userInputInParts.length < 2) {
+        if (userInputInParts.length < CORRECT_LENGTH) {
             throw new InvalidParamsException("Invalid delete operation");
         }
         // process input
         int taskIndex;
         try {
-            taskIndex = Integer.parseInt(userInputInParts[1]);
+            taskIndex = Integer.parseInt(userInputInParts[CORRECT_LENGTH - ZERO_INDEX]);
         } catch (NumberFormatException e) {
             throw new InvalidParamsException("Invalid non-integer delete index");
         }
-        if (taskIndex > tasks.size() || taskIndex < 1) {
+        if (taskIndex > tasks.size() || taskIndex < (CORRECT_LENGTH - ZERO_INDEX)) {
             throw new InvalidParamsException("Out of bounds delete index");
         }
         // delete Task
         System.out.println("Good riddance, task deleted!");
-        System.out.println(displayListItem(taskIndex - 1));
-        tasks.remove(taskIndex - 1);
+        System.out.println(displayListItem(taskIndex - ZERO_INDEX));
+        tasks.remove(taskIndex - ZERO_INDEX);
         Storage.writeToFile(FILE_NAME, displayList());
         System.out.println("Congrats, now have " + tasks.size() + " tasks");
     }
@@ -200,14 +204,15 @@ public class TaskList {
      * @throws InvalidParamsException if invalid/ missing mark arguments
      */
     protected void markOperation(String[] userInputInParts, boolean isMark, String FILE_NAME, boolean isReadMode) throws InvalidParamsException {
+        final int CORRECT_LENGTH = 2; // arguments: 1 mark command + 1 taskIndex
         // check for input validity
-        if (userInputInParts.length < 2) {
+        if (userInputInParts.length < CORRECT_LENGTH) {
             throw new InvalidParamsException("invalid mark/ unmark operation");
         }
         int taskNum;
         try {
-            taskNum = Integer.parseInt(userInputInParts[1]);
-            if (tasks.size() < taskNum || taskNum < 1) {
+            taskNum = Integer.parseInt(userInputInParts[CORRECT_LENGTH - ZERO_INDEX]);
+            if (tasks.size() < taskNum || taskNum < (CORRECT_LENGTH - ZERO_INDEX)) {
                 throw new InvalidParamsException("No such taskNum");
             }
         } catch (NumberFormatException e) {
@@ -216,9 +221,9 @@ public class TaskList {
 
         // process input
         if (isMark) { // (isMark = true) == mark as done
-            tasks.get(taskNum - 1).markAsDone();
+            tasks.get(taskNum - ZERO_INDEX).markAsDone();
         } else {
-            tasks.get(taskNum - 1).markAsNotDone();
+            tasks.get(taskNum - ZERO_INDEX).markAsNotDone();
         }
         if (isReadMode) {
             // no need to execute code below (for writing only)
@@ -228,7 +233,7 @@ public class TaskList {
         Storage.writeToFile(FILE_NAME, displayList());
         String mark = isMark ? "marked" : "unmarked";
         System.out.println("Has " + mark + " task" + taskNum + ":");
-        System.out.print(displayListItem(taskNum - 1));
+        System.out.print(displayListItem(taskNum - ZERO_INDEX));
     }
 
     /**
@@ -238,11 +243,13 @@ public class TaskList {
      * @throws InvalidParamsException if invalid/ missing find arguments
      */
     public void findOperation(String[] userInputInParts) throws InvalidParamsException {
+        final int CORRECT_LENGTH = 2; // arguments: 1 find command + 1 findKeyword
+
         // check for input validity
-        if (userInputInParts.length != 2) {
+        if (userInputInParts.length != CORRECT_LENGTH) {
             throw new InvalidParamsException("invalid find operation");
         }
-        String findKeyword = userInputInParts[1];
+        String findKeyword = userInputInParts[CORRECT_LENGTH - ZERO_INDEX];
         String tasksToPrint = "";
         int taskIndex = 0;
         for (Task task : tasks) {

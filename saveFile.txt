@@ -1,12 +1,10 @@
-1. [T][1] item2
+1. [T][0] item2
 2. [T][1] item5
-3. [T][0] item2
-4. [T][1] item6
-5. [E][0] sjk (from: sd fsto  )
-6. [T][0] item 6
-7. [E][0] item8 (from: start to end)
-8. [D][0] item9 (by:  2020/8/20)
-9. [D][0] item10 (by:  2019 / 8 /20)
-10. [D][1] item11 (by: Aug 20 2019)
-11. [D][0] deadline (by: Aug 20 2019)
-12. [D][0] deadline1 (by:  2019/8/20)
+3. [T][1] item6
+4. [E][1] item8 (from: start to end)
+5. [D][1] item9 (by:  2020/8/20)
+6. [D][0] item10 (by:  2019 / 8 /20)
+7. [D][1] item11 (by: Aug 20 2019)
+8. [D][1] deadline1 (by:  2019/8/20)
+9. [E][1] klsdj (from: ds sdto  )
+10. [D][0] something (by: Aug 20 2019)
