@@ -66,8 +66,8 @@ public class Event extends Task{
         if (getStatusIcon().equals("[X]")) {
             isDone = true;
         }
-        return "E | " + (isDone ? "1" : "0") + " | " + this.description+ " | " + getStartOfEvent()
-                + "-" + getEndOfEvent() + "\n";
+        return "E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + getStartOfEvent()
+           + "-" + getEndOfEvent() + "\n";
     }
 
     /**
@@ -76,6 +76,6 @@ public class Event extends Task{
     @Override
     public void printTask() {
         System.out.println(taskType + getStatusIcon() + " " + description + " (from: " + startOfEvent
-                + " to: " + endOfEvent + ")");
+            + " to: " + endOfEvent + ")");
     }
 }

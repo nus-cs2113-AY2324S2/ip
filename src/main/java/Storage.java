@@ -83,7 +83,8 @@ public class Storage {
      */
     public static Task revertTaskToListFormat(String line) {
         String itemIsDone = "1";
-        String[] arrayOfTask = line.split(" \\| ", 3);
+        final int MAX_SIZE = 3;
+        String[] arrayOfTask = line.split(" \\| ", MAX_SIZE);
         boolean isDone = arrayOfTask[1].equals(itemIsDone);
         String description;
 

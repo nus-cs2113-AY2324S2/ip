@@ -40,13 +40,13 @@ public class TaskList {
      * Handles "mark" and "unmark" command by marking task as done or unmarking task as undone.
      *
      * @param userCommand A string presenting user's command.
-     * @param arrayOfCommand An array to store the command type and task number.
      * @param tasks The array list containing tasks inputted.
      * @param taskCount An integer to keep track of the number of tasks in the list.
      */
-    public static void handleMarkAndUnmarkRequest(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks,
-                                                  int taskCount) {
+    public static void handleMarkAndUnmarkRequest(String userCommand, ArrayList<Task> tasks, int taskCount) {
+        String[] arrayOfCommand;
         arrayOfCommand = userCommand.split(" ", 2);
+
         try {
             if (arrayOfCommand.length < 2 || arrayOfCommand[1].isEmpty()) {
                 throw new StringIndexOutOfBoundsException();
@@ -67,10 +67,11 @@ public class TaskList {
      * Handles "todo", "deadline" and "event" command.
      *
      * @param userCommand A string presenting user's command.
-     * @param arrayOfCommand An array to store the command type and timings.
      * @param tasks The array list containing tasks inputted.
      */
-    public static void handleTodoDeadlineAndEvent(String userCommand, String[] arrayOfCommand, ArrayList<Task> tasks) {
+    public static void handleTodoDeadlineAndEvent(String userCommand, ArrayList<Task> tasks) {
+        String[] arrayOfCommand;
+
         if (userCommand.startsWith("todo")) {
             arrayOfCommand = userCommand.split(" ", 2);
             Todo todo = new Todo(arrayOfCommand[1]);

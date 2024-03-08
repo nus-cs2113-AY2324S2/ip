@@ -12,8 +12,6 @@ public class Parser {
      * @param tasks An array list with tasks added by user.
      */
     public static void handleCommand(String userCommand, ArrayList<Task> tasks) {
-        final int NUMBER_OF_COMPONENTS = 4;
-        String[] arrayOfCommand = new String[NUMBER_OF_COMPONENTS];
         Scanner in = new Scanner(System.in);
 
         while (!userCommand.equals("bye")) {
@@ -26,22 +24,22 @@ public class Parser {
                     break;
                 case "unmark":
                 case "mark":
-                    TaskList.handleMarkAndUnmarkRequest(userCommand, arrayOfCommand, tasks, tasks.size());
+                    TaskList.handleMarkAndUnmarkRequest(userCommand, tasks, tasks.size());
                     userCommand = in.nextLine();
                     break;
                 case "delete":
                     TaskList.removeTask(tasks, Integer.parseInt(words[1]) - 1);
                     System.out.println(Messages.ITEM_REMOVED_MESSAGE);
                     System.out.println(Messages.NUMBER_OF_TASKS_MESSAGE_FRONT + tasks.size()
-                            + Messages.NUMBER_OF_TASKS_MESSAGE_BACK);
+                        + Messages.NUMBER_OF_TASKS_MESSAGE_BACK);
                     userCommand = in.nextLine();
                     break;
                 case "todo":
                 case "deadline":
                 case "event":
-                    TaskList.handleTodoDeadlineAndEvent(userCommand, arrayOfCommand, tasks);
+                    TaskList.handleTodoDeadlineAndEvent(userCommand, tasks);
                     System.out.println(Messages.NUMBER_OF_TASKS_MESSAGE_FRONT + tasks.size()
-                            + Messages.NUMBER_OF_TASKS_MESSAGE_BACK);
+                        + Messages.NUMBER_OF_TASKS_MESSAGE_BACK);
                     userCommand = in.nextLine();
                     break;
                 case "find":
