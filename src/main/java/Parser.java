@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 public class Parser {
 
     public static boolean parseAndExecute(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (userInput.trim().equalsIgnoreCase("bye")) {
             ui.showGoodbye();
-            return true; // Return true to indicate the program should exit
+            return true;
         } else if (userInput.trim().equalsIgnoreCase("list")) {
             ui.showTaskList(tasks.getTasks());
         } else if (userInput.startsWith("todo")) {
@@ -18,10 +20,12 @@ public class Parser {
             handleUnmark(userInput, tasks, ui, storage);
         } else if (userInput.startsWith("delete")) {
             handleDelete(userInput, tasks, ui, storage);
+        } else if (userInput.startsWith("find")) {
+            handleFind(userInput, tasks, ui);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-        return false; // Return false to keep the program running
+        return false;
     }
 
     private static void handleToDo(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
@@ -36,7 +40,7 @@ public class Parser {
     }
 
     private static void handleDeadline(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] parts = userInput.substring("deadline".length()).trim().split("/by");
+        String[] parts = userInput.substring("deadline".length()).trim().split("/by", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DukeException("The timing for a deadline cannot be empty.");
         }
@@ -47,11 +51,15 @@ public class Parser {
     }
 
     private static void handleEvent(String userInput, TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        String[] parts = userInput.substring("event".length()).trim().split("/at");
+        String[] parts = userInput.substring("event".length()).trim().split("/at", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DukeException("The timing for an event cannot be empty.");
         }
-        Event newEvent = new Event(parts[0].trim(), parts[1].trim().split(" ")[0], parts[1].trim().split(" ")[1]);
+        String[] time = parts[1].trim().split("\\s+", 2);
+        if (time.length < 2) {
+            throw new DukeException("Event must have both start and end times.");
+        }
+        Event newEvent = new Event(parts[0].trim(), time[0], time[1]);
         tasks.addTask(newEvent);
         ui.showAddedTask(newEvent, tasks.getTasks().size());
         storage.save(tasks.getTasks());
@@ -77,4 +85,11 @@ public class Parser {
         ui.showDeletedTask(removedTask, tasks.getTasks().size());
         storage.save(tasks.getTasks());
     }
+
+    private static void handleFind(String userInput, TaskList tasks, Ui ui) {
+        String keyword = userInput.substring("find".length()).trim();
+        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+        ui.showFoundTasks(foundTasks);
+    }
 }
+
