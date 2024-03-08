@@ -5,6 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Implements a storage system that automatically saves task details
+ * entered by the user. And loads past saves on application start.
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class Storage {
 
     private static final String LINE = "____________________________________________________________";
@@ -19,6 +27,9 @@ public class Storage {
 
     }
 
+    /**
+     * Loads task data from a saved file or creates a new save file if not found.
+     */
     public static void loadFile() {
         try {
             System.out.println("Loading from saved file");
@@ -29,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads task data from a file and adds it to the task list.
+     *
+     * @param file The file containing the task data to be loaded.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
     public static void loadFileContents(File file) throws FileNotFoundException {
         Scanner fileScanner = new Scanner(file);
 
@@ -39,6 +56,10 @@ public class Storage {
         UI.showList();
     }
 
+    /**
+     * Creates a new save file for storing task data if it doesn't already exist.
+     * It checks if the directory and the file itself exist. If not, it creates them.
+     */
     public static void createNewSaveFile() {
         try {
             if (!directory.exists()) {
@@ -61,6 +82,11 @@ public class Storage {
         return String.format("%d|%d|%s\n", taskIndex, taskMarkedStatus, taskDescription);
     }
 
+    /**
+     * Saves the current task list to a file.
+     * Generates a string representation of the current task list,
+     * then writes this data to a file specified.
+     */
     public static void saveFile() {
         StringBuilder fileContents = new StringBuilder();
         String lineToAdd;

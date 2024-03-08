@@ -1,3 +1,12 @@
+/**
+ * Implements a deadline task that stores the description of the task in the form
+ * of task and by. Indicating the deadline and description of the task.
+ *
+ *
+ * @author nigelheng
+ * @since February 2024
+ * @version 1.0
+ */
 public class Deadline extends Task {
 
     protected String task;
