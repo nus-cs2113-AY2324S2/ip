@@ -10,8 +10,8 @@ Programming.
 ## Table of Contents
 - [Booting Soot Up](#Booting-Soot-Up)
 - [What Soot can do for YOU](#what-soot-can-do-for-you)
-    - [Type of Tasks](#type-of-tasks-)
-    - [Modifying your Task List](#modifying-your-task-list-)
+  - [Type of Tasks](#type-of-tasks-)
+  - [Modifying your Task List](#modifying-your-task-list-)
 - [Closing Soot](#closing-soot)
 
 ***
@@ -94,11 +94,11 @@ Soot will find the task you are specifying and will mark it undone.
 Soot will find the task you are specifying and will delete it from your list.  
 **Command Format**: `delete TASK_INDEX_IN_LIST`
 
-| _Input_  | _Output_                                                                                                                     |
-|----------|------------------------------------------------------------------------------------------------------------------------------|
-| delete 1 | okay, i will remove this task from your list: <br> >> [T][ ] math <br> you currently have a total of 2 tasks in your list :) |
+| _Input_  | _Output_                                                                                                                    |
+|----------|-----------------------------------------------------------------------------------------------------------------------------|
+| delete 1 | okay, i will remove this task from your list: <br> >> [T][ ] math <br>you currently have a total of 2 tasks in your list :) |
 
-> 5. Find a keyword in your tasks: `find KEYWORD_TO_FIND`
+> 5. Find a keyword in your tasks: `find`
 
 Soot will find the keyword you are specifying within the task names of your list and will list these tasks to you.  
 **Command Format**: `find KEYWORD_TO_FIND`
@@ -107,6 +107,33 @@ Soot will find the keyword you are specifying within the task names of your list
 |-----------|-----------------------------------------------------------------------------------------------|
 | find math | i found your word in these tasks: <br> 1. [T][ ] math assignment <br> 2. [T][ ] math problems |
 
+> 6. View all valid commands: `help`
+
+Soot will let you know all commands I recognise!   
+**Command Format**: `help`
+
+| _Input_ | _Output_    |
+|---------|-------------|
+| help    | (see below) |
+_full output_ >>>
+```
+here's all the commands i recognise:
+    ~~~    
+to add a task, remember to specify the task type
+1. todo TASK_NAME
+2. deadline TASK_NAME /by DUE_DATE
+3. event TASK_NAME /from START_DATE /to END_DATE
+    ~~~    
+to modify ur task list:
+- list (to view you list)
+- done TASK_INDEX_IN_LIST (mark a task as done)
+- unmark TASK_INDEX_IN_LIST (mark a task as undone)
+- delete TASK_INDEX_IN_LIST (delete a task from your list)
+- find KEYWORD_TO_FIND (find a specific word in your task list)
+    ~~~    
+still lost? don't worry, visit this link for more info
+https://claribelho.github.io/ip/
+```
 ***
 
 ## Closing Soot
