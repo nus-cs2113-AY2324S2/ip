@@ -1,7 +1,14 @@
+/**
+ * Provides classes of types of tasks.
+ */
 package tasks;
 
 import java.util.List;
 
+/**
+ * This class represents the Task Super class.
+ * Behaviors consist of toString and setting done.
+ */
 public class Task {
     protected Boolean isDone;
     protected String name;
@@ -32,8 +39,7 @@ public class Task {
         System.out.println("______________________________________\n" +
                 "     Got it. I've added this task:\n" +
                 "     " + tasks.get(tasks.size()-1) + "\n" +
-                "     Now you have " + Integer.toString(tasks.size()) + " tasks in the list.\n" +
-                "______________________________________");
+                "     Now you have " + Integer.toString(tasks.size()) + " tasks in the list.\n");
     }
 
     @Override

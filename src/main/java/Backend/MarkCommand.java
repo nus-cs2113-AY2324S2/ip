@@ -14,6 +14,11 @@ public class MarkCommand extends Command{
         this.taskNum = num;
     }
 
+    /**
+     * Performs the action of marking the task specific at TaskNum as Done.
+     *
+     * @param tasks Given a List of Task Objects.
+     */
     @Override
     public void execute(List<Task> tasks) {
         if (taskNum <= tasks.size() && taskNum != 0){

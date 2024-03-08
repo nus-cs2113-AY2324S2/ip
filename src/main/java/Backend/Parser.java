@@ -8,7 +8,12 @@ import java.util.Scanner;
  * This class represents the Parser Class used to detected which command is which when a string is inputted into the chatbot
  */
 public class Parser {
-
+    /**
+     * Parses User Input and Identifies the command used.
+     *
+     * @param scanner The users text input.
+     * @return The command object identified.
+     */
     public static Command parse(Scanner scanner) {
         // Reading the input
         String input = scanner.nextLine();

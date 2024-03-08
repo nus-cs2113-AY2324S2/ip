@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * This class represents the Deadline type of task.
+ * Derived from the Tasks Super Class.
+ */
 public class Deadline extends Task {
     protected String date;
 

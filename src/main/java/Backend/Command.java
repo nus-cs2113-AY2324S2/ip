@@ -1,3 +1,6 @@
+/**
+ * Provides classes and utilities for the function of the Chatbot.
+ */
 package Backend;
 import tasks.Task;
 import java.util.List;

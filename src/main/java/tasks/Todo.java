@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * This class represents the Todo type of task.
+ * Derived from the Tasks Super Class.
+ */
 public class Todo extends Task {
 
     public Todo(String name, boolean status) {

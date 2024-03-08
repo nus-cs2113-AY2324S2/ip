@@ -21,7 +21,12 @@ public class DataManager {
         Path path = Paths.get(filePath);
         Files.write(path, data.getBytes());
     }
-
+    /**
+     * Saves the current list of the users to the "data.txt" file.
+     *
+     * @param list The current list of tasks objects of the user.
+     * @throws IOException if there are any errors with writing to the file.
+     */
     public static void saveData(List<Task> list) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         for (Task t : list) {
@@ -29,7 +34,12 @@ public class DataManager {
         }
         writeToFile("data.txt", stringBuilder.toString());
     }
-
+    /**
+     * Reads the data from a file and translates the Strings to a List of Tasks.
+     *
+     * @param filePath The String of filepath of the desired file.
+     * @throws IOException if there are any errors with reading the file.
+     */
     public static List<Task> readData(String filePath) throws IOException{
         List<Task> list = new ArrayList<>();
         Path path = Paths.get(filePath);

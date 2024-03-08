@@ -1,5 +1,9 @@
 package tasks;
 
+/**
+ * This class represents the Event type of task.
+ * Derived from the Tasks Super Class.
+ */
 public class Event extends Task {
     protected String start;
     protected String end;

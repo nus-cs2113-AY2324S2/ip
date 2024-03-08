@@ -15,6 +15,11 @@ public class DeleteCommand extends Command{
         this.taskNum = num;
     }
 
+    /**
+     * Performs the action of deleting a Task object at identifiable at taskNum of taskList.
+     *
+     * @param tasks Given a List of Task Objects.
+     */
     @Override
     public void execute(List<Task> tasks) {
         if (taskNum <= tasks.size() && taskNum != 0) {

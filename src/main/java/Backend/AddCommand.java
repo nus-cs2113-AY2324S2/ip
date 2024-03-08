@@ -15,7 +15,11 @@ public class AddCommand extends Command{
     public AddCommand(Task t) {
         this.task = t;
     }
-
+    /**
+     * Performs the action of adding a task to the existing List of Task Objects.
+     *
+     * @param tasks Given a List of Task Objects.
+     */
     @Override
     public void execute(List<Task> tasks) {
         task.addTo(tasks);

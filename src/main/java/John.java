@@ -28,6 +28,10 @@ public class John {
         new John("data.txt").run();
     }
 
+    /**
+     * This function starts the Chatbot and will terminate when isDone is set to true.
+     *
+     */
     public void run() {
         Ui.WelcomeMessage();
         Scanner scanner = new Scanner(System.in);
