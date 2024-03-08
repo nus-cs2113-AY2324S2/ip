@@ -11,19 +11,27 @@ public class Parser {
         userInput = in.nextLine();
 
         while (!userInput.equalsIgnoreCase("bye")){
-            if (userInput.equalsIgnoreCase("list")) {
-                UI.showList();
-            } else if (userInput.startsWith("mark")) {
-                TaskList.operateTask(userInput, TaskList.taskStatus.MARK);
-            } else if (userInput.startsWith("unmark")) {
-                TaskList.operateTask(userInput, TaskList.taskStatus.UNMARK);
-            } else if (userInput.startsWith("delete")) {
-                TaskList.operateTask(userInput, TaskList.taskStatus.DELETE);
-            } else if (userInput.equalsIgnoreCase("/help")) {
-                printHelpMessage();
-            } else {
-                TaskList.addTask(userInput);
+            try {
+                if (userInput.equalsIgnoreCase("list")) {
+                    UI.showList();
+                } else if (userInput.startsWith("mark")) {
+                    TaskList.operateTask(userInput, TaskList.taskStatus.MARK);
+                } else if (userInput.startsWith("unmark")) {
+                    TaskList.operateTask(userInput, TaskList.taskStatus.UNMARK);
+                } else if (userInput.startsWith("delete")) {
+                    TaskList.operateTask(userInput, TaskList.taskStatus.DELETE);
+                } else if (userInput.equalsIgnoreCase("/help")) {
+                    printHelpMessage();
+                } else {
+                    TaskList.addTask(userInput, false);
+                }
+            } catch (NullPointerException | NumberFormatException e) {
+                System.out.println(LINE);
+                System.out.println("Either the task doesn't exist or you didn't type a number");
+                System.out.println("Try a different number or type list to check");
+                System.out.println(LINE);
             }
+            Storage.saveFile();
             userInput = in.nextLine();
         }
     }

@@ -13,7 +13,7 @@ public class TaskList {
         return allTasks;
     }
 
-    public static void addTask(String userInput) {
+    public static void addTask(String userInput, boolean isLoad) {
 
         Task newTask = null;
         newTask = Parser.parseTask(userInput,newTask);
@@ -24,8 +24,12 @@ public class TaskList {
 
         allTasks.add(newTask);
         numberOfTasks += 1;
-        System.out.println("The following task has been added: ");
-        System.out.println(newTask + " as task " + numberOfTasks);
+
+        // prints message if task is not being generated from load file
+        if (!isLoad) {
+            System.out.println("The following task has been added: ");
+            System.out.println(newTask + " as task " + numberOfTasks);
+        }
     }
 
     public enum taskStatus {
@@ -62,10 +66,9 @@ public class TaskList {
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println(LINE);
-            System.out.println("Task number " + taskDisplayNumber + " doesn't exist");
+            System.out.println("Either the task number you selected doesn't exist");
             System.out.println("Try a different number or type list to check");
             System.out.println(LINE);
         }
     }
 }
-
