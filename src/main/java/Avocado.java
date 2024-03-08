@@ -1,13 +1,20 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
+
+
+
+
 public class Avocado {
     public static void main(String[] args) {
+        ArrayList <Task> list = new ArrayList<>();
         System.out.println("Hello from avocado");
         System.out.println("How can I help you ?");
         System.out.println("See you!");
-        ArrayList <Task> list = new ArrayList<>();
         int i = 0;
         int n = 0;
+
+
         while (true) {
             try {
                 String line;
@@ -20,11 +27,14 @@ public class Avocado {
                 array = line.split(" ");
                 if (array[0].startsWith("mark")) {
                     commandMark(array, list);
+
                 } else if (array[0].startsWith("unmark")) {
                     commandUnmark(array, list);
+
                 } else if (array[0].startsWith("todo")) {
                     try {
                         commandTodo(list, n, line);
+
                         i++;
                         n++;
                     } catch (DukeException e) {
@@ -32,21 +42,22 @@ public class Avocado {
                     }
                 } else if (array[0].startsWith("deadline")) {
                     commandLine(list, n, line);
+
                     i++;
                     n++;
                 } else if (array[0].startsWith("event")) {
                     commandEvent(list, n, line);
+
                     i++;
                     n++;
                 } else if (line.equals("list")) {
                     commandList(list, n);
-                }
-                else if (array[0].startsWith("delete")) {
+                } else if (array[0].startsWith("delete")) {
                     commandDelete(array, list);
+
                     i--;
                     n--;
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException();
                 }
             } catch (IllegalArgumentException e) {
@@ -71,8 +82,7 @@ public class Avocado {
             ToDo newtodo = new ToDo(line.substring(5));
             list.add(newtodo) ;
             System.out.println(newtodo);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("please enter description");
         }
     }
@@ -105,4 +115,68 @@ public class Avocado {
         System.out.println(" " + list.get(commandIndex).taskDescription());
         list.remove(commandIndex);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
