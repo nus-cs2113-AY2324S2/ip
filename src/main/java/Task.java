@@ -26,13 +26,6 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-    public String toFileString() {
-        // Format: T | 1 | read book
-        //         D | 0 | return book | June 6th
-        //         E | 0 | project meeting | Aug 6th 2-4pm
-        String status = isDone ? "1" : "0";
-        return String.format("%s | %s | %s", getTypeSymbol(), status, description);
-    }
 
     public void setDone(boolean isDone) {
         this.isDone = isDone;

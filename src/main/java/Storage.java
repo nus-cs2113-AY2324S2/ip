@@ -1,10 +1,9 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,86 +23,50 @@ public class Storage {
     }
 
 
-    private static void loadTasksFromFile() {
+    public void loadTasksFromFile(TaskList tasks) {
         try {
-            Path path = Paths.get(Sunny.FILE_PATH);
+            Path path = Paths.get(filePath);
 
             if (!Files.exists(path)) {
                 // Handle the case where the file doesn't exist yet
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
-                System.out.println("File created: " + FILE_PATH);
+                System.out.println("File created: " + Sunny.FILE_PATH);
+            } else {
+                File savedFile = new File(filePath);
+                Scanner scanner = new Scanner(savedFile);
+
+                System.out.println("Tasks loaded from file:");
+                while (scanner.hasNext()) {
+                    String fileLine = scanner.nextLine();
+                    System.out.println("Read from file: " + fileLine);
+
+                    char taskType = fileLine.charAt(1);
+                    tasks.addTaskFromSaved(fileLine, taskType);
+                }
+                System.out.println("Tasks loaded successfully!" + System.lineSeparator());
+
+
+                scanner.close();
             }
-
-
-            Scanner scanner = new Scanner(new File(FILE_PATH));
-            while (scanner.hasNext()) {
-                String fileLine = scanner.nextLine();
-                System.out.println("Read from file: " + fileLine);
-
-                // Parse and add the task directly
-                parseAndAddTask(fileLine);
-            }
-            // Print the loaded tasks
-            printTaskList();
-
-            System.out.println("Tasks loaded successfully!");
         } catch (IOException e) {
-            handleErrors(e);
+            System.out.printf("OH NO! No file found :/", e.getMessage());
         }
     }
 
-    private static void saveTasksToFile() {
-        try (PrintWriter writer = new PrintWriter(FILE_PATH)) {
-            for (Task task : tasksList) {
-                writer.println(task.toFileString());
+    public void saveTasksToFile(TaskList tasks) {
+        try {
+            FileWriter writer = new FileWriter(filePath);
+            System.out.println("Saving tasks to file:");
+            for (int i = 0; i < tasks.size(); i++){
+                String taskString = tasks.get(i).toString();
+                writer.write(taskString + System.lineSeparator());
+                System.out.println("Saved to file: " + taskString);
             }
-            System.out.println("Tasks saved successfully!");
+            writer.close();
+            System.out.println("Tasks saved successfully!" + System.lineSeparator());
         } catch (IOException e) {
-            handleErrors(e);
+            System.out.printf("ERROR! Something went wrong...: %1$s", e.getMessage());
         }
     }
-
-    private static void parseAndAddTask(String data) {
-        String[] parts = data.split(" \\| ");
-
-        if (parts.length < 3) {
-            // Not enough data to create a valid task
-            return;
-        }
-
-        String type = parts[0].toLowerCase(); // Convert to lowercase for case-insensitivity
-        String status = parts[1];
-        String description = parts[2];
-
-        switch (type) {
-        case "t":
-            tasksList.add(Todo.fromFileFormat(description));
-            break;
-        case "d":
-            tasksList.add(Deadline.fromFileFormat(description));
-            break;
-        case "e":
-            tasksList.add(Event.fromFileFormat(description));
-            break;
-        default:
-            // Unknown task type
-            break;
-        }
-
-    }
-    /**
-     * Loads tasks from the file.
-     *
-     * @return The list of tasks loaded from the file.
-     */
-    public List<Task> loadTasks() {
-        // Your implementation to load tasks from the file
-        List<Task> loadedTasks;
-        return loadedTasks;
-    }
-
-    public void saveTasks(List<Task> tasks) {
-        // Implement your saving logic here
-    }
-}
+ }
