@@ -1,21 +1,21 @@
 # Chat Bot Adam - User Guide
 This is a user manual for Chat Bot Adam, a task-management desktop application designed to be used with a Command Line Interface (CLI).<br>
 If you can type fast, Adam can get your tasks managed faster than some GUI apps.<br>
-[View the User Guide in Simple Theme](https://github.com/adamzzq/ip/blob/master/docs/OriginalTheme/SimpleView.md)
+[View the User Guide in Customized Theme](https://adamzzq.github.io/ip/)
 
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Adding a task](#adding-a-task)
-  - [Listing all tasks](#listing-all-tasks)
-  - [Marking a task as done](#marking-a-task-as-done)
-  - [Deleting a task](#deleting-a-task)
-  - [Finding a task by keyword](#finding-a-task-by-keyword)
-  - [Exiting the program](#exiting-the-program)
-  - [Viewing help](#viewing-help)
+    - [Adding a task](#adding-a-task)
+    - [Listing all tasks](#listing-all-tasks)
+    - [Marking a task as done](#marking-a-task-as-done)
+    - [Deleting a task](#deleting-a-task)
+    - [Finding a task by keyword](#finding-a-task-by-keyword)
+    - [Exiting the program](#exiting-the-program)
+    - [Viewing help](#viewing-help)
 - [Appendix](#Appendix)
-  - [Date and Time Format](#Date-and-Time-Format)
+    - [Date and Time Format](#Date-and-Time-Format)
 
 ## Introduction
 Adam the Chat Bot is a versatile task management application designed to simplify your daily workflow.<br>
@@ -29,13 +29,13 @@ This user guide provides a comprehensive overview of Adam's features and command
 3. Copy the file to the folder you want to use as the home folder for Adam the Chat Bot.
 4. Start a terminal and navigate to the folder where `adam.jar` is located.
 5. Run the command `java -jar adam.jar` to start the app. The app should start with the following output displayed:
-![img.png](img.png)
+   ![img.png](img.png)
 6. Type the command in the command box and press Enter to execute it. Refer to the [Features](#features) section for available commands.
 7. Note that the data is saved in the hard disk **automatically** after any command that changes the data. There is no need to save manually.
 8. Please take note that **deleting** the `tasks.dat` file will result in the **loss of all data**.
 9. Please do not edit the `tasks.dat` file manually as it may result in the **loss of all data**.
 10. Please ensure that the data file named `tasks.dat` is in the **same directory** as the `adam.jar` file to load the saved data.<br>
-If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
+    If there is no `tasks.dat` file in the same directory as the `adam.jar` file, an empty `tasks.dat` file will be created to store the data.
 
 
 > [!NOTE]
@@ -76,9 +76,9 @@ with the start date and time `Mar 7, 2024, 1:00 PM` and the end date `Mar 7, 202
 > - The time field is optional and defaults to 12:00 AM if not specified.<br>
 > - Unspecified dates are automatically set to the current date from the system clock.
 > - Using unsupported date and time formats will create a tasks with the date and time as the literal input.
->   - For example:
-      `deadline Hand in assignments /by tomorrow afternoon`<br>
-      Adds a deadline task with the description "Hand in assignments" and the date and time as a literal "tomorrow afternoon".
+    >   - For example:
+          `deadline Hand in assignments /by tomorrow afternoon`<br>
+          Adds a deadline task with the description "Hand in assignments" and the date and time as a literal "tomorrow afternoon".
 
 #### Expected outcome
 ```

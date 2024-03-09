@@ -1,7 +1,180 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+              _
+     /\      | |
+    /  \   __| | __ _ _ __ ___
+   / /\ \ / _` |/ _` | '_ ` _ \
+  / ____ \ (_| | (_| | | | | | |
+ /_/    \_\__,_|\__,_|_| |_| |_|
 
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Greetings, human! I'm Adam, your friendly chat bot.
+Ready to conquer the world of tasks together?
+Let's dive into the adventure!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Oopsie! Looks like I got tangled up in my circuits.
+Could you please try again?
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [T][ ] sleep for 8 hours
+You now have a whopping 1 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [D][ ] wake up  (by: 8:00AM tmr)
+You now have a whopping 2 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [E][ ] exercise (from: tmr  to: 1st Aug. 2024)
+You now have a whopping 3 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [T][ ] jaer09549)(0
+You now have a whopping 4 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Behold, the mighty task(s) in your realm:
+
+1.[T][ ] sleep for 8 hours
+2.[D][ ] wake up  (by: 8:00AM tmr)
+3.[E][ ] exercise (from: tmr  to: 1st Aug. 2024)
+4.[T][ ] jaer09549)(0
+
+These tasks await your valiant efforts, noble taskmaster!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Ta-da! Task conquered! I've marked this task as done:
+   [T][X] sleep for 8 hours
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Whoopsie-daisy! This task is back in action:
+   [T][ ] sleep for 8 hours
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Oopsie! Looks like I got tangled up in my circuits.
+Could you please try again?
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [T][ ] borrow book
+You now have a whopping 5 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Behold, the mighty task(s) in your realm:
+
+1.[T][ ] sleep for 8 hours
+2.[D][ ] wake up  (by: 8:00AM tmr)
+3.[E][ ] exercise (from: tmr  to: 1st Aug. 2024)
+4.[T][ ] jaer09549)(0
+5.[T][ ] borrow book
+
+These tasks await your valiant efforts, noble taskmaster!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [D][ ] sleep  (by: 12 tonight)
+You now have a whopping 6 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [E][ ] sleep  (from: 12am  to: 9a.m. 09/02/2024)
+You now have a whopping 7 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [D][ ] sleep  (by: 12 tonight)
+You now have a whopping 8 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Awesome sauce! Task successfully added:
+  [E][ ] sleep  (from: 12am  to: 9a.m. 09/02/2024)
+You now have a whopping 9 tasks in the list. Keep 'em coming!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Behold, the mighty task(s) in your realm:
+
+1.[T][ ] sleep for 8 hours
+2.[D][ ] wake up  (by: 8:00AM tmr)
+3.[E][ ] exercise (from: tmr  to: 1st Aug. 2024)
+4.[T][ ] jaer09549)(0
+5.[T][ ] borrow book
+6.[D][ ] sleep  (by: 12 tonight)
+7.[E][ ] sleep  (from: 12am  to: 9a.m. 09/02/2024)
+8.[D][ ] sleep  (by: 12 tonight)
+9.[E][ ] sleep  (from: 12am  to: 9a.m. 09/02/2024)
+
+These tasks await your valiant efforts, noble taskmaster!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>
+Farewell, adventurer! Until our paths cross again!
+
+>====> >====> >====> >====> >====> >====> >====> >====> >====>

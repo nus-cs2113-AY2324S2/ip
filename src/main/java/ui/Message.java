@@ -1,0 +1,102 @@
+package ui;
+
+import java.util.Random;
+
+/**
+ * The Message class is responsible for storing and displaying messages for normal and error cases.
+ */
+public class Message {
+    public static final String DELIMITER = "\n>====> >====> >====> >====> >====> >====> >====> >====> >====> >====>\n";
+
+    private static final String LOGO_DEFAULT = "              _                 \n"
+            + "     /\\      | |                \n"
+            + "    /  \\   __| | __ _ _ __ ___  \n"
+            + "   / /\\ \\ / _` |/ _` | '_ ` _ \\ \n"
+            + "  / ____ \\ (_| | (_| | | | | | |\n"
+            + " /_/    \\_\\__,_|\\__,_|_| |_| |_|\n";
+
+    private static final String LOGO_3D = " ________  ________  ________  _____ ______      \n"
+            + "|\\   __  \\|\\   ___ \\|\\   __  \\|\\   _ \\  _   \\    \n"
+            + "\\ \\  \\|\\  \\ \\  \\_|\\ \\ \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\   \n"
+            + " \\ \\   __  \\ \\  \\ \\\\ \\ \\   __  \\ \\  \\\\|__| \\  \\  \n"
+            + "  \\ \\  \\ \\  \\ \\  \\_\\\\ \\ \\  \\ \\  \\ \\  \\    \\ \\  \\ \n"
+            + "   \\ \\__\\ \\__\\ \\_______\\ \\__\\ \\__\\ \\__\\    \\ \\__\\\n"
+            + "    \\|__|\\|__|\\|_______|\\|__|\\|__|\\|__|     \\|__|\n";
+
+    private static final String GREETING = DELIMITER
+            + "Greetings, human! I'm Adam, your friendly chat bot.\n"
+            + "Ready to conquer the world of tasks together?\n"
+            + "Let's dive into the adventure!\n\n"
+            + ">>> Type 'help' or 'h' to view the available commands."
+            + DELIMITER;
+
+    private static final String[] LOGOS = {LOGO_DEFAULT, LOGO_3D};
+
+    // Random logo display at app start
+    public static final String GREETING_MESSAGE = "Hello from\n" + LOGOS[new Random().nextInt(LOGOS.length)]
+            + GREETING;
+
+    public static final String EXIT_MESSAGE = "Farewell, adventurer! Until our paths cross again!\n";
+
+    public static final String MARK_MESSAGE = "Ta-da! Task conquered! I've marked this task as done:\n";
+
+    public static final String UNMARK_MESSAGE = "Whoopsie-daisy! This task is back in action:\n";
+
+    public static final String ADD_TASK_MESSAGE_FRONT = "Awesome sauce! Task successfully added:\n  ";
+
+    public static final String ADD_TASK_MESSAGE_MIDDLE = "\nYou now have a whopping ";
+
+    public static final String ADD_TASK_MESSAGE_END = " tasks in the list. Keep 'em coming!";
+
+    public static final String EVENT_TIME_ERROR_MESSAGE = "Oops! Looks like you've created a time paradox!\n"
+            + "The start time of the event should be before the end time.";
+
+    public static final String LIST_MESSAGE_FRONT = "Behold, the mighty task(s) in your realm:\n";
+
+    public static final String LIST_MESSAGE_END = "\nThese tasks await your valiant efforts, noble taskmaster!";
+
+    public static final String EMPTY_LIST_ERROR_MESSAGE = "Oops! Looks like our task list is empty.\n"
+            + "Time to fill it up with some action-packed tasks!";
+
+    private static final String RANGE_ERROR_MESSAGE = "Oops! The specified index is out of range.\n"
+            + "Please enter an index between 1 and ";
+
+    public static final String INVALID_INPUT_MESSAGE = "Oopsie! Looks like I got tangled up in my circuits.\n"
+            + "Please try again or type 'help' for valid commands.";
+
+    public static String getListInquiryErrorMessage(int size) {
+        return size == 0 ? EMPTY_LIST_ERROR_MESSAGE : RANGE_ERROR_MESSAGE + size + ". (both inclusive)";
+    }
+
+    public static final String HELP_MESSAGE = "Need a hand? Here's your guide to Adam's commands!\n\n"
+            + "Available commands:\n"
+            + "- bye (or ex, q): Exit the chatbot.\n"
+            + "- todo [description]: Add a new todo task.\n"
+            + "- deadline [description] /by [deadline]: Add a new task with a deadline.\n"
+            + "- event [description] /from [start time] /to [end time]: Add a new event task.\n"
+            + "- list (or ls): View all tasks in the task list.\n"
+            + "- mark [task number]: Mark a task as completed.\n"
+            + "- unmark [task number]: Mark a completed task as incomplete.\n"
+            + "- delete [task number]: Delete a task from the list. (Watch out, it's permanent!)\n"
+            + "- find [keyword]: Search for tasks containing the specified keyword.\n"
+            + "- help (or h): Display this help menu.\n\n"
+            + "To use a command, simply type it followed by any necessary parameters\n"
+            + "(e.g. \"deadline Hand in assignments /by 4th June\").\n"
+            + "Enjoy chatting with Adam!";
+
+    public static String getDeleteMessage(int newSize, String task) {
+        return "Task gone with the digital wind!\n  "
+                + task + (newSize == 0 ? "\nOur list is empty now!"
+                        : "\nNow down to " + newSize + " tasks in the list.");
+    }
+
+    public static final String FILE_SAVE_ERROR_MESSAGE = "\nOops! Looks like your tasks will vanish after this session!"
+            + "\nRestart the app and let's see if they're back to their normal selves!";
+
+    public static final String FILE_LOAD_ERROR_MESSAGE = DELIMITER + "I can't seem to find your previous tasks! :("
+            + "\nStarting fresh with an empty list...\n" + DELIMITER;
+
+    public static final String FIND_MESSAGE = "Behold! Your tasks surface:\n";
+
+    public static final String FIND_FAIL_MESSAGE = "No tasks found with the keyword :(";
+}
