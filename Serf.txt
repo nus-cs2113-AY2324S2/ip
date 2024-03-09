@@ -1,0 +1,5 @@
+event sleep /from 10pm /to 6pm
+deadline wake up /by 8am
+mark todo CS2113 week 7
+deadline CS2113 assignment /by 2359hrs
+event CS2113 tutorial /from 12pm /to 1pm
