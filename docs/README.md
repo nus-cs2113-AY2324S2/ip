@@ -1,7 +1,8 @@
 # Chat Bot Adam - User Guide
 This is a user manual for Chat Bot Adam, a task-management desktop application designed to be used with a Command Line Interface (CLI).<br>
 If you can type fast, Adam can get your tasks managed faster than some GUI apps.<br>
-[View the User Guide in Simple Theme](OriginalTheme%2FSimpleView.md)
+[View the User Guide in Simple Theme](https://github.com/adamzzq/ip/blob/master/docs/OriginalTheme/SimpleView.md)
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
@@ -108,10 +109,13 @@ Lists all the tasks in the list of tasks.
 
 #### Expected outcome
 ```
-Here are the tasks in your list:
+Behold, the mighty task(s) in your realm:
+
 1. [T][ ] read book
 2. [D][X] return book (by: Mar 30, 2024, 4:00 PM)
 3. [E][X] project meeting (from: Mar 7, 2024, 2:30 PM to: Mar 7, 2024, 2:30 PM)
+
+These tasks await your valiant efforts, noble taskmaster!
 ```
 
 

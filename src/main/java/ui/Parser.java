@@ -57,7 +57,7 @@ public enum Parser {
     public static String[] splitInput(Parser token, String input) {
         Pattern matchedPattern = Pattern.compile(token.getCommandRegex());
         Matcher matcher = matchedPattern.matcher(input);
-        matcher.find();
+        matcher.matches();
 
         return IntStream.rangeClosed(1, matcher.groupCount())
                 .mapToObj(i -> matcher.group(i).trim())
