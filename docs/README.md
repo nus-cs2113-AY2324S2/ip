@@ -1,29 +1,57 @@
-# User Guide
+# Tickles User Guide
 
-## Features 
+## Adding a todo task: `todo`
 
-### Feature-ABC
+Adds a todo task to the list.  
+Format: `todo [task description]`  
+Example: `todo shop for socks`
 
-Description of the feature.
+## Adding a deadline task: `deadline`
 
-### Feature-XYZ
+Adds a deadline task to the list.  
+Format: `todo [task description] /by [deadline]`  
+Example: `deadline finish homework /by someday`
 
-Description of the feature.
+## Adding an event task: `event`
 
-## Usage
+Adds an event task to the list.  
+Format: `event [task description] /from [start] /to [finish]`  
+Example: `event wedding for rats /from friday 5pm /to 8pm`  
 
-### `Keyword` - Describe action
+## Marking a task as complete: `mark`
 
-Describe the action and its outcome.
+Denotes this task number has been completed.   
+Format: `mark [number]`  
+Example: `mark 2` (list must have at least 2 tasks)
 
-Example of usage: 
+## Marking a task an incomplete: `unmark`
 
-`keyword (optional arguments)`
+Unmarks a task.   
+Format: `unmark [number]`  
+Example: `unmark 4` (list must have at least 4 tasks)
 
-Expected outcome:
+## Deleting a task: `delete`
 
-Description of the outcome.
+Deletes the task from the list.   
+Format: `delete [number]`  
+Example: `delete 3` (list must have at least 3 tasks)
 
-```
-expected output
-```
+## Searching the list of tasks by word(s): `find`
+
+Searches through the list for matches, and prints the list of tasks matching the search.  
+Format: `find [word(s)]`  
+Example: `find birthday`  
+
+## Listing all tasks: `list`
+
+Prints all tasks added to list, along with whether they are marked/unmarked, along with their task type: [T], [D], [E] denotes Todo, Deadline, and Event, respectively.  
+Format: `list`  
+Example: `list`
+
+## Exiting the program: `bye`
+
+Terminates the program, and saves the list of tasks for later use.  
+Format: `bye`  
+Example: `bye`
+
+
