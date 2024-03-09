@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Deals with actions relating to the list of tasks, stored as an ArrayList.
+ */
 public class TaskList {
 
     protected static int totalTasks = 0;
@@ -13,7 +16,10 @@ public class TaskList {
         list = new ArrayList<>();
     }
 
-    // Creates a new Task from the inputted string, and adds it to our list.
+    /**
+     * Creates a new Task from the inputted string, and adds it to our list.
+     * @param str Raw string input from user.
+     */
     public static void addToList(String str) {
         Task task = null;
         if (str.contains("deadline")) {
@@ -50,10 +56,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Actions for non-new items in Task List for the purpose of streamlining the method modifyTask.
+     */
     public enum action {
         DELETE, MARK, UNMARK
     }
 
+    /**
+     * Modifies tasks in Task List of the form delete, mark, or unmark.
+     * @param a action which must be in the enum defined above.
+     * @param taskNumber should be the number of the task which this method modifies. Still in string format from the
+     *                   user input. If an invalid number, nothing happens.
+     */
     public static void modifyTask(action a, String taskNumber) {
         int taskNo;
         try {
@@ -87,6 +102,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches through Task List for tasks that contain the word the user inputted. Prints out all matches.
+     */
     public static void find(String target) {
         List<Task> matches = new ArrayList<Task>();
         for (Task t : list) {
@@ -97,6 +115,9 @@ public class TaskList {
         printList("Here are the matching tasks in your list:", matches);
     }
 
+    /**
+     * Checks if the Task List has 1 task, for use in printing out the number of task(s) are in the list.
+     */
     public static String pluralChecker() {
         if (totalTasks == 1) {
             return "";
@@ -105,13 +126,15 @@ public class TaskList {
         }
     }
 
-    // Prints the tasks in the given list as well as their status icon.
+    /**
+     * Prints the tasks in the given list as well as their status icon.
+     */
     public static void printList(String message, List<Task> l) {
         Ui.printLine();
         System.out.println(message);
         int counter = 1;
         for (Task t : l) {
-            System.out.println(counter + "." + t.type() + t.toString());
+            System.out.println(counter + "." + t.type() + t);
             counter += 1;
         }
         Ui.printLine();

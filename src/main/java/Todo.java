@@ -1,3 +1,6 @@
+/**
+ * Tasks of the Todo type.
+ */
 public class Todo extends Task{
 
     public Todo(String description) {

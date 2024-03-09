@@ -2,13 +2,21 @@ import java.io.*;
 import java.util.Scanner;
 import java.io.File;
 
+/**
+ * Loads the save file into the list of tasks. If no save file exists yet, Storage will create one.
+ */
 public class Storage {
-    private static File file = fileWithDirectoryAssurance("data", "tickles.txt");
-    private static String filePath = "./data.tickles.txt";
+    private static File file;
+    private static String filePath = "./data/tickles.txt";
 
     public Storage(String fp) {
+        fileWithDirectoryAssurance("data", "tickles.txt");
         String filePath = fp;
     }
+
+    /**
+     * Loads the data from the save file into the Task List.
+     */
     public void loadTickles() {
         TaskList taskList = new TaskList();
         try {
@@ -33,22 +41,31 @@ public class Storage {
                 if (lineData[1].equals("X")) {
                     task.markAsDone();
                 }
-                TaskList.list.add(task); //adds to List<Task> inside TaskList
+                TaskList.list.add(task);
                 TaskList.totalTasks += 1;
                 }
         } catch (FileNotFoundException | StorageException e) {
             file = new File("./data/tickles.txt");
         }
-        //return taskList;
     }
-    private static File fileWithDirectoryAssurance(String directory, String filename) {
+
+    /**
+     * Ensures the directory exists to store the save data in.
+     * @param directory name of the directory
+     * @param fileName name of the file
+     * @return the file that was just created, in case it needs to be referenced later.
+     */
+    private static File fileWithDirectoryAssurance(String directory, String fileName) {
         File dir = new File(directory);
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        return new File("./" + directory + "/" + filename);
+        return new File("./" + directory + "/" + fileName);
     }
 
+    /**
+     * Stores the data currently in Task List into the save file, to be used if Tickles is started up again later.
+     */
     public static void save() {
         FileWriter fileWriter;
         try {
