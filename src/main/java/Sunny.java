@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/*
 public class Sunny {
 
     private static ArrayList<Task> tasksList = new ArrayList<>();
@@ -260,5 +260,73 @@ public class Sunny {
             printInvalidTaskIndexMessage();
         }
         System.out.println(" ");
+    }
+}
+*/
+import java.util.Scanner;
+
+/**
+ * The main class for the Sunny task management application.
+ */
+public class Sunny {
+
+    /** The task list to manage tasks. */
+    private static TaskList tasksList = new TaskList();
+
+    /** The file path to store tasks persistently. */
+    private static final String FILE_PATH = "./data/sunny.txt";
+
+    /**
+     * The main entry point of the Sunny application.
+     *
+     * @param args The command line arguments.
+     */
+    public static void main(String[] args) {
+        Ui.showWelcome();
+        loadTasksFromFile();
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            try {
+                String command = scanner.nextLine();
+
+                if (command.equalsIgnoreCase("bye")) {
+                    Ui.showBye();
+                    break;
+                } else if (command.equalsIgnoreCase("list")) {
+                    tasksList.printTaskList();
+                } else {
+                    // Parse the command using Parser
+                    Command parsedCommand = Parser.parse(command);
+
+                    // Execute the command
+                    parsedCommand.execute(tasksList);
+
+                    // Save tasks to file
+                    saveTasksToFile();
+                }
+            } catch (Exception e) {
+                Ui.handleErrors(e);
+            }
+        }
+    }
+
+    /**
+     * Load tasks from the file upon startup.
+     */
+    private static void loadTasksFromFile() {
+        Storage storage = new Storage(FILE_PATH);
+        tasksList = new TaskList(storage.loadTasks());
+        Ui.showTasksLoaded();
+    }
+
+    /**
+     * Save tasks to the file whenever the task list changes.
+     */
+    private static void saveTasksToFile() {
+        Storage storage = new Storage(FILE_PATH);
+        storage.saveTasks(tasksList.getTasks());
+        Ui.showTasksSaved();
     }
 }
