@@ -52,7 +52,7 @@ public enum Parser {
      *
      * @param token The token to be used for splitting the input.
      * @param input The input to be split.
-     * @return The split input.
+     * @return The split input containing the arguments required for the command.
      */
     public static String[] splitInput(Parser token, String input) {
         Pattern matchedPattern = Pattern.compile(token.getCommandRegex());

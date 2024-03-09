@@ -6,7 +6,7 @@ import ui.Parser;
 /**
  * The CommandGenerator class generates a command based on the user input.
  */
-public class CommandGenerator{
+public class CommandGenerator {
 
     /**
      * Generates a command based on the user input.
