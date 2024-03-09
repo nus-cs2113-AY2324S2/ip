@@ -171,10 +171,11 @@ Exits from the chatbot.
 
       bye
 **Expected Outcome:**
-
+```
       -----------------------------------------
          Bye. Hope to see you again soon!
       -----------------------------------------
+```
 ### User Commands:
 
 | Name | Format | Command Example                                                      |
