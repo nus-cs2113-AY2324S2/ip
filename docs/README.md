@@ -136,7 +136,7 @@ Sunny Bot will display tasks containing the specified keyword.
 
 Feel free to experiment with different keywords to locate the tasks you need. Sunny Bot's flexible search functionality makes it easy to find and manage your tasks effectively.
 
-##Feature 5 - Load, Save, and Display Data
+### Feature 5 - Load, Save, and Display Data
 Sunny Bot provides the ability to load tasks from a file, save tasks to a file, and display them again when the program runs.
 
 Usage
