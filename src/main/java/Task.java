@@ -8,17 +8,16 @@ public abstract class Task {
     }
 
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
-    public void markAsNotDone() {
-        this.isDone = false;
+    public String getDescription() {
+        return description;
     }
 
-    public abstract String getType();
-
-    @Override
-    public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
+    public String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
+
+    public abstract String toString();
 }

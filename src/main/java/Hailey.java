@@ -1,79 +1,100 @@
 import java.util.Scanner;
 
 public class Hailey {
-    private static final String COMMAND_BYE = "bye";
-    private static final String COMMAND_LIST = "list";
-    private static final String COMMAND_TODO = "todo";
-    private static final String COMMAND_DEADLINE = "deadline";
-    private static final String COMMAND_EVENT = "event";
+    private final TaskManager taskManager;
 
-    public static void main(String[] args) {
+    public Hailey() {
+        taskManager = new TaskManager();
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
 
         printWelcomeMessage();
 
         while (true) {
-            String userInput = scanner.nextLine().trim().toLowerCase();
+            String userInput = scanner.nextLine().trim();
             printLine();
 
-            if (userInput.equals(COMMAND_BYE)) {
-                break;
+            try {
+                processUserInput(userInput);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
 
-            processUserInput(userInput, taskManager);
+            printLine();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                break;
+            }
         }
 
-        printGoodbyeMessage();
         scanner.close();
     }
 
-    private static void processUserInput(String userInput, TaskManager taskManager) {
-        String[] inputParts = userInput.split("\\s+", 2);
-        String command = inputParts[0];
-        String description = inputParts.length > 1 ? inputParts[1] : "";
+    private void processUserInput(String userInput) throws DukeException {
+        String[] inputParts = userInput.split(" ", 2);
+        String command = inputParts[0].toLowerCase();
+        String argument = inputParts.length > 1 ? inputParts[1] : "";
 
         switch (command) {
-            case COMMAND_LIST:
+            case "todo":
+                taskManager.addTodoTask(argument);
+                break;
+            case "deadline":
+                String[] deadlineArgs = argument.split("/by", 2);
+                if (deadlineArgs.length != 2) {
+                    throw new DukeException("OOPS!!! Please provide a description and deadline for the task.");
+                }
+                taskManager.addDeadlineTask(deadlineArgs[0].trim(), deadlineArgs[1].trim());
+                break;
+            case "event":
+                String[] eventArgs = argument.split("/from", 2);
+                if (eventArgs.length != 2) {
+                    throw new DukeException("OOPS!!! Please provide a description and time period for the event.");
+                }
+                String[] eventTimeArgs = eventArgs[1].split("/to", 2);
+                if (eventTimeArgs.length != 2) {
+                    throw new DukeException("OOPS!!! Please provide a valid time period for the event.");
+                }
+                taskManager.addEventTask(eventArgs[0].trim(), eventTimeArgs[0].trim(), eventTimeArgs[1].trim());
+                break;
+            case "list":
                 taskManager.listTasks();
                 break;
-            case COMMAND_TODO:
-                taskManager.addTodoTask(description);
+            case "done":
+                int taskIndex = Integer.parseInt(argument) - 1;
+                taskManager.markTaskAsDone(taskIndex);
                 break;
-            case COMMAND_DEADLINE:
-                String[] deadlineParts = description.split("/by", 2);
-                taskManager.addDeadlineTask(deadlineParts[0].trim(), deadlineParts[1].trim());
+            case "delete":
+                int taskIndexToDelete = Integer.parseInt(argument) - 1;
+                taskManager.deleteTask(taskIndexToDelete);
                 break;
-            case COMMAND_EVENT:
-                String[] eventParts = description.split("/from", 2);
-                String[] eventDateTime = eventParts[1].split("/to", 2);
-                taskManager.addEventTask(eventParts[0].trim(), eventDateTime[0].trim(), eventDateTime[1].trim());
+            case "find":
+                taskManager.findTasks(argument);
                 break;
+            case "bye":
+                printGoodbyeMessage();
+                return;
             default:
-                System.out.println("Invalid command. Please try again.");
-                printLine();
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static void printWelcomeMessage() {
-        System.out.println("Hello from\n" +
-                " ____        _        \n" +
-                "|  _ \\ _   _| | _____ \n" +
-                "| | | | | | | |/ / _ \\\n" +
-                "| |_| | |_| |   <  __/\n" +
-                "|____/ \\__,_|_|\\_\\___|\n" +
-                "What can I help you with?");
-        printLine();
-        System.out.println("Hello! I'm Hailey.\nWhat can I do for you?");
-        printLine();
+    private void printWelcomeMessage() {
+        System.out.println("Hello! I'm Hailey");
+        System.out.println("What can I do for you?");
     }
 
-    private static void printLine() {
+    private void printGoodbyeMessage() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private void printLine() {
         System.out.println("____________________________________________________________");
     }
 
-    private static void printGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
+    public static void main(String[] args) {
+        new Hailey().run();
     }
 }
