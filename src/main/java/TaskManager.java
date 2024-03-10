@@ -8,24 +8,10 @@ public class TaskManager {
         tasks = new ArrayList<>();
     }
 
-    public void addTodoTask(String description) {
-        tasks.add(new Todo(description));
+    public void addTask(Task task) {
+        tasks.add(task);
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    public void addDeadlineTask(String description, String by) {
-        tasks.add(new Deadline(description, by));
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    public void addEventTask(String description, String from, String to) {
-        tasks.add(new Event(description, from, to));
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -40,24 +26,22 @@ public class TaskManager {
         }
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            System.out.println("Invalid task number.");
-            return;
+            throw new DukeException("Invalid task number.");
         }
         tasks.get(index).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + tasks.get(index));
     }
 
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            System.out.println("Invalid task number.");
-            return;
+            throw new DukeException("Invalid task number.");
         }
+        Task removedTask = tasks.remove(index);
         System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + tasks.get(index));
-        tasks.remove(index);
+        System.out.println("  " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
