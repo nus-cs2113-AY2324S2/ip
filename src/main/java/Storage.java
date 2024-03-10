@@ -6,16 +6,17 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Storage {
+    private static final String DATA_FILE_PATH = "./nehsik.txt";
 
-    private static void writeToFile(String filePath, String textToAppend, boolean isAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, isAppend);
+    private static void writeToFile(String textToAppend, boolean isAppend) throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE_PATH, isAppend);
         fw.write(textToAppend);
         fw.close();
     }
 
-    protected static void saveTasksToFile(String filepath, ArrayList<Task> taskList) {
+    protected static void saveTasksToFile(ArrayList<Task> taskList) {
         try {
-            writeToFile(filepath, "", false);           // Clear Old content
+            writeToFile("", false);           // Clear Old content
         } catch (IOException e) {
             System.out.println("IOException occured: " + e.getMessage());
         }
@@ -38,15 +39,15 @@ public class Storage {
             }
 
             try {
-                writeToFile(filepath, taskToAdd, true);
+                writeToFile(taskToAdd, true);
             } catch (IOException e) {
                 System.out.println("IOException occured: " + e.getMessage());
             }
         }
     }
 
-    protected static void loadTasksFromFile(String filePath, ArrayList<Task> taskList) {
-        File f = new File(filePath);
+    protected static void loadTasksFromFile(ArrayList<Task> taskList) {
+        File f = new File(DATA_FILE_PATH);
         if (!f.exists()) {
             try {
                 f.createNewFile();
