@@ -80,8 +80,9 @@ Feel free to explore and try different variations with optional arguments!
 ### Feature 2 - Viewing Task List
 
 Sunny Bot allows you to view the list of tasks currently in your task manager.
-_
-Usage_
+
+
+_Usage_
 
 **list - Display the list of tasks**
 
@@ -145,6 +146,7 @@ Sunny Bot will undo the completion status of the specified task and confirm the 
 Search for tasks containing specific keywords.
 
 _Usage_
+
 **find - Find tasks based on keywords**
 
 Find tasks that match specific keywords.
@@ -167,6 +169,7 @@ Feel free to experiment with different keywords to locate the tasks you need. Su
 Sunny Bot allows you to delete tasks.
 
 _Usage_
+
 **delete - Delete a task from the list**
 
 Example of usage:
