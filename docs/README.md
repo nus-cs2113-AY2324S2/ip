@@ -10,7 +10,7 @@ Sunny Bot allows you to add different types of tasks, such as Todo, Deadline, an
 
 Usage
 
-'todo' - Add a Todo task
+**'todo' - Add a Todo task**
 
 Add a new task without any specific date or time.
 
@@ -26,7 +26,7 @@ Sunny Bot will add a new Todo task and confirm the addition.
 Now you have 1 task in the list.`
 
 
-'deadline' - Add a Deadline task
+**'deadline' - Add a Deadline task**
 
 Add a task with a specific deadline.
 
@@ -42,7 +42,7 @@ Sunny Bot will add a new Deadline task and confirm the addition.
 Now you have 2 tasks in the list.`
 
 
-event - Add an Event task
+**event - Add an Event task**
 
 Add a task with a specific start and end time.
 
@@ -65,7 +65,7 @@ Sunny Bot allows you to view the list of tasks currently in your task manager.
 
 Usage
 
-list - Display the list of tasks
+**list - Display the list of tasks**
 
 View all tasks currently in your task manager.
 
