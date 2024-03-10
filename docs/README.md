@@ -9,6 +9,7 @@ Welcome to Sunny Bot, your personal task manager! Below are the features and usa
 Sunny Bot allows you to add different types of tasks, such as Todo, Deadline, and Event.
 
 Usage
+
 'todo' - Add a Todo task
 
 Add a new task without any specific date or time.
@@ -24,6 +25,7 @@ Sunny Bot will add a new Todo task and confirm the addition.
 [T][ ] Buy groceries
 Now you have 1 task in the list.`
 
+
 'deadline' - Add a Deadline task
 
 Add a task with a specific deadline.
@@ -38,6 +40,7 @@ Sunny Bot will add a new Deadline task and confirm the addition.
 `Got it! I have successfully added:
 [D][ ] Submit report (by:mon)
 Now you have 2 tasks in the list.`
+
 
 event - Add an Event task
 
@@ -61,6 +64,7 @@ Feel free to explore and try different variations with optional arguments!
 Sunny Bot allows you to view the list of tasks currently in your task manager.
 
 Usage
+
 list - Display the list of tasks
 
 View all tasks currently in your task manager.
@@ -76,6 +80,7 @@ Sunny Bot will display the list of tasks.
 1. [T][ ] Buy groceries
 2. [D][ ] Submit report (by:mon)
 3. [E][ ] Team meeting (from:12pm to:2pm)`
+
 
 ## Usage
 
