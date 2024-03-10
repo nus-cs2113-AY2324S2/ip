@@ -61,7 +61,7 @@ public class Asuka {
                     case find:
                         find(inputs, taskCount, tasks);
                         break;
-                    case null, default:
+                    default:
                         break;
                 }
             }
