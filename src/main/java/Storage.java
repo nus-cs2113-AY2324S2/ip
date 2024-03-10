@@ -1,16 +1,16 @@
 import java.io.*;
 import java.util.Scanner;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
 
-public class FileHandler {
+public class Storage {
     private static File file = fileWithDirectoryAssurance("data", "tickles.txt");
-    private static String filePath = "./data/tickles.txt";
+    private static String filePath = "./data.tickles.txt";
 
-    public static void loadTickles() {
-
+    public Storage(String fp) {
+        String filePath = fp;
+    }
+    public void loadTickles() {
+        TaskList taskList = new TaskList();
         try {
             Scanner in = new Scanner(new FileReader(filePath));
             while (in.hasNextLine()) {
@@ -28,17 +28,18 @@ public class FileHandler {
                     task = new Event(lineData[2], lineData[3], lineData[4]);
                     break;
                 default:
-                    System.out.println("Error; corrupted file format");
+                    throw new StorageException();
                 }
                 if (lineData[1].equals("X")) {
                     task.markAsDone();
                 }
-                Tickles.list.add(task);
-                Tickles.totalTasks += 1;
+                TaskList.list.add(task); //adds to List<Task> inside TaskList
+                TaskList.totalTasks += 1;
                 }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | StorageException e) {
             file = new File("./data/tickles.txt");
         }
+        //return taskList;
     }
     private static File fileWithDirectoryAssurance(String directory, String filename) {
         File dir = new File(directory);
@@ -52,7 +53,7 @@ public class FileHandler {
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(filePath, false);
-            for (Task t : Tickles.list) {
+            for (Task t : TaskList.list) {
                 switch (t.type()) {
                 case "[D]":
                     fileWriter.write(t.type() + "|" + t.getStatusIcon() + "|" + t.getDescription() + "|" +
