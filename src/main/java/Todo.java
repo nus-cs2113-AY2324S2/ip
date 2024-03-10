@@ -8,5 +8,11 @@ public class Todo extends Task{
         return "[T]" + super.toString();
     }
 
+    @Override
+    public String saveTaskFormat() {
+        String marked = isDone ? "1" : "0";
+        return "T | " + marked + " | " + this.description + System.lineSeparator();
+    }
+
 
 }

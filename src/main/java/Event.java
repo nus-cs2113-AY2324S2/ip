@@ -15,5 +15,11 @@ public class Event extends Task{
         return res;
     }
 
+    @Override
+    public String saveTaskFormat() {
+        String marked = isDone ? "1" : "0";
+        return "E | " + marked + " | " + this.description + " | " + this.from + " | " + this.to + System.lineSeparator();
+    }
+
 
 }
