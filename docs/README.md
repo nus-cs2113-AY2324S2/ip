@@ -14,10 +14,12 @@ Usage
 Add a new task without any specific date or time.
 
 Example of usage:
+
 `todo Buy groceries`
 
 Expected outcome:
 Sunny Bot will add a new Todo task and confirm the addition.
+
 `Got it! I have successfully added:
 [T][ ] Buy groceries
 Now you have 1 task in the list.`
@@ -27,10 +29,12 @@ Now you have 1 task in the list.`
 Add a task with a specific deadline.
 
 Example of usage:
+
 `deadline Submit report /by mon`
 
 Expected outcome:
 Sunny Bot will add a new Deadline task and confirm the addition.
+
 `Got it! I have successfully added:
 [D][ ] Submit report (by:mon)
 Now you have 2 tasks in the list.`
@@ -40,10 +44,12 @@ event - Add an Event task
 Add a task with a specific start and end time.
 
 Example of usage:
+
 `event Team meeting /from 12pm /to 2pm`
 
 Expected outcome:
 Sunny Bot will add a new Event task and confirm the addition.
+
 `Got it! I have successfully added:
 [E][ ] Team meeting (from:12pm to:2pm)
 Now you have 3 tasks in the list.`
