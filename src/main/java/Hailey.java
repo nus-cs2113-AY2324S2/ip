@@ -1,13 +1,9 @@
 import java.util.Scanner;
 
 public class Hailey {
-    private static final String LINE_SEPARATOR = "____________________________________________________________";
-    private static final int MAX_TASKS = 100;
-    private static final Task[] tasks = new Task[MAX_TASKS];
-    private static int taskCount = 0;
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
 
         printWelcomeMessage();
 
@@ -19,14 +15,29 @@ public class Hailey {
                 break;
             }
 
-            if (userInput.equals("list")) {
-                printTasks();
-            } else if (userInput.startsWith("mark ")) {
-                markTask(userInput);
-            } else if (userInput.startsWith("unmark ")) {
-                unmarkTask(userInput);
-            } else {
-                addTask(userInput);
+            String[] inputParts = userInput.split("\\s+", 2);
+            String command = inputParts[0];
+            String description = inputParts.length > 1 ? inputParts[1] : "";
+
+            switch (command) {
+                case "list":
+                    taskManager.listTasks();
+                    break;
+                case "todo":
+                    taskManager.addTask(new Todo(description));
+                    break;
+                case "deadline":
+                    String[] deadlineParts = description.split("/by", 2);
+                    taskManager.addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                    break;
+                case "event":
+                    String[] eventParts = description.split("/from", 2);
+                    String[] eventDateTime = eventParts[1].split("/to", 2);
+                    taskManager.addTask(new Event(eventParts[0].trim(), eventDateTime[0].trim(), eventDateTime[1].trim()));
+                    break;
+                default:
+                    System.out.println("Invalid command. Please try again.");
+                    printLine();
             }
         }
 
@@ -48,65 +59,7 @@ public class Hailey {
     }
 
     private static void printLine() {
-        System.out.println(LINE_SEPARATOR);
-    }
-
-    private static void addTask(String taskDescription) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount++] = new Task(taskDescription);
-            System.out.println("Task added: " + taskDescription);
-        } else {
-            System.out.println("Sorry, the task list is full!");
-        }
-        printLine();
-    }
-
-    private static void markTask(String userInput) {
-        try {
-            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (isValidTaskIndex(taskIndex)) {
-                tasks[taskIndex].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[taskIndex]);
-            } else {
-                System.out.println("Invalid task number!");
-            }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid command format!");
-        }
-        printLine();
-    }
-
-    private static void unmarkTask(String userInput) {
-        try {
-            int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-            if (isValidTaskIndex(taskIndex)) {
-                tasks[taskIndex].markAsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskIndex]);
-            } else {
-                System.out.println("Invalid task number!");
-            }
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid command format!");
-        }
-        printLine();
-    }
-
-    private static void printTasks() {
-        if (taskCount == 0) {
-            System.out.println("Task list is empty!");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + "." + tasks[i]);
-            }
-        }
-        printLine();
-    }
-
-    private static boolean isValidTaskIndex(int index) {
-        return index >= 0 && index < taskCount;
+        System.out.println("____________________________________________________________");
     }
 
     private static void printGoodbyeMessage() {
