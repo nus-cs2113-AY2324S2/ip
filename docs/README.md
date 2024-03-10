@@ -9,7 +9,7 @@ Example: `todo shop for socks`
 ## Adding a deadline task: `deadline`
 
 Adds a deadline task to the list.  
-Format: `todo [task description] /by [deadline]`  
+Format: `deadline [task description] /by [deadline]`  
 Example: `deadline finish homework /by someday`
 
 ## Adding an event task: `event`
