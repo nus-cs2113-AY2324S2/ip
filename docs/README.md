@@ -15,9 +15,6 @@ Example:
 `Hello! I'm Sunny
 What can I do for you?`
 
-
-
-
 ### Feature 1 - Adding of tasks
 
 Sunny Bot allows you to add different types of tasks, such as Todo, Deadline, and Event.
@@ -40,6 +37,8 @@ Sunny Bot will add a new Todo task and confirm the addition.
 Now you have 1 task in the list.`
 
 
+
+
 **'deadline' - Add a Deadline task**
 
 Add a task with a specific deadline.
@@ -54,6 +53,8 @@ Sunny Bot will add a new Deadline task and confirm the addition.
 `Got it! I have successfully added:
 [D][ ] Submit report (by:mon)
 Now you have 2 tasks in the list.`
+
+
 
 
 **event - Add an Event task**
@@ -72,6 +73,9 @@ Sunny Bot will add a new Event task and confirm the addition.
 Now you have 3 tasks in the list.`
 
 Feel free to explore and try different variations with optional arguments!
+
+
+
 
 ### Feature 2 - Viewing Task List
 
@@ -96,6 +100,8 @@ Sunny Bot will display the list of tasks.
 3. [E][ ] Team meeting (from:12pm to:2pm)`
 
 
+
+
 ### Feature 3 - Mark/Unmark Task as Done
 Mark a task as done or undo the mark to indicate completion status.
 
@@ -116,6 +122,8 @@ Sunny Bot will mark the specified task as done and confirm the action.
 [D][X] Submit report (by:mon)`
 
 
+
+
 **unmark - Unmark a task as done**
 
 Undo the completion status of a task.
@@ -129,6 +137,8 @@ Sunny Bot will undo the completion status of the specified task and confirm the 
 
 `OK, I've marked this task as not done yet.
 [D][ ] Submit report (by:mon)`
+
+
 
 
 ### Feature 4 - Find Tasks
@@ -151,6 +161,8 @@ Sunny Bot will display tasks containing the specified keyword.
 
 Feel free to experiment with different keywords to locate the tasks you need. Sunny Bot's flexible search functionality makes it easy to find and manage your tasks effectively.
 
+
+
 ### Feature 5 - Delete Task
 Sunny Bot allows you to delete tasks.
 
@@ -166,6 +178,9 @@ Expected outcome:
 `Noted. I've removed this task:
 [T][ ] buy groceries
 Now you have 2 tasks in the list.`
+
+
+
 
 
 ### Feature 6 - Load, Save, and Display Data
@@ -202,6 +217,9 @@ Example:
 1. [T][ ] buy groceries
 2. [D][ ] Submit report (by:mon)
 3. [E][ ] Team meeting (from:12pm to:2pm)`
+
+
+
 
 ### Feature 7 - Exit the Program
 Sunny bot allows you to exit the program.
