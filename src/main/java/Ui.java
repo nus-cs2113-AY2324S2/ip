@@ -6,7 +6,7 @@ public class Ui {
      * Prints a line for better visuals
      */
     protected static void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("________________________________________________________________________________________________");
     }
 
     /**
