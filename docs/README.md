@@ -225,6 +225,7 @@ Example:
 Sunny bot allows you to exit the program.
 
 _Usage_
+
 **bye - Exits the program**
 
 Example of usage:
