@@ -1,3 +1,6 @@
+/**
+ * Deals with interpreting UI inputs and filters requested actions by their keywords.
+ */
 public class Parser {
 
     private Ui ui;
@@ -12,6 +15,10 @@ public class Parser {
         this.storage = storage_;
     }
 
+    /**
+     * Parses prompts provided by the user, and delegates actions to methods within TaskList.
+     * @param prompt Raw input from user.
+     */
     public void parse(String prompt) {
         if (prompt.equals("bye")) {
             ui.terminate();
@@ -19,7 +26,6 @@ public class Parser {
             Ui.printThis("Bye. Hope to see you again soon! Mr. Tickles will miss you.");
         } else if (prompt.equals("list")) {
             TaskList.printList("Here are the tasks in your list:", TaskList.list);
-
         } else if (prompt.equals("mark") || prompt.equals("unmark") || prompt.equals("delete")) {
             Ui.printThis("Please specify which task number this action refers to.");
         } else if (prompt.startsWith("delete")) {

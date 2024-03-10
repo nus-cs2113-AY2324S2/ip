@@ -2,37 +2,29 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Main class for this iP; this program is called Tickles. Manages deadlines, events, and todo task types.
+ */
 public class Tickles {
 
     private Storage storage;
     private Ui ui;
-    //protected static int totalTasks = 0;
-    //protected static List<Task> list = new ArrayList<>();
-    //protected TaskList list;
 
-    private final String LOGO = "╱╭╮╱╱╱╱╭╮╱╭╮\n" +
-            "╭╯╰╮╱╱╱┃┃╱┃┃\n" +
-            "╰╮╭╋┳━━┫┃╭┫┃╭━━┳━━╮\n" +
-            "╱┃┃┣┫╭━┫╰╯┫┃┃┃━┫━━┫\n" +
-            "╱┃╰┫┃╰━┫╭╮┫╰┫┃━╋━━┃\n" +
-            "╱╰━┻┻━━┻╯╰┻━┻━━┻━━╯\n";
-
+    /**
+     * Instantiates the Tickles project by loading in save data if it exists, and creating a user interface instance.
+     */
     public Tickles(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui(storage);
         storage.loadTickles();
-//        try {
-//            //tasks = new TaskList(storage.loadTickles());
-//            storage.loadTickles();
-//        } catch (StorageException e) { //TODO: define TicklesException class
-//            ui.showLoadingError();
-//            //tasks = new TaskList();
-//        }
     }
 
+    /**
+     * Begins the program by displaying the Tickles opening and prompting the user for task inputs.
+     */
     public void run() {
-        System.out.println("Hello from\n" + LOGO);
-        System.out.println(" What can I do for you?");
+        ui.displayOpening();
         ui.promptUser();
     }
 

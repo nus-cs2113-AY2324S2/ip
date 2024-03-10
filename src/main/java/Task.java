@@ -1,3 +1,7 @@
+
+/**
+ * Parent class of task types Deadline, Event, and Todo.
+ */
 public class Task {
     public String description;
     protected boolean isDone;
@@ -7,8 +11,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Marks a "done" task with an "X".
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     public String toString() {
