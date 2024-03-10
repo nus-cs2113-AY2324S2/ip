@@ -8,7 +8,7 @@ Welcome to Sunny Bot, your personal task manager! Below are the features and usa
 
 Sunny bot greets the user upon starting the program.
 
-Usage
+_Usage_
 
 Example:
 
@@ -19,7 +19,7 @@ What can I do for you?`
 
 Sunny Bot allows you to add different types of tasks, such as Todo, Deadline, and Event.
 
-Usage
+_Usage_
 
 **'todo' - Add a Todo task**
 
@@ -80,8 +80,8 @@ Feel free to explore and try different variations with optional arguments!
 ### Feature 2 - Viewing Task List
 
 Sunny Bot allows you to view the list of tasks currently in your task manager.
-
-Usage
+_
+Usage_
 
 **list - Display the list of tasks**
 
@@ -105,7 +105,7 @@ Sunny Bot will display the list of tasks.
 ### Feature 3 - Mark/Unmark Task as Done
 Mark a task as done or undo the mark to indicate completion status.
 
-Usage
+_Usage_
 
 **mark - Mark a task as done**
 
@@ -144,7 +144,7 @@ Sunny Bot will undo the completion status of the specified task and confirm the 
 ### Feature 4 - Find Tasks
 Search for tasks containing specific keywords.
 
-Usage
+_Usage_
 **find - Find tasks based on keywords**
 
 Find tasks that match specific keywords.
@@ -166,7 +166,7 @@ Feel free to experiment with different keywords to locate the tasks you need. Su
 ### Feature 5 - Delete Task
 Sunny Bot allows you to delete tasks.
 
-Usage
+_Usage_
 **delete - Delete a task from the list**
 
 Example of usage:
@@ -186,7 +186,7 @@ Now you have 2 tasks in the list.`
 ### Feature 6 - Load, Save, and Display Data
 Sunny Bot provides the ability to load tasks from a file, save tasks to a file, and display them again when the program runs.
 
-Usage
+_Usage_
 **Loading Tasks from File:**
 Sunny Bot automatically loads tasks from a file when you start the program.
 
@@ -224,6 +224,7 @@ Example:
 ### Feature 7 - Exit the Program
 Sunny bot allows you to exit the program.
 
+_Usage_
 **bye - Exits the program**
 
 Example of usage:
