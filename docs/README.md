@@ -4,8 +4,6 @@ Welcome to Sunny Bot, your personal task manager! Below are the features and usa
 
 ## Features 
 
-## Features
-
 ### Feature 0 - Greeting the User
 
 Sunny bot greets the user upon starting the program.
@@ -16,6 +14,8 @@ Example:
 
 `Hello! I'm Sunny
 What can I do for you?`
+
+
 
 
 ### Feature 1 - Adding of tasks
