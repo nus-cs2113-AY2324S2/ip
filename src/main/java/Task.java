@@ -30,4 +30,9 @@ public class Task {
     public String toString() {
         return "[" + this.getStatus() + "] " + this.getDescription();
     }
+
+    public String saveTaskFormat(){
+        return " ";
+    }
+
 }

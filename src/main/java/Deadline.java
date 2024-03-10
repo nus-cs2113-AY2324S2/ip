@@ -20,4 +20,10 @@ public class Deadline extends Task {
         res += " (by: " + by + ")";
         return res;
     }
+
+    @Override
+    public String saveTaskFormat() {
+        String marked = isDone ? "1" : "0";
+        return "D | " + marked + " | " + this.description + " | " + this.by + System.lineSeparator();
+    }
 }

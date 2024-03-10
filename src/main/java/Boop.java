@@ -1,13 +1,40 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.util.Arrays;
 
 public class Boop {
     public static Task[] tasks = new Task[100];
     public static int count = 0;
+    public static String filepath = "./data/chat.txt";
 
     public static void main(String[] args) {
+        //load in task list from hard disk
+        File direcName = new File("./data");
+        if(!direcName.exists()) {
+            direcName.mkdir();
+        }
+        File f = new File(filepath);
+        boolean res;
+        try {
+            f.createNewFile();
+            System.out.println(f.getCanonicalPath());
+        } catch (IOException e) {
+            System.out.println("BITCH WHY DONT U WORK");
+            e.printStackTrace();
+            System.out.println(e);
+        }
+        try {
+            loadSavedTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm BOOP");
         System.out.println("What can I do for you?");
+        System.out.println("You currently have " + count + " tasks on your list");
         System.out.println("____________________________________________________________");
         Scanner in = new Scanner(System.in);
         String command;
@@ -34,8 +61,50 @@ public class Boop {
             }
             System.out.println("____________________________________________________________");
         }
+        try {
+            saveToDisk();
+        } catch (IOException e) {
+            System.out.println("couldnt save to disk");
+        }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+    }
+
+    public static void saveToDisk() throws IOException{
+        FileWriter fw = new FileWriter(filepath, false);
+        fw.close();
+        for (int i = 0; i < count; i+=1 ) {
+            Task cur = tasks[i];
+            writeToFile(cur);
+        }
+
+    }
+
+    public static void writeToFile(Task t) throws IOException {
+        FileWriter fw = new FileWriter(filepath, true);
+        fw.write(t.saveTaskFormat());
+        fw.close();
+    }
+    public static void loadSavedTasks() throws FileNotFoundException {
+        File f = new File(filepath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String taskLine = s.nextLine();
+            String[] taskArr = taskLine.split("\\s\\|\\s");
+            Task t;
+            if (taskArr[0].equals("T")) { //todotask
+                t = new Todo(taskArr[2]);
+            } else if (taskArr[0].equals("D")) { //deadline
+                t = new Deadline(taskArr[2], taskArr[3]);
+            } else { //event
+                t = new Event(taskArr[2], taskArr[3], taskArr[4]);
+            }
+            if (taskArr[1].equals("1")) {
+                t.markTask();
+            }
+            tasks[count] = t;
+            count += 1;
+        }
     }
 
     public static void printLst() {
@@ -163,6 +232,11 @@ public class Boop {
         }
         tasks[count] = t;
         count += 1;
+        try {
+            writeToFile(t);
+        } catch (IOException e){
+            System.out.println("error in writing to file");
+        }
         System.out.println("Got it. I've added this task:");
         System.out.println(t.toString());
         System.out.println("Now you have " + count + " tasks in the list.");
