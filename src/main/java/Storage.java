@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,29 +32,34 @@ public class Storage {
             Path path = Paths.get(filePath);
 
             if (!Files.exists(path)) {
-                // Handle the case where the file doesn't exist yet
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
-                ui.showFileCreated();
+                createFileAndDirectories(path);
             } else {
-                File savedFile = new File(filePath);
-                Scanner scanner = new Scanner(savedFile);
-
-                System.out.println("Tasks loaded from file:");
-                while (scanner.hasNext()) {
-                    String fileLine = scanner.nextLine();
-                    System.out.println("Read from file: " + fileLine);
-
-                    char taskType = fileLine.charAt(1);
-                    tasks.addTaskFromSaved(fileLine, taskType);
-                }
-                ui.showTasksLoaded();
-                tasks.printTaskList();
-                scanner.close();
+                loadTasksFromExistingFile(path, tasks);
             }
         } catch (IOException e) {
             ui.handleErrors(e);
         }
+    }
+
+    private void createFileAndDirectories(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        Files.createFile(path);
+        ui.showFileCreated();
+    }
+
+    private void loadTasksFromExistingFile(Path path, TaskList tasks) throws IOException {
+        try (Scanner scanner = new Scanner(path)) {
+            System.out.println("Tasks loaded from file:");
+            while (scanner.hasNext()) {
+                String fileLine = scanner.nextLine();
+                System.out.println("Read from file: " + fileLine);
+
+                char taskType = fileLine.charAt(1);
+                tasks.addTaskFromSaved(fileLine, taskType);
+            }
+        }
+        ui.showTasksLoaded();
+        tasks.printTaskList();
     }
 
     /**

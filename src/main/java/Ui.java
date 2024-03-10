@@ -9,7 +9,9 @@ public class Ui {
      * Displays a welcome message.
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm Sunny\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Sunny");
+        System.out.println("What can I do for you?");
+        System.out.println(" ");
     }
 
     /**
@@ -23,14 +25,16 @@ public class Ui {
      * Displays a message indicating that tasks have been successfully loaded.
      */
     public void showTasksLoaded() {
-        System.out.println("Tasks loaded successfully!" + System.lineSeparator());
+        System.out.println("Tasks loaded successfully!");
+        System.out.println(" ");
     }
 
     /**
      * Displays a message indicating that tasks have been successfully saved.
      */
     public void showTasksSaved() {
-        System.out.println("Tasks saved successfully!" + System.lineSeparator());
+        System.out.println("Tasks saved successfully!");
+        System.out.println(" ");
     }
 
     /**
@@ -44,7 +48,8 @@ public class Ui {
      * Displays a message for an invalid command.
      */
     public void showInvalidCommand() {
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator());
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        System.out.println(" ");
     }
 
     /**
@@ -88,7 +93,8 @@ public class Ui {
     public void showTaskCountMessage() {
         int taskCount = Sunny.tasksList.size();
         String taskNoun = (taskCount == 1) ? "task" : "tasks";
-        System.out.println("Now you have " + taskCount + " " + taskNoun + " in the list." + System.lineSeparator());
+        System.out.println("Now you have " + taskCount + " " + taskNoun + " in the list.");
+        System.out.println(" ");
     }
 
     /**
@@ -110,7 +116,7 @@ public class Ui {
      *
      * @param e The exception to be handled.
      */
-    public static void handleErrors(Exception e) {
+    public void handleErrors(Exception e) {
         if (e instanceof IOException) {
             System.out.println("OOPS!!! An error occurred while handling the file.");
         } else if (e instanceof ArrayIndexOutOfBoundsException) {

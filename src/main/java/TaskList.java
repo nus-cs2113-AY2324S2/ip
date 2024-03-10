@@ -49,9 +49,7 @@ public class TaskList {
             System.out.println(tasksList.get(tasksList.size() - 1));
 
             ui.showTaskCountMessage();
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.handleErrors(e);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             ui.handleErrors(e);
         }
     }
@@ -72,12 +70,7 @@ public class TaskList {
             System.out.println(tasksList.get(tasksList.size() - 1));
 
             ui.showTaskCountMessage();
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.handleErrors(e);
-        } catch (NumberFormatException e) {
-            ui.handleErrors(e);
         } catch (Exception e) {
-            // Handle any other unexpected exceptions
             ui.handleErrors(e);
         }
     }
@@ -99,12 +92,7 @@ public class TaskList {
             System.out.println(tasksList.get(tasksList.size() - 1));
 
             ui.showTaskCountMessage();
-        } catch (StringIndexOutOfBoundsException e) {
-            ui.handleErrors(e);
-        } catch (NumberFormatException e) {
-            ui.handleErrors(e);
         } catch (Exception e) {
-            // Handle any other unexpected exceptions
             ui.handleErrors(e);
         }
     }
@@ -332,23 +320,26 @@ public class TaskList {
      */
     public void findTask(String command) {
         String keyword;
+
         try {
             keyword = command.substring(5);
         } catch (StringIndexOutOfBoundsException e) {
             ui.handleErrors(e);
             return;
         }
+
         int foundIndex = 0;
         ui.showFoundTasks();
-        for (int i = 0; i < tasksList.size(); i++) {
-            if (tasksList.get(i).getDescription().contains(keyword)) {
+        for (Task task : tasksList) {
+            if (task.getDescription().contains(keyword)) {
                 foundIndex++;
-                System.out.println(foundIndex + "." + tasksList.get(i));
+                System.out.println(foundIndex + "." + task);
             }
         }
         if (foundIndex == 0) {
             System.out.println("OH, no matching tasks found :(");
         }
+
         System.out.println(" ");
     }
 }
