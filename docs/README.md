@@ -136,6 +136,43 @@ Sunny Bot will display tasks containing the specified keyword.
 
 Feel free to experiment with different keywords to locate the tasks you need. Sunny Bot's flexible search functionality makes it easy to find and manage your tasks effectively.
 
+##Feature 5 - Load, Save, and Display Data
+Sunny Bot provides the ability to load tasks from a file, save tasks to a file, and display them again when the program runs.
+
+Usage
+**Loading Tasks from File:**
+Sunny Bot automatically loads tasks from a file when you start the program.
+
+Example:
+
+`Tasks loaded from file:
+Read from file: [T][ ] buy groceries
+Read from file: [D][ ] Submit report (by:mon)
+Read from file: [E][ ] Team meeting (from:12pm to:2pm)
+Tasks loaded successfully!`
+
+
+**Saving Tasks to File:**
+Sunny Bot will automatically save your tasks in the file for future use.
+
+Every time a change is made, the program displays:
+
+`Saving tasks to file...
+Tasks saved successfully!`
+
+
+**Displaying Tasks:**
+Sunny Bot displays the loaded tasks when you run the program. If you have saved tasks, they will be loaded and presented in the task list.
+
+Example:
+
+`Here are the tasks in your list:
+1. [T][ ] buy groceries
+2. [D][ ] Submit report (by:mon)
+3. [E][ ] Team meeting (from:12pm to:2pm)`
+
+
+
 ## Usage
 
 ### `Keyword` - Describe action
