@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Storage {
 
     private String filePath;
-
+    private static Ui ui = new Ui();
     /**
      * Creates a new Storage instance with the specified file path.
      *
@@ -31,7 +31,7 @@ public class Storage {
                 // Handle the case where the file doesn't exist yet
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
-                System.out.println("File created: " + Sunny.FILE_PATH);
+                ui.showFileCreated();
             } else {
                 File savedFile = new File(filePath);
                 Scanner scanner = new Scanner(savedFile);
@@ -44,13 +44,12 @@ public class Storage {
                     char taskType = fileLine.charAt(1);
                     tasks.addTaskFromSaved(fileLine, taskType);
                 }
-                System.out.println("Tasks loaded successfully!" + System.lineSeparator());
-
-
+                ui.showTasksLoaded();
+                tasks.printTaskList();
                 scanner.close();
             }
         } catch (IOException e) {
-            System.out.printf("OH NO! No file found :/", e.getMessage());
+            ui.handleErrors(e);
         }
     }
 
@@ -64,9 +63,9 @@ public class Storage {
                 System.out.println("Saved to file: " + taskString);
             }
             writer.close();
-            System.out.println("Tasks saved successfully!" + System.lineSeparator());
+            ui.showTasksSaved();
         } catch (IOException e) {
-            System.out.printf("ERROR! Something went wrong...: %1$s", e.getMessage());
+            ui.handleErrors(e);
         }
     }
  }

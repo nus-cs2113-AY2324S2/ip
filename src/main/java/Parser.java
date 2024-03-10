@@ -7,63 +7,95 @@ public class Parser {
     private static Ui ui = new Ui();
     private Storage storage;
     private TaskList tasks;
-
+    private TaskList foundTasks;
+    private Scanner scanner = new Scanner(System.in);
     public Parser(Storage storage, TaskList tasks) {
         this.storage = storage;
         this.tasks = tasks;
     }
 
     public void readCommand() {
-        Scanner scanner = new Scanner(System.in);
         String command;
 
         while (true) {
             command = scanner.nextLine();
-            String taskType;
-
-            // Checks if command contains a space
-            if (command.contains(" ")) {
-                taskType = command.substring(0, command.indexOf(" "));
-            } else {
-                taskType = command;
-            }
+            String taskType = command.contains(" ") ? command.substring(0, command.indexOf(" ")) : command;
 
             switch (taskType) {
             case "bye":
-                ui.showBye();
-                scanner.close();
-                return; // Exit the method or return from the function
+                handleByeCommand();
+                return;
             case "list":
-                tasks.printTaskList();
+                handleListCommand();
                 break;
             case "mark":
-                tasks.markTaskAsDone(command);
-                storage.saveTasksToFile(tasks);
+                handleMarkCommand(command);
                 break;
             case "unmark":
-                tasks.unmarkTaskAsDone(command);
-                storage.saveTasksToFile(tasks);
+                handleUnmarkCommand(command);
                 break;
             case "todo":
-                tasks.handleTodoCommand(command);
-                storage.saveTasksToFile(tasks);
+                handleTodoCommand(command);
                 break;
             case "deadline":
-                tasks.handleDeadlineCommand(command);
-                storage.saveTasksToFile(tasks);
+                handleDeadlineCommand(command);
                 break;
             case "event":
-                tasks.handleEventCommand(command);
-                storage.saveTasksToFile(tasks);
+                handleEventCommand(command);
                 break;
             case "delete":
-                tasks.deleteTask(command);
-                storage.saveTasksToFile(tasks);
+                handleDeleteCommand(command);
+                break;
+            case "find":
+                handleFindCommand(command);
                 break;
             default:
                 ui.showInvalidCommand();
             }
         }
+    }
+
+    private void handleByeCommand() {
+        ui.showBye();
+        scanner.close();
+    }
+
+    private void handleListCommand() {
+        tasks.printTaskList();
+    }
+
+    private void handleMarkCommand(String command) {
+        tasks.markTaskAsDone(command);
+        storage.saveTasksToFile(tasks);
+    }
+
+    private void handleUnmarkCommand(String command) {
+        tasks.unmarkTaskAsDone(command);
+        storage.saveTasksToFile(tasks);
+    }
+
+    private void handleTodoCommand(String command) {
+        tasks.handleTodoCommand(command);
+        storage.saveTasksToFile(tasks);
+    }
+
+    private void handleDeadlineCommand(String command) {
+        tasks.handleDeadlineCommand(command);
+        storage.saveTasksToFile(tasks);
+    }
+
+    private void handleEventCommand(String command) {
+        tasks.handleEventCommand(command);
+        storage.saveTasksToFile(tasks);
+    }
+
+    private void handleDeleteCommand(String command) {
+        tasks.deleteTask(command);
+        storage.saveTasksToFile(tasks);
+    }
+
+    private void handleFindCommand(String command) {
+        tasks.findTask(command);
     }
 
 
