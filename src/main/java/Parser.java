@@ -1,8 +1,18 @@
 import java.util.ArrayList;
 
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
     protected static boolean isContinue = true;
 
+    /**
+     * Parses the command given by the user and executes it accordingly
+     *
+     * @param command The command given by the user which is to be executed
+     * @param taskList The list of tasks
+     * @throws NehsikException If an error occurs when executing a command
+     */
     protected static void parseCommand(String command, ArrayList<Task> taskList) throws NehsikException {
         if (command.equals("list")) {
             TaskList.displayTaskList(taskList);

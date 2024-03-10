@@ -1,8 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class of the Nehsik task management application
+ */
 public class Nehsik {
 
+    /**
+     * The main method of the Nehsik task manager application
+     * @param args The input command line arguments
+     */
     public static void main(String[] args) {
         Ui.displayGreetings();
 
