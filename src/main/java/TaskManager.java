@@ -1,6 +1,6 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 public class TaskManager {
     private final List<Task> tasks;
@@ -9,24 +9,42 @@ public class TaskManager {
     public TaskManager(String filePath) {
         this.filePath = filePath;
         tasks = new ArrayList<>();
-        loadTasks(); // Load tasks from file when TaskManager is instantiated
+        loadTasks();
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
-        saveTasksToFile(); // Save tasks to file after adding a new task
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    public void addTodoTask(String description) {
+        tasks.add(new TodoTask(description));
+        saveTasksToFile();
     }
 
-    // Add other methods for managing tasks...
+    public void addDeadlineTask(String description, String by) {
+        tasks.add(new DeadlineTask(description, by));
+        saveTasksToFile();
+    }
+
+    public void addEventTask(String description, String from, String to) {
+        tasks.add(new EventTask(description, from, to));
+        saveTasksToFile();
+    }
+
+    public void deleteTask(int index) {
+        if (index >= 0 && index < tasks.size()) {
+            tasks.remove(index);
+            saveTasksToFile();
+        }
+    }
+
+    public void printTasks() {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
 
     private void loadTasks() {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                return; // If file doesn't exist, do nothing
+                return;
             }
 
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -38,16 +56,16 @@ public class TaskManager {
                 String description = parts[2];
                 switch (type) {
                     case "T":
-                        tasks.add(new Todo(description, isDone));
+                        tasks.add(new TodoTask(description, isDone));
                         break;
                     case "D":
                         String by = parts[3];
-                        tasks.add(new Deadline(description, by, isDone));
+                        tasks.add(new DeadlineTask(description, by, isDone));
                         break;
                     case "E":
                         String from = parts[3];
                         String to = parts[4];
-                        tasks.add(new Event(description, from, to, isDone));
+                        tasks.add(new EventTask(description, from, to, isDone));
                         break;
                 }
             }
