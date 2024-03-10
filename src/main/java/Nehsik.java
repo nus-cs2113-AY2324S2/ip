@@ -26,8 +26,7 @@ public class Nehsik {
             }
             Storage.saveTasksToFile(taskList);
         }
-
-        Ui.displayExitMessage();
+        
         in.close();
     }
 }

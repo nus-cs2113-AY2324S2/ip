@@ -34,6 +34,7 @@ public class Parser {
         } else if (command.startsWith("find")) {
             TaskList.findTask(command, taskList);
         } else if (command.equals("bye")) {
+            Ui.displayExitMessage();
             isContinue = false;
         } else {
             throw new NehsikException("Invalid Command");
