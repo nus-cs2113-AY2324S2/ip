@@ -56,9 +56,26 @@ Now you have 3 tasks in the list.`
 
 Feel free to explore and try different variations with optional arguments!
 
-### Feature-XYZ
+### Feature 2 - Viewing Task List
 
-Description of the feature.
+Sunny Bot allows you to view the list of tasks currently in your task manager.
+
+Usage
+list - Display the list of tasks
+
+View all tasks currently in your task manager.
+
+Example of usage:
+
+`list`
+
+Expected outcome:
+Sunny Bot will display the list of tasks.
+
+`Here are the tasks in your list:
+1. [T][ ] Buy groceries
+2. [D][ ] Submit report (by:mon)
+3. [E][ ] Team meeting (from:12pm to:2pm)`
 
 ## Usage
 
