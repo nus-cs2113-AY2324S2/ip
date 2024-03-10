@@ -2,6 +2,18 @@
 
 Nehsik is a CLI-based personal assistant chatbot that helps the user to keep track of their daily tasks
 
+## Installation
+1. Ensure that Java 11 or above is installed in your computer
+2. Download "Nehsik.jar" from this [link](https://github.com/Kishen271828/ip/releases/tag/A-Release)
+3. Open the command terminal, and `cd` to the directory where the "Nehsik.jar" file is present
+4. Run the command `java -jar Nehsik.jar`. If the app has started successfully, you will see the welcome message:
+```
+________________________________________________________________________________________________
+Hala habibi! Shlonik? Shakhbarak?
+I'm Nehsik, What can I do for you?
+________________________________________________________________________________________________
+```
+5. You can start using Nehsik by typing the commands in the format as described in the Features section. 
 
 ## Features 
 
