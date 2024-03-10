@@ -15,14 +15,13 @@ public class TaskList {
 
     // Creates a new Task from the inputted string, and adds it to our list.
     public static void addToList(String str) {
-        Task task;
+        Task task = null;
         if (str.contains("deadline")) {
             try {
                 String[] split = str.substring(9).split(" /by ");
                 task = new Deadline(split[0], split[1]);
             } catch (Exception e) {
                 Ui.printThis("Need to specify the deadline using /by");
-                task = null;
             }
 
         } else if (str.contains("event")) {
@@ -31,18 +30,15 @@ public class TaskList {
                 task = new Event(split[0], split[1], split[2]);
             } catch (Exception e) {
                 Ui.printThis("Need to specify the time of the event using /from and /to");
-                task = null;
             }
         } else if (str.contains("todo")) {
             try {
                 task = new Todo(str.substring(5));
             } catch (Exception e) {
                 Ui.printThis("Description of a todo cannot be empty!");
-                task = null;
             }
         } else {
             Ui.printThis("Task is not in an accepted format.");
-            task = null;
         }
 
         if (task != null) {
@@ -91,6 +87,16 @@ public class TaskList {
         }
     }
 
+    public static void find(String target) {
+        List<Task> matches = new ArrayList<Task>();
+        for (Task t : list) {
+            if (t.description.contains(target)) {
+                matches.add(t);
+            }
+        }
+        printList("Here are the matching tasks in your list:", matches);
+    }
+
     public static String pluralChecker() {
         if (totalTasks == 1) {
             return "";
@@ -99,12 +105,12 @@ public class TaskList {
         }
     }
 
-    // Prints the tasks in the list as well as their status icon.
-    public static void printList() {
+    // Prints the tasks in the given list as well as their status icon.
+    public static void printList(String message, List<Task> l) {
         Ui.printLine();
-        System.out.println("Here are the tasks in your list:");
+        System.out.println(message);
         int counter = 1;
-        for (Task t : list) {
+        for (Task t : l) {
             System.out.println(counter + "." + t.type() + t.toString());
             counter += 1;
         }
