@@ -26,14 +26,5 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
-    }
-
-    protected String getTypeSymbol() {
-        // This method should be overridden by subclasses (Todo, Deadline, Event)
-        return "";
-    }
 }
 

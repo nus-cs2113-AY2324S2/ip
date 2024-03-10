@@ -1,0 +1,5 @@
+[D][X] essay (by:mon)
+[E][X] party (from:1pm to:11pm)
+[T][ ] read book
+[D][X] ip (by:sun2359)
+[E][ ] meeting (from:9pm to:11pm)
