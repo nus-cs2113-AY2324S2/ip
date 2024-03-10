@@ -116,6 +116,26 @@ Sunny Bot will undo the completion status of the specified task and confirm the 
 `OK, I've marked this task as not done yet.
 [D][ ] Submit report (by:mon)`
 
+### Feature 4 - Find Tasks
+Search for tasks containing specific keywords.
+
+Usage
+**find - Find tasks based on keywords**
+
+Find tasks that match specific keywords.
+
+Example of usage:
+
+`find report`
+
+Expected outcome:
+Sunny Bot will display tasks containing the specified keyword.
+
+`Here are the matching tasks in your list:
+1.[D][ ] Submit report (by:mon)`
+
+Feel free to experiment with different keywords to locate the tasks you need. Sunny Bot's flexible search functionality makes it easy to find and manage your tasks effectively.
+
 ## Usage
 
 ### `Keyword` - Describe action
