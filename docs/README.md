@@ -4,6 +4,20 @@ Welcome to Sunny Bot, your personal task manager! Below are the features and usa
 
 ## Features 
 
+## Features
+
+### Feature 0 - Greeting the User
+
+Sunny bot greets the user upon starting the program.
+
+Usage
+
+Example:
+
+`Hello! I'm Sunny
+What can I do for you?`
+
+
 ### Feature 1 - Adding of tasks
 
 Sunny Bot allows you to add different types of tasks, such as Todo, Deadline, and Event.
@@ -143,7 +157,7 @@ Sunny Bot allows you to delete tasks.
 Usage
 **delete - Delete a task from the list**
 
-Example:
+Example of usage:
 
 `delete 1`
 
@@ -189,22 +203,15 @@ Example:
 2. [D][ ] Submit report (by:mon)
 3. [E][ ] Team meeting (from:12pm to:2pm)`
 
+### Feature 7 - Exit the Program
+Sunny bot allows you to exit the program.
 
+**bye - Exits the program**
 
-## Usage
+Example of usage:
 
-### `Keyword` - Describe action
+`bye`
 
-Describe the action and its outcome.
+Expected Outcome:
 
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+`Bye. Hope to see you again soon!`
