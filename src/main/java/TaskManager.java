@@ -2,16 +2,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskManager() {
         tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
+    public void addTodoTask(String description) {
+        tasks.add(new Todo(description));
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
+    }
+
+    public void addDeadlineTask(String description, String by) {
+        tasks.add(new Deadline(description, by));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
+    }
+
+    public void addEventTask(String description, String from, String to) {
+        tasks.add(new Event(description, from, to));
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printLine();
     }
