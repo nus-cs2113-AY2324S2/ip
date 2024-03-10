@@ -25,6 +25,8 @@ public class Boop {
                 mark(comArr);
             } else if (curCommand.equals("unmark")) {
                 unmark(comArr);
+            } else if (curCommand.equals("delete")) {
+                delete(comArr);
             } else if (curCommand.equals("todo")||curCommand.equals("deadline")||curCommand.equals("event")) {
                 addTask(curCommand, command);
             } else {
@@ -41,6 +43,32 @@ public class Boop {
         for(int i = 0; i < count; i += 1) {
             Task t = tasks[i];
             System.out.println("" + (i + 1) + ". " + t.toString());;
+        }
+    }
+
+    public static void delete(String[] arr) {
+        if(arr.length <= 1) {
+            System.out.println("Please specify which item to delete");
+            return;
+        }
+        if (arr.length > 2) {
+            System.out.println("Please only specify one item to mark at a time");
+            return;
+        }
+        int markNum;
+        try {
+            markNum = Integer.parseInt(arr[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Please provide a number to delete");
+            return;
+        }
+        if (markNum >= 1 && markNum <= count) {
+            for(int i = markNum; i < count; i += 1) {
+                tasks[i-1] = tasks[i];
+            }
+            count -= 1;
+        } else {
+            System.out.println("This number is not on the list");
         }
     }
 
@@ -119,12 +147,12 @@ public class Boop {
             }
             String desc = fullInput.substring(6);
             String[] descArr = desc.split(" /");
-            if (descArr.length != 2) {
-                System.out.println("OOPS!!! You must have both a /to field and /from field for an event");
+            if (descArr.length != 3) {
+                System.out.println("OOPS!!! You must have both a /from field and /to field for an event (1)");
                 return;
             }
-            if((!descArr[1].contains("/to")) || (!descArr[2].contains("/from"))) {
-                System.out.println("OOPS!!! You must have both a /to field and /from field for an event");
+            if((!descArr[1].contains("from")) || (!descArr[2].contains("to"))) {
+                System.out.println("OOPS!!! You must have both a /from field and /to field for an event");
                 return;
             }
             String from = descArr[1].substring(5);
