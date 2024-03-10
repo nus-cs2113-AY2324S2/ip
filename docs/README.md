@@ -82,6 +82,40 @@ Sunny Bot will display the list of tasks.
 3. [E][ ] Team meeting (from:12pm to:2pm)`
 
 
+### Feature 3 - Mark/Unmark Task as Done
+Mark a task as done or undo the mark to indicate completion status.
+
+Usage
+
+**mark - Mark a task as done**
+
+Mark a specific task as completed.
+
+Example of usage:
+
+`mark 2`
+
+Expected outcome:
+Sunny Bot will mark the specified task as done and confirm the action.
+
+`Nice! I've marked this task as done!
+[D][X] Submit report (by:mon)`
+
+
+**unmark - Unmark a task as done**
+
+Undo the completion status of a task.
+
+Example of usage:
+
+`unmark 2`
+
+Expected outcome:
+Sunny Bot will undo the completion status of the specified task and confirm the action.
+
+`OK, I've marked this task as not done yet.
+[D][ ] Submit report (by:mon)`
+
 ## Usage
 
 ### `Keyword` - Describe action
