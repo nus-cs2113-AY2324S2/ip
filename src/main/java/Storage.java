@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Handles loading tasks from storage and saving tasks to storage
+ */
 public class Storage {
     private static final String DATA_FILE_PATH = "./nehsik.txt";
 
@@ -14,6 +17,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves the current/ latest list of tasks to the storage
+     *
+     * @param taskList The latest list of tasks
+     */
     protected static void saveTasksToFile(ArrayList<Task> taskList) {
         try {
             writeToFile("", false);           // Clear Old content
@@ -46,11 +54,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads existing list of tasks from storage
+     *
+     * @param taskList The task list to be loaded to
+     */
     protected static void loadTasksFromFile(ArrayList<Task> taskList) {
         File f = new File(DATA_FILE_PATH);
         if (!f.exists()) {
             try {
-                f.createNewFile();
+                f.createNewFile();   // create a new file, if it doesn't exist
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

@@ -1,11 +1,19 @@
 import java.util.ArrayList;
 
+/**
+ * Deals with modifying the task list based on the commands given by the user
+ */
 public class TaskList {
     private static final int MARK_TASK_INDEX = 5;
     private static final int UNMARK_TASK_INDEX = 7;
     private static final int DELETE_TASK_INDEX = 7;
     private static final int TODO_DESCRIPTION_POSITION = 5;
 
+    /**
+     * Displays the current list of tasks along with type and status
+     *
+     * @param taskList The task list to be displayed
+     */
     protected static void displayTaskList(ArrayList<Task> taskList) {
         Ui.printLine();
         int taskListSize = taskList.size();
@@ -20,6 +28,13 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * Marks the relevant task as done based on the task number in the task list
+     *
+     * @param command The command given by the user which contains the task number of the relevant task
+     * @param taskList The current list of tasks
+     * @throws NehsikException If the user enters an invalid task number, doesn't mention the task number or types the command in types the command in wrong format
+     */
     protected static void markTask(String command, ArrayList<Task> taskList) throws NehsikException {
         if (command.length() < MARK_TASK_INDEX) {
             throw new NehsikException("Please mention the task number you would like to mark");
@@ -41,6 +56,13 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * Marks the relevant task as not done based on the task number in the task list
+     *
+     * @param command The command given by the user which contains the task number of the relevant task
+     * @param taskList The current list of tasks
+     * @throws NehsikException If the user enters an invalid task number, doesn't mention the task number or types the command in types the command in wrong format
+     */
     protected static void unmarkTask(String command, ArrayList<Task> taskList) throws NehsikException {
         if (command.length() < UNMARK_TASK_INDEX) {
             throw new NehsikException("Please mention the task number you would like to unmark");
@@ -63,6 +85,13 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * Adds a todo type task (with task description) to the list of tasks
+     *
+     * @param command The command entered by the user which contains the description of the todo task
+     * @param taskList The current list of tasks before addition of task
+     * @throws NehsikException If the user doesn't give a description or types the command in types the command in wrong format
+     */
     protected static void addTodoTask(String command, ArrayList<Task> taskList) throws NehsikException {
         if (command.length() < TODO_DESCRIPTION_POSITION) {
             throw new NehsikException("The description of a todo cannot be empty");
@@ -76,6 +105,13 @@ public class TaskList {
         taskList.add(new Todo(taskDescription));
     }
 
+    /**
+     * Adds a deadline type task (with task description and deadline) to the list of tasks
+     *
+     * @param command The command entered by the user which contains the description of the task and the deadline
+     * @param taskList The current list of tasks before addition of task
+     * @throws NehsikException If the user doesn't give a description or types the command in types the command in wrong format
+     */
     protected static void addDeadlineTask(String command, ArrayList<Task> taskList) throws NehsikException {
         int descriptionStartPosition = command.indexOf("deadline ") + 9;
         if (command.length() <= descriptionStartPosition) {
@@ -95,6 +131,13 @@ public class TaskList {
         taskList.add(new Deadline(taskDescription, by));
     }
 
+    /**
+     * Adds an event type task (with task description and duration of event) to the list of tasks
+     *
+     * @param command The command entered by the user which contains the description of the task, and the duration of the event
+     * @param taskList The current list of tasks before addition of task
+     * @throws NehsikException If the user doesn't give a description or types the command in types the command in wrong format
+     */
     protected static void addEventTask(String command, ArrayList<Task> taskList) throws NehsikException {
         int descriptionStartPosition = command.indexOf("event ") + 6;
         if (command.length() <= descriptionStartPosition) {
@@ -117,6 +160,13 @@ public class TaskList {
         taskList.add(new Event(taskDescription, from, to));
     }
 
+    /**
+     * Deletes the required task from the list of tasks and acknowledges the deletion by displaying a message
+     *
+     * @param command The command entered by the user which contains the task number of the task to be deleted
+     * @param taskList The current task list before deletion of the task
+     * @throws NehsikException If the user enters an invalid task number, doesn't mention the task number or types the command in types the command in wrong format
+     */
     protected static void deleteTask(String command, ArrayList<Task> taskList) throws NehsikException {
         if (command.length() < DELETE_TASK_INDEX) {
             throw new NehsikException("Please mention the task number you would like to delete");
@@ -140,6 +190,11 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * Acknowledges the addition of a todo, deadline and event task by displaying a message
+     *
+     * @param taskList THe latest list of tasks after the task has been added
+     */
     protected static void acknowledgeTaskAdded(ArrayList<Task> taskList) {
         int latestTaskIndex = taskList.size() - 1;
         Ui.printLine();
