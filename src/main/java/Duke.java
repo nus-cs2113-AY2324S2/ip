@@ -269,15 +269,15 @@ public class Duke {
         ui.greeting();
 
         try {
+            outfile.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("Something went wrong");
+        }
+
+        try {
             inputFileContents();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, please run Steffy again");
-            ui.printBye();
-            try {
-                outfile.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("Something went wrong");
-            }
+            System.out.println("File not found");
         }
 
         while (!ui.ifExit) {
