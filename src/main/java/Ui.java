@@ -1,4 +1,4 @@
-
+import java.io.IOException;
 
 /**
  * Handles interactions with the user.
@@ -23,14 +23,14 @@ public class Ui {
      * Displays a message indicating that tasks have been successfully loaded.
      */
     public void showTasksLoaded() {
-        System.out.println("Tasks loaded successfully!");
+        System.out.println("Tasks loaded successfully!" + System.lineSeparator());
     }
 
     /**
      * Displays a message indicating that tasks have been successfully saved.
      */
     public void showTasksSaved() {
-        System.out.println("Tasks saved successfully!");
+        System.out.println("Tasks saved successfully!" + System.lineSeparator());
     }
 
     public void showTaskList() {
@@ -40,18 +40,8 @@ public class Ui {
     public void showInvalidCommand() {
         System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(" + System.lineSeparator());
     }
-
-    public void showInvalidPath() {
-        System.out.println("OH NO! No file found :/");
-    }
-
-
-   public void showInvalidTaskIndexMessage() {
+    public void showInvalidTaskIndexMessage() {
        System.out.println("Invalid task index. Please provide a valid task index.");
-   }
-
-    public void showInvalidTask() {
-        System.out.println("OH noooo! Task doesn't exist");
     }
 
     public void showTaskAsMarked() {
@@ -85,8 +75,10 @@ public class Ui {
         System.out.println("File created: " + Sunny.FILE_PATH);
     }
 
+    public void showFoundTasks() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
 
-    /*
     public static void handleErrors(Exception e) {
         if (e instanceof IOException) {
             System.out.println("OOPS!!! An error occurred while handling the file.");
@@ -101,8 +93,7 @@ public class Ui {
         } else {
             System.out.println("OOPS!!! I'm sorry, but I encountered an unexpected error.");
         }
-        // e.printStackTrace(); // Print stack trace for debugging purposes
         System.out.println(" ");
-     */
+    }
 }
 

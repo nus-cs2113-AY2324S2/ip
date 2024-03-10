@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+
 public class TaskList {
     private static Ui ui = new Ui();
 
@@ -27,7 +29,9 @@ public class TaskList {
 
             ui.showTaskCountMessage();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! " + e.getMessage());
+            ui.handleErrors(e);
+        } catch (NumberFormatException e) {
+            ui.handleErrors(e);
         }
     }
     public void handleDeadlineCommand(String command) {
@@ -42,7 +46,12 @@ public class TaskList {
 
             ui.showTaskCountMessage();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! " + e.getMessage());
+            ui.handleErrors(e);
+        } catch (NumberFormatException e) {
+            ui.handleErrors(e);
+        } catch (Exception e) {
+            // Handle any other unexpected exceptions
+            ui.handleErrors(e);
         }
     }
 
@@ -59,11 +68,16 @@ public class TaskList {
 
             ui.showTaskCountMessage();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! " + e.getMessage());
+            ui.handleErrors(e);
+        } catch (NumberFormatException e) {
+            ui.handleErrors(e);
+        } catch (Exception e) {
+            // Handle any other unexpected exceptions
+            ui.handleErrors(e);
         }
     }
 
-    public static void printTaskList() {
+    public void printTaskList() {
         ui.showTaskList();
 
         for (int i = 0; i < tasksList.size(); i++) {
@@ -77,56 +91,66 @@ public class TaskList {
         return (parts.length >= 2) ? Integer.parseInt(parts[1]) : -1;
     }
 
-    public void markTaskCompletion(String command, String taskType) {
-        int taskIndex = extractTaskIndex(command);
-        if (taskIndex > tasksList.size()) {
-            ui.showInvalidTaskIndexMessage();
-        } else if (taskType.equalsIgnoreCase("mark")) {
-            ui.showTaskAsMarked();
-            tasksList.get(taskIndex - 1).markAsDone();
-        } else {
-            ui.showTaskAsUnmarked();
-            tasksList.get(taskIndex - 1).unmarkAsDone();
-        }
-        System.out.println(" ");
-    }
     public void markTaskAsDone(String command) {
-        int taskIndex = extractTaskIndex(command);
-        if (isValidTaskIndex(taskIndex)) {
-            tasksList.get(taskIndex - 1).markAsDone();
-            ui.showTaskAsMarked();
-            System.out.println(tasksList.get(taskIndex - 1));
-        } else {
-            ui.showInvalidTaskIndexMessage();
+        try {
+            int taskIndex = extractTaskIndex(command);
+
+            if (isValidTaskIndex(taskIndex)) {
+                tasksList.get(taskIndex - 1).markAsDone();
+                ui.showTaskAsMarked();
+                System.out.println(tasksList.get(taskIndex - 1));
+            } else {
+                ui.showInvalidTaskIndexMessage();
+            }
+            System.out.println(" ");
+        } catch (NumberFormatException e) {
+            // Handle the NumberFormatException (e.g., if extractTaskIndex() fails to parse an integer)
+            ui.handleErrors(e);
+        } catch (IndexOutOfBoundsException e) {
+            // Handle the IndexOutOfBoundsException (e.g., if tasksList.get() accesses an invalid index)
+            ui.handleErrors(e);
+        } catch (Exception e) {
+            // Handle any other unexpected exceptions
+            ui.handleErrors(e);
         }
-        System.out.println(" ");
     }
 
     public void unmarkTaskAsDone(String command) {
-        int taskIndex = extractTaskIndex(command);
-        if (isValidTaskIndex(taskIndex)) {
-            tasksList.get(taskIndex - 1).unmarkAsDone();
-            ui.showTaskAsUnmarked();
-            System.out.println(tasksList.get(taskIndex - 1));
-        } else {
-            ui.showInvalidTaskIndexMessage();
+        try {
+            int taskIndex = extractTaskIndex(command);
+
+            if (isValidTaskIndex(taskIndex)) {
+                tasksList.get(taskIndex - 1).unmarkAsDone();
+                ui.showTaskAsUnmarked();
+                System.out.println(tasksList.get(taskIndex - 1));
+            } else {
+                ui.showInvalidTaskIndexMessage();
+            }
+            System.out.println(" ");
+        } catch (NumberFormatException e) {
+            // Handle the NumberFormatException (e.g., if extractTaskIndex() fails to parse an integer)
+            ui.handleErrors(e);
+        } catch (IndexOutOfBoundsException e) {
+            // Handle the IndexOutOfBoundsException (e.g., if tasksList.get() accesses an invalid index)
+            ui.handleErrors(e);
+        } catch (Exception e) {
+            // Handle any other unexpected exceptions
+            ui.handleErrors(e);
         }
-        System.out.println(" ");
     }
 
     public void addTaskFromSaved(String command, char taskType) {
         try {
             Task task;
-            String taskDescription = command.substring(6);
             switch (taskType) {
             case 'T':
-                task = addTodoFromSaved(taskDescription);
+                task = addTodoFromSaved(command);
                 break;
             case 'D':
-                task = addDeadlineFromSaved(taskDescription);
+                task = addDeadlineFromSaved(command);
                 break;
             case 'E':
-                task = addEventFromSaved(taskDescription);
+                task = addEventFromSaved(command);
                 break;
             default:
                 // Handle unknown task type or return if needed
@@ -134,53 +158,112 @@ public class TaskList {
                 return;
             }
             if (task != null) {
-                task.markAsDone();
                 tasksList.add(task);
             }
 
         } catch (Exception e) {
-            // Handle other general exceptions
-            System.out.println("Unexpected error: " + e.getMessage());
+            ui.handleErrors(e);
         }
     }
 
     public Todo addTodoFromSaved(String description) {
-        return new Todo(description);
+        char status = description.charAt(4);
+        String taskDescription = description.substring(7);
+        Todo todoTask = new Todo(taskDescription);
+
+        if (status == 'X') {
+            todoTask.markAsDone();
+        } else {
+            todoTask.unmarkAsDone();
+        }
+
+        return todoTask;
     }
 
-    public static Deadline addDeadlineFromSaved(String description) {
-        String by = description.substring(description.indexOf("(by:") + 4);
-        return new Deadline(description, by);
-    }
-    public static Deadline fromFileFormat(String fileLine) {
-        String[] parts = fileLine.split(" \\(by: ");
+    public Deadline addDeadlineFromSaved(String description) {
+        char status = description.charAt(4);
+        int byIndex = description.indexOf("(by:");
 
-        String description = parts[0].substring(6);
-        String by = parts[1];
+        String taskDescription = description.substring(7, byIndex).trim();
+        String by = description.substring(byIndex + 4, description.indexOf(")")).trim();
+        Deadline deadlineTask = new Deadline(taskDescription, by);
 
-        Deadline deadlineTask = new Deadline(description, by);
+        if (status == 'X') {
+            deadlineTask.markAsDone();
+        } else {
+            deadlineTask.unmarkAsDone();
+        }
 
         return deadlineTask;
+
     }
 
     public Event addEventFromSaved(String description) {
-        String from = description.substring(description.indexOf("(from:") + 6);
-        String to = description.substring(description.indexOf("to:") + 3);
-        return new Event(description, from, to);
+        char status = description.charAt(4);
+        int fromIndex = description.indexOf("(from:");
+        int toIndex = description.indexOf("to:");
+
+        String taskDescription = description.substring(7, fromIndex).trim();
+        String from = description.substring(fromIndex + 6, toIndex).trim();
+        String to = description.substring(toIndex + 3, description.indexOf(")")).trim();
+        Event eventTask = new Event(taskDescription, from, to);
+
+        if (status == 'X') {
+            eventTask.markAsDone();
+        } else {
+            eventTask.unmarkAsDone();
+        }
+
+        return eventTask;
     }
 
     private static boolean isValidTaskIndex(int taskIndex) {
         return taskIndex > 0 && taskIndex <= tasksList.size();
     }
     public void deleteTask(String command) {
-        int taskIndex = extractTaskIndex(command);
-        if (isValidTaskIndex(taskIndex)) {
-            ui.showTaskDeleted();
-            System.out.println(tasksList.get(taskIndex - 1));
-            tasksList.remove(taskIndex - 1);
-            ui.showTaskCountMessage();
-        } else {
-            ui.showInvalidTaskIndexMessage();
+        try {
+            int taskIndex = extractTaskIndex(command);
+
+            if (isValidTaskIndex(taskIndex)) {
+                ui.showTaskDeleted();
+                System.out.println(tasksList.get(taskIndex - 1));
+                tasksList.remove(taskIndex - 1);
+                ui.showTaskCountMessage();
+            } else {
+                ui.showInvalidTaskIndexMessage();
+            }
+            System.out.println(" ");
+        } catch (NumberFormatException e) {
+            // Handle the NumberFormatException (e.g., if extractTaskIndex() fails to parse an integer)
+            ui.handleErrors(e);
+        } catch (IndexOutOfBoundsException e) {
+            // Handle the IndexOutOfBoundsException (e.g., if tasksList.get() accesses an invalid index)
+            ui.handleErrors(e);
+        } catch (Exception e) {
+            // Handle any other unexpected exceptions
+            ui.handleErrors(e);
+        }
+    }
+
+
+    public void findTask(String command) {
+        String keyword;
+        try {
+            keyword = command.substring(5);
+        } catch (StringIndexOutOfBoundsException e) {
+            ui.handleErrors(e);
+            return;
+        }
+        int foundIndex = 0;
+        ui.showFoundTasks();
+        for (int i = 0; i < tasksList.size(); i++) {
+            if (tasksList.get(i).getDescription().contains(keyword)) {
+                foundIndex++;
+                System.out.println(foundIndex + "." + tasksList.get(i));
+            }
+        }
+        if (foundIndex == 0) {
+            System.out.println("OH, no matching tasks found :(");
         }
         System.out.println(" ");
     }
