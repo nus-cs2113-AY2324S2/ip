@@ -1,6 +1,7 @@
 # User Guide
 
-Nehsik is a CLI-based Personal Assistant ChatBot that helps the user to keep track of their daily tasks
+Nehsik is a CLI-based personal assistant chatbot that helps the user to keep track of their daily tasks
+
 
 ## Features 
 
@@ -15,7 +16,7 @@ Format: `todo TASK_DESCRIPTION` `deadline TASK_DESCRIPTION /by DEADLINE` `event 
 
 ### List tasks : `list`
 
-Displays all the tasks present in the task list.
+Displays all the tasks present in the task list, along with the task type and status.
 Format: `list`
 
 ### Delete task : `delete` 
@@ -43,23 +44,6 @@ Displays bye message and exits from the program.
 Format: `bye`
 
 ### Saving the data
-Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-Your task list can be found in the "nehsik.txt" file created in the same directory where the Nehsik.jar file is present.
+The data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Your task list can be found in the file "nehsik.txt" created in the same directory where the "Nehsik.jar" file is present.
 
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
