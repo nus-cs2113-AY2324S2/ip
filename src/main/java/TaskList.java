@@ -5,6 +5,7 @@ public class TaskList {
     private static final int UNMARK_TASK_INDEX = 7;
     private static final int DELETE_TASK_INDEX = 7;
     private static final int TODO_DESCRIPTION_POSITION = 5;
+    private static final int FIND_TASK_POSITION = 5;
 
     protected static void displayTaskList(ArrayList<Task> taskList) {
         Ui.printLine();
@@ -146,6 +147,37 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + taskList.get(latestTaskIndex).toString());
         System.out.println("Now you have " + (latestTaskIndex + 1) + " tasks in the list");
+        Ui.printLine();
+    }
+
+    protected static void findTask(String command, ArrayList<Task> taskList) throws NehsikException {
+        if (command.length() < FIND_TASK_POSITION) {
+            throw new NehsikException("Please type a keyword of the task you would like to find");
+        }
+
+        if (command.charAt(FIND_TASK_POSITION - 1) != ' ') {
+            throw new NehsikException("Invalid Command");
+        }
+
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        String keyWord = command.substring(FIND_TASK_POSITION).trim();
+
+        for (Task task : taskList) {
+            if (task.description.contains(keyWord)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        Ui.printLine();
+        int numOfMatchingTasks = matchingTasks.size();
+        if (numOfMatchingTasks > 0) {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < numOfMatchingTasks; i++) {
+                System.out.println((i + 1) + "." + matchingTasks.get(i).toString());
+            }
+        } else {
+            System.out.println("There are no matching tasks in your list");
+        }
         Ui.printLine();
     }
 }

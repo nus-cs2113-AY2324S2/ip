@@ -21,6 +21,8 @@ public class Parser {
             TaskList.acknowledgeTaskAdded(taskList);
         } else if (command.startsWith("delete")) {
             TaskList.deleteTask(command, taskList);
+        } else if (command.startsWith("find")) {
+            TaskList.findTask(command, taskList);
         } else if (command.equals("bye")) {
             isContinue = false;
         } else {
