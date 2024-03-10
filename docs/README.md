@@ -116,6 +116,7 @@ Sunny Bot will undo the completion status of the specified task and confirm the 
 `OK, I've marked this task as not done yet.
 [D][ ] Submit report (by:mon)`
 
+
 ### Feature 4 - Find Tasks
 Search for tasks containing specific keywords.
 
@@ -136,7 +137,24 @@ Sunny Bot will display tasks containing the specified keyword.
 
 Feel free to experiment with different keywords to locate the tasks you need. Sunny Bot's flexible search functionality makes it easy to find and manage your tasks effectively.
 
-### Feature 5 - Load, Save, and Display Data
+### Feature 5 - Delete Task
+Sunny Bot allows you to delete tasks.
+
+Usage
+**delete - Delete a task from the list**
+
+Example:
+
+`delete 1`
+
+Expected outcome:
+
+`Noted. I've removed this task:
+[T][ ] buy groceries
+Now you have 2 tasks in the list.`
+
+
+### Feature 6 - Load, Save, and Display Data
 Sunny Bot provides the ability to load tasks from a file, save tasks to a file, and display them again when the program runs.
 
 Usage
