@@ -1,19 +1,28 @@
 import java.util.Scanner;
 
 /**
- * Parses user commands and returns corresponding command objects.
+ * Parses user commands and performs corresponding actions.
  */
 public class Parser {
     private static Ui ui = new Ui();
     private Storage storage;
     private TaskList tasks;
-    private TaskList foundTasks;
     private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Constructs a Parser with the given Storage and TaskList.
+     *
+     * @param storage The storage used to handle file operations.
+     * @param tasks   The task list to be manipulated.
+     */
     public Parser(Storage storage, TaskList tasks) {
         this.storage = storage;
         this.tasks = tasks;
     }
 
+    /**
+     * Reads user commands and executes corresponding actions until the "bye" command is received.
+     */
     public void readCommand() {
         String command;
 
@@ -75,17 +84,17 @@ public class Parser {
     }
 
     private void handleTodoCommand(String command) {
-        tasks.handleTodoCommand(command);
+        tasks.addTodoTask(command);
         storage.saveTasksToFile(tasks);
     }
 
     private void handleDeadlineCommand(String command) {
-        tasks.handleDeadlineCommand(command);
+        tasks.addDeadlineTask(command);
         storage.saveTasksToFile(tasks);
     }
 
     private void handleEventCommand(String command) {
-        tasks.handleEventCommand(command);
+        tasks.addEventTask(command);
         storage.saveTasksToFile(tasks);
     }
 
@@ -97,6 +106,4 @@ public class Parser {
     private void handleFindCommand(String command) {
         tasks.findTask(command);
     }
-
-
 }

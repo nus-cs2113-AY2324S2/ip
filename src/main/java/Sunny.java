@@ -2,17 +2,8 @@
  * The main class for the Sunny task management application.
  */
 public class Sunny {
-
-    /**
-     * The task list to manage tasks.
-     */
     static TaskList tasksList = new TaskList();
-
-    /**
-     * The file path to store tasks persistently.
-     */
     public static final String FILE_PATH = "./data/sunny.txt";
-
     private static Ui ui = new Ui();
     private static Storage storage = new Storage(FILE_PATH);
     private static Parser parser = new Parser(storage, tasksList);

@@ -1,24 +1,45 @@
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Represents a list of tasks and provides methods for managing tasks.
+ */
 public class TaskList {
     private static Ui ui = new Ui();
 
     private static ArrayList<Task> tasksList = new ArrayList<>();
 
-    public int size() {
-        return tasksList.size();
-    }
-
-    public Task get(int index) {
-        return tasksList.get(index);
-    }
-
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasksList = new ArrayList<>();
     }
 
-    public void handleTodoCommand(String command) {
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
+    public int size() {
+        return tasksList.size();
+    }
+
+    /**
+     * Retrieves the task at the specified index in the list.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
+    public Task get(int index) {
+        return tasksList.get(index);
+    }
+
+    /**
+     * Handles the "todo" command, creating a new Todo task and adding it to the list.
+     *
+     * @param command The user command containing the task description.
+     */
+    public void addTodoTask(String command) {
         try {
             if (command.length() <= 5) {
                 throw new StringIndexOutOfBoundsException();
@@ -34,7 +55,13 @@ public class TaskList {
             ui.handleErrors(e);
         }
     }
-    public void handleDeadlineCommand(String command) {
+
+    /**
+     * Handles the "deadline" command, creating a new Deadline task and adding it to the list.
+     *
+     * @param command The user command containing the task description and deadline.
+     */
+    public void addDeadlineTask(String command) {
         try {
             int dividerPosition = command.indexOf("/by ");
             if (dividerPosition == -1) {
@@ -55,7 +82,12 @@ public class TaskList {
         }
     }
 
-    public void handleEventCommand(String command) {
+    /**
+     * Handles the "event" command, creating a new Event task and adding it to the list.
+     *
+     * @param command The user command containing the task description and event details.
+     */
+    public void addEventTask(String command) {
         try {
             int from = command.indexOf("/from ");
             int to = command.indexOf("/to ");
@@ -77,6 +109,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the task list to the console.
+     */
     public void printTaskList() {
         ui.showTaskList();
 
@@ -86,11 +121,26 @@ public class TaskList {
         System.out.println(" ");
     }
 
+    /**
+     * Extracts the task index from a user command.
+     *
+     * @param command The user command containing the task index.
+     * @return The extracted task index or -1 if not found.
+     */
     public static int extractTaskIndex(String command) {
         String[] parts = command.split(" ");
         return (parts.length >= 2) ? Integer.parseInt(parts[1]) : -1;
     }
 
+    private static boolean isValidTaskIndex(int taskIndex) {
+        return taskIndex > 0 && taskIndex <= tasksList.size();
+    }
+
+    /**
+     * Marks a task as done based on the user command.
+     *
+     * @param command The user command containing the task index.
+     */
     public void markTaskAsDone(String command) {
         try {
             int taskIndex = extractTaskIndex(command);
@@ -115,6 +165,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task as done based on the user command.
+     *
+     * @param command The user command containing the task index.
+     */
     public void unmarkTaskAsDone(String command) {
         try {
             int taskIndex = extractTaskIndex(command);
@@ -139,6 +194,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task from a saved command to the list based on the task type.
+     *
+     * @param command  The saved command representing the task.
+     * @param taskType The type of task (T, D, or E).
+     */
     public void addTaskFromSaved(String command, char taskType) {
         try {
             Task task;
@@ -166,6 +227,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a Todo task from a saved command.
+     *
+     * @param description The saved command representing the Todo task.
+     * @return The created Todo task.
+     */
     public Todo addTodoFromSaved(String description) {
         char status = description.charAt(4);
         String taskDescription = description.substring(7);
@@ -180,6 +247,12 @@ public class TaskList {
         return todoTask;
     }
 
+    /**
+     * Creates a Deadline task from a saved command.
+     *
+     * @param description The saved command representing the Deadline task.
+     * @return The created Deadline task.
+     */
     public Deadline addDeadlineFromSaved(String description) {
         char status = description.charAt(4);
         int byIndex = description.indexOf("(by:");
@@ -198,6 +271,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Creates an Event task from a saved command.
+     *
+     * @param description The saved command representing the Event task.
+     * @return The created Event task.
+     */
     public Event addEventFromSaved(String description) {
         char status = description.charAt(4);
         int fromIndex = description.indexOf("(from:");
@@ -217,9 +296,11 @@ public class TaskList {
         return eventTask;
     }
 
-    private static boolean isValidTaskIndex(int taskIndex) {
-        return taskIndex > 0 && taskIndex <= tasksList.size();
-    }
+    /**
+     * Deletes a task based on the user command.
+     *
+     * @param command The user command containing the task index.
+     */
     public void deleteTask(String command) {
         try {
             int taskIndex = extractTaskIndex(command);
@@ -232,7 +313,6 @@ public class TaskList {
             } else {
                 ui.showInvalidTaskIndexMessage();
             }
-            System.out.println(" ");
         } catch (NumberFormatException e) {
             // Handle the NumberFormatException (e.g., if extractTaskIndex() fails to parse an integer)
             ui.handleErrors(e);
@@ -245,7 +325,11 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Finds tasks containing a specific keyword and displays them.
+     *
+     * @param command The user command containing the keyword.
+     */
     public void findTask(String command) {
         String keyword;
         try {

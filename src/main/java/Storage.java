@@ -13,6 +13,7 @@ public class Storage {
 
     private String filePath;
     private static Ui ui = new Ui();
+
     /**
      * Creates a new Storage instance with the specified file path.
      *
@@ -22,7 +23,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
-
+    /**
+     * Loads tasks from the specified file into the provided TaskList.
+     *
+     * @param tasks The TaskList to load tasks into.
+     */
     public void loadTasksFromFile(TaskList tasks) {
         try {
             Path path = Paths.get(filePath);
@@ -53,14 +58,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the provided TaskList to the specified file.
+     *
+     * @param tasks The TaskList to save tasks from.
+     */
     public void saveTasksToFile(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
-            System.out.println("Saving tasks to file:");
-            for (int i = 0; i < tasks.size(); i++){
+            System.out.println("Saving tasks to file...");
+            for (int i = 0; i < tasks.size(); i++) {
                 String taskString = tasks.get(i).toString();
                 writer.write(taskString + System.lineSeparator());
-                System.out.println("Saved to file: " + taskString);
             }
             writer.close();
             ui.showTasksSaved();
@@ -68,4 +77,4 @@ public class Storage {
             ui.handleErrors(e);
         }
     }
- }
+}
