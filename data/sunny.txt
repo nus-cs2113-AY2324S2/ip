@@ -1,5 +1,2 @@
-[D][ ] essay (by:mon)
-[E][X] party (from:1pm to:11pm)
-[D][X] ip (by:sun2359)
-[T][X] ip
-[D][ ] essay (by:mon)
+[D][ ] Submit report (by:mon)
+[E][ ] Team meeting (from:12pm to:2pm`)
