@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Hailey {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
     private static final int MAX_TASKS = 100;
-    private static Task[] tasks = new Task[MAX_TASKS];
+    private static final Task[] tasks = new Task[MAX_TASKS];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -41,9 +41,9 @@ public class Hailey {
                 "| | | | | | | |/ / _ \\\n" +
                 "| |_| | |_| |   <  __/\n" +
                 "|____/ \\__,_|_|\\_\\___|\n" +
-                "What can I help you with？");
+                "What can I help you with?");
         printLine();
-        System.out.println("Hello! I'm Hailey\nWhat can I do for you?");
+        System.out.println("Hello! I'm Hailey.\nWhat can I do for you?");
         printLine();
     }
 
@@ -54,9 +54,9 @@ public class Hailey {
     private static void addTask(String taskDescription) {
         if (taskCount < MAX_TASKS) {
             tasks[taskCount++] = new Task(taskDescription);
-            System.out.println("added: " + taskDescription);
+            System.out.println("Task added: " + taskDescription);
         } else {
-            System.out.println("Sorry, task list is full!");
+            System.out.println("Sorry, the task list is full!");
         }
         printLine();
     }
