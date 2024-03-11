@@ -1,6 +1,18 @@
 import java.util.Arrays;
+
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
 
+    /**
+     * Parses user input for mark, unmark, and delete commands.
+     *
+     * @param arr the input array
+     * @param numTasks the total number of tasks
+     * @return the index of the task to mark, unmark, or delete
+     * @throws IllegalArgumentException if the input is invalid
+     */
     public static int markDeleteParse(String[] arr, int numTasks) throws IllegalArgumentException {
         if(arr.length <= 1 || arr.length > 2) {
             throw new IllegalArgumentException();
@@ -18,6 +30,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input for todo command
+     *
+     * @param arr the input array
+     * @return the Todo object
+     * @throws IllegalArgumentException if the input is invalid
+     */
     public static Todo todoParse(String[] arr) throws IllegalArgumentException {
         if (arr.length <= 1) {
             throw new IllegalArgumentException();
@@ -27,6 +46,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input for deadline command
+     *
+     * @param arr the input array
+     * @return the Deadline object
+     * @throws IllegalArgumentException if the input is invalid
+     */
     public static Deadline deadlineParse(String[] arr) throws IllegalArgumentException {
         if (arr.length <= 1) {
             throw new IllegalArgumentException();
@@ -40,6 +66,13 @@ public class Parser {
         return new Deadline(descArr[0], descArr[1]);
     }
 
+    /**
+     * Parses user input for event command
+     *
+     * @param arr the input array
+     * @return the Event object
+     * @throws IllegalArgumentException if the input is invalid
+     */
     public static Event eventParse(String[] arr) throws IllegalArgumentException {
         if (arr.length <= 1) {
             throw new IllegalArgumentException();
@@ -58,6 +91,13 @@ public class Parser {
         return new Event(descArr[0], from, to);
     }
 
+    /**
+     * Parses user input for find command
+     *
+     * @param arr the input array
+     * @return the String that will be searched
+     * @throws IllegalArgumentException if the input is invalid
+     */
     public static String findParse(String[] arr) throws IllegalArgumentException {
         if (arr.length <= 1) {
             throw new IllegalArgumentException();

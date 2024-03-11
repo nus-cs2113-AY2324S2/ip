@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.io.IOException;
 
+/**
+ * Contains the task list and has operations to add/delete tasks in the list
+ */
+
 public class TaskList {
     private static int count;
     private static ArrayList<Task> tasks;
@@ -10,10 +14,21 @@ public class TaskList {
         tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Retrieves the Arraylist of tasks.
+     *
+     * @return the tasks variable
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Adds a task to tasks
+     *
+     * @param t     the task to add
+     * @param prnt  flag to determine if ui displayed
+     */
     public static void addTask(Task t, boolean prnt) {
         tasks.add(t);
         count += 1;
@@ -22,6 +37,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param arr the input array
+     */
     public void delete(String[] arr) {
         try{
             int delNum = Parser.markDeleteParse(arr, this.count);
@@ -34,6 +54,12 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Marks a task as completed in tasks.
+     *
+     * @param arr the input array
+     */
     public void mark(String[] arr) {
         try{
             int markNum = Parser.markDeleteParse(arr, this.count);
@@ -44,6 +70,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as incompleted in tasks.
+     *
+     * @param arr the input array
+     */
     public void unmark(String[] arr) {
         try{
             int markNum = Parser.markDeleteParse(arr, this.count);
@@ -54,6 +85,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a Todo task to tasks.
+     *
+     * @param arr the input array
+     */
     public void addTodo(String[] arr) {
         try {
             Task t = Parser.todoParse(arr);
@@ -69,6 +105,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a Deadline task to tasks.
+     *
+     * @param arr the input array
+     */
     public void addDeadline(String[] arr) {
         try {
             Task t = Parser.deadlineParse(arr);
@@ -83,6 +124,12 @@ public class TaskList {
             return;
         }
     }
+
+    /**
+     * Adds a Event task to tasks.
+     *
+     * @param arr the input array
+     */
     public void addEvent(String[] arr) {
         try {
             Task t = Parser.eventParse(arr);
@@ -98,6 +145,12 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Searches for tasks containing a specific keyword in the task list.
+     *
+     * @param arr the input array
+     */
     public void find(String[] arr) {
         try {
             String s = Parser.findParse(arr);

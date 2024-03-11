@@ -5,8 +5,13 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file ./data/chat.txt
+ */
 public class Storage {
+
     public static String filepath = "./data/chat.txt";
+
     public Storage() {
         File direcName = new File("./data");
         if(!direcName.exists()) {
@@ -20,6 +25,11 @@ public class Storage {
             Ui.printError(e.getMessage());
         }
     }
+    /**
+     * Loads tasks from hard disk when the chatbot starts up.
+     *
+     * @throws FileNotFoundException if file not found
+     */
     public void loadFromDisk() throws FileNotFoundException {
         File f = new File(filepath);
         Scanner s = new Scanner(f);
@@ -41,6 +51,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks from the task list to hard disk when chatbot quits.
+     *
+     * @param myTasks the list of tasks to be saved
+     * @throws IOException if error writing to file
+     */
     public void saveToDisk(ArrayList<Task> myTasks) throws IOException {
         FileWriter fw = new FileWriter(filepath, false);
         fw.close();
@@ -49,6 +65,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a task to the data file.
+     *
+     * @param t the task to be written to the file
+     * @throws IOException if error writing to file
+     */
     public static void writeToFile(Task t) throws IOException {
         FileWriter fw = new FileWriter(filepath, true);
         fw.write(t.saveTaskFormat());

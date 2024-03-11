@@ -17,6 +17,10 @@ public class Boop {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     * Takes user inputs and runs until "bye" command.
+     */
     public void run() {
         boolean running = true;
         while(running) {
