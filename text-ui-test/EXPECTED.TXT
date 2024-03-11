@@ -1,7 +1,114 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-------------------------------------------
+Hello! I'm mimichat
+What can I do for you?
+-------------------------------------------
+[31mError: delete/mark/unmark parameters is incomplete. Proper syntax: delete/mark/unmark [task number][0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: delete/mark/unmark parameters is incomplete. Proper syntax: delete/mark/unmark [task number][0m
+[31mError: delete/mark/unmark parameters is incomplete. Proper syntax: delete/mark/unmark [task number][0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: delete/mark/unmark parameters is incomplete. Proper syntax: delete/mark/unmark [task number][0m
+-------------------------------------------
+Got it. I've added this task:
+		[T][ ] borrow book
+Now you have 1 tasks in the list
+-------------------------------------------
+[31mError: todo parameters is incomplete. Proper syntax: todo [task number][0m
+[31mError: unknown instruction. Type of instructions available [deadline/todo/event/list/bye][0m
+-------------------------------------------
+Got it. I've added this task:
+		[T][ ] borrow calculator
+Now you have 2 tasks in the list
+-------------------------------------------
+-------------------------------------------
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][ ] borrow calculator
+-------------------------------------------
+-------------------------------------------
+Got it. I've added this task:
+		[D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list
+-------------------------------------------
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline format is invalid. Proper syntax: deadline [instruction] /by [deadline][0m
+[31mError: deadline parameters is incomplete. Proper syntax: deadline [instruction] /by [deadline][0m
+-------------------------------------------
+Got it. I've added this task:
+		[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 4 tasks in the list
+-------------------------------------------
+[31mError: event parameters is incomplete. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event parameters is incomplete. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event format is invalid. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+[31mError: event format is invalid. Proper syntax: event [eventName] /from [startDate] /to [endDate][0m
+-------------------------------------------
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [T][ ] borrow calculator
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+-------------------------------------------
+-------------------------------------------
+OK, I've marked this task as done
+1. [T][X] borrow book
+-------------------------------------------
+-------------------------------------------
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [T][ ] borrow calculator
+3. [D][ ] return book (by: Sunday)
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+-------------------------------------------
+[31mError: task not found. Please check the task number again.[0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: task not found. Please check the task number again.[0m
+[31mError: delete/mark/unmark format is invalid. Proper syntax: delete/mark/unmark [task number][0m
+[31mError: delete/mark/unmark parameters is incomplete. Proper syntax: delete/mark/unmark [task number][0m
+-------------------------------------------
+Noted. I've removed this task:
+		[T][X] borrow book
+Now you have 3 tasks in the list
+-------------------------------------------
+-------------------------------------------
+Got it. I've added this task:
+		[T][ ] borrow, from john
+Now you have 4 tasks in the list
+-------------------------------------------
+-------------------------------------------
+Got it. I've added this task:
+		[D][ ] return, this book (by: Tuesday)
+Now you have 5 tasks in the list
+-------------------------------------------
+-------------------------------------------
+Got it. I've added this task:
+		[E][ ] a new test, this is it (from: Mon 3pm to: Mon 5pm)
+Now you have 6 tasks in the list
+-------------------------------------------
+-------------------------------------------
+OK, I've marked this task as done
+1. [T][X] borrow calculator
+-------------------------------------------
+-------------------------------------------
+OK, I've marked this task as done
+2. [D][X] return book (by: Sunday)
+-------------------------------------------
+-------------------------------------------
+Here are the matching tasks in your list:
+1. [T][X] borrow calculator
+2. [T][ ] borrow, from john
+-------------------------------------------
+-------------------------------------------
+Here are the matching tasks in your list:
+1. [D][X] return book (by: Sunday)
+2. [D][ ] return, this book (by: Tuesday)
+-------------------------------------------
+-------------------------------------------
+Here are the matching tasks in your list:
+[31mYou have no tasks in your list[0m
+-------------------------------------------
+[31mError: find parameters is incomplete. Proper syntax: find [keyword][0m
+-------------------------------------------
+Bye. Hope to see you again soon!
+-------------------------------------------
