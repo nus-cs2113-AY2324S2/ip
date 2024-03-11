@@ -53,6 +53,9 @@ public class Boop {
                 case "event":
                     tasklist.addEvent(userInput);
                     break;
+                case "find":
+                    tasklist.find(userInput);
+                    break;
                 default:
                     Ui.unknownCommand();
                     break;

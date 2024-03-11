@@ -1,1 +1,4 @@
 T | 0 | hi
+T | 0 | do my work
+D | 1 | my workie work | tn
+E | 0 | do work at cafe | now | forever

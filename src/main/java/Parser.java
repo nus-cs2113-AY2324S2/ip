@@ -58,5 +58,13 @@ public class Parser {
         return new Event(descArr[0], from, to);
     }
 
+    public static String findParse(String[] arr) throws IllegalArgumentException {
+        if (arr.length <= 1) {
+            throw new IllegalArgumentException();
+        }
+        String desc = String.join(" ", Arrays.copyOfRange(arr, 1, arr.length));
+        return desc;
+    }
+
 
 }

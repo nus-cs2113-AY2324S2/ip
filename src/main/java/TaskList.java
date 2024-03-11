@@ -97,4 +97,20 @@ public class TaskList {
             return;
         }
     }
+
+    public void find(String[] arr) {
+        try {
+            String s = Parser.findParse(arr);
+            ArrayList<Task> found = new ArrayList<Task>();
+            for(Task t: this.tasks) {
+                if(t.getDescription().contains(s)) {
+                    found.add(t);
+                }
+            }
+            Ui.printFound(found);
+        } catch (IllegalArgumentException e) {
+            Ui.findError();
+            return;
+        }
+    }
 }

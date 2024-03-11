@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Ui {
     private Scanner scanner;
     public Ui() {
@@ -82,6 +84,23 @@ public class Ui {
 
     public static void printError(String error) {
         System.out.println(error);
+        printDivider();
+    }
+
+    public static void findError() {
+        System.out.println("OOPS!!! The format of your input is incorrect");
+        printDivider();
+    }
+
+    public static void printFound(ArrayList<Task> found) {
+        if(found.size() == 0) {
+            System.out.println("No tasks in your list match");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for(Task t: found) {
+                System.out.println(t.toString());
+            }
+        }
         printDivider();
     }
 }
