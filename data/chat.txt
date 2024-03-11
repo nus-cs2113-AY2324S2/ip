@@ -1,4 +1,1 @@
-T | 0 | hihihihi
-D | 1 | poopoo | tn
-E | 1 | fuck | pls | work
-T | 0 | hhhhheheheheheheheh
+T | 0 | hi

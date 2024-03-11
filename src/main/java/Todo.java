@@ -14,5 +14,4 @@ public class Todo extends Task{
         return "T | " + marked + " | " + this.description + System.lineSeparator();
     }
 
-
 }
