@@ -1,0 +1,5 @@
+E | 0 | soccer practice /from 2pm /to 4pm
+T | 0 | recovery run
+D | 0 | run24k /by 2024-12-05 1830
+D | 0 | run12k /by Sunday 2359
+D | 0 | Run42KM /by 2024-12-31 0530

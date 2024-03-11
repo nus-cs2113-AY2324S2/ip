@@ -1,7 +1,75 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+___  ___                  
+|  \/  |                  
+| .  . | ___  _ __   __ _ 
+| |\/| |/ _ \| '_ \ / _` |
+| |  | | (_) | | | | (_| |
+\_|  |_/\___/|_| |_|\__,_|
 
+____________________________________________________________
+Hello! I'm Mona
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it! I've added that task for you.
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it! I've added that task for you.
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it! I've added that task for you.
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here's all the tasks you've got lined up:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Woohoo! That task is now marked as done.
+[T][X] borrow book
+____________________________________________________________
+____________________________________________________________
+Woohoo! That task is now marked as done.
+[D][X] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+Here's all the tasks you've got lined up:
+1.[T][X] borrow book
+2.[D][X] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+No worries! Mona has marked that task as not done. There's always next time!
+[D][ ] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+Here's all the tasks you've got lined up:
+1.[T][X] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Hmm, Mona didn't quite catch that. Could you try again? Or type 'help' to see what Mona can do!
+____________________________________________________________
+____________________________________________________________
+Bye-bye! Mona will miss you. Come back soon!
+____________________________________________________________
