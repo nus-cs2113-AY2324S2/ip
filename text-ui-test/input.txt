@@ -1,0 +1,34 @@
+list
+deadline iP week 4 /by Friday
+deadline test missing argument /by
+deadline /by Friday
+deadline
+deadline test whitespace argument /by  
+deadline  /by Friday
+deadline  
+event CS2113T lecture /from Friday, 4pm /to Friday, 6pm
+event test missing argument /from Friday, 4pm /to
+event test missing argument /from /to Friday, 6pm
+event test missing argument /from Friday, 4pm
+event test missing argument /to Friday, 6pm
+event test missing argument
+event
+event test whitespace argument /from Friday, 4pm /to  
+event test whitespace argument /from  /to Friday, 6pm
+event  
+todo pack room
+todo
+todo  
+List
+mark 1
+Mark 2
+mArk 3
+MARK 4
+LIST
+unmark 1
+Unmark 2
+uNmark 3
+UNMARK 4
+list
+bleh
+bye
