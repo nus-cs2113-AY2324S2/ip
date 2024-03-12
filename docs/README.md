@@ -61,7 +61,7 @@ Here are additional examples of how you can use Asuka to manage your tasks effec
 
     - Add a deadline task for submitting a report:
       ```bash
-      deadline Submit quarterly report /by 2024-04-15
+      deadline Submit quarterly report /2024/04/15 15:30
       ```
 
     - Add an event task for a friend's birthday party:

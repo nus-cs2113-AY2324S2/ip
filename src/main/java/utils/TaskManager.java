@@ -6,6 +6,7 @@ import classes.Task;
 import classes.Todo;
 import exceptions.TaskIndexOutOfBoundsException;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class TaskManager {
      * @param taskCount the number of tasks
      * @return the number of tasks
      */
-    public static int add(String input, ArrayList<Task> tasks, int taskCount) {
+    public static int add(String input, ArrayList<Task> tasks, int taskCount) throws DateTimeException {
         String[] inputs;
         System.out.println(constants.BREAKLINE);
         inputs = input.split(" ", 2);
@@ -164,7 +165,8 @@ public class TaskManager {
         System.out.println(constants.BREAKLINE);
         System.out.println("Here are the matching tasks in your list:");
         for (int j = 0; j < taskCount; j++) {
-            if (tasks.get(j).getDescription().contains(inputs[1])) {
+            if (tasks.get(j).getDescription().contains(inputs[1])
+                    || tasks.get(j).toString().toLowerCase().contains(inputs[1].toLowerCase())) {
                 System.out.print(j + 1 + ". ");
                 tasks.get(j).printTask();
             }

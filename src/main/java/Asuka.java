@@ -5,6 +5,8 @@ import static utils.Command.getCommands;
 import utils.Storage;
 import utils.Ui;
 import utils.constants;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static utils.TaskManager.*;
@@ -65,7 +67,8 @@ public class Asuka {
                         break;
                 }
             }
-            catch (EmptyTaskException | InvalidCommandException | EmptyIndexException | TaskIndexOutOfBoundsException e) {
+            catch (EmptyTaskException | InvalidCommandException | EmptyIndexException | TaskIndexOutOfBoundsException |
+                   DateTimeParseException e) {
                 Ui.printError(e.getMessage());
             }
         }
