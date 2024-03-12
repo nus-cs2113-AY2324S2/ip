@@ -47,7 +47,13 @@ public class Ui {
     public static void printGoodbyeMessage() {
         System.out.println(GOODBYE_MESSAGE);
     }
-    
+
+    /**
+     * Receive the user's input.
+     *
+     * @return The user's input.
+     * @throws NoSuchElementException
+     */
     public static String receiveInput() throws NoSuchElementException {
         printLineDivider();
         System.out.print("> ");

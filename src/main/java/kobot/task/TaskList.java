@@ -154,7 +154,12 @@ public class TaskList {
         
         return String.valueOf(storage);
     }
-    
+
+    /**
+     * Prints out list of tasks that contains the keyword.
+     *
+     * @param keyword Keyword to search for.
+     */
     public void findTasks(String keyword) {
         System.out.println("Tasks containing \"" + keyword + "\":");
         

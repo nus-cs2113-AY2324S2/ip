@@ -12,6 +12,11 @@ public class ToDo extends Task {
         return String.format("[T]%s", super.toString());
     }
 
+    /**
+     * Converts todo to format used for local storage.
+     *
+     * @return Formatted string of the to-do.
+     */
     public String toStorageFormat() {
         return String.format("T;%b;%s", this.isDone, this.description);
     }

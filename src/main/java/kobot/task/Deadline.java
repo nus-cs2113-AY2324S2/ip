@@ -15,7 +15,12 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
-    
+
+    /**
+     * Converts deadline to format used for local storage.
+     *
+     * @return Formatted string of the deadline
+     */
     public String toStorageFormat() {
         return String.format("D;%b;%s;%s", this.isDone, this.description, this.by);
     }

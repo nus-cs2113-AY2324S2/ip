@@ -25,6 +25,12 @@ public class MarkUnmarkCommand extends ModifyTaskCommand {
             }
         }
     }
+
+    /**
+     * Marks the task at a specific index
+     * as completed or not completed,
+     * based on the user command.
+     */
     public void execute() {
         if (!canExecute) {
             return;

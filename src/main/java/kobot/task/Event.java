@@ -20,6 +20,11 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.from, this.to);
     }
 
+    /**
+     * Converts event to format used for local storage.
+     *
+     * @return Formatted string of the event.
+     */
     public String toStorageFormat() {
         return String.format("E;%b;%s;%s;%s", this.isDone, this.description, this.from, this.to);
     }
