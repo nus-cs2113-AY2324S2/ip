@@ -310,5 +310,5 @@ ____________________________________________________________
 2. How do I transfer data to other machines?
 
    Copy the `ip.jar` file and `jane.txt` to the other machine. Place both of the files 
-   in the same directory, and Jarvas will be able to load the data file.
+   in the same directory, and Jane will be able to load the data file.
 
