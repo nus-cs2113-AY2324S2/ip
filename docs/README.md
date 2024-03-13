@@ -48,6 +48,7 @@ Adds a todo task to the task list.
 
 Adds a deadline task to the task list.
 - Format: `deadline TASK /by DATE`
+- Note : `DATE` should be in the format `DD/MM/YYYY`
 - Examples:
     - `deadline find a job /by 5/11/2024`: Adds a task named "find a job" with a deadline of 5/11/2024.
     - `deadline assignment /by 10/11/2024`: Adds a task named "assignment" with a deadline of 10/11/2024.
@@ -56,6 +57,7 @@ Adds a deadline task to the task list.
 
 Adds an event task to the task list.
 - Format: `event TASK /from START /to END`
+- Note : `START` and `END` should be in the format `DD/MM/YYYY`
 - Examples:
     - `event class /from 05/12/2024 /to 06/12/2024`: Adds a task named "class" with a start date of 05/12/2024 and an end date of 06/12/2024.
 
