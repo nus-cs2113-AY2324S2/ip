@@ -13,9 +13,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * The Storage class handles the saving and loading of tasks into and from the data file
+ */
 public class Storage {
     protected String filepath;
     protected TaskList tasks;
+
 
     public Storage(String filepath) {
         this.filepath = filepath;

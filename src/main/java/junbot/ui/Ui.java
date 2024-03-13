@@ -4,6 +4,9 @@ import junbot.tasks.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The UI class handles all printing and displaying of messages to user
+ */
 public class Ui {
     protected static String DIVIDER = "____________________________________________________________";
     protected static String GREETING = "Hello! I'm JunBot\nWhat can I do for you?";

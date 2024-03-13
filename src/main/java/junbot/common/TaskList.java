@@ -10,6 +10,10 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents the list of tasks in JunBot.
+ * This class provides the functions associated with the handling of tasks
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
     protected Ui ui;

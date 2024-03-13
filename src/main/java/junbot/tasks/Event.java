@@ -6,6 +6,14 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Todo {
     protected LocalDate startDate;
     protected LocalDate endDate;
+
+    /**
+     * Constructs an Event object with the provided description, startDate and endDate, along with its associated tag E
+     *
+     * @param description description of the task
+     * @param startDate start date of the task
+     * @param endDate end date of the task
+     */
     public Event(String description, LocalDate startDate, LocalDate endDate) {
         super(description);
         this.tag = "E";
