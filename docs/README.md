@@ -55,4 +55,4 @@ To exit Hailey, simply type `bye`. Hailey will bid you farewell and close the ap
 
 ## Usage
 
-### Adding a Todo Task
+### Adding a Todo Task 
