@@ -5,18 +5,18 @@ _RecrBad_ is a command line programme to help you track your TODOs/ tasks!
 <hr>
 
 - [Setting Up](#setting-up)
-- [Possible User Commands](#Possible-User-Commands)
-  - [Add Todo task: `todo`](#Add-Todo-task-todo)
-  - [Add Deadline task: `deadline`](#Add-Deadline-task-deadline)
-  - [Add Event task: `event`](#Add-Event-task-event)
-  - [List all tasks: `list`](#List-all-tasks-list)
-  - [Mark a task as done: `mark`](#Mark-a-task-as-done-mark)
-  - [Unmark a task as undone: `unmark`](#Unmark-a-task-as-undone-unmark)
+- [Possible User Commands](#possible-user-commands)
+  - [Add Todo task: `todo`](#add-todo-task-todo)
+  - [Add Deadline task: `deadline`](#add-deadline-task-deadline)
+  - [Add Event task: `event`](#add-event-task-event)
+  - [List all tasks: `list`](#list-all-tasks-list)
+  - [Mark a task as done: `mark`](#mark-a-task-as-done-mark)
+  - [Unmark a task as undone: `unmark`](#unmark-a-task-as-undone-unmark)
   - [Delete a task: `delete`](#delete-a-task-delete)
-  - [Find a task: `find`](#Find-a-task-find)
-  - [Exit the Program: `bye`](#Exit-the-program-bye)
-- [Saved tasks](#Saved-tasks)
-- [Frequently-Asked-Questions (FAQ)](#FAQ)
+  - [Find a task: `find`](#find-a-task-find)
+  - [Exit the Program: `bye`](#exit-the-program-bye)
+- [Saved tasks](#saved-tasks)
+- [Frequently-Asked-Questions (FAQ)](#faq)
 
 <hr>
 
@@ -27,6 +27,7 @@ _RecrBad_ is a command line programme to help you track your TODOs/ tasks!
 3. Open the command terminal (search "cmd") and navigate to the folder where the file is saved (`cd filepath`)
 4. Enter `java -jar ip.jar` to run _ip.jar_ in the command terminal
 5. After successfully starting _RecrBad_, a similar output will be as shown:
+
 ```
    Hello! I'm
  ____   ___    ___   ____    ___
@@ -38,6 +39,7 @@ _RecrBad_ is a command line programme to help you track your TODOs/ tasks!
 ****************************************
 What can I do for you?
 ```
+
 6. Refer to [Possible User Commands](#Possible-User-Commands) below to start adding tasks!
 7. Have a fun and productive time!
 
@@ -79,6 +81,7 @@ List all tasks. Enter `list`.
 Format: `list`
 
 Usage:
+
 ```
 ****************************************
 list
@@ -86,28 +89,30 @@ list
 2. [D][0] lab revision (by: Aug 20 2024)
 3. [E][0] lab revision2 (from: 0800 to 1000)
 ****************************************
-
 ```
+
 ### Mark a task as done `mark`
 Mark task as done. Enter `mark` and the task number
 
 Format:  `mark <taskNum>`
 
 Usage:
+
 ```
 ****************************************
 mark 2
 Has marked task2:
 2. [D][1] lab revision (by: Aug 20 2024)
 ****************************************
-
 ```
+
 ### Unmark a task as undone `unmark`
 Unmark task as undone. Enter `unmark` and the task number
 
 Format:  `unmark <taskNum>`
 
 Usage:
+
 ```
 ****************************************
 unmark 2
@@ -122,6 +127,7 @@ Delete a task. Enter `delete` and the task number
 Format: `delete <taskNum>`
 
 Usage: 
+
 ```
 ****************************************
 list
@@ -147,6 +153,7 @@ Searches for a keyword in the list of tasks. Enter `find` and the keyword
 Format: `find <keyword>`
 
 Usage: 
+
 ```
 ****************************************
 list
@@ -169,14 +176,15 @@ Exit the Program. Enter `bye`
 Format: `bye`
 
 Usage:
+
 ```
 ****************************************
 bye
 Adios My Friend. Sleep early, study smarter
 <a random quote>
 ****************************************
-
 ```
+
 <hr>
 
 ## Saved Tasks
@@ -190,7 +198,9 @@ Should the file not exist, a new file called _saveFile.txt_ will be created in t
 <hr>
 
 ## FAQ
+
 Q: What are your references?
+
 A: List of References
    + CS2113 iP [GitHub](https://github.com/nus-cs2113-AY2324S2/ip)
    + [GitHub formatting](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
