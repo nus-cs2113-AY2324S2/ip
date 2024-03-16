@@ -1,10 +1,10 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents an event task with a start and end time.
- * Inherits from the Task class and adds time-specific information
- * */
+    /**
+     * Represents an event task with a start and end time.
+     * Inherits from the Task class and adds time-specific information
+     * */
 
 public class EventTask extends Task {
     private final LocalDateTime startTime;
@@ -35,5 +35,10 @@ public class EventTask extends Task {
         String formattedStartTime = this.startTime.format(formatter);
         String formattedEndTime = this.endTime.format(formatter);
         return "[E]" + super.toString() + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | "+ this.getDescription()  + String.format(" | %s | %s | %s", super.toFileString(), this.startTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")), this.endTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
     }
 }
