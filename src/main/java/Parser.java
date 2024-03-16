@@ -78,5 +78,10 @@ public class Parser {
         } else {
             throw new TaskManagerException("Do better. Read syntax instructions.");
         }
+
+        // save the tasks for every command
+        if (!userCommand.equalsIgnoreCase("list")) {
+            Storage.saveTasksToFile(TaskList.getTaskList());
+        }
     }
 }
