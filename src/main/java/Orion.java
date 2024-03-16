@@ -1,10 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Orion {
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String DATA_PATH = "./data/";
+    private static final String DATA_FILE = DATA_PATH + "orion.txt";
 
     public static void main(String[] args) {
+        createDataFileIfNotExist();
+        loadTasks();
         printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -12,16 +21,27 @@ public class Orion {
         while (true) {
             input = scanner.nextLine().trim();
             if ("bye".equalsIgnoreCase(input)) {
+                saveTasks();
                 printGoodbyeMessage();
                 break;
             }
             try {
                 processInput(input);
+                saveTasks();
             } catch (OrionException e) {
                 System.out.println(e.getMessage());
             }
         }
         scanner.close();
+    }
+
+    private static void printWelcomeMessage() {
+        System.out.println(Constants.LOGO);
+        System.out.println("Hello! I'm Orion\nWhat can I do for you?");
+    }
+
+    private static void printGoodbyeMessage() {
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static void processInput(String input) throws OrionException {
@@ -102,8 +122,8 @@ public class Orion {
 
     private static void deleteTask(String input) throws OrionException {
         try {
-            int index = Integer.parseInt(input.split(" ")[1]) - 1; // Convert to zero-based index
-            Task removedTask = tasks.remove(index); // This will throw IndexOutOfBoundsException if the index is invalid
+            int index = Integer.parseInt(input.split(" ")[1]) - 1;
+            Task removedTask = tasks.remove(index);
             System.out.println("Noted. I've removed this task:\n  " + removedTask);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
@@ -113,12 +133,62 @@ public class Orion {
         }
     }
 
-    private static void printWelcomeMessage() {
-        System.out.println(Constants.LOGO);
-        System.out.println("Hello! I'm Orion\nWhat can I do for you?");
+    private static void createDataFileIfNotExist() {
+        try {
+            Files.createDirectories(Paths.get(DATA_PATH));
+            File file = new File(DATA_FILE);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Could not create data file.");
+        }
     }
 
-    private static void printGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    private static void loadTasks() {
+        try {
+            Files.lines(Paths.get(DATA_FILE)).forEach(line -> {
+                // Assume the line format is 'TYPE | STATUS | DESCRIPTION | TIME'
+                String[] parts = line.split(" \\| ");
+                switch (parts[0]) {
+                    case "T":
+                        Todo todo = new Todo(parts[2]);
+                        if ("1".equals(parts[1])) {
+                            todo.setDone(true);
+                        }
+                        tasks.add(todo);
+                        break;
+                    case "D":
+                        Deadline deadline = new Deadline(parts[2], parts[3]);
+                        if ("1".equals(parts[1])) {
+                            deadline.setDone(true);
+                        }
+                        tasks.add(deadline);
+                        break;
+                    case "E":
+                        Event event = new Event(parts[2], parts[3]);
+                        if ("1".equals(parts[1])) {
+                            event.setDone(true);
+                        }
+                        tasks.add(event);
+                        break;
+                    default:
+                        System.out.println("Unrecognized task type in data file.");
+                        break;
+                }
+            });
+        } catch (IOException e) {
+            System.out.println("Could not load tasks from file.");
+        }
     }
-}
+
+    private static void saveTasks() {
+            try (FileWriter writer = new FileWriter(DATA_FILE)) {
+                for (Task task : tasks) {
+                    writer.write(task.toDataString() + System.lineSeparator());
+                }
+            } catch (IOException e) {
+                System.out.println("Could not save tasks to file.");
+            }
+        }
+    }
