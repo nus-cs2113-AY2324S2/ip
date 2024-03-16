@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with deadline.
  * Inherits from the Task class and adds deadline information.
- */
+*/
 public class DeadlineTask extends Task {
     private final LocalDateTime deadline;
 
@@ -30,5 +30,10 @@ public class DeadlineTask extends Task {
     public String toString() {
         String formattedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
         return "[D]" + super.toString() + " (by: " + formattedDeadline + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D |"+ this.getDescription()  + String.format(" | %s | %s", super.toFileString(), this.deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")));
     }
 }
