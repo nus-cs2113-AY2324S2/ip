@@ -4,7 +4,7 @@ _RecrBad_ is a command line programme to help you track your TODOs/ tasks!
 
 <hr>
 
-- [Setting Up](#Setting-Up-in-Intellij)
+- [Setting Up](#setting-up)
 - [Possible User Commands](#Possible-User-Commands)
   - [Add Todo task: `todo`](#Add-Todo-task-todo)
   - [Add Deadline task: `deadline`](#Add-Deadline-task-deadline)
@@ -20,17 +20,13 @@ _RecrBad_ is a command line programme to help you track your TODOs/ tasks!
 
 <hr>
 
-## Setting up in Intellij
+## Setting up
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project`
-   to close the existing project first)
-2. Download the lastest jar file [here](https://github.com/NGXZS/ip/releases)
-3. Save _ip.jar_ in an appropriate folder eg Downloads
-4. Open the command terminal (search "cmd") and navigate to the folder where the file is saved (`cd filepath`)
-5. Enter `java -jar ip.jar` to run _ip.jar_ in the command terminal
-6. After successfully starting _RecrBad_, a similar output will be as shown:
+1. Download the lastest jar file [here](https://github.com/NGXZS/ip/releases)
+2. Save _ip.jar_ in an appropriate folder eg Downloads
+3. Open the command terminal (search "cmd") and navigate to the folder where the file is saved (`cd filepath`)
+4. Enter `java -jar ip.jar` to run _ip.jar_ in the command terminal
+5. After successfully starting _RecrBad_, a similar output will be as shown:
 ```
    Hello! I'm
  ____   ___    ___   ____    ___
@@ -42,8 +38,8 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 ****************************************
 What can I do for you?
 ```
-7. Refer to [Possible User Commands](#Possible-User-Commands) below to start adding tasks!
-8. Have a fun and productive time!
+6. Refer to [Possible User Commands](#Possible-User-Commands) below to start adding tasks!
+7. Have a fun and productive time!
 
 <hr>
 
