@@ -17,6 +17,18 @@ public class TaskList {
         TaskList.tasks = new ArrayList<>();
     }
 
+    public void load(ArrayList<Task> tasks) {
+        if (tasks == null) {
+            TaskList.tasks = new ArrayList<>();
+        } else {
+            TaskList.tasks = tasks;
+        }
+    }
+
+    public static ArrayList<Task> getTaskList() {
+        return tasks;
+    }
+
     /**
      *
      * @param userCommand The command input by the user, expected to contain a description of the task following the command keyword.

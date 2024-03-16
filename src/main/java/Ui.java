@@ -1,4 +1,3 @@
-
 /**
  * The Ui class handles user interface interactions by displaying messages to the user.
  * It provides a welcome message upon instantiation and has methods to display instructions and a farewell message.

@@ -1,14 +1,16 @@
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * It initializes the user interface, storage, and parser components, and orchestrates
  * the flow of the application.
  */
 public class Zap {
-    private static List<Task> tasks;
+    //    private static List<Task> tasks;
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
+
+    private static final String FILE_PATH = "./data/tasks.txt";
 
     /**
      * Constructs a Zap instance with the specified file path for task storage.
@@ -20,9 +22,10 @@ public class Zap {
     public Zap(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        tasks = storage.load();
+        ArrayList<Task> tasks = storage.load(FILE_PATH);
         TaskList taskList = new TaskList();
-        taskList.load();
+        taskList.load(tasks);
+
         this.parser = new Parser();
     }
 
@@ -34,7 +37,6 @@ public class Zap {
     public void run() {
         ui.printInstructions();
         parser.parseCommands();
-        storage.save(tasks);
         ui.printFarewell();
     }
 
