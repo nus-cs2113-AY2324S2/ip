@@ -18,6 +18,11 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    // Returns the description of the task.
+    public String getDescription() {
+        return this.description;
+    }
+
     // Overrides toString to return the task's status icon and description.
     @Override
     public String toString() {
