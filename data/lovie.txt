@@ -1,0 +1,4 @@
+todo hi hi hi  | 1
+todo read book | 1
+todo hello | 0
+event kiss mihir /from tuesday /to wednesday | 1
