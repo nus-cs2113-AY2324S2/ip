@@ -1,0 +1,29 @@
+list
+todo
+todo read book
+deadline
+deadline /by
+deadline return book /by
+deadline return book /by 2024-03-02 18:16
+event
+event /from /to
+event book signing /from /to
+event book signing /from 2024-03-01 02:30 /to 2024-03-30 21:40
+list
+mark
+mark 100
+mark 1
+list
+unmark
+unmark 100
+unmark 1
+list
+delete
+delete 100
+delete 1
+list
+find
+find blah
+find return
+blah
+bye
