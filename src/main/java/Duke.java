@@ -1,10 +1,29 @@
+/**
+ * This is the chatbot.
+ */
+
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+    private TaskList tasks;
+    private Storage storage;
+    private Parser parser;
+
+    public Duke(){
+        UI.welcome();
+        storage = new Storage();
+        parser = new Parser();
+        tasks = new TaskList(storage.loadFromDisk());
+    }
+
+    /**
+     * execute Stella
+     */
+    public void run(){
+        parser.takeResponse(tasks);
+        UI.bye();
+    }
+
+    public static void main (String[] args) {
+        Duke bot = new Duke();
+        bot.run();
     }
 }
