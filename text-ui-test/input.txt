@@ -1,0 +1,10 @@
+todo borrow book
+deadline return book /by Feb 20th
+event MS internship /from June /to Aug
+todo join sports club
+mark 1
+list
+mark 4
+list
+deadline travel for business /by date depends on MD
+list
