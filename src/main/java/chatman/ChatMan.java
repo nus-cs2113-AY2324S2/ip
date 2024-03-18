@@ -1,13 +1,24 @@
+package chatman;
+
+import chatman.commands.GreetCommand;
+import chatman.tasks.*;
+import chatman.utility.*;
+
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 //All src/java files use this Java Coding Standard: https://se-education.org/guides/conventions/java/index.html
 
-public class Duke {
+/**
+ * Provides entry point for ChatMan.
+ *
+ * @author LWachtel1
+ * */
+public class ChatMan {
 
-    public static final int MAX_NUM_COMMANDS = 100;
-    static ArrayList<Task> enteredCommands = new ArrayList<>();
-
+    public static final int MAX_NUM_TASKS = 100;
+    public static ArrayList<Task> storedTasks = new ArrayList<>();
 
     /**
      * Prints greeting for chatbot user upon initial program execution
@@ -34,18 +45,18 @@ public class Duke {
      *
      */
     public static void replyAddedTask() {
-        Task addedTask = enteredCommands.get(enteredCommands.size() - 1);
-        int size = enteredCommands.size();
+        Task addedTask = storedTasks.get(storedTasks.size() - 1);
+        int size = storedTasks.size();
 
         System.out.printf("Got it. I've added this task:%n%s%nNow you have %d tasks in the list.%n",
                 addedTask.toString(), size);
     }
 
     /**
-     * Parses task entered by user to determine specific subclass then adds appropriate object to array list
+     * Parses task entered by user to determine specific subclass then adds appropriate object to array list.
      *
-     * @param userCommand user's command specifying task-to-add's description & other subclass relevant details
-     */
+     * @param userCommand user's command specifying task-to-add's description & other subclass relevant details.
+     * */
     public static void addTask(String userCommand) {
 
         System.out.printf("%s%n", "____________________________________________________________");
@@ -56,7 +67,7 @@ public class Duke {
         case "TODO":
             String toDoDesc = userCommand.replaceAll("(?i)TODO", "");
 
-            enteredCommands.add(new Todo(toDoDesc));
+            storedTasks.add(new Todo(toDoDesc));
 
             replyAddedTask();
             break;
@@ -66,7 +77,7 @@ public class Duke {
             String deadLineDesc = deadLine[0].replaceAll("(?i)DEADLINE", "");
             String by = deadLine[1].replaceAll("(?i)BY", "").stripLeading();
 
-            enteredCommands.add(new Deadline(deadLineDesc, by));
+            storedTasks.add(new Deadline(deadLineDesc, by));
 
             replyAddedTask();
             break;
@@ -77,7 +88,7 @@ public class Duke {
             String from = event[1].replaceAll("(?i)FROM", "").stripLeading();
             String to = event[2].replaceAll("(?i)TO", "").stripLeading();
 
-            enteredCommands.add(new Event(eventDesc, from, to));
+            storedTasks.add(new Event(eventDesc, from, to));
 
             replyAddedTask();
             break;
@@ -94,8 +105,8 @@ public class Duke {
      */
     public static void list() {
         System.out.printf("%s%n", "____________________________________________________________");
-        for (int i = 0; i < enteredCommands.size(); i++) {
-            System.out.printf("%d.%s%n", (i + 1), enteredCommands.get(i).toString());
+        for (int i = 0; i < storedTasks.size(); i++) {
+            System.out.printf("%d.%s%n", (i + 1), storedTasks.get(i).toString());
         }
     }
 
@@ -115,11 +126,11 @@ public class Duke {
                 boolean mark = true;
                 int toMark = Integer.parseInt(userCommand.replaceAll("[^0-9]", "")) - 1;
 
-                enteredCommands.get(toMark).setDone(mark);
+                storedTasks.get(toMark).setDone(mark);
 
                 System.out.printf("%s%n", "____________________________________________________________");
                 System.out.printf("Nice! I've marked this task as done:%n%s%n",
-                        enteredCommands.get(toMark).toString());
+                        storedTasks.get(toMark).toString());
             } catch (Exception e) {
                 System.out.printf("%s%n", "____________________________________________________________");
                 System.out.printf("Could not complete mark request.%n");
@@ -131,11 +142,11 @@ public class Duke {
                 boolean mark = false;
                 int toUnmark = Integer.parseInt(userCommand.replaceAll("[^0-9]", "")) - 1;
 
-                enteredCommands.get(toUnmark).setDone(false);
+                storedTasks.get(toUnmark).setDone(false);
 
                 System.out.printf("%s%n", "____________________________________________________________");
                 System.out.printf("OK, I've marked this task as not done yet:%n%s%n",
-                        enteredCommands.get(toUnmark).toString());
+                        storedTasks.get(toUnmark).toString());
             } catch (Exception E) {
                 System.out.printf("%s%n", "____________________________________________________________");
                 System.out.printf("Could not complete unmark request.%n");
@@ -202,7 +213,7 @@ public class Duke {
         boolean shouldExitLoop = false;
 
         while (!shouldExitLoop) {
-            if (enteredCommands.size() >= MAX_NUM_COMMANDS) {
+            if (storedTasks.size() >= MAX_NUM_TASKS) {
                 exit();
                 shouldExitLoop = true;
                 continue;
@@ -217,12 +228,15 @@ public class Duke {
     }
 
     /**
-     * Main method of chatbot
-     *
-     */
+     * Prints greeting for user upon initial program execution then instantiates CommandReader object and calls read
+     * () to trigger ChatMan loop execution.
+     **/
     public static void main(String[] args) {
-        greet();
-        getUserCommands();
+        GreetCommand hello= new GreetCommand(" ");
+        hello.perform();
+
+        CommandReader chatbot= new CommandReader();
+        chatbot.read();
 
     }
 }
