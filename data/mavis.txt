@@ -1,0 +1,7 @@
+T|hello|1
+D|submit iP (by:tdy 2359)|0|null
+T|AAKASH|0
+T|Run an errand|0
+D|submit iP (by: 2024-03-08 23:59)|0|: 2024-03-08 23:59
+E|Taylor Swift Concert (from: 2024-04-15 1pm to: 8pm)|0|2024-04-15 1pm|8pm
+D|submit journal entry for GESS1029 (by:2359)|0|:2359
