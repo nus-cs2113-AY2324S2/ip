@@ -10,15 +10,15 @@ import chatman.tasks.Todo;
  * Implements functionality to enable ChatMan response to user-entered "todo DESCRIPTION" command.
  *
  * @author LWachtel1
- * */
-public class TodoCommand extends TaskCommand{
+ */
+public class TodoCommand extends TaskCommand {
 
     /**
      * Constructor for Todocommand; invokes superclass constructor.
      *
      * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
      * method.
-     * */
+     */
     public TodoCommand(String userCommand) {
         super(userCommand);
     }
@@ -30,7 +30,7 @@ public class TodoCommand extends TaskCommand{
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
      * */
     @Override
-    public void perform() throws IncorrectArgumentNumException, FullListException, IncorrectFormatException{
+    public void perform() throws IncorrectArgumentNumException, FullListException, IncorrectFormatException {
         String[] toDoCommand = userCommand.split(" ", 2);
 
         //Ensures an argument has been provided (todo DESC_ARG)

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author LWachtel1
  * */
-public abstract class ChatManException extends Exception{
+public abstract class ChatManException extends Exception {
 
     private String commandType;
     private String erroneousInput;

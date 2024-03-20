@@ -1,6 +1,5 @@
 package chatman.commands;
 
-
 /**
  * Implements initial ChatMan greeting when user runs program.
  *

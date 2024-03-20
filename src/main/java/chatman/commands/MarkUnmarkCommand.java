@@ -51,7 +51,7 @@ public class MarkUnmarkCommand extends Command {
             if (storageIndex + 1 > ChatMan.accessTasks().size() || storageIndex <= 0) {
                 throw new IncorrectMarkUnmarkException("MARKUNMARK",position);
             }
-        } catch(NumberFormatException exception){
+        } catch(NumberFormatException exception) {
             throw new IncorrectMarkUnmarkException("MARKUNMARK",position);
         }
 

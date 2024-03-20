@@ -6,7 +6,7 @@ package chatman.exceptions;
  *
  * @author LWachtel1
  * */
-public class IncorrectMarkUnmarkException extends ChatManException{
+public class IncorrectMarkUnmarkException extends ChatManException {
 
     /**
      * Constructor for IncorrectMarkUnmarkException class.
@@ -25,7 +25,7 @@ public class IncorrectMarkUnmarkException extends ChatManException{
     @Override
     public void sendErrorMsg() {
         System.out.printf("%s%n%n", "____________________________________________________________");
-        System.out.printf("mark/unmark Command has incorrect position value provided:'%s'." +
-                "\nPlease re-enter with a valid numerical position within list bounds.\n",super.getErroneousInput());
+        System.out.printf("mark/unmark Command has incorrect position value provided:'%s'."
+                + "\nPlease re-enter with a valid numerical position within list bounds.\n",super.getErroneousInput());
     }
 }

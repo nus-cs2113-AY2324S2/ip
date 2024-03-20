@@ -23,7 +23,7 @@ public class EmptyListException extends ChatManException {
     @Override
     public void sendErrorMsg() {
         System.out.printf("%s%n%n", "____________________________________________________________");
-        System.out.printf("The stored list of tasks is currently empty." +
-                "\nSo, the entered command '%s' cannot be performed\n", super.getErroneousInput());
+        System.out.printf("The stored list of tasks is currently empty."
+                + "\nSo, the entered command '%s' cannot be performed\n", super.getErroneousInput());
     }
 }

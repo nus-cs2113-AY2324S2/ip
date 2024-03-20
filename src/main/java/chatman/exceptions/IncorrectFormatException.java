@@ -5,7 +5,7 @@ package chatman.exceptions;
  *
  * @author LWachtel1
  * */
-public class IncorrectFormatException extends ChatManException{
+public class IncorrectFormatException extends ChatManException {
 
     /**
      * Constructor for IncorrectFormatException class.
@@ -26,23 +26,23 @@ public class IncorrectFormatException extends ChatManException{
 
         switch (super.getCommandType()) {
         case "TODO":
-            System.out.printf("Command 'todo' entered with incorrect formatting:'%s'" +
-                            "\nPlease re-enter with valid formatting (no blank arguments)" +
-                            "\nFormat: 'deadline DESC_ARG'\n",
+            System.out.printf("Command 'todo' entered with incorrect formatting:'%s'"
+                            + "\nPlease re-enter with valid formatting (no blank arguments)"
+                            + "\nFormat: 'deadline DESC_ARG'\n",
                     super.getErroneousInput());
             break;
 
         case "DEADLINE":
-            System.out.printf("Command 'deadline' entered with incorrect formatting:'%s'" +
-                            "\nPlease re-enter with valid formatting (no blank arguments)" +
-                            "\nFormat: 'deadline DESC_ARG /by DEADLINE_ARG'\n",
+            System.out.printf("Command 'deadline' entered with incorrect formatting:'%s'"
+                            + "\nPlease re-enter with valid formatting (no blank arguments)"
+                            + "\nFormat: 'deadline DESC_ARG /by DEADLINE_ARG'\n",
                     super.getErroneousInput());
             break;
 
         case "EVENT":
-            System.out.printf("Command 'event' entered with incorrect formatting:'%s'" +
-                            "\nPlease re-enter with valid formatting (no blank arguments)" +
-                            "\nFormat: 'event DESC_ARG /from START_ARG /to END_ARG'\n",
+            System.out.printf("Command 'event' entered with incorrect formatting:'%s'"
+                            + "\nPlease re-enter with valid formatting (no blank arguments)"
+                            + "\nFormat: 'event DESC_ARG /from START_ARG /to END_ARG'\n",
                     super.getErroneousInput());
             break;
 

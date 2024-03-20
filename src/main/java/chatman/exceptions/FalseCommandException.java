@@ -24,7 +24,7 @@ public class FalseCommandException extends ChatManException{
     @Override
     public void sendErrorMsg() {
         System.out.printf("%s%n%n", "____________________________________________________________");
-        System.out.printf("Unrecognised command entered '%s' of command type '%s'." +
-                "\nPlease re-enter a recognised command.", super.getErroneousInput(), super.getCommandType());
+        System.out.printf("Unrecognised command entered '%s' of command type '%s'."
+                + "\nPlease re-enter a recognised command.", super.getErroneousInput(), super.getCommandType());
     }
 }

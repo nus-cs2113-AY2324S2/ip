@@ -53,15 +53,6 @@ public class DeadlineCommand extends TaskCommand{
             throw new IncorrectFormatException("DEADLINE", deadLineCommand[1]);
         }
 
-        /*
-        String[] deadLineCommand = userCommand.split(" ",1);
-
-
-        deadLineCommand = userCommand.split("/");
-        if (deadLineCommand.length != 2) {
-            throw new IncorrectArgumentNumException();
-        }*/
-
         if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException("DEADLINE", userCommand);
         }
@@ -70,7 +61,7 @@ public class DeadlineCommand extends TaskCommand{
         String by = deadLineCommand[1].replaceAll("(?i)BY", "").trim();
 
         if (deadLineDesc.isEmpty() || by.isEmpty()) {
-            throw new IncorrectFormatException("DEADLINE",userCommand);
+            throw new IncorrectFormatException("DEADLINE", userCommand);
         }
 
         ChatMan.accessTasks().add(new Deadline(deadLineDesc, by));

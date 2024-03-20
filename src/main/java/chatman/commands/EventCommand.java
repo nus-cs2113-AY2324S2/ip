@@ -50,22 +50,12 @@ public class EventCommand extends TaskCommand {
         }
 
         if (!eventCommand[1].startsWith("from")) {
-            throw new IncorrectFormatException("EVENT",eventCommand[1]);
+            throw new IncorrectFormatException("EVENT", eventCommand[1]);
         }
 
         if (!eventCommand[2].startsWith("to")) {
             throw new IncorrectFormatException("EVENT", eventCommand[2]);
         }
-        /*
-        String[] eventCommand = userCommand.split(" ",1);
-        if (eventCommand.length !=2 ) {
-            throw new IncorrectArgumentNumException();
-        }
-
-        eventCommand = userCommand.split("/");
-        if (eventCommand.length != 3) {
-            throw new IncorrectArgumentNumException();
-        }*/
 
         if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException("EVENT", userCommand);

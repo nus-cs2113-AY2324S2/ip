@@ -9,7 +9,7 @@ import chatman.exceptions.IncorrectArgumentNumException;
  *
  * @author LWachtel1
  * */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Constructor for ListCommand; invokes superclass constructor.
