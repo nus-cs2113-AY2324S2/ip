@@ -9,9 +9,12 @@ public class EmptyListException extends ChatManException {
 
     /**
      * Constructor for EmptyListException class.
+     *
+     * @param commandType Command type entered by user for which exception was thrown.
+     * @param erroneousInput String storing specific problem with user input which resulted in exception.
      **/
-    public EmptyListException() {
-
+    public EmptyListException(String commandType, String erroneousInput) {
+        super(commandType, erroneousInput);
     }
 
     /**
@@ -20,7 +23,7 @@ public class EmptyListException extends ChatManException {
     @Override
     public void sendErrorMsg() {
         System.out.printf("%s%n%n", "____________________________________________________________");
-        System.out.println("The stored list of tasks is currently empty." +
-                "\nSo, the entered command cannot be performed");
+        System.out.printf("The stored list of tasks is currently empty." +
+                "\nSo, the entered command '%s' cannot be performed\n", super.getErroneousInput());
     }
 }

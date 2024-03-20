@@ -35,25 +35,25 @@ public class TodoCommand extends TaskCommand{
 
         //Ensures an argument has been provided (todo DESC_ARG)
         if (toDoCommand.length != 2) {
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectArgumentNumException("TODO",userCommand);
         }
 
         //checks for any / which would mean unnecessary arguments
         for (String argument: toDoCommand) {
             if (argument.contains("/")) {
-                throw new IncorrectArgumentNumException();
+                throw new IncorrectArgumentNumException("TODO", argument);
             }
         }
 
 
         if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
-            throw new FullListException();
+            throw new FullListException("TODO", userCommand);
         }
 
         String toDoDesc = toDoCommand[1].trim();
 
         if (toDoDesc.isEmpty()) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("TODO", userCommand);
         }
 
         ChatMan.accessTasks().add(new Todo(toDoDesc));

@@ -32,11 +32,12 @@ public class ListCommand extends Command{
     public void perform() throws IncorrectArgumentNumException, EmptyListException {
         String[] fullCommand = userCommand.split(" ");
         if (fullCommand.length > 1) {
-            throw new IncorrectArgumentNumException();
+            String erroneousInput = userCommand.split(" ",2)[1];
+            throw new IncorrectArgumentNumException("LIST", erroneousInput);
         }
 
         if (ChatMan.accessTasks().isEmpty()) {
-            throw new EmptyListException();
+            throw new EmptyListException("LIST", userCommand);
         }
 
         System.out.printf("%s%n", "____________________________________________________________");

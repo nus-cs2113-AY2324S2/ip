@@ -9,9 +9,12 @@ public class FalseCommandException extends ChatManException{
 
     /**
      * Constructor for FalseCommandException class.
+     *
+     * @param commandType Command type entered by user for which exception was thrown.
+     * @param erroneousInput String storing specific problem with user input which resulted in exception.
      **/
-    public FalseCommandException() {
-
+    public FalseCommandException(String commandType, String erroneousInput) {
+        super(commandType, erroneousInput);
     }
 
     /**
@@ -21,6 +24,7 @@ public class FalseCommandException extends ChatManException{
     @Override
     public void sendErrorMsg() {
         System.out.printf("%s%n%n", "____________________________________________________________");
-        System.out.println("Unrecognised command entered.\nPlease re-enter a recognised command.");
+        System.out.printf("Unrecognised command entered '%s' of command type '%s'." +
+                "\nPlease re-enter a recognised command.", super.getErroneousInput(), super.getCommandType());
     }
 }

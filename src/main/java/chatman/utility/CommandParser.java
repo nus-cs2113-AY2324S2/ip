@@ -61,7 +61,7 @@ public class CommandParser {
         //@@author
         if (!isValidCommand) {
             //FalseCommandException caught by read() method of CommandReader object
-            throw new FalseCommandException();
+            throw new FalseCommandException(commandType,receivedCommand);
         }
 
         switch (commandType) {

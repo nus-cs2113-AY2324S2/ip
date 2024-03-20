@@ -36,11 +36,11 @@ public class MarkUnmarkCommand extends Command {
         String[] markUnmarkCommand = userCommand.split(" ");
 
         if (markUnmarkCommand.length != 2) {
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectArgumentNumException("MARKUNMARK", userCommand);
         }
 
         if (ChatMan.accessTasks().isEmpty()) {
-            throw new EmptyListException();
+            throw new EmptyListException("MARKUNMARK", userCommand);
         }
 
         String position = markUnmarkCommand[1];
@@ -49,10 +49,10 @@ public class MarkUnmarkCommand extends Command {
         try {
             storageIndex = Integer.parseInt(position) - 1;
             if (storageIndex + 1 > ChatMan.accessTasks().size() || storageIndex <= 0) {
-                throw new IncorrectMarkUnmarkException();
+                throw new IncorrectMarkUnmarkException("MARKUNMARK",position);
             }
         } catch(NumberFormatException exception){
-            throw new IncorrectMarkUnmarkException();
+            throw new IncorrectMarkUnmarkException("MARKUNMARK",position);
         }
 
         switch (markUnmarkCommand[0].toUpperCase()) {

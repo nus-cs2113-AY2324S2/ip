@@ -35,7 +35,7 @@ public class DeadlineCommand extends TaskCommand{
         String[] deadLineCommand = userCommand.split("/",2);
 
         if (deadLineCommand.length != 2) {
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectArgumentNumException("DEADLINE", userCommand);
         }
 
         //checks for any additional / which would mean unnecessary arguments
@@ -44,13 +44,13 @@ public class DeadlineCommand extends TaskCommand{
             //removes leading and trailing whitespace to prevent failure of "by" guard clause & date argument extraction
             deadLineCommand[argumentCount] = deadLineCommand[argumentCount].trim();
             if (argument.contains("/")) {
-                throw new IncorrectArgumentNumException();
+                throw new IncorrectArgumentNumException("DEADLINE", argument);
             }
             argumentCount++;
         }
 
         if (!deadLineCommand[1].startsWith("by")) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("DEADLINE", deadLineCommand[1]);
         }
 
         /*
@@ -63,14 +63,14 @@ public class DeadlineCommand extends TaskCommand{
         }*/
 
         if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
-            throw new FullListException();
+            throw new FullListException("DEADLINE", userCommand);
         }
 
         String deadLineDesc = deadLineCommand[0].replaceAll("(?i)DEADLINE", "").trim();
         String by = deadLineCommand[1].replaceAll("(?i)BY", "").trim();
 
         if (deadLineDesc.isEmpty() || by.isEmpty()) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("DEADLINE",userCommand);
         }
 
         ChatMan.accessTasks().add(new Deadline(deadLineDesc, by));

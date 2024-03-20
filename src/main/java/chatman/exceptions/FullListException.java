@@ -11,9 +11,12 @@ public class FullListException extends ChatManException{
 
     /**
      * Constructor for FullListException class.
+     *
+     * @param commandType Command type entered by user for which exception was thrown.
+     * @param erroneousInput String storing specific problem with user input which resulted in exception.
      **/
-    public FullListException() {
-
+    public FullListException(String commandType, String erroneousInput) {
+        super(commandType, erroneousInput);
     }
 
     /**

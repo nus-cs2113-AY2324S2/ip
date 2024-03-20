@@ -10,9 +10,12 @@ public class IncorrectMarkUnmarkException extends ChatManException{
 
     /**
      * Constructor for IncorrectMarkUnmarkException class.
+     *
+     * @param commandType Command type entered by user for which exception was thrown.
+     * @param erroneousInput String storing specific problem with user input which resulted in exception.
      **/
-    public IncorrectMarkUnmarkException() {
-
+    public IncorrectMarkUnmarkException(String commandType, String erroneousInput) {
+        super(commandType, erroneousInput);
     }
 
     /**
@@ -22,7 +25,7 @@ public class IncorrectMarkUnmarkException extends ChatManException{
     @Override
     public void sendErrorMsg() {
         System.out.printf("%s%n%n", "____________________________________________________________");
-        System.out.println("Mark/Unmark Command has incorrect position value provided." +
-                "\nPlease re-enter with a valid list position.");
+        System.out.printf("mark/unmark Command has incorrect position value provided:'%s'." +
+                "\nPlease re-enter with a valid numerical position within list bounds.\n",super.getErroneousInput());
     }
 }

@@ -36,7 +36,7 @@ public class EventCommand extends TaskCommand {
         String[] eventCommand = userCommand.split("/",3);
 
         if (eventCommand.length != 3) {
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectArgumentNumException("EVENT", userCommand);
         }
 
         int argumentCount = 0;
@@ -44,17 +44,17 @@ public class EventCommand extends TaskCommand {
             //removes leading and trailing whitespace to prevent failure of next guard clauses & date-times extraction
             eventCommand[argumentCount] = eventCommand[argumentCount].trim();
             if (argument.contains("/")) {
-                throw new IncorrectArgumentNumException();
+                throw new IncorrectArgumentNumException("EVENT", argument);
             }
             argumentCount++;
         }
 
         if (!eventCommand[1].startsWith("from")) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("EVENT",eventCommand[1]);
         }
 
         if (!eventCommand[2].startsWith("to")) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("EVENT", eventCommand[2]);
         }
         /*
         String[] eventCommand = userCommand.split(" ",1);
@@ -68,7 +68,7 @@ public class EventCommand extends TaskCommand {
         }*/
 
         if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
-            throw new FullListException();
+            throw new FullListException("EVENT", userCommand);
         }
 
         String eventDesc = eventCommand[0].replaceAll("(?i)EVENT", "").trim();
@@ -76,7 +76,7 @@ public class EventCommand extends TaskCommand {
         String to = eventCommand[2].replaceAll("(?i)TO", "").trim();
 
         if (eventDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new IncorrectFormatException();
+            throw new IncorrectFormatException("EVENT", userCommand);
         }
 
 

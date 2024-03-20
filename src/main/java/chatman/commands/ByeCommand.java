@@ -29,7 +29,8 @@ public class ByeCommand extends Command{
     public void perform() throws IncorrectArgumentNumException {
         String[] fullCommand= userCommand.split(" ");
         if (fullCommand.length > 1) {
-            throw new IncorrectArgumentNumException();
+            String erroneousInput= userCommand.replaceAll("(?i)BYE", "");
+            throw new IncorrectArgumentNumException("BYE", erroneousInput);
         }
 
         System.out.printf("%s%n", "____________________________________________________________");
