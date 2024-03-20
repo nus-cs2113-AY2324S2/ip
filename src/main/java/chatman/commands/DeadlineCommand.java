@@ -30,22 +30,48 @@ public class DeadlineCommand extends TaskCommand{
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
      * */
     public void perform() throws FullListException, IncorrectArgumentNumException{
-        String[] deadLineCommand = userCommand.split(" ",1);
+        String[] deadLineCommand = userCommand.split("/",2);
+
         if (deadLineCommand.length != 2) {
             throw new IncorrectArgumentNumException();
         }
 
+        //checks for any additional / which would mean unnecessary arguments
+        int argumentCount = 0;
+        for (String argument: deadLineCommand) {
+            //removes leading and trailing whitespace to prevent failure of "by" guard clause & date argument extraction
+            deadLineCommand[argumentCount] = deadLineCommand[argumentCount].trim();
+            if (argument.contains("/")) {
+                throw new IncorrectArgumentNumException();
+            }
+            argumentCount++;
+        }
+
+        if (!deadLineCommand[1].startsWith("by")) {
+            //replace with IncorrectFormatException
+            throw new IncorrectArgumentNumException();
+        }
+
+        /*
+        String[] deadLineCommand = userCommand.split(" ",1);
+
+
         deadLineCommand = userCommand.split("/");
         if (deadLineCommand.length != 2) {
             throw new IncorrectArgumentNumException();
-        }
+        }*/
 
         if (ChatMan.storedTasks.size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException();
         }
 
-        String deadLineDesc = deadLineCommand[0].replaceAll("(?i)DEADLINE", "");
-        String by = deadLineCommand[1].replaceAll("(?i)BY", "").stripLeading();
+        String deadLineDesc = deadLineCommand[0].replaceAll("(?i)DEADLINE", "").trim();
+        String by = deadLineCommand[1].replaceAll("(?i)BY", "").trim();
+
+        if (deadLineDesc.isEmpty() || by.isEmpty()) {
+            //replace with New Exception Type
+            throw new IncorrectArgumentNumException();
+        }
 
         ChatMan.storedTasks.add(new Deadline(deadLineDesc, by));
 

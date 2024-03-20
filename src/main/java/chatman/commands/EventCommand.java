@@ -31,6 +31,32 @@ public class EventCommand extends TaskCommand {
      * */
     @Override
     public void perform() throws FullListException, IncorrectArgumentNumException {
+        String[] eventCommand = userCommand.split("/",3);
+
+        if (eventCommand.length != 3) {
+            throw new IncorrectArgumentNumException();
+        }
+
+        int argumentCount = 0;
+        for (String argument: eventCommand) {
+            //removes leading and trailing whitespace to prevent failure of next guard clauses & date-times extraction
+            eventCommand[argumentCount] = eventCommand[argumentCount].trim();
+            if (argument.contains("/")) {
+                throw new IncorrectArgumentNumException();
+            }
+            argumentCount++;
+        }
+
+        if (!eventCommand[1].startsWith("from")) {
+            //replace with IncorrectFormatException
+            throw new IncorrectArgumentNumException();
+        }
+
+        if (!eventCommand[2].startsWith("to")) {
+            //replace with IncorrectFormatException
+            throw new IncorrectArgumentNumException();
+        }
+        /*
         String[] eventCommand = userCommand.split(" ",1);
         if (eventCommand.length !=2 ) {
             throw new IncorrectArgumentNumException();
@@ -39,15 +65,21 @@ public class EventCommand extends TaskCommand {
         eventCommand = userCommand.split("/");
         if (eventCommand.length != 3) {
             throw new IncorrectArgumentNumException();
-        }
+        }*/
 
         if (ChatMan.storedTasks.size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException();
         }
 
-        String eventDesc = eventCommand[0].replaceAll("(?i)EVENT", "");
-        String from = eventCommand[1].replaceAll("(?i)FROM", "").stripLeading();
-        String to = eventCommand[2].replaceAll("(?i)TO", "").stripLeading();
+        String eventDesc = eventCommand[0].replaceAll("(?i)EVENT", "").trim();
+        String from = eventCommand[1].replaceAll("(?i)FROM", "").trim();
+        String to = eventCommand[2].replaceAll("(?i)TO", "").trim();
+
+        if (eventDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            //replace with New Exception Type
+            throw new IncorrectArgumentNumException();
+        }
+
 
         ChatMan.storedTasks.add(new Event(eventDesc, from, to));
 

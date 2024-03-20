@@ -42,7 +42,7 @@ public class MarkUnmarkCommand extends Command {
 
         try {
             storageIndex = Integer.parseInt(position) - 1;
-            if (storageIndex + 1 > ChatMan.storedTasks.size()) {
+            if (storageIndex + 1 > ChatMan.storedTasks.size() || storageIndex <= 0) {
                 throw new IncorrectMarkUnmarkException();
             }
         } catch(NumberFormatException exception){

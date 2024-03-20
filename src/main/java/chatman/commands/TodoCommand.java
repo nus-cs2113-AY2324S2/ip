@@ -30,17 +30,32 @@ public class TodoCommand extends TaskCommand{
      * */
     @Override
     public void perform() throws IncorrectArgumentNumException, FullListException{
-        String[] toDoCommand = userCommand.split(" ",2);
+        String[] toDoCommand = userCommand.split(" ", 2);
 
+        //makes sures a description has been provided (todo DESC)
         if (toDoCommand.length != 2) {
             throw new IncorrectArgumentNumException();
         }
+
+        //checks for any / which would mean unnecessary arguments
+        for (String argument: toDoCommand) {
+            if (argument.contains("/")) {
+                throw new IncorrectArgumentNumException();
+            }
+        }
+
 
         if (ChatMan.storedTasks.size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException();
         }
 
-        String toDoDesc = toDoCommand[1];
+        String toDoDesc = toDoCommand[1].trim();
+
+        if (toDoDesc.isEmpty()) {
+            //replace with New Exception Type
+            throw new IncorrectArgumentNumException();
+        }
+
         ChatMan.storedTasks.add(new Todo(toDoDesc));
 
         super.replyAddedTask();
