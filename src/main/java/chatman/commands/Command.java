@@ -1,6 +1,5 @@
 package chatman.commands;
 
-import chatman.exceptions.UnnecessaryValueException;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectMarkUnmarkException;
@@ -28,15 +27,13 @@ public abstract class Command {
      * Executes intended action of corresponding user-entered command; abstract method to be implemented by concrete
      * subclasses.
      *
-     * @throws UnnecessaryValueException If ListCommand or ByeCommand objects provided with any arguments.
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add Todo, Deadline
      * or Event.
-     * @throws IncorrectArgumentNumException If MarkUnmarkCommand, TodoCommand, DeadlineCommand or EventCommand
-     * provided with incorrect number of arguments.
+     * @throws IncorrectArgumentNumException If command is provided with incorrect number of arguments.
      * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
      * index beyond task arraylist size.
      * */
-    public abstract void perform () throws UnnecessaryValueException, IncorrectArgumentNumException,
-            IncorrectMarkUnmarkException, FullListException;
+    public abstract void perform () throws IncorrectArgumentNumException, IncorrectMarkUnmarkException,
+            FullListException;
 
 }

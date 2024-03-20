@@ -1,6 +1,7 @@
 package chatman.commands;
 
-import chatman.exceptions.UnnecessaryValueException;
+import chatman.exceptions.IncorrectArgumentNumException;
+
 
 /**
  * Implements functionality to enable ChatMan response to user-entered "bye" command.
@@ -22,13 +23,13 @@ public class ByeCommand extends Command{
     /**
      * Prints goodbye message for ChatMan user; called if they enter "bye" command with no arguments.
      *
-     * @throws UnnecessaryValueException If "bye" command entered with any additional arguments.
+     * @throws IncorrectArgumentNumException If "bye" command entered with any additional arguments.
      */
     @Override
-    public void perform() throws UnnecessaryValueException {
+    public void perform() throws IncorrectArgumentNumException {
         String[] fullCommand= userCommand.split(" ");
         if (fullCommand.length > 1) {
-            throw new UnnecessaryValueException();
+            throw new IncorrectArgumentNumException();
         }
 
         System.out.printf("%s%n", "____________________________________________________________");

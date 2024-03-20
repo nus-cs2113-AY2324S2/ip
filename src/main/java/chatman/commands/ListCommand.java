@@ -1,7 +1,7 @@
 package chatman.commands;
 
 import chatman.ChatMan;
-import chatman.exceptions.UnnecessaryValueException;
+import chatman.exceptions.IncorrectArgumentNumException;
 
 /**
  * Implements ChatMan's ability to list all currently stored tasks.
@@ -24,13 +24,13 @@ public class ListCommand extends Command{
     /**
      * Prints String returned by object's respective toString() method call for each object in task arraylist.
      *
-     * @throws UnnecessaryValueException If ListCommand object provided with any additional arguments.
+     * @throws IncorrectArgumentNumException If ListCommand object provided with any additional arguments.
      * */
     @Override
-    public void perform() throws UnnecessaryValueException {
+    public void perform() throws IncorrectArgumentNumException {
         String[] fullCommand = userCommand.split(" ");
         if (fullCommand.length > 1) {
-            throw new UnnecessaryValueException();
+            throw new IncorrectArgumentNumException();
         }
 
         System.out.printf("%s%n", "____________________________________________________________");

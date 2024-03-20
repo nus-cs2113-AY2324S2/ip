@@ -10,8 +10,6 @@ import chatman.commands.EventCommand;
 
 
 import chatman.exceptions.FalseCommandException;
-import chatman.exceptions.MissingValueException;
-import chatman.exceptions.UnnecessaryValueException;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectMarkUnmarkException;
@@ -44,18 +42,14 @@ public class CommandParser {
      * @param receivedCommand Raw text input from user, intended to represent a chatbot command.
      * @return Reference to instantiated object corresponding to command.
      * @throws FalseCommandException If command type entered is unrecognised.
-     * @throws MissingValueException
-     * @throws UnnecessaryValueException If ListCommand or ByeCommand objects provided with any arguments.
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add Todo, Deadline
      * or Event.
-     * @throws IncorrectArgumentNumException If MarkUnmarkCommand, TodoCommand, DeadlineCommand or EventCommand
-     * provided with incorrect number of arguments.
+     * @throws IncorrectArgumentNumException If a command is provided with incorrect number of arguments.
      * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
      * index beyond task arraylist size.
      */
-    public Command parse(String receivedCommand) throws FalseCommandException, MissingValueException,
-            UnnecessaryValueException, FullListException, IncorrectArgumentNumException,
-            IncorrectMarkUnmarkException {
+    public Command parse(String receivedCommand) throws FalseCommandException, FullListException,
+            IncorrectArgumentNumException, IncorrectMarkUnmarkException {
         Command commandToReturn = null;
 
         String[] fullCommand = receivedCommand.split(" ");

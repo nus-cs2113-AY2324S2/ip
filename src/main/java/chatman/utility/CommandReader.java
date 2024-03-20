@@ -38,10 +38,6 @@ public class CommandReader {
                 }
             } catch (FalseCommandException e) {
                 e.sendErrorMsg();
-            } catch (MissingValueException e) {
-                e.sendErrorMsg();
-            } catch (UnnecessaryValueException e) {
-                e.sendErrorMsg();
             } catch (FullListException e) {
                 e.sendErrorMsg();
             } catch (IncorrectArgumentNumException e) {
