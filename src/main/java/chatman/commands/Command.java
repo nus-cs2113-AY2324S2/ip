@@ -1,5 +1,6 @@
 package chatman.commands;
 
+import chatman.exceptions.EmptyListException;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectMarkUnmarkException;
@@ -32,8 +33,9 @@ public abstract class Command {
      * @throws IncorrectArgumentNumException If command is provided with incorrect number of arguments.
      * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
      * index beyond task arraylist size.
+     * @throws EmptyListException If list of stored tasks is currently empty.
      * */
     public abstract void perform () throws IncorrectArgumentNumException, IncorrectMarkUnmarkException,
-            FullListException;
+            FullListException, EmptyListException;
 
 }

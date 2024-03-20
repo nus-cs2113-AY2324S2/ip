@@ -1,6 +1,7 @@
 package chatman.commands;
 
 import chatman.ChatMan;
+import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectMarkUnmarkException;
 
@@ -28,13 +29,18 @@ public class MarkUnmarkCommand extends Command {
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
      * @throws IncorrectMarkUnmarkException If command provided with non-numerical argument or index outside of bounds
      * of task arraylist.
+     * @throws EmptyListException If list of stored tasks is currently empty.
      * */
     @Override
-    public void perform() throws IncorrectArgumentNumException, IncorrectMarkUnmarkException{
+    public void perform() throws IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException {
         String[] markUnmarkCommand = userCommand.split(" ");
 
         if (markUnmarkCommand.length != 2) {
             throw new IncorrectArgumentNumException();
+        }
+
+        if (ChatMan.storedTasks.isEmpty()) {
+            throw new EmptyListException();
         }
 
         String position = markUnmarkCommand[1];

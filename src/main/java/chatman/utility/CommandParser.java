@@ -9,10 +9,7 @@ import chatman.commands.DeadlineCommand;
 import chatman.commands.EventCommand;
 
 
-import chatman.exceptions.FalseCommandException;
-import chatman.exceptions.FullListException;
-import chatman.exceptions.IncorrectArgumentNumException;
-import chatman.exceptions.IncorrectMarkUnmarkException;
+import chatman.exceptions.*;
 
 import java.util.Arrays;
 
@@ -47,9 +44,10 @@ public class CommandParser {
      * @throws IncorrectArgumentNumException If a command is provided with incorrect number of arguments.
      * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
      * index beyond task arraylist size.
+     * @throws EmptyListException If list of stored tasks is currently empty.
      */
     public Command parse(String receivedCommand) throws FalseCommandException, FullListException,
-            IncorrectArgumentNumException, IncorrectMarkUnmarkException {
+            IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException {
         Command commandToReturn = null;
 
         String[] fullCommand = receivedCommand.split(" ");

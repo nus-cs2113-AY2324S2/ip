@@ -1,6 +1,7 @@
 package chatman.commands;
 
 import chatman.ChatMan;
+import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 
 /**
@@ -25,12 +26,17 @@ public class ListCommand extends Command{
      * Prints String returned by object's respective toString() method call for each object in task arraylist.
      *
      * @throws IncorrectArgumentNumException If ListCommand object provided with any additional arguments.
+     * @throws EmptyListException If list of stored tasks is currently empty.
      * */
     @Override
-    public void perform() throws IncorrectArgumentNumException {
+    public void perform() throws IncorrectArgumentNumException, EmptyListException {
         String[] fullCommand = userCommand.split(" ");
         if (fullCommand.length > 1) {
             throw new IncorrectArgumentNumException();
+        }
+
+        if (ChatMan.storedTasks.isEmpty()) {
+            throw new EmptyListException();
         }
 
         System.out.printf("%s%n", "____________________________________________________________");
