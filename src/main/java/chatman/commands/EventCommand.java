@@ -67,7 +67,7 @@ public class EventCommand extends TaskCommand {
             throw new IncorrectArgumentNumException();
         }*/
 
-        if (ChatMan.storedTasks.size() == ChatMan.MAX_NUM_TASKS) {
+        if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException();
         }
 
@@ -81,7 +81,7 @@ public class EventCommand extends TaskCommand {
         }
 
 
-        ChatMan.storedTasks.add(new Event(eventDesc, from, to));
+        ChatMan.accessTasks().add(new Event(eventDesc, from, to));
 
         super.replyAddedTask();
 

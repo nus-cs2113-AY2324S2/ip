@@ -45,7 +45,7 @@ public class TodoCommand extends TaskCommand{
         }
 
 
-        if (ChatMan.storedTasks.size() == ChatMan.MAX_NUM_TASKS) {
+        if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException();
         }
 
@@ -56,7 +56,7 @@ public class TodoCommand extends TaskCommand{
             throw new IncorrectArgumentNumException();
         }
 
-        ChatMan.storedTasks.add(new Todo(toDoDesc));
+        ChatMan.accessTasks().add(new Todo(toDoDesc));
 
         super.replyAddedTask();
 

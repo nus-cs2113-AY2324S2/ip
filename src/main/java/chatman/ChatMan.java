@@ -16,8 +16,18 @@ import java.util.ArrayList;
 public class ChatMan {
     public static final int MAX_NUM_TASKS = 100; //maximum number of tasks to be stored at once
 
-    //Need to make arraylist reference private and provide public static getter and setter instead
-    public static ArrayList<Task> storedTasks = new ArrayList<>(); //provides storage for task objects
+
+    private static ArrayList<Task> storedTasks = new ArrayList<>(); //provides storage for task objects
+
+    /**
+     * Provides access to current list of stored tasks by returning arraylist reference.
+     *
+     * @return Reference to arraylist containing currently stored tasks.
+     **/
+    public static ArrayList<Task> accessTasks() {
+        return storedTasks;
+    }
+
 
     /**
      * Prints greeting for user upon initial program execution then instantiates CommandReader object and calls read

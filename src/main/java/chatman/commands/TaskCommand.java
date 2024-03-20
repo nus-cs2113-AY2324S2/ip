@@ -26,8 +26,8 @@ public abstract class TaskCommand extends Command {
      * and called from their respective perform() methods during execution.
      * */
     public void replyAddedTask() {
-        Task addedTask = ChatMan.storedTasks.get(ChatMan.storedTasks.size() - 1);
-        int size = ChatMan.storedTasks.size();
+        Task addedTask = ChatMan.accessTasks().get(ChatMan.accessTasks().size() - 1);
+        int size = ChatMan.accessTasks().size();
         System.out.printf("Got it. I've added this task:%n%s%nNow you have %d tasks in the list.%n",
                 addedTask.toString(), size);
     }

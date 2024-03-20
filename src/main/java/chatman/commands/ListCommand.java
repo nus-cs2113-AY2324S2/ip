@@ -35,13 +35,13 @@ public class ListCommand extends Command{
             throw new IncorrectArgumentNumException();
         }
 
-        if (ChatMan.storedTasks.isEmpty()) {
+        if (ChatMan.accessTasks().isEmpty()) {
             throw new EmptyListException();
         }
 
         System.out.printf("%s%n", "____________________________________________________________");
-        for (int i = 0; i < ChatMan.storedTasks.size(); i++) {
-            System.out.printf("%d.%s%n", (i + 1), ChatMan.storedTasks.get(i).toString());
+        for (int i = 0; i < ChatMan.accessTasks().size(); i++) {
+            System.out.printf("%d.%s%n", (i + 1), ChatMan.accessTasks().get(i).toString());
         }
     }
 }

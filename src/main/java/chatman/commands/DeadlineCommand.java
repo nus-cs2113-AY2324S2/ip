@@ -61,7 +61,7 @@ public class DeadlineCommand extends TaskCommand{
             throw new IncorrectArgumentNumException();
         }*/
 
-        if (ChatMan.storedTasks.size() == ChatMan.MAX_NUM_TASKS) {
+        if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
             throw new FullListException();
         }
 
@@ -73,7 +73,7 @@ public class DeadlineCommand extends TaskCommand{
             throw new IncorrectArgumentNumException();
         }
 
-        ChatMan.storedTasks.add(new Deadline(deadLineDesc, by));
+        ChatMan.accessTasks().add(new Deadline(deadLineDesc, by));
 
         super.replyAddedTask();
     }

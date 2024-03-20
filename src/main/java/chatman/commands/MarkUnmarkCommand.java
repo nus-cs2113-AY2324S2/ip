@@ -39,7 +39,7 @@ public class MarkUnmarkCommand extends Command {
             throw new IncorrectArgumentNumException();
         }
 
-        if (ChatMan.storedTasks.isEmpty()) {
+        if (ChatMan.accessTasks().isEmpty()) {
             throw new EmptyListException();
         }
 
@@ -48,7 +48,7 @@ public class MarkUnmarkCommand extends Command {
 
         try {
             storageIndex = Integer.parseInt(position) - 1;
-            if (storageIndex + 1 > ChatMan.storedTasks.size() || storageIndex <= 0) {
+            if (storageIndex + 1 > ChatMan.accessTasks().size() || storageIndex <= 0) {
                 throw new IncorrectMarkUnmarkException();
             }
         } catch(NumberFormatException exception){
@@ -57,17 +57,17 @@ public class MarkUnmarkCommand extends Command {
 
         switch (markUnmarkCommand[0].toUpperCase()) {
         case "MARK":
-            ChatMan.storedTasks.get(storageIndex).setDone(true);
+            ChatMan.accessTasks().get(storageIndex).setDone(true);
             System.out.printf("%s%n", "____________________________________________________________");
             System.out.printf("Nice! I've marked this task as done:%n%s%n",
-                   ChatMan.storedTasks.get(storageIndex).toString());
+                   ChatMan.accessTasks().get(storageIndex).toString());
             break;
 
         case "UNMARK":
-            ChatMan.storedTasks.get(storageIndex).setDone(false);
+            ChatMan.accessTasks().get(storageIndex).setDone(false);
             System.out.printf("%s%n", "____________________________________________________________");
             System.out.printf("OK, I've marked this task as not done yet:%n%s%n",
-                    ChatMan.storedTasks.get(storageIndex).toString());
+                    ChatMan.accessTasks().get(storageIndex).toString());
             break;
         }
 
