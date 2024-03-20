@@ -3,6 +3,7 @@ package chatman.commands;
 import chatman.ChatMan;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
+import chatman.exceptions.IncorrectFormatException;
 import chatman.tasks.Todo;
 
 /**
@@ -29,10 +30,10 @@ public class TodoCommand extends TaskCommand{
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
      * */
     @Override
-    public void perform() throws IncorrectArgumentNumException, FullListException{
+    public void perform() throws IncorrectArgumentNumException, FullListException, IncorrectFormatException{
         String[] toDoCommand = userCommand.split(" ", 2);
 
-        //makes sures a description has been provided (todo DESC)
+        //Ensures an argument has been provided (todo DESC_ARG)
         if (toDoCommand.length != 2) {
             throw new IncorrectArgumentNumException();
         }
@@ -52,8 +53,7 @@ public class TodoCommand extends TaskCommand{
         String toDoDesc = toDoCommand[1].trim();
 
         if (toDoDesc.isEmpty()) {
-            //replace with New Exception Type
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectFormatException();
         }
 
         ChatMan.accessTasks().add(new Todo(toDoDesc));

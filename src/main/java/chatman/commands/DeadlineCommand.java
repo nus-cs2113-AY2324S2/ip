@@ -3,6 +3,7 @@ package chatman.commands;
 import chatman.ChatMan;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
+import chatman.exceptions.IncorrectFormatException;
 import chatman.tasks.Deadline;
 
 /**
@@ -28,8 +29,9 @@ public class DeadlineCommand extends TaskCommand{
      *
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add new Deadline object.
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
+     * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
-    public void perform() throws FullListException, IncorrectArgumentNumException{
+    public void perform() throws FullListException, IncorrectArgumentNumException, IncorrectFormatException {
         String[] deadLineCommand = userCommand.split("/",2);
 
         if (deadLineCommand.length != 2) {
@@ -48,8 +50,7 @@ public class DeadlineCommand extends TaskCommand{
         }
 
         if (!deadLineCommand[1].startsWith("by")) {
-            //replace with IncorrectFormatException
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectFormatException();
         }
 
         /*
@@ -69,8 +70,7 @@ public class DeadlineCommand extends TaskCommand{
         String by = deadLineCommand[1].replaceAll("(?i)BY", "").trim();
 
         if (deadLineDesc.isEmpty() || by.isEmpty()) {
-            //replace with New Exception Type
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectFormatException();
         }
 
         ChatMan.accessTasks().add(new Deadline(deadLineDesc, by));

@@ -1,9 +1,6 @@
 package chatman.commands;
 
-import chatman.exceptions.EmptyListException;
-import chatman.exceptions.FullListException;
-import chatman.exceptions.IncorrectArgumentNumException;
-import chatman.exceptions.IncorrectMarkUnmarkException;
+import chatman.exceptions.*;
 
 /**
  * Implements Command abstract class as template for all Command-type classes.
@@ -34,8 +31,9 @@ public abstract class Command {
      * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
      * index beyond task arraylist size.
      * @throws EmptyListException If list of stored tasks is currently empty.
+     * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
     public abstract void perform () throws IncorrectArgumentNumException, IncorrectMarkUnmarkException,
-            FullListException, EmptyListException;
+            FullListException, EmptyListException, IncorrectFormatException;
 
 }

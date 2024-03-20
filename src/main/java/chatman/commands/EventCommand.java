@@ -3,6 +3,7 @@ package chatman.commands;
 import chatman.ChatMan;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
+import chatman.exceptions.IncorrectFormatException;
 import chatman.tasks.Event;
 
 /**
@@ -28,9 +29,10 @@ public class EventCommand extends TaskCommand {
      *
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add new Event object.
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
+     * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
     @Override
-    public void perform() throws FullListException, IncorrectArgumentNumException {
+    public void perform() throws FullListException, IncorrectArgumentNumException, IncorrectFormatException {
         String[] eventCommand = userCommand.split("/",3);
 
         if (eventCommand.length != 3) {
@@ -48,13 +50,11 @@ public class EventCommand extends TaskCommand {
         }
 
         if (!eventCommand[1].startsWith("from")) {
-            //replace with IncorrectFormatException
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectFormatException();
         }
 
         if (!eventCommand[2].startsWith("to")) {
-            //replace with IncorrectFormatException
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectFormatException();
         }
         /*
         String[] eventCommand = userCommand.split(" ",1);
@@ -76,8 +76,7 @@ public class EventCommand extends TaskCommand {
         String to = eventCommand[2].replaceAll("(?i)TO", "").trim();
 
         if (eventDesc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            //replace with New Exception Type
-            throw new IncorrectArgumentNumException();
+            throw new IncorrectFormatException();
         }
 
 

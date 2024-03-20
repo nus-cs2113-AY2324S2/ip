@@ -46,6 +46,8 @@ public class CommandReader {
                 e.sendErrorMsg();
             } catch (EmptyListException e) {
                 e.sendErrorMsg();
+            } catch (IncorrectFormatException e) {
+                e.sendErrorMsg();
             }
 
         }
