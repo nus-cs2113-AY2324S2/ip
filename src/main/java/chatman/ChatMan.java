@@ -1,10 +1,12 @@
 package chatman;
 
 import chatman.commands.GreetCommand;
+import chatman.storage.StorageHandler;
 import chatman.tasks.Task;
 import chatman.utility.CommandReader;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -30,15 +32,22 @@ public class ChatMan {
 
 
     /**
-     * Prints greeting for user upon initial program execution then instantiates CommandReader object and calls read
-     * () to trigger ChatMan loop execution.
+     * Opens task storage file. If successful, prints greeting for user upon initial program execution then
+     * instantiates CommandReader object and calls read() to trigger ChatMan loop execution.
      **/
     public static void main(String[] args) {
-        GreetCommand hello= new GreetCommand(" ");
-        hello.perform();
 
-        CommandReader chatbot= new CommandReader();
-        chatbot.read();
+        try {
+            StorageHandler.openStorageFile();
+            GreetCommand hello= new GreetCommand(" ");
+            hello.perform();
+
+            CommandReader chatbot= new CommandReader();
+            chatbot.read();
+        } catch(IOException e) {
+           System.out.println(e.getMessage());
+        }
+
 
     }
 }
