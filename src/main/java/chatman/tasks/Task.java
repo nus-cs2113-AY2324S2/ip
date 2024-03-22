@@ -10,14 +10,21 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    private String command;
+
     /**
      * Constructor for Task.
      *
      * @param description Description of task.
      */
-    public Task(String description) {
+    public Task(String description, String command) {
         this.description = description;
         isDone = false;
+        this.command=command;
+    }
+
+    public String getCommand() {
+        return command;
     }
 
     public String getDescription() {

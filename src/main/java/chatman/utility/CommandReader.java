@@ -2,6 +2,7 @@ package chatman.utility;
 
 import chatman.exceptions.*;
 import chatman.commands.*;
+import chatman.storage.StorageHandler;
 
 import java.util.Scanner;
 
@@ -22,6 +23,7 @@ public class CommandReader {
      * Also provides exception handlers to catch all exceptions thrown from subsequent method calls.
      **/
     public void read() {
+
         Scanner commandReader = new Scanner(System.in);
         String userCommand;
         boolean shouldExitLoop = false;
@@ -32,7 +34,7 @@ public class CommandReader {
             userCommand = commandReader.nextLine();
 
             try {
-                Command performedCommand = parser.parse(userCommand);
+                Command performedCommand = parser.parse(userCommand, false);
                 if (performedCommand instanceof ByeCommand) {
                     shouldExitLoop = true;
                 }
@@ -51,5 +53,7 @@ public class CommandReader {
             }
 
         }
+
+        StorageHandler.writeStorageFile();
     }
 }

@@ -1,6 +1,7 @@
 package chatman;
 
 import chatman.commands.GreetCommand;
+import chatman.exceptions.*;
 import chatman.storage.StorageHandler;
 import chatman.tasks.Task;
 import chatman.utility.CommandReader;
@@ -20,6 +21,16 @@ public class ChatMan {
 
 
     private static ArrayList<Task> storedTasks = new ArrayList<>(); //provides storage for task objects
+    //private static ArrayList<String> commands = new ArrayList<>();
+
+    /**
+     * Provides access to stored commands.
+     *
+     * @return Reference to arraylist containing stored commands.
+     **/
+    /*public static ArrayList<String> accessCommands() {
+        return commands;
+    }*/
 
     /**
      * Provides access to current list of stored tasks by returning arraylist reference.
@@ -39,13 +50,27 @@ public class ChatMan {
 
         try {
             StorageHandler.openStorageFile();
-            GreetCommand hello= new GreetCommand(" ");
+            GreetCommand hello = new GreetCommand(" ");
             hello.perform();
 
-            CommandReader chatbot= new CommandReader();
+            StorageHandler.readStorageFile();
+            CommandReader chatbot = new CommandReader();
             chatbot.read();
+
         } catch(IOException e) {
            System.out.println(e.getMessage());
+        } catch (FalseCommandException e) {
+            e.sendErrorMsg();
+        } catch (FullListException e) {
+            e.sendErrorMsg();
+        } catch (IncorrectArgumentNumException e) {
+            e.sendErrorMsg();
+        } catch (IncorrectMarkUnmarkException e) {
+            e.sendErrorMsg();
+        } catch (EmptyListException e) {
+            e.sendErrorMsg();
+        } catch (IncorrectFormatException e) {
+            e.sendErrorMsg();
         }
 
 

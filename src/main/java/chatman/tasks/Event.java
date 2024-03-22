@@ -18,8 +18,8 @@ public class Event extends Task {
      * @param from Starting date-time for event
      * @param to Ending date-time for event
      */
-    public Event(String description, String from, String to) {
-        super(description);
+    public Event(String description, String from, String to, String command) {
+        super(description, command);
         startDateTime = from;
         endDateTime = to;
     }

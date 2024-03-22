@@ -64,9 +64,8 @@ public class DeadlineCommand extends TaskCommand{
             throw new IncorrectFormatException("DEADLINE", userCommand);
         }
 
-        ChatMan.accessTasks().add(new Deadline(deadLineDesc, by));
+        ChatMan.accessTasks().add(new Deadline(deadLineDesc, by, userCommand));
 
-        super.replyAddedTask();
     }
 
 }

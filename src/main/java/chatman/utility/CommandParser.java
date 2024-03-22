@@ -1,15 +1,12 @@
 package chatman.utility;
 
-import chatman.commands.Command;
-import chatman.commands.ByeCommand;
-import chatman.commands.ListCommand;
-import chatman.commands.MarkUnmarkCommand;
-import chatman.commands.TodoCommand;
-import chatman.commands.DeadlineCommand;
-import chatman.commands.EventCommand;
+import chatman.ChatMan;
+import chatman.commands.*;
 
 
 import chatman.exceptions.*;
+import chatman.storage.StorageHandler;
+import chatman.tasks.Task;
 
 import java.util.Arrays;
 
@@ -30,6 +27,7 @@ public class CommandParser {
 
     }
 
+
     /**
      * Extracts command type from user text input and then instantiates object of corresponding class.
      * Calls object's perform() method to execute desired ChatMan command.
@@ -47,7 +45,8 @@ public class CommandParser {
      * @throws EmptyListException If list of stored tasks is currently empty.
      * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
-    public Command parse(String receivedCommand) throws FalseCommandException, FullListException,
+    public static Command parse(String receivedCommand, boolean loadFile) throws FalseCommandException,
+            FullListException,
             IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException, IncorrectFormatException {
         Command commandToReturn = null;
 
@@ -89,12 +88,18 @@ public class CommandParser {
             TodoCommand toDo = new TodoCommand(receivedCommand);
             toDo.perform();
             commandToReturn = toDo;
+            if (!loadFile) {
+                TaskCommand.replyAddedTask();
+            }
             break;
 
         case "DEADLINE":
             DeadlineCommand deadLine = new DeadlineCommand(receivedCommand);
             deadLine.perform();
             commandToReturn = deadLine;
+            if (!loadFile) {
+                TaskCommand.replyAddedTask();
+            }
             break;
 
 
@@ -102,6 +107,9 @@ public class CommandParser {
             EventCommand event = new EventCommand(receivedCommand);
             event.perform();
             commandToReturn = event;
+            if (!loadFile) {
+                TaskCommand.replyAddedTask();
+            }
             break;
 
         default:
