@@ -25,7 +25,10 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Prints
+     * Prints all tasks whose descriptions contain the keyword argument supplied with 'find KEYWORD_ARG'.
+     *
+     * @throws IncorrectFormatException If command is entered without required formatting of arguments.
+     * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
      */
     public void perform() throws IncorrectArgumentNumException, IncorrectFormatException {
 
@@ -62,7 +65,7 @@ public class FindCommand extends Command {
             }
         }
 
-        String[] keywords = keyword.split(" ");
+        /* String[] keywords = keyword.split(" ");
 
 
         for (int i = 0; i < keywords.length; i++) {
@@ -79,7 +82,7 @@ public class FindCommand extends Command {
             }
 
 
-        }
+        } */
 
     }
 
