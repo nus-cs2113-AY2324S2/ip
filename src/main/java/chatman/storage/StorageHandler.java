@@ -1,9 +1,10 @@
 package chatman.storage;
 
-import chatman.ChatMan;
 import chatman.exceptions.*;
 import chatman.tasks.Task;
-import chatman.utility.CommandParser;
+import chatman.utility.Parser;
+import chatman.utility.Tasklist;
+import chatman.utility.Ui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -47,7 +48,7 @@ public class StorageHandler {
      * @throws IOException If file creation is attempted but fails.
      */
     public static void openStorageFile() throws IOException {
-        System.out.printf("%s%n%n", "____________________________________________________________");
+        System.out.printf("%s%n%n", Ui.getChatbotSeparator());
 
         try {
             if (Files.exists(storageFile)) {
@@ -65,14 +66,14 @@ public class StorageHandler {
 
     /**
      * Reads 'chatman.txt' (task storage file) content and adds corresponding tasks into task list by calling
-     * CommandParser's static parse() method.
+     * Parser's static parse() method.
      *
-     * @throws FalseCommandException If thrown by CommandParser's static parse() method.
-     * @throws FullListException If thrown by CommandParser's static parse() method.
-     * @throws IncorrectArgumentNumException If thrown by CommandParser's static parse() method.
-     * @throws IncorrectIndexException If thrown by CommandParser's static parse() method.
-     * @throws EmptyListException If thrown by CommandParser's static parse() method.
-     * @throws IncorrectFormatException If thrown by CommandParser's static parse() method.
+     * @throws FalseCommandException If thrown by Parser's static parse() method.
+     * @throws FullListException If thrown by Parser's static parse() method.
+     * @throws IncorrectArgumentNumException If thrown by Parser's static parse() method.
+     * @throws IncorrectIndexException If thrown by Parser's static parse() method.
+     * @throws EmptyListException If thrown by Parser's static parse() method.
+     * @throws IncorrectFormatException If thrown by Parser's static parse() method.
      * @throws IOException If reading from file is attempted but fails.
      */
     public static void loadStorageFile() throws FalseCommandException, FullListException, IncorrectArgumentNumException,
@@ -89,12 +90,12 @@ public class StorageHandler {
             while ((line = reader.readLine()) != null && line.isEmpty() == false) {
             //@@author
                 parsedLine = line.split(storageFileSeparator, 2);
-                CommandParser.parse(parsedLine[1], true);
+                Parser.parse(parsedLine[1], true);
 
                 if (parsedLine[0].equals("[X]")) {
-                    ChatMan.accessTasks().get(listCount).setDone(true);
+                    Tasklist.getTask(listCount).setDone(true);
                 } else {
-                    ChatMan.accessTasks().get(listCount).setDone(false);
+                    Tasklist.getTask(listCount).setDone(false);
                 }
 
                 listCount++;
@@ -115,9 +116,9 @@ public class StorageHandler {
         try (BufferedWriter writer = Files.newBufferedWriter(storageFile, StandardOpenOption.WRITE);
              BufferedReader reader = Files.newBufferedReader(storageFile)) {
 
-            for (int i = 0; i < ChatMan.accessTasks().size(); i++) {
+            for (int i = 0; i < Tasklist.getSize(); i++) {
 
-                Task currentTask=ChatMan.accessTasks().get(i);
+                Task currentTask= Tasklist.getTask(i);
                 String command = currentTask.getCommand();
                 String commandType = command.split(" ")[0].toUpperCase();
 

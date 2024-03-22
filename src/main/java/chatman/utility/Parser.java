@@ -25,15 +25,15 @@ import java.util.Arrays;
  *
  * @author LWachtel1
  * */
-public class CommandParser {
+public class Parser {
 
     private static final String[] RECOGNISED_COMMANDS = {"BYE", "LIST", "MARK", "UNMARK", "DELETE", "TODO",
             "DEADLINE", "EVENT"};
 
     /**
-     * Constructor for CommandParser.
+     * Constructor for Parser.
      */
-    public CommandParser() {
+    public Parser() {
 
     }
 
@@ -41,7 +41,7 @@ public class CommandParser {
     /**
      * Extracts command type from user text input and then instantiates object of corresponding class.
      * Calls object's perform() method to execute desired ChatMan command.
-     * Returns reference of object to instance of CommandReader class.
+     * Returns reference of object to instance of Ui class.
      *
      *
      * @param receivedCommand Raw text input from user, intended to represent a chatbot command.
@@ -72,7 +72,7 @@ public class CommandParser {
         boolean isValidCommand = Arrays.asList(RECOGNISED_COMMANDS).contains(commandType);
         //@@author
         if (!isValidCommand) {
-            //FalseCommandException caught by read() method of CommandReader object
+            //FalseCommandException caught by read() method of Ui object
             throw new FalseCommandException(commandType,receivedCommand);
         }
 

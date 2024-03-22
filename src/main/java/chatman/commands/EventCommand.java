@@ -1,10 +1,10 @@
 package chatman.commands;
 
-import chatman.ChatMan;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectFormatException;
 import chatman.tasks.Event;
+import chatman.utility.Tasklist;
 
 /**
  * Implements functionality to enable ChatMan response to user-entered "event DESCRIPTION /from  START /to END" command.
@@ -16,7 +16,7 @@ public class EventCommand extends TaskCommand {
     /**
      * Constructor for EventCommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      * */
     public EventCommand(String userCommand) {
@@ -57,7 +57,7 @@ public class EventCommand extends TaskCommand {
             throw new IncorrectFormatException("EVENT", eventCommand[2]);
         }
 
-        if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
+        if (Tasklist.getSize() == Tasklist.MAX_NUM_TASKS) {
             throw new FullListException("EVENT", userCommand);
         }
 
@@ -70,7 +70,7 @@ public class EventCommand extends TaskCommand {
         }
 
 
-        ChatMan.accessTasks().add(new Event(eventDesc, from, to, userCommand));
+        Tasklist.addTask(new Event(eventDesc, from, to, userCommand));
 
 
 

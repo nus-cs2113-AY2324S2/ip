@@ -1,5 +1,7 @@
 package chatman.exceptions;
 
+import chatman.utility.Ui;
+
 /**
  * Implements custom exception class instantiated when user enters mark/unmark or delete command with non-numerical
  * index or out-of-bounds numerical index.
@@ -25,7 +27,7 @@ public class IncorrectIndexException extends ChatManException {
     @Override
     public void sendErrorMsg() {
 
-        System.out.printf("%s%n%n", "____________________________________________________________");
+        System.out.printf("%s%n%n", Ui.getChatbotSeparator());
 
         switch (super.getCommandType()) {
         case "DELETE":

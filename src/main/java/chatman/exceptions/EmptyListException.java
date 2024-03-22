@@ -1,5 +1,7 @@
 package chatman.exceptions;
 
+import chatman.utility.Ui;
+
 /**
  * Implements custom exception class instantiated when command entered acts on empty list.
  *
@@ -22,7 +24,7 @@ public class EmptyListException extends ChatManException {
      * */
     @Override
     public void sendErrorMsg() {
-        System.out.printf("%s%n%n", "____________________________________________________________");
+        System.out.printf("%s%n%n", Ui.getChatbotSeparator());
         System.out.printf("The stored list of tasks is currently empty."
                 + "\nSo, the entered command '%s' cannot be performed\n", super.getErroneousInput());
     }

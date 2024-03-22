@@ -1,5 +1,7 @@
 package chatman.exceptions;
 
+import chatman.utility.Ui;
+
 /**
  * Implements custom exception class instantiated when user-entered command lacks required format for arguments.
  *
@@ -22,7 +24,7 @@ public class IncorrectFormatException extends ChatManException {
      * */
     @Override
     public void sendErrorMsg() {
-        System.out.printf("%s%n%n", "____________________________________________________________");
+        System.out.printf("%s%n%n", Ui.getChatbotSeparator());
 
         switch (super.getCommandType()) {
         case "TODO":

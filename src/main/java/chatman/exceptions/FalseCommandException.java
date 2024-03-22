@@ -1,5 +1,7 @@
 package chatman.exceptions;
 
+import chatman.utility.Ui;
+
 /**
  * Implements custom exception class instantiated when unrecognised command is entered by user.
  *
@@ -23,7 +25,7 @@ public class FalseCommandException extends ChatManException{
      * */
     @Override
     public void sendErrorMsg() {
-        System.out.printf("%s%n%n", "____________________________________________________________");
+        System.out.printf("%s%n%n", Ui.getChatbotSeparator());
         System.out.printf("Unrecognised command entered '%s' of command type '%s'."
                 + "\nPlease re-enter a recognised command.\n", super.getErroneousInput(), super.getCommandType());
     }

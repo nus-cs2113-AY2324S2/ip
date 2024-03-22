@@ -1,9 +1,10 @@
 package chatman.commands;
 
-import chatman.ChatMan;
 import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectIndexException;
+import chatman.utility.Tasklist;
+import chatman.utility.Ui;
 
 /**
  * Implements ChatMan's ability to delete/remove a currently stored task from storage.
@@ -15,7 +16,7 @@ public class DeleteCommand extends Command {
     /**
      * Constructor for DeleteCommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      * */
     public DeleteCommand(String userCommand) {
@@ -39,7 +40,7 @@ public class DeleteCommand extends Command {
             throw new IncorrectArgumentNumException("DELETE", userCommand);
         }
 
-        if (ChatMan.accessTasks().isEmpty()) {
+        if (Tasklist.isTasklistEmpty()) {
             throw new EmptyListException("DELETE", userCommand);
         }
 
@@ -48,7 +49,7 @@ public class DeleteCommand extends Command {
 
         try {
             storagePosition = Integer.parseInt(position);
-            if (storagePosition > ChatMan.accessTasks().size() || storagePosition <= 0) {
+            if (storagePosition > Tasklist.getSize() || storagePosition <= 0) {
                 throw new IncorrectIndexException("DELETE",position);
             }
         } catch(NumberFormatException exception) {
@@ -56,11 +57,11 @@ public class DeleteCommand extends Command {
         }
         int storageIndex = storagePosition - 1;
 
-        String deletedTask = ChatMan.accessTasks().get(storageIndex).toString();
-        ChatMan.accessTasks().remove(storageIndex);
+        String deletedTask = Tasklist.getTask(storageIndex).toString();
+        Tasklist.removeTask(storageIndex);
 
-        System.out.printf("%s%n", "____________________________________________________________");
+        System.out.printf("%s%n", Ui.getChatbotSeparator());
         System.out.printf("Noted. I've removed this task:%n%s%nNow you have %d tasks in the list.%n", deletedTask,
-                ChatMan.accessTasks().size());
+                Tasklist.getSize());
     }
 }

@@ -1,8 +1,9 @@
 package chatman.commands;
 
-import chatman.ChatMan;
 import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
+import chatman.utility.Tasklist;
+import chatman.utility.Ui;
 
 /**
  * Implements ChatMan's ability to list all currently stored tasks.
@@ -14,7 +15,7 @@ public class ListCommand extends Command {
     /**
      * Constructor for ListCommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      * */
     public ListCommand(String userCommand) {
@@ -36,13 +37,13 @@ public class ListCommand extends Command {
             throw new IncorrectArgumentNumException("LIST", erroneousInput);
         }
 
-        if (ChatMan.accessTasks().isEmpty()) {
+        if (Tasklist.isTasklistEmpty()) {
             throw new EmptyListException("LIST", userCommand);
         }
 
-        System.out.printf("%s%n", "____________________________________________________________");
-        for (int i = 0; i < ChatMan.accessTasks().size(); i++) {
-            System.out.printf("%d.%s%n", (i + 1), ChatMan.accessTasks().get(i).toString());
+        System.out.printf("%s%n", Ui.getChatbotSeparator());
+        for (int i = 0; i < Tasklist.getSize(); i++) {
+            System.out.printf("%d.%s%n", (i + 1), Tasklist.getTask(i).toString());
         }
     }
 }

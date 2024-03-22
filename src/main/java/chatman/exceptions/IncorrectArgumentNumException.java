@@ -1,5 +1,7 @@
 package chatman.exceptions;
 
+import chatman.utility.Ui;
+
 /**
  * Implements custom exception class instantiated when command is entered with incorrect number of arguments.
  *
@@ -23,7 +25,7 @@ public class IncorrectArgumentNumException extends ChatManException{
      * */
     @Override
     public void sendErrorMsg() {
-        System.out.printf("%s%n%n", "____________________________________________________________");
+        System.out.printf("%s%n%n", Ui.getChatbotSeparator());
 
         switch (super.getCommandType()) {
         case "BYE":

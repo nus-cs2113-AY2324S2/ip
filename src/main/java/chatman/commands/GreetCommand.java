@@ -1,5 +1,7 @@
 package chatman.commands;
 
+import chatman.utility.Ui;
+
 /**
  * Implements initial ChatMan greeting when user runs program.
  *
@@ -24,7 +26,7 @@ public class GreetCommand extends Command {
      */
     @Override
     public void perform() {
-        System.out.printf("%s%n", "____________________________________________________________");
+        System.out.printf("%s%n", Ui.getChatbotSeparator());
         System.out.printf("%s%n", "Hello! I'm CHAT-MAN");
         System.out.printf("%s%n", "What can I do for you?");
     }
