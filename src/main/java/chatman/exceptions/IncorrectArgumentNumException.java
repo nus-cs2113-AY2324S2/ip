@@ -68,6 +68,13 @@ public class IncorrectArgumentNumException extends ChatManException{
                     super.getErroneousInput());
             break;
 
+        case "FIND":
+            System.out.printf("Command 'find' entered with incorrect number of arguments:'%s'"
+                            + "\nPlease re-enter with 1 argument"
+                            + "\nFormat: 'find KEYWORD_ARG'\n",
+                    super.getErroneousInput());
+            break;
+
         default:
             break;
         }

@@ -48,6 +48,13 @@ public class IncorrectFormatException extends ChatManException {
                     super.getErroneousInput());
             break;
 
+        case "FIND":
+            System.out.printf("Command 'find' entered with incorrect formatting:'%s'"
+                            + "\nPlease re-enter with valid formatting (no blank arguments)"
+                            + "\nFormat: 'find KEYWORD_ARG'\n",
+                    super.getErroneousInput());
+            break;
+
         default:
             break;
         }

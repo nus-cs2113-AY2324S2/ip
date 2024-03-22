@@ -65,25 +65,6 @@ public class FindCommand extends Command {
             }
         }
 
-        /* String[] keywords = keyword.split(" ");
-
-
-        for (int i = 0; i < keywords.length; i++) {
-            System.out.printf("Here are the partial matches for '%s' in your list:%n", keywords[i]);
-
-            for (int j = 0; j < Tasklist.getSize(); j++) {
-
-                Task currentTaskToCheck = Tasklist.getTask(j);
-                String taskDesc = currentTaskToCheck.getDescription();
-
-                if (taskDesc.contains(keywords[i])) {
-                    System.out.printf("%d.%s%n", (j + 1), currentTaskToCheck.toString());
-                }
-            }
-
-
-        } */
-
     }
 
 }
