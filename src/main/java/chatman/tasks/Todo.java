@@ -13,9 +13,10 @@ public class Todo extends Task {
      * Constructor for Todo.
      *
      * @param description Description of task.
+     * @param command Command entered by user to add Todo task.
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, String command) {
+        super(description, command);
     }
 
     /**

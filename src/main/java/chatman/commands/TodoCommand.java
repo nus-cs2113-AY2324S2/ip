@@ -56,9 +56,8 @@ public class TodoCommand extends TaskCommand {
             throw new IncorrectFormatException("TODO", userCommand);
         }
 
-        ChatMan.accessTasks().add(new Todo(toDoDesc));
+        ChatMan.accessTasks().add(new Todo(toDoDesc, userCommand));
 
-        super.replyAddedTask();
 
     }
 }

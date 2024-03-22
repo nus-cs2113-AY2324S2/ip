@@ -2,7 +2,9 @@ package chatman.utility;
 
 import chatman.exceptions.*;
 import chatman.commands.*;
+import chatman.storage.StorageHandler;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -18,10 +20,12 @@ public class CommandReader {
 
     /**
      * Provides main loop of ChatMan; reads user input and instantiates CommandParser object to parse input &
-     * instantiate appropriate Command subclass object to perform corresponding command.
+     * instantiate appropriate Command subclass object to perform corresponding command. Upon program exit, it
+     * saves all currently stored tasks to the hard disk.
      * Also provides exception handlers to catch all exceptions thrown from subsequent method calls.
      **/
     public void read() {
+
         Scanner commandReader = new Scanner(System.in);
         String userCommand;
         boolean shouldExitLoop = false;
@@ -32,7 +36,7 @@ public class CommandReader {
             userCommand = commandReader.nextLine();
 
             try {
-                Command performedCommand = parser.parse(userCommand);
+                Command performedCommand = parser.parse(userCommand, false);
                 if (performedCommand instanceof ByeCommand) {
                     shouldExitLoop = true;
                 }
@@ -51,5 +55,12 @@ public class CommandReader {
             }
 
         }
+
+        try {
+            StorageHandler.writeStorageFile();
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

@@ -1,9 +1,22 @@
 package chatman.utility;
 
-import chatman.commands.*;
+import chatman.commands.Command;
+import chatman.commands.ByeCommand;
+import chatman.commands.ListCommand;
+import chatman.commands.TaskCommand;
+import chatman.commands.TodoCommand;
+import chatman.commands.DeadlineCommand;
+import chatman.commands.EventCommand;
+import chatman.commands.MarkUnmarkCommand;
+import chatman.commands.DeleteCommand;
 
+import chatman.exceptions.FalseCommandException;
+import chatman.exceptions.FullListException;
+import chatman.exceptions.IncorrectArgumentNumException;
+import chatman.exceptions.IncorrectIndexException;
+import chatman.exceptions.EmptyListException;
+import chatman.exceptions.IncorrectFormatException;
 
-import chatman.exceptions.*;
 
 import java.util.Arrays;
 
@@ -24,6 +37,7 @@ public class CommandParser {
 
     }
 
+
     /**
      * Extracts command type from user text input and then instantiates object of corresponding class.
      * Calls object's perform() method to execute desired ChatMan command.
@@ -31,6 +45,7 @@ public class CommandParser {
      *
      *
      * @param receivedCommand Raw text input from user, intended to represent a chatbot command.
+     * @param isLoadFile Boolean that specifies whether parse() is being called during initial program load or not.
      * @return Reference to instantiated object corresponding to command.
      * @throws FalseCommandException If command type entered is unrecognised.
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add Todo, Deadline
@@ -41,8 +56,11 @@ public class CommandParser {
      * @throws EmptyListException If list of stored tasks is currently empty.
      * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
-    public Command parse(String receivedCommand) throws FalseCommandException, FullListException,
-            IncorrectArgumentNumException, IncorrectIndexException, EmptyListException, IncorrectFormatException {
+
+    public static Command parse(String receivedCommand, boolean isLoadFile) throws FalseCommandException,
+            FullListException, IncorrectArgumentNumException, IncorrectIndexException, EmptyListException,
+            IncorrectFormatException {
+
         Command commandToReturn = null;
 
         String[] fullCommand = receivedCommand.split(" ");
@@ -89,12 +107,18 @@ public class CommandParser {
             TodoCommand toDo = new TodoCommand(receivedCommand);
             toDo.perform();
             commandToReturn = toDo;
+            if (!isLoadFile) {
+                TaskCommand.replyAddedTask();
+            }
             break;
 
         case "DEADLINE":
             DeadlineCommand deadLine = new DeadlineCommand(receivedCommand);
             deadLine.perform();
             commandToReturn = deadLine;
+            if (!isLoadFile) {
+                TaskCommand.replyAddedTask();
+            }
             break;
 
 
@@ -102,6 +126,9 @@ public class CommandParser {
             EventCommand event = new EventCommand(receivedCommand);
             event.perform();
             commandToReturn = event;
+            if (!isLoadFile) {
+                TaskCommand.replyAddedTask();
+            }
             break;
 
         default:

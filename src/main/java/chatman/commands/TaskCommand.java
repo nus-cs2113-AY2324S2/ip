@@ -25,7 +25,7 @@ public abstract class TaskCommand extends Command {
      * Prints String representation of task object just added to task arraylist; inherited by TaskCommand subclasses
      * and called from their respective perform() methods during execution.
      * */
-    public void replyAddedTask() {
+    public static void replyAddedTask() {
         Task addedTask = ChatMan.accessTasks().get(ChatMan.accessTasks().size() - 1);
         int size = ChatMan.accessTasks().size();
         System.out.printf("Got it. I've added this task:%n%s%nNow you have %d tasks in the list.%n",

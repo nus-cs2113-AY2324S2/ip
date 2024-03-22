@@ -70,9 +70,8 @@ public class EventCommand extends TaskCommand {
         }
 
 
-        ChatMan.accessTasks().add(new Event(eventDesc, from, to));
+        ChatMan.accessTasks().add(new Event(eventDesc, from, to, userCommand));
 
-        super.replyAddedTask();
 
 
     }

@@ -1,11 +1,13 @@
 package chatman;
 
 import chatman.commands.GreetCommand;
+import chatman.exceptions.*;
+import chatman.storage.StorageHandler;
 import chatman.tasks.Task;
 import chatman.utility.CommandReader;
 
 
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,7 @@ public class ChatMan {
 
     private static ArrayList<Task> storedTasks = new ArrayList<>(); //provides storage for task objects
 
+
     /**
      * Provides access to current list of stored tasks by returning arraylist reference.
      *
@@ -30,15 +33,37 @@ public class ChatMan {
 
 
     /**
-     * Prints greeting for user upon initial program execution then instantiates CommandReader object and calls read
-     * () to trigger ChatMan loop execution.
+     * Opens task storage file. If successful, prints greeting for user upon initial program execution, reads file
+     * contents into list of stored tasks then instantiates CommandReader object and calls read() to trigger ChatMan
+     * loop execution.
      **/
     public static void main(String[] args) {
-        GreetCommand hello= new GreetCommand(" ");
-        hello.perform();
 
-        CommandReader chatbot= new CommandReader();
-        chatbot.read();
+        try {
+            StorageHandler.openStorageFile();
+            GreetCommand hello = new GreetCommand(" ");
+            hello.perform();
+
+            StorageHandler.loadStorageFile();
+            CommandReader chatbot = new CommandReader();
+            chatbot.read();
+
+        } catch(IOException e) {
+           System.out.println(e.getMessage());
+        } catch (FalseCommandException e) {
+            e.sendErrorMsg();
+        } catch (FullListException e) {
+            e.sendErrorMsg();
+        } catch (IncorrectArgumentNumException e) {
+            e.sendErrorMsg();
+        } catch (IncorrectIndexException e) {
+            e.sendErrorMsg();
+        } catch (EmptyListException e) {
+            e.sendErrorMsg();
+        } catch (IncorrectFormatException e) {
+            e.sendErrorMsg();
+        }
+
 
     }
 }
