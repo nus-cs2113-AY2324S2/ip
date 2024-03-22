@@ -16,6 +16,7 @@ public class Task {
      * Constructor for Task.
      *
      * @param description Description of task.
+     * @param command Command entered by user to add task.
      */
     public Task(String description, String command) {
         this.description = description;

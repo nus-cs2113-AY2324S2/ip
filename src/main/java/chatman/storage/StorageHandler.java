@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
 
 /**
  * Implements file handling operations, so that task list can be saved to .txt file for storage even after program
@@ -31,6 +30,9 @@ public class StorageHandler {
     //Reused from https://stackoverflow.com/questions/17552299/how-to-get-the-path-string-from-a-java-nio-path
     private static String pathString = Paths.get(root, "chatman.txt").normalize().toString();
     //@@author
+
+    private static String storageFileSeparator = "!";
+
 
     /**
      * Constructor for StorageHandler.
@@ -61,9 +63,20 @@ public class StorageHandler {
 
     }
 
-
-    public static void readStorageFile() throws FalseCommandException, FullListException, IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException, IncorrectFormatException {
-
+    /**
+     * Reads 'chatman.txt' (task storage file) content and adds corresponding tasks into task list by calling
+     * CommandParser's static parse() method.
+     *
+     * @throws FalseCommandException If thrown by CommandParser's static parse() method.
+     * @throws FullListException If thrown by CommandParser's static parse() method.
+     * @throws IncorrectArgumentNumException If thrown by CommandParser's static parse() method.
+     * @throws IncorrectMarkUnmarkException If thrown by CommandParser's static parse() method.
+     * @throws EmptyListException If thrown by CommandParser's static parse() method.
+     * @throws IncorrectFormatException If thrown by CommandParser's static parse() method.
+     * @throws IOException If reading from file is attempted but fails.
+     */
+    public static void loadStorageFile() throws FalseCommandException, FullListException, IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException,
+            IncorrectFormatException, IOException {
 
         try (BufferedReader reader = Files.newBufferedReader(storageFile)) {
             String line;
@@ -74,8 +87,8 @@ public class StorageHandler {
             //Reused from https://stackoverflow.com/questions/28977308/read-all-lines-with-bufferedreader
             //with modifications
             while ((line = reader.readLine()) != null && line.isEmpty() == false) {
-                //@@author
-                parsedLine = line.split("!", 2);
+            //@@author
+                parsedLine = line.split(storageFileSeparator, 2);
                 CommandParser.parse(parsedLine[1], true);
 
                 if (parsedLine[0].equals("[X]")) {
@@ -87,20 +100,18 @@ public class StorageHandler {
                 listCount++;
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            throw new IOException("Error reading stored tasks from hard disk.");
         }
 
 
     }
 
-    public static void writeStorageFile() {
-
-
-        int index;
-        String line;
-        ArrayList<String> fileContents;
-        String[] parsedCommand;
-
+    /**
+     * Writes all stored tasks to 'chatman.txt' (task storage file)
+     *
+     * @throws IOException If writing to task storage file 'chatman.txt' is attempted but fails.
+     */
+    public static void writeStorageFile() throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(storageFile, StandardOpenOption.WRITE);
              BufferedReader reader = Files.newBufferedReader(storageFile)) {
 
@@ -108,28 +119,29 @@ public class StorageHandler {
 
                 Task currentTask=ChatMan.accessTasks().get(i);
                 String command = currentTask.getCommand();
-                switch (command.split(" ")[0].toUpperCase()) {
-                    case "TODO":
-                        //Fallthrough
-                    case "DEADLINE":
-                        //Fallthrough
-                    case "EVENT":
+                String commandType = command.split(" ")[0].toUpperCase();
 
-                        writer.write(currentTask.getStatusIcon());
-                        writer.write("!");
-                        writer.write(command);
-                        writer.write(System.getProperty("line.separator"));
+                switch (commandType) {
+                case "TODO":
+                    //Fallthrough
+                case "DEADLINE":
+                    //Fallthrough
+                case "EVENT":
 
-                        break;
+                    writer.write(currentTask.getStatusIcon());
+                    writer.write(storageFileSeparator);
+                    writer.write(command);
+                    writer.write(System.getProperty("line.separator"));
 
-                    default:
-                        break;
+                    break;
+
+                default:
+                    break;
                 }
-
 
             }
         } catch (IOException e) {
-
+            throw new IOException("Error saving currently stored tasks to hard disk.");
         }
 
     }

@@ -8,7 +8,6 @@ import chatman.utility.CommandReader;
 
 
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -21,16 +20,7 @@ public class ChatMan {
 
 
     private static ArrayList<Task> storedTasks = new ArrayList<>(); //provides storage for task objects
-    //private static ArrayList<String> commands = new ArrayList<>();
 
-    /**
-     * Provides access to stored commands.
-     *
-     * @return Reference to arraylist containing stored commands.
-     **/
-    /*public static ArrayList<String> accessCommands() {
-        return commands;
-    }*/
 
     /**
      * Provides access to current list of stored tasks by returning arraylist reference.
@@ -43,8 +33,9 @@ public class ChatMan {
 
 
     /**
-     * Opens task storage file. If successful, prints greeting for user upon initial program execution then
-     * instantiates CommandReader object and calls read() to trigger ChatMan loop execution.
+     * Opens task storage file. If successful, prints greeting for user upon initial program execution, reads file
+     * contents into list of stored tasks then instantiates CommandReader object and calls read() to trigger ChatMan
+     * loop execution.
      **/
     public static void main(String[] args) {
 
@@ -53,7 +44,7 @@ public class ChatMan {
             GreetCommand hello = new GreetCommand(" ");
             hello.perform();
 
-            StorageHandler.readStorageFile();
+            StorageHandler.loadStorageFile();
             CommandReader chatbot = new CommandReader();
             chatbot.read();
 

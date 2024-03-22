@@ -35,6 +35,7 @@ public class CommandParser {
      *
      *
      * @param receivedCommand Raw text input from user, intended to represent a chatbot command.
+     * @param isLoadFile Boolean that specifies whether parse() is being called during initial program load or not.
      * @return Reference to instantiated object corresponding to command.
      * @throws FalseCommandException If command type entered is unrecognised.
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add Todo, Deadline
@@ -45,9 +46,9 @@ public class CommandParser {
      * @throws EmptyListException If list of stored tasks is currently empty.
      * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
-    public static Command parse(String receivedCommand, boolean loadFile) throws FalseCommandException,
-            FullListException,
-            IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException, IncorrectFormatException {
+    public static Command parse(String receivedCommand, boolean isLoadFile) throws FalseCommandException,
+            FullListException, IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException,
+            IncorrectFormatException {
         Command commandToReturn = null;
 
         String[] fullCommand = receivedCommand.split(" ");
@@ -88,7 +89,7 @@ public class CommandParser {
             TodoCommand toDo = new TodoCommand(receivedCommand);
             toDo.perform();
             commandToReturn = toDo;
-            if (!loadFile) {
+            if (!isLoadFile) {
                 TaskCommand.replyAddedTask();
             }
             break;
@@ -97,7 +98,7 @@ public class CommandParser {
             DeadlineCommand deadLine = new DeadlineCommand(receivedCommand);
             deadLine.perform();
             commandToReturn = deadLine;
-            if (!loadFile) {
+            if (!isLoadFile) {
                 TaskCommand.replyAddedTask();
             }
             break;
@@ -107,7 +108,7 @@ public class CommandParser {
             EventCommand event = new EventCommand(receivedCommand);
             event.perform();
             commandToReturn = event;
-            if (!loadFile) {
+            if (!isLoadFile) {
                 TaskCommand.replyAddedTask();
             }
             break;

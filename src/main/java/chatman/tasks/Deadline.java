@@ -14,6 +14,7 @@ public class Deadline extends Task {
      *
      * @param description Description of task (that has deadline).
      * @param by Deadline date in String form.
+     * @param command Command entered by user to add Deadline task.
      */
     public Deadline(String description, String by, String command) {
         super(description, command);
