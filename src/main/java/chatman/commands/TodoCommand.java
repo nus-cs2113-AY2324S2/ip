@@ -28,6 +28,7 @@ public class TodoCommand extends TaskCommand {
      *
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add new Todo object.
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
+     * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
     @Override
     public void perform() throws IncorrectArgumentNumException, FullListException, IncorrectFormatException {
