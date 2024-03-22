@@ -3,8 +3,7 @@ package chatman.commands;
 import chatman.ChatMan;
 import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
-import chatman.exceptions.IncorrectMarkUnmarkException;
-import chatman.tasks.Task;
+import chatman.exceptions.IncorrectIndexException;
 
 /**
  * Implements ChatMan's ability to delete/remove a currently stored task from storage.
@@ -28,11 +27,11 @@ public class DeleteCommand extends Command {
      * (if valid) & removes.
      *
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
-     * @throws IncorrectMarkUnmarkException If command provided with non-numerical argument or index outside of bounds
+     * @throws IncorrectIndexException If command provided with non-numerical argument or index outside of bounds
      * of task arraylist.
      * @throws EmptyListException If list of stored tasks is currently empty.
      * */
-    public void perform() throws IncorrectArgumentNumException, EmptyListException, IncorrectMarkUnmarkException {
+    public void perform() throws IncorrectArgumentNumException, EmptyListException, IncorrectIndexException {
         String[] deleteCommand = userCommand.split(" ");
 
         //Checks for only delete command & 1 argument being present
@@ -50,10 +49,10 @@ public class DeleteCommand extends Command {
         try {
             storagePosition = Integer.parseInt(position);
             if (storagePosition > ChatMan.accessTasks().size() || storagePosition <= 0) {
-                throw new IncorrectMarkUnmarkException("DELETE",position);
+                throw new IncorrectIndexException("DELETE",position);
             }
         } catch(NumberFormatException exception) {
-            throw new IncorrectMarkUnmarkException("DELETE",position);
+            throw new IncorrectIndexException("DELETE",position);
         }
         int storageIndex = storagePosition - 1;
 
