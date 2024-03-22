@@ -1,14 +1,6 @@
 package chatman.utility;
 
-import chatman.commands.Command;
-import chatman.commands.ByeCommand;
-import chatman.commands.ListCommand;
-import chatman.commands.TaskCommand;
-import chatman.commands.TodoCommand;
-import chatman.commands.DeadlineCommand;
-import chatman.commands.EventCommand;
-import chatman.commands.MarkUnmarkCommand;
-import chatman.commands.DeleteCommand;
+import chatman.commands.*;
 
 import chatman.exceptions.FalseCommandException;
 import chatman.exceptions.FullListException;
@@ -28,7 +20,7 @@ import java.util.Arrays;
 public class Parser {
 
     private static final String[] RECOGNISED_COMMANDS = {"BYE", "LIST", "MARK", "UNMARK", "DELETE", "TODO",
-            "DEADLINE", "EVENT"};
+            "DEADLINE", "EVENT", "FIND"};
 
     /**
      * Constructor for Parser.
@@ -129,6 +121,12 @@ public class Parser {
             if (!isLoadFile) {
                 TaskCommand.replyAddedTask();
             }
+            break;
+
+        case "FIND":
+            FindCommand find = new FindCommand(receivedCommand);
+            find.perform();
+            commandToReturn = find;
             break;
 
         default:
