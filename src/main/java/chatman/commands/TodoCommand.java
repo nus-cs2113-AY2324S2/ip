@@ -1,10 +1,10 @@
 package chatman.commands;
 
-import chatman.ChatMan;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectFormatException;
 import chatman.tasks.Todo;
+import chatman.utility.Tasklist;
 
 /**
  * Implements functionality to enable ChatMan response to user-entered "todo DESCRIPTION" command.
@@ -16,7 +16,7 @@ public class TodoCommand extends TaskCommand {
     /**
      * Constructor for Todocommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      */
     public TodoCommand(String userCommand) {
@@ -46,7 +46,7 @@ public class TodoCommand extends TaskCommand {
         }
 
 
-        if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
+        if (Tasklist.getSize() == Tasklist.MAX_NUM_TASKS) {
             throw new FullListException("TODO", userCommand);
         }
 
@@ -56,7 +56,7 @@ public class TodoCommand extends TaskCommand {
             throw new IncorrectFormatException("TODO", userCommand);
         }
 
-        ChatMan.accessTasks().add(new Todo(toDoDesc, userCommand));
+        Tasklist.addTask(new Todo(toDoDesc, userCommand));
 
 
     }

@@ -1,9 +1,10 @@
 package chatman.commands;
 
-import chatman.ChatMan;
 import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectIndexException;
+import chatman.utility.Tasklist;
+import chatman.utility.Ui;
 
 /**
  * Implements ChatMan's ability to mark/unmark any currently stored task.
@@ -15,7 +16,7 @@ public class MarkUnmarkCommand extends Command {
     /**
      * Constructor for MarkUnmarkCommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      * */
     public MarkUnmarkCommand(String userCommand) {
@@ -40,7 +41,7 @@ public class MarkUnmarkCommand extends Command {
             throw new IncorrectArgumentNumException("MARKUNMARK", userCommand);
         }
 
-        if (ChatMan.accessTasks().isEmpty()) {
+        if (Tasklist.isTasklistEmpty()) {
             throw new EmptyListException("MARKUNMARK", userCommand);
         }
 
@@ -49,7 +50,7 @@ public class MarkUnmarkCommand extends Command {
 
         try {
             storagePosition = Integer.parseInt(position);
-            if (storagePosition > ChatMan.accessTasks().size() || storagePosition <= 0) {
+            if (storagePosition > Tasklist.getSize() || storagePosition <= 0) {
                 throw new IncorrectIndexException("MARKUNMARK",position);
             }
         } catch(NumberFormatException exception) {
@@ -60,17 +61,17 @@ public class MarkUnmarkCommand extends Command {
 
         switch (markUnmarkCommand[0].toUpperCase()) {
         case "MARK":
-            ChatMan.accessTasks().get(storageIndex).setDone(true);
-            System.out.printf("%s%n", "____________________________________________________________");
+            Tasklist.getTask(storageIndex).setDone(true);
+            System.out.printf("%s%n", Ui.getChatbotSeparator());
             System.out.printf("Nice! I've marked this task as done:%n%s%n",
-                   ChatMan.accessTasks().get(storageIndex).toString());
+                   Tasklist.getTask(storageIndex).toString());
             break;
 
         case "UNMARK":
-            ChatMan.accessTasks().get(storageIndex).setDone(false);
-            System.out.printf("%s%n", "____________________________________________________________");
+            Tasklist.getTask(storageIndex).setDone(false);
+            System.out.printf("%s%n", Ui.getChatbotSeparator());
             System.out.printf("OK, I've marked this task as not done yet:%n%s%n",
-                    ChatMan.accessTasks().get(storageIndex).toString());
+                    Tasklist.getTask(storageIndex).toString());
             break;
         }
 

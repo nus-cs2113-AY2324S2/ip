@@ -13,7 +13,7 @@ public class ByeCommand extends Command{
     /**
      * Constructor for ByeCommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      * */
     public ByeCommand(String userCommand) {

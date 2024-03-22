@@ -14,7 +14,7 @@ public abstract class Command {
     /**
      * Constructor for Command abstract class; invoked by its concrete subclasses using super() method call.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method where implemented.
      * */
     public Command(String userCommand) {

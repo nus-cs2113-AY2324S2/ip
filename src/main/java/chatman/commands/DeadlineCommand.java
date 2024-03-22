@@ -1,10 +1,10 @@
 package chatman.commands;
 
-import chatman.ChatMan;
 import chatman.exceptions.FullListException;
 import chatman.exceptions.IncorrectArgumentNumException;
 import chatman.exceptions.IncorrectFormatException;
 import chatman.tasks.Deadline;
+import chatman.utility.Tasklist;
 
 /**
  * Implements functionality to enable ChatMan response to user-entered "deadline DESCRIPTION /by  DEADLINE" command.
@@ -16,7 +16,7 @@ public class DeadlineCommand extends TaskCommand{
     /**
      * Constructor for DeadlineCommand; invokes superclass constructor.
      *
-     * @param userCommand Receives and stores user-entered command (from CommandParser object) to use in perform()
+     * @param userCommand Receives and stores user-entered command (from Parser object) to use in perform()
      * method.
      * */
     public DeadlineCommand(String userCommand) {
@@ -53,7 +53,7 @@ public class DeadlineCommand extends TaskCommand{
             throw new IncorrectFormatException("DEADLINE", deadLineCommand[1]);
         }
 
-        if (ChatMan.accessTasks().size() == ChatMan.MAX_NUM_TASKS) {
+        if (Tasklist.getSize() == Tasklist.MAX_NUM_TASKS) {
             throw new FullListException("DEADLINE", userCommand);
         }
 
@@ -64,7 +64,7 @@ public class DeadlineCommand extends TaskCommand{
             throw new IncorrectFormatException("DEADLINE", userCommand);
         }
 
-        ChatMan.accessTasks().add(new Deadline(deadLineDesc, by, userCommand));
+        Tasklist.addTask(new Deadline(deadLineDesc, by, userCommand));
 
     }
 

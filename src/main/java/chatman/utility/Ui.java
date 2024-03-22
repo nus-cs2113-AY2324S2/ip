@@ -13,13 +13,18 @@ import java.util.Scanner;
  *
  * @author LWachtel1
  * */
-public class CommandReader {
+public class Ui {
 
-    public CommandReader() {
+    private static String chatbotSeparator ="____________________________________________________________";
+    public Ui() {
+    }
+
+    public static String getChatbotSeparator() {
+        return chatbotSeparator;
     }
 
     /**
-     * Provides main loop of ChatMan; reads user input and instantiates CommandParser object to parse input &
+     * Provides main loop of ChatMan; reads user input and instantiates Parser object to parse input &
      * instantiate appropriate Command subclass object to perform corresponding command. Upon program exit, it
      * saves all currently stored tasks to the hard disk.
      * Also provides exception handlers to catch all exceptions thrown from subsequent method calls.
@@ -29,10 +34,10 @@ public class CommandReader {
         Scanner commandReader = new Scanner(System.in);
         String userCommand;
         boolean shouldExitLoop = false;
-        CommandParser parser = new CommandParser();
+        Parser parser = new Parser();
 
         while (!shouldExitLoop) {
-            System.out.printf("%s%n%n", "____________________________________________________________");
+            System.out.printf("%s%n%n", getChatbotSeparator());
             userCommand = commandReader.nextLine();
 
             try {
