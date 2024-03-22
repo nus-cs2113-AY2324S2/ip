@@ -1,12 +1,6 @@
 package chatman.utility;
 
-import chatman.commands.Command;
-import chatman.commands.ByeCommand;
-import chatman.commands.ListCommand;
-import chatman.commands.MarkUnmarkCommand;
-import chatman.commands.TodoCommand;
-import chatman.commands.DeadlineCommand;
-import chatman.commands.EventCommand;
+import chatman.commands.*;
 
 
 import chatman.exceptions.*;
@@ -20,7 +14,7 @@ import java.util.Arrays;
  * */
 public class CommandParser {
 
-    private static final String[] RECOGNISED_COMMANDS = {"BYE", "LIST", "MARK", "UNMARK", "TODO",
+    private static final String[] RECOGNISED_COMMANDS = {"BYE", "LIST", "MARK", "UNMARK", "DELETE", "TODO",
             "DEADLINE", "EVENT"};
 
     /**
@@ -42,13 +36,13 @@ public class CommandParser {
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add Todo, Deadline
      * or Event.
      * @throws IncorrectArgumentNumException If a command is provided with incorrect number of arguments.
-     * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
-     * index beyond task arraylist size.
+     * @throws IncorrectIndexException If MarkUnmarkCommand or DeleteCommand provided with non-numerical index or
+     * with numerical index beyond task arraylist size.
      * @throws EmptyListException If list of stored tasks is currently empty.
      * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
     public Command parse(String receivedCommand) throws FalseCommandException, FullListException,
-            IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException, IncorrectFormatException {
+            IncorrectArgumentNumException, IncorrectIndexException, EmptyListException, IncorrectFormatException {
         Command commandToReturn = null;
 
         String[] fullCommand = receivedCommand.split(" ");
@@ -83,6 +77,12 @@ public class CommandParser {
             MarkUnmarkCommand listMarker = new MarkUnmarkCommand(receivedCommand);
             listMarker.perform();
             commandToReturn = listMarker;
+            break;
+
+        case "DELETE":
+            DeleteCommand remover = new DeleteCommand(receivedCommand);
+            remover.perform();
+            commandToReturn= remover;
             break;
 
         case "TODO":

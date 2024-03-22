@@ -3,7 +3,7 @@ package chatman.commands;
 import chatman.ChatMan;
 import chatman.exceptions.EmptyListException;
 import chatman.exceptions.IncorrectArgumentNumException;
-import chatman.exceptions.IncorrectMarkUnmarkException;
+import chatman.exceptions.IncorrectIndexException;
 
 /**
  * Implements ChatMan's ability to mark/unmark any currently stored task.
@@ -27,14 +27,15 @@ public class MarkUnmarkCommand extends Command {
      * (if valid) & calls instance method setDone() with true or false argument depending on choice of mark or unmark.
      *
      * @throws IncorrectArgumentNumException If command provided with incorrect number of arguments.
-     * @throws IncorrectMarkUnmarkException If command provided with non-numerical argument or index outside of bounds
+     * @throws IncorrectIndexException If command provided with non-numerical argument or index outside of bounds
      * of task arraylist.
      * @throws EmptyListException If list of stored tasks is currently empty.
      * */
     @Override
-    public void perform() throws IncorrectArgumentNumException, IncorrectMarkUnmarkException, EmptyListException {
+    public void perform() throws IncorrectArgumentNumException, IncorrectIndexException, EmptyListException {
         String[] markUnmarkCommand = userCommand.split(" ");
 
+        //Checks for only mark/unmark command & 1 argument being present
         if (markUnmarkCommand.length != 2) {
             throw new IncorrectArgumentNumException("MARKUNMARK", userCommand);
         }
@@ -44,16 +45,18 @@ public class MarkUnmarkCommand extends Command {
         }
 
         String position = markUnmarkCommand[1];
-        int storageIndex = 0;
+        int storagePosition = 0;
 
         try {
-            storageIndex = Integer.parseInt(position) - 1;
-            if (storageIndex + 1 > ChatMan.accessTasks().size() || storageIndex <= 0) {
-                throw new IncorrectMarkUnmarkException("MARKUNMARK",position);
+            storagePosition = Integer.parseInt(position);
+            if (storagePosition > ChatMan.accessTasks().size() || storagePosition <= 0) {
+                throw new IncorrectIndexException("MARKUNMARK",position);
             }
         } catch(NumberFormatException exception) {
-            throw new IncorrectMarkUnmarkException("MARKUNMARK",position);
+            throw new IncorrectIndexException("MARKUNMARK",position);
         }
+
+        int storageIndex = storagePosition - 1;
 
         switch (markUnmarkCommand[0].toUpperCase()) {
         case "MARK":

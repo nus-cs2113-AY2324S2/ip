@@ -28,12 +28,12 @@ public abstract class Command {
      * @throws FullListException If task arraylist size equals MAX_NUM_TASKS when attempting to add Todo, Deadline
      * or Event.
      * @throws IncorrectArgumentNumException If command is provided with incorrect number of arguments.
-     * @throws IncorrectMarkUnmarkException If MarkUnmarkCommand provided with non-numerical index or with numerical
-     * index beyond task arraylist size.
+     * @throws IncorrectIndexException If MarkUnmarkCommand or DeleteCommand provided with non-numerical index or with
+     * numerical index beyond task arraylist size.
      * @throws EmptyListException If list of stored tasks is currently empty.
      * @throws IncorrectFormatException If command is entered without required formatting of arguments.
      * */
-    public abstract void perform () throws IncorrectArgumentNumException, IncorrectMarkUnmarkException,
+    public abstract void perform () throws IncorrectArgumentNumException, IncorrectIndexException,
             FullListException, EmptyListException, IncorrectFormatException;
 
 }

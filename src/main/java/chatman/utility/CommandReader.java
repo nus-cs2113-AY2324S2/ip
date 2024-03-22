@@ -42,7 +42,7 @@ public class CommandReader {
                 e.sendErrorMsg();
             } catch (IncorrectArgumentNumException e) {
                 e.sendErrorMsg();
-            } catch (IncorrectMarkUnmarkException e) {
+            } catch (IncorrectIndexException e) {
                 e.sendErrorMsg();
             } catch (EmptyListException e) {
                 e.sendErrorMsg();
