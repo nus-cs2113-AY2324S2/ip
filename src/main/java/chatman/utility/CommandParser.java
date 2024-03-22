@@ -1,12 +1,6 @@
 package chatman.utility;
 
-import chatman.commands.Command;
-import chatman.commands.ByeCommand;
-import chatman.commands.ListCommand;
-import chatman.commands.MarkUnmarkCommand;
-import chatman.commands.TodoCommand;
-import chatman.commands.DeadlineCommand;
-import chatman.commands.EventCommand;
+import chatman.commands.*;
 
 
 import chatman.exceptions.*;
@@ -20,7 +14,7 @@ import java.util.Arrays;
  * */
 public class CommandParser {
 
-    private static final String[] RECOGNISED_COMMANDS = {"BYE", "LIST", "MARK", "UNMARK", "TODO",
+    private static final String[] RECOGNISED_COMMANDS = {"BYE", "LIST", "MARK", "UNMARK", "DELETE", "TODO",
             "DEADLINE", "EVENT"};
 
     /**
@@ -83,6 +77,12 @@ public class CommandParser {
             MarkUnmarkCommand listMarker = new MarkUnmarkCommand(receivedCommand);
             listMarker.perform();
             commandToReturn = listMarker;
+            break;
+
+        case "DELETE":
+            DeleteCommand remover = new DeleteCommand(receivedCommand);
+            remover.perform();
+            commandToReturn= remover;
             break;
 
         case "TODO":
