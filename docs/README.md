@@ -1,4 +1,4 @@
-# User Guide
+# ChatMan User Guide
 
 **ChatMan** is a chatbot that enables storage and tracking of a user's different tasks. 
 
