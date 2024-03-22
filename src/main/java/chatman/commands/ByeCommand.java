@@ -2,7 +2,6 @@ package chatman.commands;
 
 import chatman.exceptions.IncorrectArgumentNumException;
 
-
 /**
  * Implements functionality to enable ChatMan response to user-entered "bye" command.
  *
