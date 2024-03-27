@@ -1,6 +1,6 @@
 # User Guide
 
-Welcome to Avril (not the singer), also known as AVRY, your personal task management assistant! Avril helps you keep track of your todos, deadlines, and events so you can stay organized and focused.
+Welcome to AVRY, your personal task management assistant! AVRY helps you keep track of your todos, deadlines, and events so you can stay organized and focused.
 
 
 ## Features 
@@ -50,7 +50,7 @@ Quickly find tasks by searching for a keyword in their descriptions.
 - **Expected Outcome**:
     ```
     ____________________________________________________________
-    Got it. Avril the Bot added this task:
+    Got it. AVRY added this task:
        [T][ ] Read a book
     Now you have 1 task in the list.
     ____________________________________________________________
@@ -62,7 +62,7 @@ Quickly find tasks by searching for a keyword in their descriptions.
 - **Expected Outcome**:
     ```
     ____________________________________________________________
-    Got it. Avril the Bot added this task:
+    Got it. AVRY added this task:
        [D][ ] Return library books (by: Oct 5 2023, 5:00 PM)
     Now you have 2 tasks in the list.
     ____________________________________________________________
@@ -75,7 +75,7 @@ Quickly find tasks by searching for a keyword in their descriptions.
 - **Expected Outcome**:
     ```
     ____________________________________________________________
-    Got it. Avril the Bot added this task:
+    Got it. AVRY added this task:
        [E][ ] Team meeting (From: Oct 6 2023, 9:00 AM To: Oct 6 2023, 11:00 AM)
     Now you have 3 tasks in the list.
     ____________________________________________________________
@@ -124,4 +124,4 @@ Quickly find tasks by searching for a keyword in their descriptions.
 - **Description**: Searches for tasks that contain the specified keyword in their
 
 
-### Refer to the instructions provided by Avril upon startup for more details on command syntax and additional features.
+### Refer to the instructions provided by AVRY upon startup for more details on command syntax and additional features.

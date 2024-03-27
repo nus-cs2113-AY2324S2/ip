@@ -17,8 +17,8 @@ public class Ui {
     private static final String instructions =
             "---------Follow the syntax below:---------------\n"
                     + "- Todos: todo <taskDescription>\n"
-                    + "- Deadlines: deadline <taskDescription> /by <date> <time>\n"
-                    + "- Events: event <taskDescription> /from <date> /to <date>\n"
+                    + "- Deadlines: deadline <taskDescription> /by <DD-MM-YYYY HHmm>\n"
+                    + "- Events: event <taskDescription> /from <DD-MM-YYYY HHmm> /to <DD-MM-YYYY HHmm>\n"
                     + "- Plus point if you can spell my name right.\n"
                     + "- End the program by saying 'thank you and bye'\n"
                     + "--------------------------------------------------";
