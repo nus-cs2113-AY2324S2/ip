@@ -49,7 +49,8 @@ public class Parser {
                 }
                 return new Deadline(description, by, false);
             } else {
-                throw new QuokkaException("Invalid deadline format. Please use: deadline [description] /by [date/time]");
+                throw new QuokkaException("Invalid deadline format. " +
+                        "Please use: deadline [description] /by [date/time]");
             }
         } catch (QuokkaException e) {
             System.out.println("    Error: " + e.getMessage());
@@ -88,14 +89,17 @@ public class Parser {
                     String from = dateTimes[0].trim();
                     String to = dateTimes[1].trim();
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        throw new QuokkaException("Please provide description, start time, and end time for the event task.");
+                        throw new QuokkaException("Please provide description, start time, " +
+                                "and end time for the event task.");
                     }
                     return new Event(description, from, to, false);
                 } else {
-                    throw new QuokkaException("Invalid event format. Please use: event [description] /from [start] /to [end]");
+                    throw new QuokkaException("Invalid event format. " +
+                            "Please use: event [description] /from [start] /to [end]");
                 }
             } else {
-                throw new QuokkaException("Invalid event format. Please use: event [description] /from [start] /to [end]");
+                throw new QuokkaException("Invalid event format. " +
+                        "Please use: event [description] /from [start] /to [end]");
             }
         } catch (QuokkaException e) {
             System.out.println("    Error: " + e.getMessage());
