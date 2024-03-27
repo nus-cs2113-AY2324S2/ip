@@ -49,3 +49,5 @@ Welcome to Quokka, your personal task management chatbot! Quokka helps you manag
 - Make sure to provide clear and concise task descriptions.
 - Use the keyword search feature to quickly find relevant tasks.
 - Double-check date and time formats when adding deadline or event tasks.
+- Ensure the tasks.txt file is present in the same directory as the JAR file.
+- Ensure that the tasks.txt file does not contain invalid characters/format.
