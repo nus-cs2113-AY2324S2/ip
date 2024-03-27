@@ -1,3 +1,7 @@
+import AddTask.AddDeadline;
+import AddTask.AddEvent;
+import AddTask.AddTodo;
+import ListCommands.*;
 import sam.task.Deadline;
 import sam.task.Event;
 import sam.task.Task;
@@ -10,29 +14,39 @@ class Parser {
 		String[] words = line.split(" "); // Split the input line into words
 		switch (words[0]) { // Check the first word to determine the command
 		case "list":
-			taskList.listTasks(); // Execute list command to display tasks
+			/*taskList.listTasks(); // Execute list command to display tasks*/
+			ListTasks listTasks = new ListTasks(taskList.getTasks());
+			listTasks.execute();
 			break;
 		case "mark":
-			taskList.markTask(words[1]); // Execute mark command to mark a task as done
+			/*taskList.markTask(words[1]); // Execute mark command to mark a task as done*/
+			MarkTask markTask = new MarkTask(taskList.getTasks());
+			markTask.execute(words[1]);
 			break;
 		case "unmark":
-			taskList.unmarkTask(words[1]); // Execute unmark command to mark a task as not done
+			/*taskList.unmarkTask(words[1]); // Execute unmark command to mark a task as not done*/
+			UnmarkTask unmarkTask = new UnmarkTask(taskList.getTasks());
+			unmarkTask.execute(words[1]);
 			break;
 		case "todo":
-			taskList.addTodoTask(line.replace("todo", "")); // Execute todo command to add a todo task
+			AddTodo addTodo = new AddTodo(taskList.getTasks());
+			addTodo.execute(line.replace("todo", "")); // Execute todo command to add a todo task
 			break;
 		case "deadline":
-			taskList.addDeadlineTask(line.replace("deadline", "")); // Execute deadline command to add a deadline task
+			AddDeadline addDeadline = new AddDeadline(taskList.getTasks());
+			addDeadline.execute(line.replace("deadline", "")); // Execute todo command to add a todo task
 			break;
 		case "event":
-			taskList.addEventTask(line.replace("event", "")); // Execute event command to add an event task
+			AddEvent addEvent = new AddEvent(taskList.getTasks());
+			addEvent.execute(line.replace("event", "")); // Execute todo command to add a todo task
 			break;
 		case "delete":
 			try {
+				DeleteTask deleteTask = new DeleteTask(taskList.getTasks());
 				if (words[1].equals("all")) {
-					taskList.deleteAllTasks(); // Execute delete all command to delete all tasks
+					deleteTask.deleteAllTasks(); // Execute delete command to delete all tasks
 				} else {
-					taskList.deleteTask(words[1]); // Execute delete command to delete a specific task
+					deleteTask.execute(words[1]); // Execute delete command to delete a specific task
 				}
 			} catch (IndexOutOfBoundsException e) {
 				throw new SamException("You have to delete an index or delete all.");

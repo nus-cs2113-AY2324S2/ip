@@ -1,5 +1,6 @@
+import ListCommands.SamException;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 // Main class of the Sam application
 public class Sam {

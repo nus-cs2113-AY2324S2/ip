@@ -1,3 +1,5 @@
+import ListCommands.ListTasks;
+
 // Handles user interface interactions
 class Ui {
 	// Prints the greeting message
@@ -17,7 +19,8 @@ class Ui {
 	public void printTasks(TaskList tasks) {
 		// Printing tasks
 		System.out.println("Here's what you got saved:");
-		tasks.listTasks();
+		ListTasks listTasks = new ListTasks(tasks.getTasks());
+		listTasks.execute();
 		printLine();
 	}
 
