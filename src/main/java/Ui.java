@@ -28,6 +28,8 @@ public class Ui {
 
             // Read user input
             String userInput = scanner.nextLine();
+            String filteredInput = userInput.toLowerCase();
+            String[] parts = filteredInput.split(" ");
 
             // Check if the user wants to exit
             if (userInput.equalsIgnoreCase("bye")) {
@@ -36,40 +38,47 @@ public class Ui {
                 break;
             }
 
-            // Check if the user wants to list tasks
-            if (userInput.equalsIgnoreCase("list")) {
+            switch (parts[0]) {
+            case "list":
                 taskList.displayTasks();
-            } else {
-
-                // Handle different types of tasks
-                if (userInput.toLowerCase().startsWith("mark ")) {
-                    taskList.markTaskAsDone(userInput);
-                } else if (userInput.toLowerCase().startsWith("unmark ")) {
-                    taskList.markTaskAsNotDone(userInput);
-                } else if (userInput.toLowerCase().startsWith("todo")) {
-                    taskList.addTask(Parser.parseTodoTask(userInput));
-                } else if (userInput.toLowerCase().startsWith("deadline")) {
-                    taskList.addTask(Parser.parseDeadlineTask(userInput));
-                } else if (userInput.toLowerCase().startsWith("event")) {
-                    taskList.addTask(Parser.parseEventTask(userInput));
-                } else if (userInput.toLowerCase().startsWith("find")) {
-                    String keyword = userInput.substring("find ".length());
+                break;
+            case "mark":
+                taskList.markTaskAsDone(filteredInput);
+                break;
+            case "unmark":
+                taskList.markTaskAsNotDone(filteredInput);
+                break;
+            case "todo":
+                taskList.addTask(Parser.parseTodoTask(filteredInput));
+                break;
+            case "deadline":
+                taskList.addTask(Parser.parseDeadlineTask(filteredInput));
+                break;
+            case "event":
+                taskList.addTask(Parser.parseEventTask(filteredInput));
+                break;
+            case "find":
+                try {
+                    String keyword = parts[1];
                     taskList.findTask(keyword);
-                } else if (userInput.toLowerCase().startsWith("delete ")) {
-                    String[] parts = userInput.split(" ");
-                    if (parts.length == 2) {
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("Invalid format inputted.");
+                }
+                break;
+            case "delete":
+                if (parts.length == 2) {
                         try {
                             int taskIndex = Integer.parseInt(parts[1]);
                             taskList.deleteTask(taskIndex);
                         } catch (NumberFormatException e) {
                             System.out.println("    Invalid task index format");
                         }
-                    } else {
-                        System.out.println("    Please provide a valid task index to delete");
-                    }
                 } else {
-                    System.out.println("    I'm sorry, I don't understand that command.");
+                        System.out.println("    Please provide a valid task index to delete");
                 }
+                break;
+            default:
+                System.out.println("    I'm sorry, I don't understand that command.");
             }
         }
     }
