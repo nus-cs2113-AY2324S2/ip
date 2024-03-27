@@ -18,10 +18,17 @@ public class TaskList {
      * @param newTask The task to be added.
      */
     public void addTask(Task newTask) {
+
+        if (newTask == null) {
+            return;
+        }
+
         try {
             if (tasks.size() >= MAX_TASKS) {
                 throw new QuokkaException("Sorry, the task list is full. You cannot add more tasks.");
             }
+
+
             tasks.add(newTask);
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + newTask);

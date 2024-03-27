@@ -1,8 +1,5 @@
 package Quokka.tasks;
 
-import Quokka.tasks.Task;
-
-
 public class Todo extends Task {
 
     /**

@@ -1,7 +1,10 @@
-import Quokka.exceptions.QuokkaException;
 import Quokka.tasks.Task;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -48,8 +51,6 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Data file not found: " + e.getMessage());
-        } catch (QuokkaException e) {
-            System.out.println("Data file contains corrupted data: " + e.getMessage());
         }
     }
 }
