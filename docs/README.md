@@ -1,6 +1,6 @@
 # User Guide
 
-Welcome to Avril (not the singer), also known as AVY, your personal task management assistant! Avril helps you keep track of your todos, deadlines, and events so you can stay organized and focused.
+Welcome to Avril (not the singer), also known as AVRY, your personal task management assistant! Avril helps you keep track of your todos, deadlines, and events so you can stay organized and focused.
 
 
 ## Features 
@@ -56,9 +56,9 @@ Quickly find tasks by searching for a keyword in their descriptions.
     ____________________________________________________________
     
 ### `deadline` - Add a deadline task
-- **Command**: `deadline <taskDescription> /by <yyyy-MM-dd HHmm>`
+- **Command**: `deadline <taskDescription> /by <DD-MM-YYYY HHmm>`
 - **Description**: Adds a task with a specified deadline to your list.
-- **Example**: `deadline Return library books /by 2023-10-05 1700`
+- **Example**: `deadline Return library books /by 06-10-2023 1700`
 - **Expected Outcome**:
     ```
     ____________________________________________________________
@@ -69,9 +69,9 @@ Quickly find tasks by searching for a keyword in their descriptions.
     ```
 
 ### `event` - Add an event task
-- **Command**: `event <taskDescription> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>`
+- **Command**: `event <taskDescription> /from <DD-MM-YYYY HHmm> /to <DD-MM-YYYY HHmm>`
 - **Description**: Adds an event task with start and end times to your list.
-- **Example**: `event Team meeting /from 2023-10-06 0900 /to 2023-10-06 1100`
+- **Example**: `event Team meeting /from 06-10-2023 0900 /to 06-10-2023 1100`
 - **Expected Outcome**:
     ```
     ____________________________________________________________
