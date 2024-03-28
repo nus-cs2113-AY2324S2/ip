@@ -43,7 +43,7 @@ Quickly find tasks by searching for a keyword in their descriptions.
 
 ## Usage
 
-### `deadline` - Add a todo task
+### `todo` - Add a todo task
 - **Command**: `todo <taskDescription>`
 - **Description**: Adds a todo task to your list.
 - **Example**: `todo Read a book`
