@@ -54,6 +54,7 @@ Quickly find tasks by searching for a keyword in their descriptions.
        [T][ ] Read a book
     Now you have 1 task in the list.
     ____________________________________________________________
+    ```
     
 ### `deadline` - Add a deadline task
 - **Command**: `deadline <taskDescription> /by <DD-MM-YYYY HHmm>`
