@@ -1,29 +1,89 @@
-# User Guide
+# Avocado User Guide
 
 ## Features 
 
-### Feature-ABC
+### words in UPPER-CASE are parameters to be supplied 
 
-Description of the feature.
+### Feature- `ToDo`
 
-### Feature-XYZ
+Add a todo item without further instruction
 
-Description of the feature.
+Format: `todo ITEM_DESCRIPTION`
 
-## Usage
+Example: `todo book`
 
-### `Keyword` - Describe action
+Output: [T][ ] book
 
-Describe the action and its outcome.
+### Feature-`Deadline`
 
-Example of usage: 
+Add an item with a due date
 
-`keyword (optional arguments)`
+Format: `deadline ITEM_DESCRIPTION / by DUE_DATE`
 
-Expected outcome:
+Example: `deadline return book / by tue`
 
-Description of the outcome.
+Output: [D][ ] return book (by: tue)
 
-```
-expected output
-```
+### Feature-`Event`
+
+Add an item with a start and fin
+
+Format: `event ITEM_DESCRIPTION /from START_DATE /to END_DATE`
+
+Example: `event party /from 1pm /to 3pm`
+
+Output: [E][ ] party (from: 1pm to:3pm)
+
+### Feature-`Mark`
+
+Tick an item as done
+
+Format: `mark ITEM_NUMBER`
+
+Example: `mark 1`
+
+Output: [T][X] book
+
+### Feature-`Unmark`
+
+Undo the marked item
+
+Format: `unmark ITEM_NUMBER`
+
+Example: `unmark 1`
+
+Output: [T][ ] book
+
+### Feature-`Delete`
+
+delete an item
+
+Format: `delete ITEM NUMBER`
+
+Example: `delete 1`
+
+### Feature-`List`
+
+List all items
+
+Format: `list`
+
+Output:
+
+1. [T][ ]book
+  
+2. [E][ ]party(from:1pm to: 3pm)
+
+### Feature- `Find`
+
+Returns all items with description
+
+Format: `find ITEM_DESCRIPTION`
+
+Example: `find book`
+
+ Output:
+
+1. [T][ ]book
+
+
