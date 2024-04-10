@@ -1,24 +1,75 @@
-# Duke project template
+# Sayo User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to the Sayo User Guide. This document will help you understand how to use Sayo, the friendly chatbot designed to keep track of various tasks.
 
-## Setting up in Intellij
+## Features 
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Listing All Tasks: `list`
+Shows a list of all tasks.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Adding a Todo Task: `todo <description>`
+Adds a todo task to the list.
+
+Example: 
+`todo read book`
+
+### Marking a Task as Done: `mark <index>`
+Marks the task at the specified index as done.
+
+Example: 
+`mark 1`
+
+### Unmarking a Task: `unmark <index>`
+Unmarks the task at the specified index.
+
+Example:
+`unmark 1`
+
+### Adding a Deadline: `deadline <description> /by <date>`
+Adds a task with a deadline.
+
+Example: 
+`deadline return book /by Sunday`
+
+### Adding an Event: `event <description> /from <start_date> to <end_date>`
+Adds an event happening between two dates.
+
+Example:
+`event project meeting /from Monday to Tuesday`
+
+### Deleting a Task: `delete <index>`
+Deletes the task at the specified index.
+
+Example:
+`delete 1`
+
+### Finding Tasks by Keyword: `find <keyword>`
+Finds all tasks that contain the given keyword.
+
+Example:
+`find book`
+
+### Exiting the Chatbot: `bye`
+Closes the chatbot.
+
+Example:
+`bye`
+
+## Command Summary
+
+- `list` - Lists all tasks
+- `todo <description>` - Adds a todo task
+- `mark <index>` - Marks a task as done
+- `unmark <index>` - Unmarks a task
+- `deadline <description> /by <date>` - Adds a deadline
+- `event <description> /from <start_date> to <end_date>` - Adds an event
+- `delete <index>` - Deletes a task
+- `find <keyword>` - Finds tasks by keyword
+- `bye` - Exits Sayo
+
+## Getting Started
+
+1. Ensure Java 11 or above is installed on your computer.
+2. Download the latest version of `Sayo.jar` from our [Releases page](https://github.com/soongensayo/ip/releases/tag/v1.0.0).
+3. Run the program using the command `java -jar Sayo.jar`.
+4. Start interacting with Sayo using the commands listed above.
