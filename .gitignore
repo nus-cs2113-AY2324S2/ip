@@ -1,3 +1,10 @@
+#Compiled class file
+*.class
+#savefile
+saved.txt
+#JAR file
+*.jar
+
 # IDEA files
 /.idea/
 /out/
