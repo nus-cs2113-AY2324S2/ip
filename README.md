@@ -1,24 +1,22 @@
-# Duke project template
+# JigaChat, a task tracking chatbot!
+## A CLI based chatbot that helps you keep track of your tasks
+* Remembers your previous session so you dont have to keep it running
+* Quickly list all your tasks for a quick overview
+* Find tasks by name
+* Delete tasks once they are done
+* Three different types of tasks, To Dos, Deadlines and Events to suit your needs
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## How to run
+> [!IMPORTANT]
+> ### If you move the jar file to a different folder, remember to navigate to that folder before running any commands
 
-## Setting up in Intellij
+1. Download the [latest release](https://github.com/alalal47/ip/releases/tag/A-Release) of JigaChat
+2. Make sure you have java installed
+3. Open a terminal of your choice and navigate to the folder where the jar file is downloaded
+4. Run the chatbot by typing ```java -jar JigaChatIP.jar```
+5. Type "help" to open the help menu and learn how to use the various functions of the chatbot
+6. Type bye to exit and close the chatbot
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Known Issues
+> [!WARNING]
+> Any use of "/" in the description of your tasks will lead to unintended behaviour, please avoid using "/" in your task descriptions, bys, froms and tos
