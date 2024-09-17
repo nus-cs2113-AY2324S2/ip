@@ -1,0 +1,7 @@
+todo CS2113 homework
+deadline CS2113 quiz /by today
+list
+event CS2113 workshop /from Friday 4pm /to 6pm
+mark 1
+list
+bye
