@@ -1,3 +1,6 @@
+# Compiled files
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -15,3 +18,6 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+src/storage/*.txt
+text-ui-test/src
