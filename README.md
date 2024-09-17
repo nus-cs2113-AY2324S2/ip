@@ -1,24 +1,61 @@
-# Duke project template
+# 550W Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+A chatbot meticulously crafted through countless sleepless nights, fueled by an unyielding passion for CS2113 and an endless supply of coffee, all while stationed before a 14-inch screen.
 
-## Setting up in Intellij
+Hello from:
+    ________________ _       __
+   / ____/ ____/ __ \ |     / /
+  /___ \/___ \/ / / / | /| / / 
+ ____/ /___/ / /_/ /| |/ |/ /  
+/_____/_____/\____/ |__/|__/   
+                               
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## How to run it?
+
+Good thing that you asked.
+
+Simply download the ip.jar file. Then run by right-clicking and selecting "open in terminal".
+Then type in the following:
+	java -jar ip.jar
+It should start the application right away.
+
+## How to use it?
+
+Good thing that you also asked.
+
+This chatbot contains **some** basic functions to document and keep track of tasks.
+
+To do so, simply type in the following:
+- **To store "todo" type events:** todo [event description]
+- **To store "event" type events:** event [event description] /from [yyyy-MM-dd HHmm] /to [yyyy-MM-dd HHmm]
+- **To store "deadline" type events:** deadline [event description] /by [yyyy-MM-dd HHmm]
+- **To list all events:** list
+- **To mark an event by its index in the list:** mark [index]
+- **To unmark an event by its index in the list:** unmark [index]
+- **To delete an event by its index in the list:** delete [index]
+- **To find events by keyword:** find [keyword]
+- **To exit the chatbot:** bye
+
+The list may or may not expand in the future. It depends on if I have enough time to finish the EE2026 project or not. Which I heard will take a lot, a lot, a lot of time.
+
+## How to store it?
+
+Good thing that you also also asked.
+
+Guess what? Every event you input will be stored via magic in a text file known as "duke.txt". It is right beside the ip.jar file.
+
+If this is the first time you run ip.jar or, you accidentally deleted the duke.txt file, it is ok. When the jar file is run it will automatically create one in the default directory.
+
+## Any pre-requisite?
+
+Java, i guess? Preferably java 11.
+
+ .________._______________  __      __ 
+ |   ____/|   ____/\   _  \/  \    /  \
+ |____  \ |____  \ /  /_\  \   \/\/   /
+ /       \/       \\  \_/   \        / 
+/______  /______  / \_____  /\__/\  /  
+       \/       \/        \/      \/   
+
+### This document is updated on 03/03/2024.

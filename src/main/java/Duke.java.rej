@@ -1,0 +1,9 @@
+diff a/src/main/java/Duke.java b/src/main/java/Duke.java	(rejected hunks)
+@@ -4,6 +4,7 @@
+ import Event.Task;
+ import RuntimeSupport.DukeException;
+ import java.util.Scanner;
++import java.util.ArrayList;
+ 
+ public class Duke {
+     static String BREAK_LINE = "____________________________________________________________";

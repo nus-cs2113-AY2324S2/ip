@@ -1,0 +1,2 @@
+T | 1 | borrow book
+E | 1 | project meeting | 2024-04-01 1400 to 2024-04-01 1800
