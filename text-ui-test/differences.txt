@@ -1,0 +1,43 @@
+Comparing files ACTUAL.TXT and EXPECTED.TXT
+***** ACTUAL.TXT
+   J     A     SSSS    OOO   N   N 
+   J    A A    S      O   O  NN  N 
+   J   A A A    SSS   O   O  N N N 
+J  J  A     A      S  O   O  N  NN 
+ JJJ A       A  SSSS   OOO   N   N 
+                 
+ Eyy wassup I'm Jason
+***** EXPECTED.TXT
+   J     A     SSSS    OOO   N   N
+   J    A A    S      O   O  NN  N
+   J   A A A    SSS   O   O  N N N
+J  J  A     A      S  O   O  N  NN
+ JJJ A       A  SSSS   OOO   N   N
+
+ Eyy wassup I'm Jason
+*****
+
+***** ACTUAL.TXT
+
+   J     A     SSSS    OOO   N   N 
+   J    A A    S      O   O  NN  N 
+   J   A A A    SSS   O   O  N N N 
+J  J  A     A      S  O   O  N  NN 
+ JJJ A       A  SSSS   OOO   N   N 
+                 
+
+***** EXPECTED.TXT
+
+   J     A     SSSS    OOO   N   N
+   J    A A    S      O   O  NN  N
+   J   A A A    SSS   O   O  N N N
+J  J  A     A      S  O   O  N  NN
+ JJJ A       A  SSSS   OOO   N   N
+
+*****
+
+***** ACTUAL.TXT
+***** EXPECTED.TXT
+
+*****
+
