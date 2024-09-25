@@ -1,0 +1,4 @@
+T|cs2113|1
+E|NUS open house|0|12pm|6pm
+T|sleep|0
+T|more work|0
