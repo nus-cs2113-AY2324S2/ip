@@ -1,7 +1,23 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ____       _               _   _
+/ ___|  ___| |__   __ _ ___| |_(_) __ _ _ __
+\___ \ / _ \ '_ \ / _` / __| __| |/ _` | '_ \
+ ___) |  __/ |_) | (_| \__ \ |_| | (_| | | | |
+|____/ \___|_.__/ \__,_|___/\__|_|\__,_|_| |_|
 
+Hello! I'm Sebastian, your humble butler
+What can I do for you?
+Your todo task description seems to lack inputs. What you entered was todo. Try typing it as 'todo <task>'
+Your event task description seems to lack inputs. What you entered was event /from test /to. Try typing it as 'Event <task> /from <start date> /to <end date>'
+Got it. I've added this task:
+[T] [ ]  borrow book
+Now you have 1 task in the list.
+Here are the tasks in your list:
+1. [T] [ ]  borrow book
+Got it. I've added this task:
+[D] [ ]  return book  (by: sunday)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E] [ ]  project meeting  (from: mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Bye. I will be awaiting your next order! ☺
