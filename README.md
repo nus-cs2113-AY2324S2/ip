@@ -1,24 +1,139 @@
-# Duke project template
+# User Guide
+```
+Hello from
+ _____        _     _
+|  __ \      | |   | |
+| |  | | ___ | |__ | |__  _   _
+| |  | |/ _ \| '_ \| '_ \| | | |
+| |__| | |_| | |_) | |_) | |_| |
+|_____/ \___/|_.__/|_.__/ \__, |
+                           __/ |
+                          |___/
+```
+Meet Dobby, your personal task manager to help you stay organised and on top of all your tasks
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Features 
+#**Add Tasks**
+Dobby allows you to add various types of tasks such as todo, deadline, and event.
 
-## Setting up in Intellij
+#**Mark Tasks**
+You can mark tasks as completed to keep track of your progress.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+#**Delete Tasks**
+Remove tasks that are no longer needed from your task list.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+#**Find Tasks**
+Search for tasks containing specific keywords to quickly locate relevant tasks.
+
+#**List Tasks**
+List all tasks in task list
+
+## Usage
+
+### `todo` - Add a todo Task
+
+Adds a todo task to your task list.
+
+format: todo < description >
+
+Example of usage: 
+
+`todo Buy lunch`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/d7305494-ca6a-40ff-b86b-64240ca7c0c7)
+
+### `deadline` - Add a Deadline Task 
+
+Adds a task with a deadline to your task list.
+
+format: deadline < description > /by < deadline >
+
+Example of usage: 
+
+`Deadline complete assignment /by today 9pm`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/c7a1a728-5b3b-48bc-a0b0-7be0008d5462)
+
+### `event` - Add a event Task
+
+Adds a event to your task list.
+
+format: event < description > /from < start time/date > /to < end time/date >
+
+Example of usage: 
+
+`event formula 1 race /from sunday 9pm /to 11pm`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/fcbf896f-d622-4459-9dfe-f2c6f017f20a)
+
+### `mark` - Mark a Task as Done
+
+Marks a task as completed.
+
+format: mark < task index >
+
+Example of usage:
+
+`mark 1`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/774d69da-20f7-4d96-86f6-eff2eeef1f44)
+
+### `unmark` - Mark a Task as Undone
+
+Marks a completed task as undone.
+
+format: unmark < task index >
+
+Example of usage:
+
+`unmark 1`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/c7300cbe-cd01-4ec5-8efe-dfd3587e2c02)
+
+### `delete` - Delete a Task
+
+Removes a task from your task list.
+
+format: delete < task index >
+
+Example of usage:
+
+`delete 1`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/d0cb910d-e76b-448a-a19e-2f73deffaa94)
+
+### `find` - Find Tasks by Keyword
+
+Searches for tasks containing specific keywords. returns a list of tasks with matching keywords
+
+format: find < keyword >
+
+Example of usage:
+
+`find formula`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/1714c394-d026-4cc1-9ea6-8b11828f0eeb)
+
+### `list` - Lists all Tasks
+
+Lists all tasks in task list including current status and task type
+
+format: list
+
+Example of usage:
+
+`list`
+Expected outcome: <br />
+![image](https://github.com/Mmaxx15/ip/assets/88656341/1714c394-d026-4cc1-9ea6-8b11828f0eeb)
+
+### `bye` - exits dobby
+
+ends the program
+
+format: bye
+ 
+
+
+
+
+
