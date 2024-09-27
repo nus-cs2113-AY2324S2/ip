@@ -1,0 +1,63 @@
+____________________________________________________________
+Hello! I'm Bartholomew, but you can call me Bart for short :)
+What can I do for you?
+____________________________________________________________
+todo siuu
+Got it. I've added this task:
+  [T][ ] siuu
+Now you have 1 tasks in the list.
+____________________________________________________________
+todo siuuuuuuuuuuu
+Got it. I've added this task:
+  [T][ ] siuuuuuuuuuuu
+Now you have 2 tasks in the list.
+____________________________________________________________
+siuuu
+Got it. I've added this task:
+  [ ] siuuu
+Now you have 3 tasks in the list.
+____________________________________________________________
+deadline return book /by Sunday
+Got it. I've added this task:
+  [D][ ] return book (by: Sunday)
+Now you have 4 tasks in the list.
+____________________________________________________________
+event project meeting /from Mon 2pm /to 4pm
+Got it. I've added this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 5 tasks in the list.
+____________________________________________________________
+list
+____________________________________________________________
+1.[T][ ] siuu
+2.[T][ ] siuuuuuuuuuuu
+3.[ ] siuuu
+4.[D][ ] return book (by: Sunday)
+5.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+mark 3
+Nice! I've marked this task as done:
+[X] siuuu
+____________________________________________________________
+mark 5
+Nice! I've marked this task as done:
+[X] project meeting
+____________________________________________________________
+mark 1
+Nice! I've marked this task as done:
+[X] siuu
+____________________________________________________________
+mark 0
+Invalid task number.
+____________________________________________________________
+list
+____________________________________________________________
+1.[T][X] siuu
+2.[T][ ] siuuuuuuuuuuu
+3.[X] siuuu
+4.[D][ ] return book (by: Sunday)
+5.[E][X] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+bye
+Bye. Hope to see you again soon!
+____________________________________________________________

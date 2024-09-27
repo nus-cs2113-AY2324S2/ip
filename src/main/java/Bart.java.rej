@@ -1,0 +1,12 @@
+diff a/src/main/java/Bart.java b/src/main/java/Bart.java	(rejected hunks)
+@@ -79,8 +79,9 @@
+         System.out.println(LINE);
+     }
+ 
+-    private static void byeUser() {
++    public static void byeUser() {
+         System.out.println("Bye. Hope to see you again soon!");
+         System.out.println(LINE);
+     }
++
+ }
