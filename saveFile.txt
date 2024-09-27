@@ -1,0 +1,8 @@
+1. [T][0] item2
+2. [T][1] item5
+3. [T][1] item6
+4. [E][1] item8 (from: start to end)
+5. [D][1] item9 (by:  2020/8/20)
+6. [D][0] item10 (by:  2019 / 8 /20)
+7. [D][1] item11 (by: Aug 20 2019)
+8. [D][1] deadline1 (by:  2019/8/20)

@@ -1,0 +1,14 @@
+item1
+item2
+item3
+list
+mark 1
+mark 3
+list
+unmark 1
+todo task1
+deadline task2 /Wednesday
+deadline noDeadline
+event task3 /9am /6pm
+event invalidEvent /sss
+bye
