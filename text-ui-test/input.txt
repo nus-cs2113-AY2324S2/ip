@@ -1,0 +1,21 @@
+todo eat ramen
+deadline 2113T assignment /by next week lecture
+event party /from March 1 3PM /to March 3 12AM
+list
+mark 2
+list
+unmark 2
+list
+todo
+deadline /by
+event /from /to
+mark b
+unmark a
+list
+delete 3
+list
+deadline homework /by 2024-06-02
+event concert /from 2024-05-06 /to 2024-07-07
+list
+check 2024-06-02
+bye
